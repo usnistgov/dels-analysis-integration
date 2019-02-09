@@ -5,7 +5,7 @@ classdef Edge < handle
     %connect that node to the adjacent nodes with uncapacitated arcs
     
     properties
-        EdgeID
+        ID
         OriginID %ID of origin network
         Origin@Network
         OriginPort@Port
@@ -19,7 +19,7 @@ classdef Edge < handle
     methods
         function obj = Edge(EdgeID, OriginID, DestinationID, EdgeType)
             if nargin>0
-                obj.EdgeID = EdgeID;
+                obj.ID = EdgeID;
                 obj.Origin = OriginID;
                 obj.Destination = DestinationID;
                 obj.EdgeType = EdgeType;

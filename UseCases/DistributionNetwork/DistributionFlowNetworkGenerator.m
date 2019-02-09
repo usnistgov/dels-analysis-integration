@@ -26,6 +26,7 @@ distributionNetwork = DistributionNetwork;
         %[i x y]
         customerList(ii,:) = [ii, gridSize*rand(1), gridSize*rand(1)];
         customerSet(ii) = Customer(customerList(ii,:));
+        customerSet(ii).Name = strcat('Customer', num2str(ii));
     end
 
 
@@ -43,6 +44,7 @@ distributionNetwork = DistributionNetwork;
         depotSet(ii) = Depot(depotList(ii,:));
         depotSet(ii).fixedCost = depotFixedCost;
         depotSet(ii).capacity = depotGrossCapacity;
+        depotSet(ii).Name = strcat('Depot', num2str(ii));
         jj = jj+1;
     end
 
@@ -84,19 +86,6 @@ distributionNetwork = DistributionNetwork;
         end
     end
 
-    %This should be moved to a Flow Network 2 OPT translation function
-    %split depots & keep track of the mapping
-    depotMapping = zeros(numDepot,2);    
-    for ii =1:numDepot
-        newIndex = depotList(end,1)+1;
-        depotList(end+1,:) = [newIndex, depotList(ii,2), depotList(ii,3)];
-        depotMapping(ii,:) = [depotList(ii,1), newIndex];
-        flowEdgeList(flowEdgeList(:,2) == depotList(ii,1),2) = depotList(end,1);
-        flowEdgeList(end+1,:) = [gg, depotList(ii,1), depotList(end,1), depotGrossCapacity, depotFixedCost];
-        gg = gg +1;
-    end
-
-
     distributionNetwork.FlowEdgeList = flowEdgeList;
     distributionNetwork.FlowEdgeSet = flowEdgeSet;
     numArc = length(flowEdgeList);
@@ -137,14 +126,14 @@ distributionNetwork = DistributionNetwork;
     
     distributionNetwork.commoditySet = newCommodity;
     distributionNetwork.FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction;
-    numCommodity = kk;
+    numCommodity = kk-1;
 
     %% Generate flowTypeAllowed and flowUnitCost for each FlowEdge
-    % FlowEdge_flowTypeAllowed: FlowEdgeID origin destination k flowUnitCost
+    % FlowEdge_flowTypeAllowed: FlowEdgeID origin destination commodityKind flowUnitCost
     %flowUnitCost is the distance of the 
     FlowEdge_flowTypeAllowed = zeros(numArc*numCommodity, 5);
     for kk = 1:numCommodity
-    	%FlowEdge_flowTypeAllowed((kk-1)*numArc+1:kk*numArc,:) = [flowEdgeList(:,1:3),kk*ones(numArc,1),sqrt((flowNodeList(flowEdgeList(:,2),2)-flowNodeList(flowEdgeList(:,3),2)).^2 + (flowNodeList(flowEdgeList(:,2),3)-flowNodeList(flowEdgeList(:,3),3)).^2)];
+    	FlowEdge_flowTypeAllowed((kk-1)*numArc+1:kk*numArc,:) = [flowEdgeList(:,1:3),kk*ones(numArc,1),sqrt((flowNodeList(flowEdgeList(:,2),2)-flowNodeList(flowEdgeList(:,3),2)).^2 + (flowNodeList(flowEdgeList(:,2),3)-flowNodeList(flowEdgeList(:,3),3)).^2)];
     end
     
     for ii = 1:length(distributionNetwork.FlowEdgeSet)
@@ -159,7 +148,7 @@ distributionNetwork = DistributionNetwork;
     end
 
     %For flows between depots: multiple flowUnitCost by intraDepotDiscount
-    %FlowEdge_flowTypeAllowed(FlowEdge_flowTypeAllowed(:,2)>numCustomers & FlowEdge_flowTypeAllowed(:,3)>numCustomers,5) = intraDepotDiscount*FlowEdge_flowTypeAllowed(FlowEdge_flowTypeAllowed(:,2)>numCustomers & FlowEdge_flowTypeAllowed(:,3)>numCustomers,5);
+    FlowEdge_flowTypeAllowed(FlowEdge_flowTypeAllowed(:,2)>numCustomers & FlowEdge_flowTypeAllowed(:,3)>numCustomers,5) = intraDepotDiscount*FlowEdge_flowTypeAllowed(FlowEdge_flowTypeAllowed(:,2)>numCustomers & FlowEdge_flowTypeAllowed(:,3)>numCustomers,5);
 
     %% Cleanup: Remove Customer to Customer Edges
 
@@ -196,7 +185,7 @@ distributionNetwork = DistributionNetwork;
     distributionNetwork.customerSet = customerSet;
 
     
-    distributionNetwork.depotMapping = depotMapping;
+    %distributionNetwork.depotMapping = depotMapping;
     distributionNetwork.depotFixedCost = depotFixedCost;
 
 end

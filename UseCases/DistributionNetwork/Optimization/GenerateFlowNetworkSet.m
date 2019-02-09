@@ -3,6 +3,8 @@ function [ flowNetworkSet ] = GenerateFlowNetworkSet( inputFlowNetwork, targetFl
 %Uses flowNetwork as template MCFN, and then
 %resolves MCFN while leaving out each node from flowNodeSet
 
+    %% Solve MCFN
+
     if isempty(inputFlowNetwork.FlowEdge_Solution)
         solveMultiCommodityFlowNetwork(inputFlowNetwork);
     end

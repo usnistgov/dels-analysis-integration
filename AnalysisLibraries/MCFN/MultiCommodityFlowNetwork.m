@@ -126,7 +126,7 @@ end
     % intraDepotDiscount = 0.1;
     % commoditydensity = 0.75;
     % depotconcentration = 0.25; 
-% MCFNsolution = MultiCommodityFlowNetwork(FN.FlowEdge_flowTypeAllowed(:, 2:end), FN.FlowEdgeSet(:,2:end), FN.FlowNode_ConsumptionProduction);
+% MCFNsolution = MultiCommodityFlowNetwork(FN.FlowEdge_flowTypeAllowed(:, 2:end), FN.FlowEdgeList(:,2:end), FN.FlowNode_ConsumptionProduction);
 % assert Cost = 5019723.731779
 
 %% Test

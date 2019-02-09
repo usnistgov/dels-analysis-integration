@@ -39,7 +39,7 @@ classdef FlowNetwork < Network
     end
     
     methods
-        function F=FlowNetwork(rhs)
+        function self=FlowNetwork(rhs)
           if nargin==0
             % default constructor
             
@@ -50,30 +50,16 @@ classdef FlowNetwork < Network
                 %Try statement covers cases where you're copying something
                 %that is a specialization of flowNetwork
                 try
-                    F.(fns{i}) = rhs.(fns{i});
+                    self.(fns{i}) = rhs.(fns{i});
                 end
             end
           end
         end
         
-        function addEdge(FN, e)
-            if isa(e, 'FlowEdge')
-                %Add edges incident to the Flow Network to one of the two sets
-                %7/5/16: Switched from If/Elseif to if/if to accomodate self-edges
-                if eq(e.DestinationID, FN.ID) == 1
-                %if e.Destination == N.Node_ID
-                    FN.INFlowEdgeSet(end+1) = e;
-                    e.Destination = FN;
-                    FN.EdgeTypeSet{end+1} = e.EdgeType;
-                end
-                if eq(e.OriginID, FN.ID) == 1
-                %if e.Origin == N.Node_ID
-                    FN.OUTFlowEdgeSet(end+1) = e;
-                    e.Origin = FN;
-                    FN.EdgeTypeSet{end+1} = e.EdgeType;
-                end
-                FN.EdgeTypeSet = unique(FN.EdgeTypeSet);
-            end
+        function addEdge(self, edgeSet)
+            e = findobj(edgeSet, 'isa', 'FlowEdge', 'targetFlowNetworkID', self.ID, '-or', 'sourceFlowNetworkID', self.ID);
+            self.INFlowEdgeSet = findobj(e, 'targetFlowNetworkID', self.ID);
+            self.OUTFlowEdgeSet = findobj(e, 'sourceFlowNetworkID', self.ID);
         end
         
         function setNodeSet(FN, nodes)
@@ -221,6 +207,10 @@ classdef FlowNetwork < Network
             %a class based representation; more or less a constructor for a
             %flow network from instance data set
             %TO DO: 
+        end
+        
+        function transformCapacitatedNodes(self)
+            
         end
     end
     
