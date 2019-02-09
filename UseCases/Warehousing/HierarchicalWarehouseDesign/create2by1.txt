@@ -1,0 +1,264 @@
+#
+# create2by1.pl - Creates a 2-by-1 pick area graph
+#
+# Created: 6/1/2014 - jeff smith
+# Updated: 6/14/2014 - jeff smith
+#
+# $Id: create2by1.pl 547 2014-06-23 15:53:14Z smitjef $
+#
+use strict;
+use DBI;
+use Data::Dumper qw(Dumper);
+
+
+# truncate - truncate the node and arc tables
+#
+sub truncate_graph {
+	my ($dbh) = @_;
+	
+	$dbh->do('TRUNCATE TABLE node') || die qq{DBI error truncating: $dbh->errstr\n};
+	$dbh->do('TRUNCATE TABLE arc')  || die qq{DBI error truncating: $dbh->:errstr\n};
+	$dbh->do('TRUNCATE TABLE slot') || die qq{DBI error truncating: $dbh->:errstr\n};
+	}
+
+sub show_nodes {
+	my ($dbh) = @_;
+
+	my $sql = qq{
+		SELECT
+		 	id
+			,name
+			,x
+			,y
+			,z
+		FROM
+			node
+		};
+
+	my $sth = $dbh->prepare($sql);
+	$sth->execute();
+	print qq{\nNodes:};
+	while (my ($id, $name, $x, $y, $z) = $sth->fetchrow_array()) {
+		print qq{\n\t($id, $name, $x, $y, $z)};
+		}
+	print qq{\n};
+	}
+
+#
+# build graph
+#
+sub build_graph {
+	my ($dbh) = @_;
+	
+	# prepare node and arc queries
+	my $insert_node = $dbh->prepare(qq{
+		INSERT INTO
+			node (name, x, y, type)
+		VALUES
+			(?, ?, ?, ?)
+		}) || die qq{DBI error preparing query: $dbh->errstr};
+	my $insert_arc = $dbh->prepare(qq{
+		INSERT INTO
+			arc (tail_node_id, head_node_id)
+		VALUES
+			(?, ?)
+		}) || die qq{DBI error preparing query: $dbh->errstr};
+	my $insert_slot = $dbh->prepare(qq{
+		INSERT INTO
+			slot (node_id)
+		VALUES
+			(?)
+		}) || die qq{DBI error preparing query: $dbh->errstr};
+			
+	# define parameters
+	my $aisles     = 10;
+	my $columns    = 25;
+	my $slot_width = 10;
+	my $aisle_width = 30;
+	my $tail  = 0;
+	my $head = 0;
+	my $node_count = 1;
+	my @nodes;
+	
+	# create "left side" graph
+	my $x;
+	my $y = $aisle_width;
+	for (my $i = 0; $i < $aisles; $i++) {
+		$x = $aisle_width + $slot_width*0.5;
+		$tail = 0;
+		for (my $j = 0; $j < $columns; $j++) {
+			$insert_node->execute(qq{N$node_count}, $x, $y, 'picker')
+				|| die qq{DBI error executing insert: $dbh->errstr};
+			$nodes[0][$i][$j] = $dbh->{mysql_insertid};
+			$insert_slot->execute($nodes[0][$i][$j])
+				|| die qq{DBI error executing insert: $dbh->errstr};
+			$nodes[0][$i][$j] = $dbh->{mysql_insertid};
+			
+			$node_count++;
+			if ($tail) {
+				$head = $nodes[0][$i][$j];
+				$insert_arc->execute($tail, $head)
+				|| die qq{DBI error executing insert: $dbh->errstr};
+				$insert_arc->execute($head, $tail)
+				|| die qq{DBI error executing insert: $dbh->errstr};
+				$tail = $head;
+				}
+			else {
+				$tail = $nodes[0][$i][$j];
+				}
+			$x += $slot_width;
+			}
+		$y += $aisle_width;	
+		}
+	
+	# create "right side" graph
+	$y = $aisle_width;
+	for (my $i = 0; $i < $aisles; $i++) {
+		$x = 		$x = $aisle_width*2 + $slot_width*0.5 + $columns*$slot_width;
+		$tail = 0;
+		for (my $j = 0; $j < $columns; $j++) {
+			$insert_node->execute(qq{N$node_count}, $x, $y, 'picker')
+				|| die qq{DBI error executing insert: $dbh->errstr};
+			$nodes[1][$i][$j] = $dbh->{mysql_insertid};
+			$insert_slot->execute($nodes[1][$i][$j])
+				|| die qq{DBI error executing insert: $dbh->errstr};
+			$node_count++;
+			if ($tail) {
+				$head = $nodes[1][$i][$j];
+				$insert_arc->execute($tail, $head)
+				|| die qq{DBI error executing insert: $dbh->errstr};
+				$insert_arc->execute($head, $tail)
+				|| die qq{DBI error executing insert: $dbh->errstr};
+				$tail = $head;
+				}
+			else {
+				$tail = $nodes[1][$i][$j];
+				}
+			$x += $slot_width;
+			}
+		$y+= $aisle_width;	
+		}
+	# create the external and main aisle nodes
+	# left side
+	my $node_id;
+	my $last_node_id = 0;
+	my @outside;
+	$x = $aisle_width / 2;
+	$y = $aisle_width;
+	for (my $i = 0; $i < $aisles; $i++) {
+		$insert_node->execute(qq{N$node_count}, $x, $y, 'picker')
+			|| die qq{DBI error executing insert: $dbh->errstr};
+		$node_id = $dbh->{mysql_insertid};
+		$insert_arc->execute($node_id, $nodes[0][$i][0])
+			|| die qq{DBI error executing insert: $dbh->errstr};
+		$insert_arc->execute($nodes[0][$i][0], $node_id)
+			|| die qq{DBI error executing insert: $dbh->errstr};
+		if ($last_node_id) {
+			$insert_arc->execute($node_id, $last_node_id)
+				|| die qq{DBI error executing insert: $dbh->errstr};
+			$insert_arc->execute($last_node_id, $node_id)
+				|| die qq{DBI error executing insert: $dbh->errstr};
+			}
+		$last_node_id = $node_id;
+		$node_count++;
+		$y += $aisle_width;
+		if ($i == 0) { 
+			$outside[1] = $node_id; 
+			}
+		elsif ($i == $aisles-1) { 
+			$outside[2] = $node_id; 
+			}
+		}
+	# middle aisle
+	$last_node_id = 0;
+	$x = $aisle_width + $columns * $slot_width + $aisle_width / 2;
+	$y = 0;
+	for (my $i = 0; $i < ($aisles+2); $i++) {
+		$insert_node->execute(qq{N$node_count}, $x, $y, 'picker')
+			|| die qq{DBI error executing insert: $dbh->errstr};
+		$node_id = $dbh->{mysql_insertid};
+		if ($i > 0 and $i < ($aisles+1)) {
+			$insert_arc->execute($node_id, $nodes[0][$i-1][$columns-1])
+				|| die qq{DBI error executing insert: $dbh->errstr};
+			$insert_arc->execute($nodes[0][$i-1][$columns-1], $node_id)
+				|| die qq{DBI error executing insert: $dbh->errstr};
+			$insert_arc->execute($node_id, $nodes[1][$i-1][0])
+				|| die qq{DBI error executing insert: $dbh->errstr};
+			$insert_arc->execute($nodes[1][$i-1][0], $node_id)
+				|| die qq{DBI error executing insert: $dbh->errstr};
+			}
+		if ($last_node_id) {
+			$insert_arc->execute($node_id, $last_node_id)
+				|| die qq{DBI error executing insert: $dbh->errstr};
+			$insert_arc->execute($last_node_id, $node_id)
+				|| die qq{DBI error executing insert: $dbh->errstr};
+			}
+		$last_node_id = $node_id;
+		$node_count++;
+		$y += $aisle_width;
+		if ($i == 0) {
+			$outside[0] = $node_id;
+			}
+		elsif ($i == $aisles + 1) {
+			$outside[3] = $node_id;
+			}
+		}
+	# right side
+	$last_node_id = 0;
+	$x = 2 * $aisle_width + $aisle_width / 2 + 2*$columns*$slot_width;
+	$y = $aisle_width;
+	for (my $i = 0; $i < $aisles; $i++) {
+		$insert_node->execute(qq{N$node_count}, $x, $y, 'picker')
+			|| die qq{DBI error executing insert: $dbh->errstr};
+		$node_id = $dbh->{mysql_insertid};
+		$insert_arc->execute($node_id, $nodes[1][$i][$columns-1])
+			|| die qq{DBI error executing insert: $dbh->errstr};
+		$insert_arc->execute($nodes[1][$i][$columns-1], $node_id)
+			|| die qq{DBI error executing insert: $dbh->errstr};
+		if ($last_node_id) {
+			$insert_arc->execute($node_id, $last_node_id)
+				|| die qq{DBI error executing insert: $dbh->errstr};
+			$insert_arc->execute($last_node_id, $node_id)
+				|| die qq{DBI error executing insert: $dbh->errstr};
+			}
+		$last_node_id = $node_id;
+		$node_count++;
+		$y += $aisle_width;
+		if ($i == 0) { 
+			$outside[5] = $node_id; 
+			}
+		elsif ($i == $aisles-1) { 
+			$outside[4] = $node_id; 
+			}
+		}
+	# connect the outside
+	$insert_arc->execute($outside[0],$outside[1])
+		|| die qq{DBI error executing insert: $dbh->errstr};
+	$insert_arc->execute($outside[1],$outside[0])
+		|| die qq{DBI error executing insert: $dbh->errstr};	
+	$insert_arc->execute($outside[2],$outside[3])
+		|| die qq{DBI error executing insert: $dbh->errstr};
+	$insert_arc->execute($outside[3],$outside[2])
+		|| die qq{DBI error executing insert: $dbh->errstr};	
+	$insert_arc->execute($outside[3],$outside[4])
+		|| die qq{DBI error executing insert: $dbh->errstr};
+	$insert_arc->execute($outside[4],$outside[3])
+		|| die qq{DBI error executing insert: $dbh->errstr};	
+	$insert_arc->execute($outside[5],$outside[0])
+		|| die qq{DBI error executing insert: $dbh->errstr};
+	$insert_arc->execute($outside[0],$outside[5])
+		|| die qq{DBI error executing insert: $dbh->errstr};	
+	
+#	print Dumper \@nodes;
+	}
+
+#
+# main starts here
+#
+my $dbh;
+$dbh = DBI->connect('DBI:mysql:picksystem', 'picker', 'pick')
+	|| die "Could not connect to database: $DBI::errstr";
+truncate_graph($dbh);
+build_graph($dbh);
+show_nodes($dbh);
+$dbh->disconnect();

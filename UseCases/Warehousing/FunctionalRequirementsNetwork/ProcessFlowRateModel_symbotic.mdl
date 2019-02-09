@@ -1,0 +1,5778 @@
+Model {
+  Name			  "ProcessFlowRateModel_symbotic"
+  Version		  7.9
+  MdlSubVersion		  0
+  GraphicalInterface {
+    NumRootInports	    0
+    NumRootOutports	    0
+    ParameterArgumentNames  ""
+    ComputedModelVersion    "1.83"
+    NumModelReferences	    0
+    NumTestPointedSignals   0
+  }
+  SavedCharacterEncoding  "windows-1252"
+  SaveDefaultBlockParams  on
+  ScopeRefreshTime	  0.035000
+  OverrideScopeRefreshTime on
+  DisableAllScopes	  off
+  DataTypeOverride	  "UseLocalSettings"
+  DataTypeOverrideAppliesTo "AllNumericTypes"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  FPTRunName		  "Run 1"
+  MaxMDLFileLineLength	  120
+  Created		  "Fri Mar 28 17:09:35 2014"
+  Creator		  "tsprock3"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "tsprock3"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Fri Jan 23 16:03:57 2015"
+  RTWModifiedTimeStamp	  343929814
+  ModelVersionFormat	  "1.%<AutoIncrement:83>"
+  ConfigurationManager	  "None"
+  SampleTimeColors	  off
+  SampleTimeAnnotations	  off
+  LibraryLinkDisplay	  "disabled"
+  WideLines		  off
+  ShowLineDimensions	  off
+  ShowPortDataTypes	  off
+  ShowDesignRanges	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ShowTestPointIcons	  on
+  ShowSignalResolutionIcons on
+  ShowViewerIcons	  on
+  SortedOrder		  off
+  ExecutionContextIcon	  off
+  ShowLinearizationAnnotations on
+  BlockNameDataTip	  off
+  BlockParametersDataTip  off
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  SimulationMode	  "normal"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  TryForcingSFcnDF	  off
+  Object {
+    $PropName		    "DataLoggingOverride"
+    $ObjectID		    1
+    $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
+    model_		    "ProcessFlowRateModel_symbotic"
+    signals_		    []
+    overrideMode_	    [0.0]
+    Array {
+      Type		      "Cell"
+      Dimension		      1
+      Cell		      "ProcessFlowRateModel_symbotic"
+      PropName		      "logAsSpecifiedByModels_"
+    }
+    Array {
+      Type		      "Cell"
+      Dimension		      1
+      Cell		      []
+      PropName		      "logAsSpecifiedByModelsSSIDs_"
+    }
+  }
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  CovForceBlockReductionOff on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  CovReportOnPause	  on
+  CovModelRefEnable	  "Off"
+  CovExternalEMLEnable	  off
+  ExtModeBatchMode	  off
+  ExtModeEnableFloating	  on
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "normal"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigDurationFloating "auto"
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  on
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock on
+  BufferReuse		  on
+  ShowModelReferenceBlockVersion off
+  ShowModelReferenceBlockIO off
+  Array {
+    Type		    "Handle"
+    Dimension		    1
+    Simulink.ConfigSet {
+      $ObjectID		      2
+      Version		      "1.12.0"
+      Array {
+	Type			"Handle"
+	Dimension		10
+	Simulink.SolverCC {
+	  $ObjectID		  3
+	  Version		  "1.12.0"
+	  StartTime		  "0.0"
+	  StopTime		  "100000"
+	  AbsTol		  "auto"
+	  FixedStep		  "auto"
+	  InitialStep		  "auto"
+	  MaxNumMinSteps	  "-1"
+	  MaxOrder		  5
+	  ZcThreshold		  "auto"
+	  ConsecutiveZCsStepRelTol "10*128*eps"
+	  MaxConsecutiveZCs	  "1000"
+	  ExtrapolationOrder	  4
+	  NumberNewtonIterations  1
+	  MaxStep		  "auto"
+	  MinStep		  "auto"
+	  MaxConsecutiveMinStep	  "1"
+	  RelTol		  "1e-3"
+	  SolverMode		  "Auto"
+	  EnableConcurrentExecution off
+	  ConcurrentTasks	  off
+	  Solver		  "VariableStepDiscrete"
+	  SolverName		  "VariableStepDiscrete"
+	  SolverJacobianMethodControl "auto"
+	  ShapePreserveControl	  "DisableAll"
+	  ZeroCrossControl	  "UseLocalSettings"
+	  ZeroCrossAlgorithm	  "Nonadaptive"
+	  AlgebraicLoopSolver	  "TrustRegion"
+	  SolverResetMethod	  "Fast"
+	  PositivePriorityOrder	  off
+	  AutoInsertRateTranBlk	  off
+	  SampleTimeConstraint	  "Unconstrained"
+	  InsertRTBMode		  "Whenever possible"
+	}
+	Simulink.DataIOCC {
+	  $ObjectID		  4
+	  Version		  "1.12.0"
+	  Decimation		  "1"
+	  ExternalInput		  "[t, u]"
+	  FinalStateName	  "xFinal"
+	  InitialState		  "xInitial"
+	  LimitDataPoints	  on
+	  MaxDataPoints		  "1000"
+	  LoadExternalInput	  off
+	  LoadInitialState	  off
+	  SaveFinalState	  off
+	  SaveCompleteFinalSimState off
+	  SaveFormat		  "Array"
+	  SignalLoggingSaveFormat "ModelDataLogs"
+	  SaveOutput		  on
+	  SaveState		  off
+	  SignalLogging		  on
+	  DSMLogging		  on
+	  InspectSignalLogs	  off
+	  SaveTime		  on
+	  ReturnWorkspaceOutputs  off
+	  StateSaveName		  "xout"
+	  TimeSaveName		  "tout"
+	  OutputSaveName	  "yout"
+	  SignalLoggingName	  "logsout"
+	  DSMLoggingName	  "dsmout"
+	  OutputOption		  "RefineOutputTimes"
+	  OutputTimes		  "[]"
+	  ReturnWorkspaceOutputsName "out"
+	  Refine		  "1"
+	}
+	Simulink.OptimizationCC {
+	  $ObjectID		  5
+	  Version		  "1.12.0"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    8
+	    Cell		    "BooleansAsBitfields"
+	    Cell		    "PassReuseOutputArgsAs"
+	    Cell		    "PassReuseOutputArgsThreshold"
+	    Cell		    "ZeroExternalMemoryAtStartup"
+	    Cell		    "ZeroInternalMemoryAtStartup"
+	    Cell		    "OptimizeModelRefInitCode"
+	    Cell		    "NoFixptDivByZeroProtection"
+	    Cell		    "UseSpecifiedMinMax"
+	    PropName		    "DisabledProps"
+	  }
+	  BlockReduction	  on
+	  BooleanDataType	  on
+	  ConditionallyExecuteInputs on
+	  InlineParams		  off
+	  UseIntDivNetSlope	  off
+	  UseFloatMulNetSlope	  off
+	  UseSpecifiedMinMax	  off
+	  InlineInvariantSignals  off
+	  OptimizeBlockIOStorage  on
+	  BufferReuse		  on
+	  EnhancedBackFolding	  off
+	  StrengthReduction	  off
+	  ExpressionFolding	  on
+	  BooleansAsBitfields	  off
+	  BitfieldContainerType	  "uint_T"
+	  EnableMemcpy		  on
+	  MemcpyThreshold	  64
+	  PassReuseOutputArgsAs	  "Structure reference"
+	  ExpressionDepthLimit	  2147483647
+	  FoldNonRolledExpr	  on
+	  LocalBlockOutputs	  on
+	  RollThreshold		  5
+	  SystemCodeInlineAuto	  off
+	  StateBitsets		  off
+	  DataBitsets		  off
+	  UseTempVars		  off
+	  ZeroExternalMemoryAtStartup on
+	  ZeroInternalMemoryAtStartup on
+	  InitFltsAndDblsToZero	  off
+	  NoFixptDivByZeroProtection off
+	  EfficientFloat2IntCast  off
+	  EfficientMapNaN2IntZero on
+	  OptimizeModelRefInitCode off
+	  LifeSpan		  "inf"
+	  MaxStackSize		  "Inherit from target"
+	  BufferReusableBoundary  on
+	  SimCompilerOptimization "Off"
+	  AccelVerboseBuild	  off
+	  ParallelExecutionInRapidAccelerator on
+	}
+	Simulink.DebuggingCC {
+	  $ObjectID		  6
+	  Version		  "1.12.0"
+	  RTPrefix		  "error"
+	  ConsistencyChecking	  "none"
+	  ArrayBoundsChecking	  "none"
+	  SignalInfNanChecking	  "none"
+	  SignalRangeChecking	  "none"
+	  ReadBeforeWriteMsg	  "UseLocalSettings"
+	  WriteAfterWriteMsg	  "UseLocalSettings"
+	  WriteAfterReadMsg	  "UseLocalSettings"
+	  AlgebraicLoopMsg	  "warning"
+	  ArtificialAlgebraicLoopMsg "warning"
+	  SaveWithDisabledLinksMsg "warning"
+	  SaveWithParameterizedLinksMsg	"warning"
+	  CheckSSInitialOutputMsg on
+	  UnderspecifiedInitializationDetection	"Classic"
+	  MergeDetectMultiDrivingBlocksExec "none"
+	  CheckExecutionContextPreStartOutputMsg off
+	  CheckExecutionContextRuntimeOutputMsg	off
+	  SignalResolutionControl "UseLocalSettings"
+	  BlockPriorityViolationMsg "warning"
+	  MinStepSizeMsg	  "warning"
+	  TimeAdjustmentMsg	  "none"
+	  MaxConsecutiveZCsMsg	  "error"
+	  MaskedZcDiagnostic	  "warning"
+	  IgnoredZcDiagnostic	  "warning"
+	  SolverPrmCheckMsg	  "warning"
+	  InheritedTsInSrcMsg	  "warning"
+	  DiscreteInheritContinuousMsg "warning"
+	  MultiTaskDSMMsg	  "error"
+	  MultiTaskCondExecSysMsg "error"
+	  MultiTaskRateTransMsg	  "error"
+	  SingleTaskRateTransMsg  "none"
+	  TasksWithSamePriorityMsg "warning"
+	  SigSpecEnsureSampleTimeMsg "warning"
+	  CheckMatrixSingularityMsg "none"
+	  IntegerOverflowMsg	  "warning"
+	  Int32ToFloatConvMsg	  "warning"
+	  ParameterDowncastMsg	  "error"
+	  ParameterOverflowMsg	  "error"
+	  ParameterUnderflowMsg	  "none"
+	  ParameterPrecisionLossMsg "warning"
+	  ParameterTunabilityLossMsg "warning"
+	  FixptConstUnderflowMsg  "none"
+	  FixptConstOverflowMsg	  "none"
+	  FixptConstPrecisionLossMsg "none"
+	  UnderSpecifiedDataTypeMsg "none"
+	  UnnecessaryDatatypeConvMsg "none"
+	  VectorMatrixConversionMsg "none"
+	  InvalidFcnCallConnMsg	  "error"
+	  FcnCallInpInsideContextMsg "Enable All"
+	  SignalLabelMismatchMsg  "none"
+	  UnconnectedInputMsg	  "warning"
+	  UnconnectedOutputMsg	  "warning"
+	  UnconnectedLineMsg	  "warning"
+	  SFcnCompatibilityMsg	  "none"
+	  FrameProcessingCompatibilityMsg "warning"
+	  UniqueDataStoreMsg	  "none"
+	  BusObjectLabelMismatch  "warning"
+	  RootOutportRequireBusObject "warning"
+	  AssertControl		  "UseLocalSettings"
+	  EnableOverflowDetection off
+	  ModelReferenceIOMsg	  "none"
+	  ModelReferenceMultiInstanceNormalModeStructChecksumCheck "error"
+	  ModelReferenceVersionMismatchMessage "none"
+	  ModelReferenceIOMismatchMessage "none"
+	  ModelReferenceCSMismatchMessage "none"
+	  UnknownTsInhSupMsg	  "warning"
+	  ModelReferenceDataLoggingMessage "warning"
+	  ModelReferenceSymbolNameMessage "warning"
+	  ModelReferenceExtraNoncontSigs "error"
+	  StateNameClashWarn	  "warning"
+	  SimStateInterfaceChecksumMismatchMsg "warning"
+	  SimStateOlderReleaseMsg "warning"
+	  InitInArrayFormatMsg	  "warning"
+	  StrictBusMsg		  "ErrorLevel1"
+	  BusNameAdapt		  "WarnAndRepair"
+	  NonBusSignalsTreatedAsBus "none"
+	  LoggingUnavailableSignals "error"
+	  BlockIODiagnostic	  "none"
+	  SFUnusedDataAndEventsDiag "warning"
+	  SFUnexpectedBacktrackingDiag "warning"
+	  SFInvalidInputDataAccessInChartInitDiag "warning"
+	  SFNoUnconditionalDefaultTransitionDiag "warning"
+	  SFTransitionOutsideNaturalParentDiag "warning"
+	  SFUnconditionalTransitionShadowingDiag "warning"
+	}
+	Simulink.HardwareCC {
+	  $ObjectID		  7
+	  Version		  "1.12.0"
+	  ProdBitPerChar	  8
+	  ProdBitPerShort	  16
+	  ProdBitPerInt		  32
+	  ProdBitPerLong	  32
+	  ProdBitPerFloat	  32
+	  ProdBitPerDouble	  64
+	  ProdBitPerPointer	  32
+	  ProdLargestAtomicInteger "Char"
+	  ProdLargestAtomicFloat  "None"
+	  ProdIntDivRoundTo	  "Undefined"
+	  ProdEndianess		  "Unspecified"
+	  ProdWordSize		  32
+	  ProdShiftRightIntArith  on
+	  ProdHWDeviceType	  "32-bit Generic"
+	  TargetBitPerChar	  8
+	  TargetBitPerShort	  16
+	  TargetBitPerInt	  32
+	  TargetBitPerLong	  32
+	  TargetBitPerFloat	  32
+	  TargetBitPerDouble	  64
+	  TargetBitPerPointer	  32
+	  TargetLargestAtomicInteger "Char"
+	  TargetLargestAtomicFloat "None"
+	  TargetShiftRightIntArith on
+	  TargetIntDivRoundTo	  "Undefined"
+	  TargetEndianess	  "Unspecified"
+	  TargetWordSize	  32
+	  TargetTypeEmulationWarnSuppressLevel 0
+	  TargetPreprocMaxBitsSint 32
+	  TargetPreprocMaxBitsUint 32
+	  TargetHWDeviceType	  "Specified"
+	  TargetUnknown		  off
+	  ProdEqTarget		  on
+	}
+	Simulink.ModelReferenceCC {
+	  $ObjectID		  8
+	  Version		  "1.12.0"
+	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
+	  CheckModelReferenceTargetMessage "error"
+	  EnableParallelModelReferenceBuilds off
+	  ParallelModelReferenceErrorOnInvalidPool on
+	  ParallelModelReferenceMATLABWorkerInit "None"
+	  ModelReferenceNumInstancesAllowed "Multi"
+	  PropagateVarSize	  "Infer from blocks in model"
+	  ModelReferencePassRootInputsByReference on
+	  ModelReferenceMinAlgLoopOccurrences off
+	  PropagateSignalLabelsOutOfModel off
+	  SupportModelReferenceSimTargetCustomCode off
+	}
+	Simulink.SFSimCC {
+	  $ObjectID		  9
+	  Version		  "1.12.0"
+	  SFSimEnableDebug	  on
+	  SFSimOverflowDetection  on
+	  SFSimEcho		  on
+	  SimBlas		  on
+	  SimCtrlC		  on
+	  SimExtrinsic		  on
+	  SimIntegrity		  on
+	  SimUseLocalCustomCode	  off
+	  SimParseCustomCode	  on
+	  SimBuildMode		  "sf_incremental_build"
+	}
+	Simulink.RTWCC {
+	  $BackupClass		  "Simulink.RTWCC"
+	  $ObjectID		  10
+	  Version		  "1.12.0"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    9
+	    Cell		    "IncludeHyperlinkInReport"
+	    Cell		    "GenerateTraceInfo"
+	    Cell		    "GenerateTraceReport"
+	    Cell		    "GenerateTraceReportSl"
+	    Cell		    "GenerateTraceReportSf"
+	    Cell		    "GenerateTraceReportEml"
+	    Cell		    "GenerateWebview"
+	    Cell		    "GenerateCodeMetricsReport"
+	    Cell		    "GenerateCodeReplacementReport"
+	    PropName		    "DisabledProps"
+	  }
+	  SystemTargetFile	  "grt.tlc"
+	  GenCodeOnly		  off
+	  MakeCommand		  "make_rtw"
+	  GenerateMakefile	  on
+	  TemplateMakefile	  "grt_default_tmf"
+	  GenerateReport	  off
+	  SaveLog		  off
+	  RTWVerbose		  on
+	  RetainRTWFile		  off
+	  ProfileTLC		  off
+	  TLCDebug		  off
+	  TLCCoverage		  off
+	  TLCAssert		  off
+	  ProcessScriptMode	  "Default"
+	  ConfigurationMode	  "Optimized"
+	  ConfigAtBuild		  off
+	  RTWUseLocalCustomCode	  off
+	  RTWUseSimCustomCode	  off
+	  IncludeHyperlinkInReport off
+	  LaunchReport		  off
+	  TargetLang		  "C"
+	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
+	  IncludeERTFirstTime	  off
+	  GenerateTraceInfo	  off
+	  GenerateTraceReport	  off
+	  GenerateTraceReportSl	  off
+	  GenerateTraceReportSf	  off
+	  GenerateTraceReportEml  off
+	  GenerateCodeInfo	  off
+	  GenerateWebview	  off
+	  GenerateCodeMetricsReport off
+	  GenerateCodeReplacementReport	off
+	  RTWCompilerOptimization "Off"
+	  CheckMdlBeforeBuild	  "Off"
+	  CustomRebuildMode	  "OnUpdate"
+	  Array {
+	    Type		    "Handle"
+	    Dimension		    2
+	    Simulink.CodeAppCC {
+	      $ObjectID		      11
+	      Version		      "1.12.0"
+	      Array {
+		Type			"Cell"
+		Dimension		21
+		Cell			"IgnoreCustomStorageClasses"
+		Cell			"IgnoreTestpoints"
+		Cell			"InsertBlockDesc"
+		Cell			"InsertPolySpaceComments"
+		Cell			"SFDataObjDesc"
+		Cell			"MATLABFcnDesc"
+		Cell			"SimulinkDataObjDesc"
+		Cell			"DefineNamingRule"
+		Cell			"SignalNamingRule"
+		Cell			"ParamNamingRule"
+		Cell			"InlinedPrmAccess"
+		Cell			"CustomSymbolStr"
+		Cell			"CustomSymbolStrGlobalVar"
+		Cell			"CustomSymbolStrType"
+		Cell			"CustomSymbolStrField"
+		Cell			"CustomSymbolStrFcn"
+		Cell			"CustomSymbolStrFcnArg"
+		Cell			"CustomSymbolStrBlkIO"
+		Cell			"CustomSymbolStrTmpVar"
+		Cell			"CustomSymbolStrMacro"
+		Cell			"ReqsInCode"
+		PropName		"DisabledProps"
+	      }
+	      ForceParamTrailComments off
+	      GenerateComments	      on
+	      IgnoreCustomStorageClasses on
+	      IgnoreTestpoints	      off
+	      IncHierarchyInIds	      off
+	      MaxIdLength	      31
+	      PreserveName	      off
+	      PreserveNameWithParent  off
+	      ShowEliminatedStatement off
+	      IncAutoGenComments      off
+	      SimulinkDataObjDesc     off
+	      SFDataObjDesc	      off
+	      MATLABFcnDesc	      off
+	      IncDataTypeInIds	      off
+	      MangleLength	      1
+	      CustomSymbolStrGlobalVar "$R$N$M"
+	      CustomSymbolStrType     "$N$R$M"
+	      CustomSymbolStrField    "$N$M"
+	      CustomSymbolStrFcn      "$R$N$M$F"
+	      CustomSymbolStrFcnArg   "rt$I$N$M"
+	      CustomSymbolStrBlkIO    "rtb_$N$M"
+	      CustomSymbolStrTmpVar   "$N$M"
+	      CustomSymbolStrMacro    "$R$N$M"
+	      DefineNamingRule	      "None"
+	      ParamNamingRule	      "None"
+	      SignalNamingRule	      "None"
+	      InsertBlockDesc	      off
+	      InsertPolySpaceComments off
+	      SimulinkBlockComments   on
+	      MATLABSourceComments    off
+	      EnableCustomComments    off
+	      InlinedPrmAccess	      "Literals"
+	      ReqsInCode	      off
+	      UseSimReservedNames     off
+	    }
+	    Simulink.GRTTargetCC {
+	      $BackupClass	      "Simulink.TargetCC"
+	      $ObjectID		      12
+	      Version		      "1.12.0"
+	      Array {
+		Type			"Cell"
+		Dimension		16
+		Cell			"GeneratePreprocessorConditionals"
+		Cell			"IncludeMdlTerminateFcn"
+		Cell			"CombineOutputUpdateFcns"
+		Cell			"SuppressErrorStatus"
+		Cell			"ERTCustomFileBanners"
+		Cell			"GenerateSampleERTMain"
+		Cell			"GenerateTestInterfaces"
+		Cell			"ModelStepFunctionPrototypeControlCompliant"
+		Cell			"CPPClassGenCompliant"
+		Cell			"MultiInstanceERTCode"
+		Cell			"PurelyIntegerCode"
+		Cell			"SupportComplex"
+		Cell			"SupportAbsoluteTime"
+		Cell			"SupportContinuousTime"
+		Cell			"SupportNonInlinedSFcns"
+		Cell			"PortableWordSizes"
+		PropName		"DisabledProps"
+	      }
+	      TargetFcnLib	      "ansi_tfl_table_tmw.mat"
+	      TargetLibSuffix	      ""
+	      TargetPreCompLibLocation ""
+	      CodeReplacementLibrary  "ANSI_C"
+	      UtilityFuncGeneration   "Auto"
+	      ERTMultiwordTypeDef     "System defined"
+	      CodeExecutionProfiling  off
+	      ERTMultiwordLength      256
+	      MultiwordLength	      2048
+	      GenerateFullHeader      on
+	      GenerateSampleERTMain   off
+	      GenerateTestInterfaces  off
+	      IsPILTarget	      off
+	      ModelReferenceCompliant on
+	      ParMdlRefBuildCompliant on
+	      CompOptLevelCompliant   on
+	      ConcurrentExecutionCompliant on
+	      IncludeMdlTerminateFcn  on
+	      GeneratePreprocessorConditionals "Disable all"
+	      CombineOutputUpdateFcns on
+	      CombineSignalStateStructs	off
+	      SuppressErrorStatus     off
+	      ERTFirstTimeCompliant   off
+	      IncludeFileDelimiter    "Auto"
+	      ERTCustomFileBanners    off
+	      SupportAbsoluteTime     on
+	      LogVarNameModifier      "rt_"
+	      MatFileLogging	      on
+	      MultiInstanceERTCode    off
+	      SupportNonFinite	      on
+	      SupportComplex	      on
+	      PurelyIntegerCode	      off
+	      SupportContinuousTime   on
+	      SupportNonInlinedSFcns  on
+	      SupportVariableSizeSignals off
+	      EnableShiftOperators    on
+	      ParenthesesLevel	      "Nominal"
+	      PortableWordSizes	      off
+	      ModelStepFunctionPrototypeControlCompliant off
+	      CPPClassGenCompliant    off
+	      AutosarCompliant	      off
+	      GRTInterface	      off
+	      UseMalloc		      off
+	      ExtMode		      off
+	      ExtModeStaticAlloc      off
+	      ExtModeTesting	      off
+	      ExtModeStaticAllocSize  1000000
+	      ExtModeTransport	      0
+	      ExtModeMexFile	      "ext_comm"
+	      ExtModeIntrfLevel	      "Level1"
+	      RTWCAPISignals	      off
+	      RTWCAPIParams	      off
+	      RTWCAPIStates	      off
+	      RTWCAPIRootIO	      off
+	      GenerateASAP2	      off
+	    }
+	    PropName		    "Components"
+	  }
+	}
+	hdlcoderui.hdlcc {
+	  $ObjectID		  13
+	  Version		  "1.12.0"
+	  Description		  "HDL Coder custom configuration component"
+	  Name			  "HDL Coder"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    1
+	    Cell		    ""
+	    PropName		    "HDLConfigFile"
+	  }
+	  HDLCActiveTab		  "0"
+	}
+	DES.SimEventsCC {
+	  $BackupClass		  "Simulink.CustomCC"
+	  $ObjectID		  14
+	  Version		  "1.12.0"
+	  Name			  "SimEvents"
+	  SimEventsActiveTab	  "0"
+	  propIdentEvents	  "0"
+	  propIdentEventSeed	  "123456789"
+	  propMaxDesBlkSimulEvents "1000"
+	  propMaxDesMdlSimulEvents "100000"
+	  propDiagAttribOutput	  "2"
+	  propDiagFcnCallOutput	  "2"
+	  propDiagStatOutput	  "2"
+	  propDiagChangeAttrib	  "2"
+	  propRNGIdenticalSeeds	  "1"
+	  propPreventDuplicateEvents 1
+	}
+	PropName		"Components"
+      }
+      Name		      "Configuration"
+      CurrentDlgPage	      "Solver"
+      ConfigPrmDlgPosition     [ 840, 485, 1720, 1115 ] 
+    }
+    PropName		    "ConfigurationSets"
+  }
+  Simulink.ConfigSet {
+    $PropName		    "ActiveConfigurationSet"
+    $ObjectID		    2
+  }
+  ExplicitPartitioning	  off
+  BlockDefaults {
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Arial"
+    FontSize		    14
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+    BlockRotation	    0
+    BlockMirror		    off
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Arial"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    UseDisplayTextAsClickCallback off
+  }
+  LineDefaults {
+    FontName		    "Arial"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      Constant
+      Value		      "1"
+      VectorParams1D	      on
+      SamplingMode	      "Sample based"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Inherit from 'Constant value'"
+      LockScale		      off
+      SampleTime	      "inf"
+      FramePeriod	      "inf"
+      PreserveConstantTs      off
+    }
+    Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
+      BlockType		      EntityCombiner
+      NumberInputPorts	      "3"
+      RetainComponentEntities on
+      AttributeAccessibility  on
+      TimerAccessibility      on
+      AttributeCopied	      on
+      TimerCopied	      on
+      StatNumberDeparted      off
+    }
+    Block {
+      BlockType		      EntitySplitter
+      NumberOutputPorts	      "3"
+      SplitEntityWhen	      "All entity output ports are not blocked"
+      OutputPortPrecedence    "OUT1 port"
+      InitialSeed	      "56789"
+      ActionUponPortMismatch  "Continue"
+      ActionUponBlocking      "Error"
+      StatNumberArrived	      off
+      StatNumberDeparted      off
+    }
+    Block {
+      BlockType		      EventBasedEntityGenerator
+      GenerateEntitiesUpon    "Change in signal from port vc"
+      SignalEdgeType	      "Rising"
+      SpecifyEventPriority    off
+      PriorityEntityGeneration "300"
+      GenerateEntityAtSimulationStart on
+      AllowBlocking	      on
+      ResponseDuringBlockage  "Discard generated entities"
+      EntityType	      "Blank"
+      StatNumberDeparted      off
+      StatPendingEntity	      off
+      StatAverageIntergenerationTime off
+    }
+    Block {
+      BlockType		      EventBasedRandomNumber
+      Distribution	      "Exponential"
+      meanExp		      "1"
+      minUnif		      "0"
+      maxUnif		      "1"
+      pOneBern		      "0.25"
+      pSuccessBino	      "0.5"
+      numTrialBino	      "1"
+      minTri		      "1"
+      maxTri		      "3"
+      modeTri		      "2"
+      thresholdGam	      "0"
+      scaleGam		      "1"
+      shapeGam		      "1"
+      meanNorm		      "0"
+      stdNorm		      "1"
+      pSuccessGeo	      "0.5"
+      meanPoiss		      "1"
+      thresholdLogn	      "0"
+      scaleLogn		      "1"
+      shapeLogn		      "1"
+      thresholdLogl	      "0"
+      scaleLogl		      "1"
+      minBeta		      "0"
+      maxBeta		      "1"
+      shape1Beta	      "1"
+      shape2Beta	      "1"
+      minUnid		      "0"
+      maxUnid		      "1"
+      numValueUnid	      "2"
+      thresholdWbl	      "0"
+      scaleWbl		      "1"
+      shapeWbl		      "1"
+      valueVecCont	      "[0 1]"
+      cdfVecCont	      "[0 1]"
+      valueVecDisc	      "[0 1]"
+      probVecDisc	      "[0.5 0.5]"
+      Seed		      "12345"
+    }
+    Block {
+      BlockType		      FIFOQueue
+      Capacity		      "25"
+      EnableTOPort	      off
+      StatNumberDeparted      off
+      StatNumberInBlock	      off
+      StatAverageWait	      off
+      StatAverageQueueLength  off
+      StatNumberTimedout      off
+    }
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      OutputFunctionCall      off
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      LatchByDelayingOutsideSignal off
+      LatchInputForFeedbackSignals off
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      NServer
+      NumberOfServers	      "5"
+      ServiceTimeFrom	      "Dialog"
+      ServiceTime	      "1"
+      AttributeName	      "ServiceTime"
+      PriorityServiceCompletion	"500"
+      EnableTOPort	      off
+      StatNumberDeparted      off
+      StatNumberInBlock	      off
+      StatPendingEntity	      off
+      StatNumberPending	      off
+      StatAverageWait	      off
+      StatUtilization	      off
+      StatNumberTimedout      off
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      SourceOfInitialOutputValue "Dialog"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      OutputSwitch
+      NumberOutputPorts	      "3"
+      SwitchingCriterion      "First port that is not blocked"
+      InitialSeed	      "34567"
+      AttributeName	      "Attribute1"
+      InitialConditionsOpt    off
+      InitialConditions	      "1"
+      EntityBufferOpt	      off
+      SpecifyEventPriority    off
+      PriorityOutputSwitchSelectPort "4000"
+      TimeoutPortOpt	      off
+      StatNumberDeparted      off
+      StatNumberTimedOut      off
+      StatPendingEntity	      off
+      StatLastDeparturePort   off
+    }
+    Block {
+      BlockType		      PMIOPort
+    }
+    Block {
+      BlockType		      PathCombiner
+      NumberInputPorts	      "3"
+      InputPortPrecedence     "IN1 port"
+      InitialSeed	      "45675"
+      SpecifyEventPriority    off
+      PriorityPathCombinerPortPrecedenceSelection "4100"
+      StatNumberDeparted      off
+      StatLastArrivalPort     off
+    }
+    Block {
+      BlockType		      ReleaseGate
+      OpenGateUpon	      "Change in signal from port vc"
+      SignalEdgeOption	      "Rising"
+      SpecifyEventPriority    off
+      PriorityGateRelease     "2200"
+      StatNumberDeparted      off
+    }
+    Block {
+      BlockType		      S-Function
+      FunctionName	      "system"
+      SFunctionModules	      "''"
+      PortCounts	      "[]"
+      SFunctionDeploymentMode off
+    }
+    Block {
+      BlockType		      SingleServer
+      ServiceTimeFrom	      "Dialog"
+      ServiceTime	      "1"
+      AttributeName	      "ServiceTime"
+      PriorityServiceCompletion	"500"
+      PermitPreemption	      off
+      SortingAttributeName    "PriorityAttributeName"
+      SortingDirection	      "Ascending"
+      WriteToAttribute	      off
+      ResidualAttributeName   "ResidualServiceTime"
+      CreateAttribute	      on
+      EnableTOPort	      off
+      StatNumberDeparted      off
+      StatNumberInBlock	      off
+      StatNumberPreempted     off
+      StatPendingEntity	      off
+      StatAverageWait	      off
+      StatUtilization	      off
+      StatNumberTimedout      off
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      "FromPortIcon"
+      Permissions	      "ReadWrite"
+      PermitHierarchicalResolution "All"
+      TreatAsAtomicUnit	      off
+      CheckFcnCallInpInsideContextMsg off
+      SystemSampleTime	      "-1"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      DataTypeOverrideAppliesTo	"AllNumericTypes"
+      MinMaxOverflowLogging   "UseLocalSettings"
+      SFBlockType	      "NONE"
+      Variant		      off
+      GeneratePreprocessorConditionals off
+    }
+    Block {
+      BlockType		      Sum
+      IconShape		      "rectangular"
+      Inputs		      "++"
+      CollapseMode	      "All dimensions"
+      CollapseDim	      "1"
+      InputSameDT	      on
+      AccumDataTypeStr	      "Inherit: Inherit via internal rule"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as first input"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Terminator
+    }
+    Block {
+      BlockType		      TimeBasedFunctionCallGenerator
+      EventGenerationMode     "Period from dialog"
+      Period		      "1"
+      NumberOfEventsPerPeriod "1"
+      StatNumberOfEvents      off
+      EventPriority	      "20"
+    }
+    Block {
+      BlockType		      TimedToEventSignal
+    }
+  }
+  System {
+    Name		    "ProcessFlowRateModel_symbotic"
+    Location		    [2, 74, 2558, 1539]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "usletter"
+    PaperUnits		    "inches"
+    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+    TiledPageScale	    1
+    ShowPageBoundaries	    off
+    ZoomFactor		    "138"
+    ReportName		    "simulink-default.rpt"
+    SIDHighWatermark	    "977"
+    Block {
+      BlockType		      SubSystem
+      Name		      "LTLShipping"
+      SID		      "212"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [935, 802, 1290, 948]
+      BackgroundColor	      "lightBlue"
+      FontName		      "Arial Narrow"
+      FontSize		      20
+      FontWeight	      "bold"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"LTLShipping"
+	Location		[724, 564, 1836, 1036]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  PathCombiner
+	  Name			  "IN_Job"
+	  SID			  "213"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [220, 138, 320, 192]
+	  ZOrder		  -3
+	  BackgroundColor	  "lightBlue"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberInputPorts	  "1"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  OutputSwitch
+	  Name			  "OUT_Job"
+	  SID			  "214"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [725, 137, 825, 193]
+	  ZOrder		  -2
+	  BackgroundColor	  "lightBlue"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberOutputPorts	  "1"
+	  SwitchingCriterion	  "Equiprobable"
+	  InitialSeed		  "15948"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Workstation"
+	  SID			  "215"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [435, 43, 600, 287]
+	  BackgroundColor	  "lightBlue"
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Workstation"
+	    Location		    [553, 865, 1811, 1564]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Shipping"
+	      SID		      "224"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [435, 65, 640, 195]
+	      BackgroundColor	      "cyan"
+	      MinAlgLoopOccurrences   off
+	      PropExecContextOutsideSubsystem off
+	      RTWSystemCode	      "Auto"
+	      FunctionWithSeparateData off
+	      Opaque		      off
+	      RequestExecContextInheritance off
+	      MaskHideContents	      off
+	      System {
+		Name			"Shipping"
+		Location		[548, 726, 1412, 892]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"usletter"
+		PaperUnits		"inches"
+		TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+		TiledPageScale		1
+		ShowPageBoundaries	off
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  PathCombiner
+		  Name			  "IN_Job"
+		  SID			  "225"
+		  Ports			  [0, 0, 0, 0, 0, 1, 1]
+		  Position		  [80, 58, 180, 112]
+		  ZOrder		  -3
+		  BackgroundColor	  "cyan"
+		  InputPortMap		  ""
+		  OutputPortMap		  ""
+		  NumberInputPorts	  "1"
+		  Port {
+		    PortType		    2
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortIn"
+		  }
+		  Port {
+		    PortType		    3
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortOut"
+		  }
+		}
+		Block {
+		  BlockType		  OutputSwitch
+		  Name			  "OUT_Job"
+		  SID			  "226"
+		  Ports			  [0, 0, 0, 0, 0, 1, 1]
+		  Position		  [530, 57, 630, 113]
+		  ZOrder		  -2
+		  BackgroundColor	  "cyan"
+		  InputPortMap		  ""
+		  OutputPortMap		  ""
+		  NumberOutputPorts	  "1"
+		  SwitchingCriterion	  "Equiprobable"
+		  InitialSeed		  "65399"
+		  Port {
+		    PortType		    2
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortIn"
+		  }
+		  Port {
+		    PortType		    3
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortOut"
+		  }
+		}
+		Block {
+		  BlockType		  SubSystem
+		  Name			  "Process"
+		  SID			  "227"
+		  Ports			  [0, 0, 0, 0, 0, 1, 1]
+		  Position		  [275, 28, 450, 142]
+		  BackgroundColor	  "cyan"
+		  MinAlgLoopOccurrences	  off
+		  PropExecContextOutsideSubsystem off
+		  RTWSystemCode		  "Auto"
+		  FunctionWithSeparateData off
+		  Opaque		  off
+		  RequestExecContextInheritance	off
+		  MaskHideContents	  off
+		  System {
+		    Name		    "Process"
+		    Location		    [568, 618, 1239, 944]
+		    Open		    off
+		    ModelBrowserVisibility  off
+		    ModelBrowserWidth	    200
+		    ScreenColor		    "white"
+		    PaperOrientation	    "landscape"
+		    PaperPositionMode	    "auto"
+		    PaperType		    "usletter"
+		    PaperUnits		    "inches"
+		    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+		    TiledPageScale	    1
+		    ShowPageBoundaries	    off
+		    ZoomFactor		    "100"
+		    Block {
+		    BlockType		    FIFOQueue
+		    Name		    "FIFO Queue"
+		    SID			    "228"
+		    Ports		    [0, 0, 0, 0, 0, 1, 1]
+		    Position		    [175, 132, 260, 188]
+		    ZOrder		    -1
+		    BackgroundColor	    "cyan"
+		    InputPortMap	    ""
+		    OutputPortMap	    ""
+		    Capacity		    "inf"
+		    Port {
+		    PortType		    2
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortIn"
+		    }
+		    Port {
+		    PortType		    3
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortOut"
+		    }
+		    }
+		    Block {
+		    BlockType		    NServer
+		    Name		    "N-Server"
+		    SID			    "229"
+		    Ports		    [1, 0, 0, 0, 0, 1, 1]
+		    Position		    [340, 117, 425, 173]
+		    ZOrder		    -2
+		    BackgroundColor	    "cyan"
+		    InputPortMap	    "u0"
+		    OutputPortMap	    ""
+		    NumberOfServers	    "inf"
+		    ServiceTimeFrom	    "Signal port t"
+		    Port {
+		    PortType		    2
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortIn"
+		    }
+		    Port {
+		    PortType		    3
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortOut"
+		    }
+		    }
+		    Block {
+		    BlockType		    EventBasedRandomNumber
+		    Name		    "ProcessTime"
+		    SID			    "230"
+		    Ports		    [0, 1]
+		    Position		    [220, 30, 290, 80]
+		    ZOrder		    -1
+		    BackgroundColor	    "cyan"
+		    InputPortMap	    ""
+		    OutputPortMap	    "o0"
+		    Distribution	    "Arbitrary discrete"
+		    minUnif		    "1"
+		    meanNorm		    "5"
+		    minUnid		    "29.9"
+		    maxUnid		    "30"
+		    numValueUnid	    "1"
+		    valueVecDisc	    "[0 30]"
+		    probVecDisc		    "[0 1]"
+		    }
+		    Block {
+		    BlockType		    PMIOPort
+		    Name		    "Job_OUT"
+		    SID			    "231"
+		    Position		    [495, 138, 525, 152]
+		    BlockMirror		    on
+		    BackgroundColor	    "cyan"
+		    Port		    "1"
+		    Side		    "Right"
+		    }
+		    Block {
+		    BlockType		    PMIOPort
+		    Name		    "Job_IN"
+		    SID			    "232"
+		    Position		    [100, 153, 130, 167]
+		    BackgroundColor	    "cyan"
+		    Port		    "2"
+		    Side		    "Left"
+		    }
+		    Line {
+		    LineType		    "Connection"
+		    SrcBlock		    "FIFO Queue"
+		    SrcPort		    RConn1
+		    DstBlock		    "N-Server"
+		    DstPort		    LConn1
+		    }
+		    Line {
+		    SrcBlock		    "ProcessTime"
+		    SrcPort		    1
+		    Points		    [15, 0; 0, 75]
+		    DstBlock		    "N-Server"
+		    DstPort		    1
+		    }
+		    Line {
+		    LineType		    "Connection"
+		    SrcBlock		    "Job_OUT"
+		    SrcPort		    RConn1
+		    DstBlock		    "N-Server"
+		    DstPort		    RConn1
+		    }
+		    Line {
+		    LineType		    "Connection"
+		    SrcBlock		    "Job_IN"
+		    SrcPort		    RConn1
+		    DstBlock		    "FIFO Queue"
+		    DstPort		    LConn1
+		    }
+		  }
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "IN_Job_1"
+		  SID			  "233"
+		  Position		  [20, 78, 50, 92]
+		  BackgroundColor	  "lightBlue"
+		  Port			  "1"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "OUT_Job_1"
+		  SID			  "234"
+		  Position		  [705, 78, 735, 92]
+		  BlockMirror		  on
+		  BackgroundColor	  "lightBlue"
+		  Port			  "2"
+		  Side			  "Right"
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "IN_Job"
+		  SrcPort		  RConn1
+		  DstBlock		  "Process"
+		  DstPort		  LConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Process"
+		  SrcPort		  RConn1
+		  DstBlock		  "OUT_Job"
+		  DstPort		  LConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "IN_Job_1"
+		  SrcPort		  RConn1
+		  DstBlock		  "IN_Job"
+		  DstPort		  LConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "OUT_Job_1"
+		  SrcPort		  RConn1
+		  Points		  [0, -5; -15, 0; 0, 5]
+		  DstBlock		  "OUT_Job"
+		  DstPort		  RConn1
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "OUT_Job_1"
+	      SID		      "219"
+	      Position		      [920, 123, 950, 137]
+	      BlockMirror	      on
+	      BackgroundColor	      "lightBlue"
+	      Port		      "1"
+	      Side		      "Right"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "IN_Job_1"
+	      SID		      "220"
+	      Position		      [55, 123, 85, 137]
+	      BackgroundColor	      "lightBlue"
+	      Port		      "2"
+	      Side		      "Left"
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Shipping"
+	      SrcPort		      RConn1
+	      DstBlock		      "OUT_Job_1"
+	      DstPort		      RConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "IN_Job_1"
+	      SrcPort		      RConn1
+	      DstBlock		      "Shipping"
+	      DstPort		      LConn1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "IN_Job_1"
+	  SID			  "221"
+	  Position		  [90, 158, 120, 172]
+	  Port			  "1"
+	  Side			  "Left"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "OUT_Job_1"
+	  SID			  "222"
+	  Position		  [900, 158, 930, 172]
+	  BlockMirror		  on
+	  Port			  "2"
+	  Side			  "Right"
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Job"
+	  SrcPort		  RConn1
+	  DstBlock		  "Workstation"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Workstation"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Job"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Job_1"
+	  SrcPort		  RConn1
+	  DstBlock		  "IN_Job"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "OUT_Job"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Job_1"
+	  DstPort		  RConn1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "MHC_ASRSTOStore2"
+      SID		      "315"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [560, 508, 825, 572]
+      BlockMirror	      on
+      BackgroundColor	      "orange"
+      FontName		      "Arial Narrow"
+      FontSize		      20
+      FontWeight	      "bold"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"MHC_ASRSTOStore2"
+	Location		[809, 854, 1825, 1284]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  PathCombiner
+	  Name			  "IN_Shipment"
+	  SID			  "316"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [180, 188, 280, 262]
+	  ZOrder		  -3
+	  BackgroundColor	  "orange"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberInputPorts	  "1"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  OutputSwitch
+	  Name			  "OUT_Shipment"
+	  SID			  "317"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [640, 188, 740, 262]
+	  ZOrder		  -2
+	  BackgroundColor	  "orange"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberOutputPorts	  "1"
+	  AttributeName		  "Customer"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Transportation_Channel"
+	  SID			  "318"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [365, 182, 570, 268]
+	  BackgroundColor	  "orange"
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Transportation_Channel"
+	    Location		    [1693, 274, 2179, 436]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      FIFOQueue
+	      Name		      "FIFO Queue"
+	      SID		      "319"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [80, 28, 175, 102]
+	      ZOrder		      -1
+	      BackgroundColor	      "orange"
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      Capacity		      "inf"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      NServer
+	      Name		      "N-Server"
+	      SID		      "320"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [235, 28, 330, 102]
+	      ZOrder		      -2
+	      BackgroundColor	      "orange"
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      NumberOfServers	      "inf"
+	      ServiceTime	      "10"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "IN_Shipment"
+	      SID		      "321"
+	      Position		      [25, 58, 55, 72]
+	      BackgroundColor	      "orange"
+	      Port		      "1"
+	      Side		      "Left"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "OUT_Shipment"
+	      SID		      "322"
+	      Position		      [355, 58, 385, 72]
+	      BlockMirror	      on
+	      BackgroundColor	      "orange"
+	      Port		      "2"
+	      Side		      "Right"
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "FIFO Queue"
+	      SrcPort		      RConn1
+	      DstBlock		      "N-Server"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "IN_Shipment"
+	      SrcPort		      RConn1
+	      DstBlock		      "FIFO Queue"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "OUT_Shipment"
+	      SrcPort		      RConn1
+	      DstBlock		      "N-Server"
+	      DstPort		      RConn1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "IN_Shipment_1"
+	  SID			  "323"
+	  Position		  [75, 218, 105, 232]
+	  Port			  "1"
+	  Side			  "Left"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "OUT_Shipment_1"
+	  SID			  "324"
+	  Position		  [825, 218, 855, 232]
+	  BlockMirror		  on
+	  Port			  "2"
+	  Side			  "Right"
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Shipment"
+	  SrcPort		  RConn1
+	  DstBlock		  "Transportation_Channel"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Transportation_Channel"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Shipment"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Shipment_1"
+	  SrcPort		  RConn1
+	  DstBlock		  "IN_Shipment"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "OUT_Shipment"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Shipment_1"
+	  DstPort		  RConn1
+	}
+	Annotation {
+	  SID			  "325"
+	  Name			  "This level provides an interface to access the Transportation_Channel block variant. The interface provid"
+	  "es a method to \nbring shipments in and route shipments out, as well as a consistent method to add ports to realize"
+	  " that interface"
+	  Position		  [418, 25]
+	  ForegroundColor	  "red"
+	  FontSize		  16
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "MHC_ShippingToStore1"
+      SID		      "89"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [1535, 843, 1795, 907]
+      BackgroundColor	      "orange"
+      FontName		      "Arial Narrow"
+      FontSize		      20
+      FontWeight	      "bold"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"MHC_ShippingToStore1"
+	Location		[809, 854, 1825, 1284]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  PathCombiner
+	  Name			  "IN_Shipment"
+	  SID			  "90"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [180, 188, 280, 262]
+	  ZOrder		  -3
+	  BackgroundColor	  "orange"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberInputPorts	  "1"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  OutputSwitch
+	  Name			  "OUT_Shipment"
+	  SID			  "91"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [640, 188, 740, 262]
+	  ZOrder		  -2
+	  BackgroundColor	  "orange"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberOutputPorts	  "1"
+	  AttributeName		  "Customer"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Transportation_Channel"
+	  SID			  "92"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [365, 182, 570, 268]
+	  BackgroundColor	  "orange"
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Transportation_Channel"
+	    Location		    [1693, 274, 2179, 436]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      FIFOQueue
+	      Name		      "FIFO Queue"
+	      SID		      "93"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [80, 28, 175, 102]
+	      ZOrder		      -1
+	      BackgroundColor	      "orange"
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      Capacity		      "inf"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      NServer
+	      Name		      "N-Server"
+	      SID		      "94"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [235, 28, 330, 102]
+	      ZOrder		      -2
+	      BackgroundColor	      "orange"
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      NumberOfServers	      "inf"
+	      ServiceTime	      "20"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "IN_Shipment"
+	      SID		      "95"
+	      Position		      [25, 58, 55, 72]
+	      BackgroundColor	      "orange"
+	      Port		      "1"
+	      Side		      "Left"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "OUT_Shipment"
+	      SID		      "96"
+	      Position		      [355, 58, 385, 72]
+	      BlockMirror	      on
+	      BackgroundColor	      "orange"
+	      Port		      "2"
+	      Side		      "Right"
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "FIFO Queue"
+	      SrcPort		      RConn1
+	      DstBlock		      "N-Server"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "IN_Shipment"
+	      SrcPort		      RConn1
+	      DstBlock		      "FIFO Queue"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "OUT_Shipment"
+	      SrcPort		      RConn1
+	      DstBlock		      "N-Server"
+	      DstPort		      RConn1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "IN_Shipment_1"
+	  SID			  "97"
+	  Position		  [75, 218, 105, 232]
+	  Port			  "1"
+	  Side			  "Left"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "OUT_Shipment_1"
+	  SID			  "98"
+	  Position		  [825, 218, 855, 232]
+	  BlockMirror		  on
+	  Port			  "2"
+	  Side			  "Right"
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Shipment"
+	  SrcPort		  RConn1
+	  DstBlock		  "Transportation_Channel"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Transportation_Channel"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Shipment"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Shipment_1"
+	  SrcPort		  RConn1
+	  DstBlock		  "IN_Shipment"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "OUT_Shipment"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Shipment_1"
+	  DstPort		  RConn1
+	}
+	Annotation {
+	  SID			  "99"
+	  Name			  "This level provides an interface to access the Transportation_Channel block variant. The interface provid"
+	  "es a method to \nbring shipments in and route shipments out, as well as a consistent method to add ports to realize"
+	  " that interface"
+	  Position		  [418, 25]
+	  ForegroundColor	  "red"
+	  FontSize		  16
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "MHC_Store1ToASRS"
+      SID		      "275"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [1470, 508, 1730, 572]
+      BlockMirror	      on
+      BackgroundColor	      "orange"
+      FontName		      "Arial Narrow"
+      FontSize		      20
+      FontWeight	      "bold"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"MHC_Store1ToASRS"
+	Location		[809, 854, 1825, 1284]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  PathCombiner
+	  Name			  "IN_Shipment"
+	  SID			  "276"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [180, 188, 280, 262]
+	  ZOrder		  -3
+	  BackgroundColor	  "orange"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberInputPorts	  "1"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  OutputSwitch
+	  Name			  "OUT_Shipment"
+	  SID			  "277"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [640, 188, 740, 262]
+	  ZOrder		  -2
+	  BackgroundColor	  "orange"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberOutputPorts	  "1"
+	  AttributeName		  "Customer"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Transportation_Channel"
+	  SID			  "278"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [365, 182, 570, 268]
+	  BackgroundColor	  "orange"
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Transportation_Channel"
+	    Location		    [1693, 274, 2179, 436]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      FIFOQueue
+	      Name		      "FIFO Queue"
+	      SID		      "279"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [80, 28, 175, 102]
+	      ZOrder		      -1
+	      BackgroundColor	      "orange"
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      Capacity		      "inf"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      NServer
+	      Name		      "N-Server"
+	      SID		      "280"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [235, 28, 330, 102]
+	      ZOrder		      -2
+	      BackgroundColor	      "orange"
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      NumberOfServers	      "inf"
+	      ServiceTime	      "10"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "IN_Shipment"
+	      SID		      "281"
+	      Position		      [25, 58, 55, 72]
+	      BackgroundColor	      "orange"
+	      Port		      "1"
+	      Side		      "Left"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "OUT_Shipment"
+	      SID		      "282"
+	      Position		      [355, 58, 385, 72]
+	      BlockMirror	      on
+	      BackgroundColor	      "orange"
+	      Port		      "2"
+	      Side		      "Right"
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "FIFO Queue"
+	      SrcPort		      RConn1
+	      DstBlock		      "N-Server"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "IN_Shipment"
+	      SrcPort		      RConn1
+	      DstBlock		      "FIFO Queue"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "OUT_Shipment"
+	      SrcPort		      RConn1
+	      DstBlock		      "N-Server"
+	      DstPort		      RConn1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "IN_Shipment_1"
+	  SID			  "283"
+	  Position		  [75, 218, 105, 232]
+	  Port			  "1"
+	  Side			  "Left"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "OUT_Shipment_1"
+	  SID			  "284"
+	  Position		  [825, 218, 855, 232]
+	  BlockMirror		  on
+	  Port			  "2"
+	  Side			  "Right"
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Shipment"
+	  SrcPort		  RConn1
+	  DstBlock		  "Transportation_Channel"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Transportation_Channel"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Shipment"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Shipment_1"
+	  SrcPort		  RConn1
+	  DstBlock		  "IN_Shipment"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "OUT_Shipment"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Shipment_1"
+	  DstPort		  RConn1
+	}
+	Annotation {
+	  SID			  "285"
+	  Name			  "This level provides an interface to access the Transportation_Channel block variant. The interface provid"
+	  "es a method to \nbring shipments in and route shipments out, as well as a consistent method to add ports to realize"
+	  " that interface"
+	  Position		  [418, 25]
+	  ForegroundColor	  "red"
+	  FontSize		  16
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "MHC_Store2ToShipping"
+      SID		      "76"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [550, 843, 810, 907]
+      BackgroundColor	      "orange"
+      FontName		      "Arial Narrow"
+      FontSize		      20
+      FontWeight	      "bold"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"MHC_Store2ToShipping"
+	Location		[809, 854, 1825, 1284]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  PathCombiner
+	  Name			  "IN_Shipment"
+	  SID			  "77"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [180, 188, 280, 262]
+	  ZOrder		  -3
+	  BackgroundColor	  "orange"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberInputPorts	  "1"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  OutputSwitch
+	  Name			  "OUT_Shipment"
+	  SID			  "78"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [640, 188, 740, 262]
+	  ZOrder		  -2
+	  BackgroundColor	  "orange"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberOutputPorts	  "1"
+	  AttributeName		  "Customer"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Transportation_Channel"
+	  SID			  "79"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [365, 182, 570, 268]
+	  BackgroundColor	  "orange"
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Transportation_Channel"
+	    Location		    [1693, 274, 2179, 436]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      FIFOQueue
+	      Name		      "FIFO Queue"
+	      SID		      "80"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [80, 28, 175, 102]
+	      ZOrder		      -1
+	      BackgroundColor	      "orange"
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      Capacity		      "inf"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      NServer
+	      Name		      "N-Server"
+	      SID		      "81"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [235, 28, 330, 102]
+	      ZOrder		      -2
+	      BackgroundColor	      "orange"
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      NumberOfServers	      "inf"
+	      ServiceTime	      "20"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "IN_Shipment"
+	      SID		      "82"
+	      Position		      [25, 58, 55, 72]
+	      BackgroundColor	      "orange"
+	      Port		      "1"
+	      Side		      "Left"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "OUT_Shipment"
+	      SID		      "83"
+	      Position		      [355, 58, 385, 72]
+	      BlockMirror	      on
+	      BackgroundColor	      "orange"
+	      Port		      "2"
+	      Side		      "Right"
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "FIFO Queue"
+	      SrcPort		      RConn1
+	      DstBlock		      "N-Server"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "IN_Shipment"
+	      SrcPort		      RConn1
+	      DstBlock		      "FIFO Queue"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "OUT_Shipment"
+	      SrcPort		      RConn1
+	      DstBlock		      "N-Server"
+	      DstPort		      RConn1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "IN_Shipment_1"
+	  SID			  "86"
+	  Position		  [75, 218, 105, 232]
+	  Port			  "1"
+	  Side			  "Left"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "OUT_Shipment_1"
+	  SID			  "88"
+	  Position		  [825, 218, 855, 232]
+	  BlockMirror		  on
+	  Port			  "2"
+	  Side			  "Right"
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Shipment"
+	  SrcPort		  RConn1
+	  DstBlock		  "Transportation_Channel"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Transportation_Channel"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Shipment"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Shipment_1"
+	  SrcPort		  RConn1
+	  DstBlock		  "IN_Shipment"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "OUT_Shipment"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Shipment_1"
+	  DstPort		  RConn1
+	}
+	Annotation {
+	  SID			  "84"
+	  Name			  "This level provides an interface to access the Transportation_Channel block variant. The interface provid"
+	  "es a method to \nbring shipments in and route shipments out, as well as a consistent method to add ports to realize"
+	  " that interface"
+	  Position		  [418, 25]
+	  ForegroundColor	  "red"
+	  FontSize		  16
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "PickFastCartonFromPalletStore2"
+      SID		      "286"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [505, 617, 860, 763]
+      BackgroundColor	      "lightBlue"
+      FontName		      "Arial Narrow"
+      FontSize		      20
+      FontWeight	      "bold"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"PickFastCartonFromPalletStore2"
+	Location		[724, 564, 1836, 1036]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  PathCombiner
+	  Name			  "IN_Job"
+	  SID			  "287"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [220, 138, 320, 192]
+	  ZOrder		  -3
+	  BackgroundColor	  "lightBlue"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberInputPorts	  "1"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  OutputSwitch
+	  Name			  "OUT_Job"
+	  SID			  "288"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [725, 137, 825, 193]
+	  ZOrder		  -2
+	  BackgroundColor	  "lightBlue"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberOutputPorts	  "1"
+	  SwitchingCriterion	  "Equiprobable"
+	  InitialSeed		  "12731"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Workstation"
+	  SID			  "289"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [435, 43, 600, 287]
+	  BackgroundColor	  "lightBlue"
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Workstation"
+	    Location		    [634, 837, 1892, 1536]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "CartonPick"
+	      SID		      "459"
+	      Ports		      [0, 0, 0, 0, 0, 2, 2]
+	      Position		      [485, 101, 790, 219]
+	      BackgroundColor	      "yellow"
+	      MinAlgLoopOccurrences   off
+	      PropExecContextOutsideSubsystem off
+	      RTWSystemCode	      "Auto"
+	      FunctionWithSeparateData off
+	      Opaque		      off
+	      RequestExecContextInheritance off
+	      MaskHideContents	      off
+	      System {
+		Name			"CartonPick"
+		Location		[262, 800, 2423, 1446]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"usletter"
+		PaperUnits		"inches"
+		TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+		TiledPageScale		1
+		ShowPageBoundaries	off
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  FIFOQueue
+		  Name			  "FIFO Queue"
+		  SID			  "460"
+		  Ports			  [0, 0, 0, 0, 0, 1, 1]
+		  Position		  [445, 227, 530, 283]
+		  ZOrder		  -1
+		  InputPortMap		  ""
+		  OutputPortMap		  ""
+		  Port {
+		    PortType		    2
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortIn"
+		  }
+		  Port {
+		    PortType		    3
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortOut"
+		  }
+		}
+		Block {
+		  BlockType		  NServer
+		  Name			  "N-Server"
+		  SID			  "461"
+		  Ports			  [1, 0, 0, 0, 0, 1, 1]
+		  Position		  [830, 232, 915, 288]
+		  ZOrder		  -2
+		  BackgroundColor	  "yellow"
+		  InputPortMap		  "u0"
+		  OutputPortMap		  ""
+		  NumberOfServers	  "inf"
+		  ServiceTimeFrom	  "Signal port t"
+		  ServiceTime		  "0"
+		  Port {
+		    PortType		    2
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortIn"
+		  }
+		  Port {
+		    PortType		    3
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortOut"
+		  }
+		}
+		Block {
+		  BlockType		  SubSystem
+		  Name			  "Pick_CycleTime"
+		  SID			  "462"
+		  Ports			  [0, 1, 0, 0, 0, 1, 1]
+		  Position		  [605, 213, 725, 297]
+		  MinAlgLoopOccurrences	  off
+		  PropExecContextOutsideSubsystem off
+		  RTWSystemCode		  "Auto"
+		  FunctionWithSeparateData off
+		  Opaque		  off
+		  RequestExecContextInheritance	off
+		  MaskHideContents	  off
+		  MaskPromptString	  "eachPickMean|eachPickStdDev|traveltime|carton_qty"
+		  MaskStyleString	  "promote(eachPickMean/Value),promote(eachPickStdDev/Value),promote(TravelTime/Value),promote(car"
+		  "ton_qty/Value)"
+		  MaskVariables		  "pickmean=@1;pickstddev=@2;traveltime=@3;qty=@4;"
+		  MaskTunableValueString  "on,on,on,on"
+		  MaskCallbackString	  "|||"
+		  MaskEnableString	  "on,on,on,on"
+		  MaskVisibilityString	  "on,on,on,on"
+		  MaskToolTipString	  "on,on,on,on"
+		  MaskIconFrame		  on
+		  MaskIconOpaque	  on
+		  MaskIconRotate	  "none"
+		  MaskPortRotate	  "default"
+		  MaskIconUnits		  "autoscale"
+		  MaskValueString	  "5|0.25|80|20"
+		  System {
+		    Name		    "Pick_CycleTime"
+		    Location		    [1227, 1007, 2142, 1511]
+		    Open		    off
+		    ModelBrowserVisibility  off
+		    ModelBrowserWidth	    200
+		    ScreenColor		    "white"
+		    PaperOrientation	    "landscape"
+		    PaperPositionMode	    "auto"
+		    PaperType		    "usletter"
+		    PaperUnits		    "inches"
+		    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+		    TiledPageScale	    1
+		    ShowPageBoundaries	    off
+		    ZoomFactor		    "100"
+		    Block {
+		    BlockType		    Sum
+		    Name		    "Add"
+		    SID			    "463"
+		    Ports		    [2, 1]
+		    Position		    [670, 147, 700, 178]
+		    ZOrder		    -2
+		    InputSameDT		    off
+		    OutDataTypeStr	    "Inherit: Inherit via internal rule"
+		    SaturateOnIntegerOverflow off
+		    }
+		    Block {
+		    BlockType		    SubSystem
+		    Name		    "MATLAB Function"
+		    SID			    "465"
+		    Ports		    [3, 1]
+		    Position		    [380, 147, 550, 223]
+		    ZOrder		    -4
+		    LibraryVersion	    "1.32"
+		    ErrorFcn		    "Stateflow.Translate.translate"
+		    PermitHierarchicalResolution "ExplicitOnly"
+		    TreatAsAtomicUnit	    on
+		    MinAlgLoopOccurrences   off
+		    PropExecContextOutsideSubsystem off
+		    RTWSystemCode	    "Auto"
+		    FunctionWithSeparateData off
+		    Opaque		    off
+		    RequestExecContextInheritance off
+		    MaskHideContents	    off
+		    SFBlockType		    "MATLAB Function"
+		    MaskType		    "Stateflow"
+		    MaskDescription	    "Embedded MATLAB block"
+		    MaskSelfModifiable	    on
+		    MaskDisplay		    "bgColor = Simulink.Root.ColorString2Rgb(get_param(gcbh, 'BackgroundColor')); image(imread('pri"
+		    "vate/eml_membrane_16.png','png','BackgroundColor',bgColor(1:3)),'center'); disp([10 10 'fcn']);"
+		    MaskIconFrame	    on
+		    MaskIconOpaque	    off
+		    MaskIconRotate	    "none"
+		    MaskPortRotate	    "default"
+		    MaskIconUnits	    "normalized"
+		    System {
+		    Name		    "MATLAB Function"
+		    Location		    [257, 457, 812, 717]
+		    Open		    off
+		    ModelBrowserVisibility  off
+		    ModelBrowserWidth	    200
+		    ScreenColor		    "white"
+		    PaperOrientation	    "landscape"
+		    PaperPositionMode	    "auto"
+		    PaperType		    "usletter"
+		    PaperUnits		    "inches"
+		    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+		    TiledPageScale	    1
+		    ShowPageBoundaries	    off
+		    ZoomFactor		    "100"
+		    SIDHighWatermark	    "11"
+		    Block {
+		    BlockType		    Inport
+		    Name		    "Quantity"
+		    SID			    "465::1"
+		    Position		    [20, 101, 40, 119]
+		    IconDisplay		    "Port number"
+		    }
+		    Block {
+		    BlockType		    Inport
+		    Name		    "PickMean"
+		    SID			    "465::10"
+		    Position		    [20, 136, 40, 154]
+		    ZOrder		    13
+		    Port		    "2"
+		    IconDisplay		    "Port number"
+		    }
+		    Block {
+		    BlockType		    Inport
+		    Name		    "PickStdDev"
+		    SID			    "465::11"
+		    Position		    [20, 171, 40, 189]
+		    ZOrder		    14
+		    Port		    "3"
+		    IconDisplay		    "Port number"
+		    }
+		    Block {
+		    BlockType		    Demux
+		    Name		    " Demux "
+		    SID			    "465::7"
+		    Ports		    [1, 1]
+		    Position		    [270, 180, 320, 220]
+		    ZOrder		    10
+		    Outputs		    "1"
+		    }
+		    Block {
+		    BlockType		    S-Function
+		    Name		    " SFunction "
+		    SID			    "465::6"
+		    Tag			    "Stateflow S-Function ProcessFlowRateModel_symbotic 1"
+		    Ports		    [3, 2]
+		    Position		    [180, 100, 230, 180]
+		    ZOrder		    9
+		    FunctionName	    "sf_sfun"
+		    PortCounts		    "[3 2]"
+		    EnableBusSupport	    on
+		    Port {
+		    PortNumber		    2
+		    Name		    "PickCycleTime"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		    }
+		    }
+		    Block {
+		    BlockType		    Terminator
+		    Name		    " Terminator "
+		    SID			    "465::9"
+		    Position		    [460, 191, 480, 209]
+		    ZOrder		    12
+		    }
+		    Block {
+		    BlockType		    Outport
+		    Name		    "PickCycleTime"
+		    SID			    "465::5"
+		    Position		    [460, 101, 480, 119]
+		    IconDisplay		    "Port number"
+		    }
+		    Line {
+		    SrcBlock		    "Quantity"
+		    SrcPort		    1
+		    DstBlock		    " SFunction "
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "PickMean"
+		    SrcPort		    1
+		    DstBlock		    " SFunction "
+		    DstPort		    2
+		    }
+		    Line {
+		    SrcBlock		    "PickStdDev"
+		    SrcPort		    1
+		    DstBlock		    " SFunction "
+		    DstPort		    3
+		    }
+		    Line {
+		    Name		    "PickCycleTime"
+		    Labels		    [0, 0]
+		    SrcBlock		    " SFunction "
+		    SrcPort		    2
+		    DstBlock		    "PickCycleTime"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    " Demux "
+		    SrcPort		    1
+		    DstBlock		    " Terminator "
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    " SFunction "
+		    SrcPort		    1
+		    DstBlock		    " Demux "
+		    DstPort		    1
+		    }
+		    }
+		    }
+		    Block {
+		    BlockType		    SingleServer
+		    Name		    "Single Server"
+		    SID			    "466"
+		    Ports		    [0, 0, 0, 0, 0, 1, 1]
+		    Position		    [420, 242, 505, 298]
+		    ZOrder		    -3
+		    InputPortMap	    ""
+		    OutputPortMap	    ""
+		    ServiceTime		    "0"
+		    Port {
+		    PortType		    2
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortIn"
+		    }
+		    Port {
+		    PortType		    3
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortOut"
+		    }
+		    }
+		    Block {
+		    BlockType		    TimedToEventSignal
+		    Name		    "Timed to\nEvent Signal"
+		    SID			    "467"
+		    Ports		    [1, 1]
+		    Position		    [235, 130, 265, 160]
+		    ZOrder		    -3
+		    ShowName		    off
+		    InputPortMap	    "u0"
+		    OutputPortMap	    "o0"
+		    }
+		    Block {
+		    BlockType		    TimedToEventSignal
+		    Name		    "Timed to\nEvent Signal1"
+		    SID			    "468"
+		    Ports		    [1, 1]
+		    Position		    [235, 185, 265, 215]
+		    ZOrder		    -3
+		    ShowName		    off
+		    InputPortMap	    "u0"
+		    OutputPortMap	    "o0"
+		    }
+		    Block {
+		    BlockType		    TimedToEventSignal
+		    Name		    "Timed to\nEvent Signal2"
+		    SID			    "469"
+		    Ports		    [1, 1]
+		    Position		    [615, 350, 645, 380]
+		    ZOrder		    -3
+		    ShowName		    off
+		    InputPortMap	    "u0"
+		    OutputPortMap	    "o0"
+		    }
+		    Block {
+		    BlockType		    TimedToEventSignal
+		    Name		    "Timed to\nEvent Signal3"
+		    SID			    "806"
+		    Ports		    [1, 1]
+		    Position		    [235, 75, 265, 105]
+		    ZOrder		    -3
+		    ShowName		    off
+		    InputPortMap	    "u0"
+		    OutputPortMap	    "o0"
+		    }
+		    Block {
+		    BlockType		    Constant
+		    Name		    "TravelTime"
+		    SID			    "470"
+		    Position		    [550, 350, 580, 380]
+		    ZOrder		    -4
+		    Value		    "traveltime"
+		    }
+		    Block {
+		    BlockType		    Constant
+		    Name		    "carton_qty"
+		    SID			    "807"
+		    Position		    [140, 75, 170, 105]
+		    ZOrder		    -4
+		    Value		    "qty"
+		    }
+		    Block {
+		    BlockType		    Constant
+		    Name		    "eachPickMean"
+		    SID			    "471"
+		    Position		    [140, 130, 170, 160]
+		    ZOrder		    -4
+		    Value		    "pickmean"
+		    }
+		    Block {
+		    BlockType		    Constant
+		    Name		    "eachPickStdDev"
+		    SID			    "472"
+		    Position		    [160, 185, 190, 215]
+		    ZOrder		    -4
+		    Value		    "pickstddev"
+		    }
+		    Block {
+		    BlockType		    PMIOPort
+		    Name		    "IN_Order"
+		    SID			    "473"
+		    Position		    [65, 263, 95, 277]
+		    Port		    "1"
+		    Side		    "Left"
+		    }
+		    Block {
+		    BlockType		    PMIOPort
+		    Name		    "OUT_Order"
+		    SID			    "474"
+		    Position		    [565, 263, 595, 277]
+		    BlockMirror		    on
+		    Port		    "2"
+		    Side		    "Right"
+		    }
+		    Block {
+		    BlockType		    Outport
+		    Name		    "PickCycleTime"
+		    SID			    "475"
+		    Position		    [800, 173, 830, 187]
+		    ZOrder		    -23
+		    IconDisplay		    "Port number"
+		    }
+		    Line {
+		    LineType		    "Connection"
+		    SrcBlock		    "OUT_Order"
+		    SrcPort		    RConn1
+		    DstBlock		    "Single Server"
+		    DstPort		    RConn1
+		    }
+		    Line {
+		    SrcBlock		    "MATLAB Function"
+		    SrcPort		    1
+		    Points		    [50, 0; 0, -30]
+		    DstBlock		    "Add"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Add"
+		    SrcPort		    1
+		    Points		    [40, 0; 0, 15]
+		    DstBlock		    "PickCycleTime"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "eachPickStdDev"
+		    SrcPort		    1
+		    DstBlock		    "Timed to\nEvent Signal1"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Timed to\nEvent Signal1"
+		    SrcPort		    1
+		    Points		    [40, 0; 0, 10]
+		    DstBlock		    "MATLAB Function"
+		    DstPort		    3
+		    }
+		    Line {
+		    SrcBlock		    "eachPickMean"
+		    SrcPort		    1
+		    DstBlock		    "Timed to\nEvent Signal"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Timed to\nEvent Signal"
+		    SrcPort		    1
+		    Points		    [90, 0; 0, 40]
+		    DstBlock		    "MATLAB Function"
+		    DstPort		    2
+		    }
+		    Line {
+		    SrcBlock		    "TravelTime"
+		    SrcPort		    1
+		    DstBlock		    "Timed to\nEvent Signal2"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Timed to\nEvent Signal2"
+		    SrcPort		    1
+		    Points		    [0, -195]
+		    DstBlock		    "Add"
+		    DstPort		    2
+		    }
+		    Line {
+		    LineType		    "Connection"
+		    SrcBlock		    "IN_Order"
+		    SrcPort		    RConn1
+		    DstBlock		    "Single Server"
+		    DstPort		    LConn1
+		    }
+		    Line {
+		    SrcBlock		    "carton_qty"
+		    SrcPort		    1
+		    DstBlock		    "Timed to\nEvent Signal3"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Timed to\nEvent Signal3"
+		    SrcPort		    1
+		    Points		    [95, 0]
+		    DstBlock		    "MATLAB Function"
+		    DstPort		    1
+		    }
+		  }
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Flow_IN"
+		  SID			  "476"
+		  Position		  [330, 248, 360, 262]
+		  BackgroundColor	  "gray"
+		  Port			  "1"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Message_IN"
+		  SID			  "477"
+		  Position		  [330, 408, 360, 422]
+		  BackgroundColor	  "darkGreen"
+		  Port			  "2"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Flow_OUT"
+		  SID			  "478"
+		  Position		  [960, 253, 990, 267]
+		  BlockMirror		  on
+		  BackgroundColor	  "gray"
+		  Port			  "3"
+		  Side			  "Right"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Message_OUT"
+		  SID			  "479"
+		  Position		  [740, 408, 770, 422]
+		  BlockMirror		  on
+		  BackgroundColor	  "darkGreen"
+		  Port			  "4"
+		  Side			  "Right"
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Flow_IN"
+		  SrcPort		  RConn1
+		  DstBlock		  "FIFO Queue"
+		  DstPort		  LConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Flow_OUT"
+		  SrcPort		  RConn1
+		  DstBlock		  "N-Server"
+		  DstPort		  RConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Message_OUT"
+		  SrcPort		  RConn1
+		  DstBlock		  "Message_IN"
+		  DstPort		  RConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "FIFO Queue"
+		  SrcPort		  RConn1
+		  DstBlock		  "Pick_CycleTime"
+		  DstPort		  LConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Pick_CycleTime"
+		  SrcPort		  RConn1
+		  DstBlock		  "N-Server"
+		  DstPort		  LConn1
+		}
+		Line {
+		  SrcBlock		  "Pick_CycleTime"
+		  SrcPort		  1
+		  Points		  [20, 0]
+		  Branch {
+		    Points		    [20, 0; 0, 10]
+		    DstBlock		    "N-Server"
+		    DstPort		    1
+		  }
+		  Branch {
+		    Points		    [0, -115; 65, 0]
+		  }
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "OUT_Job_1"
+	      SID		      "311"
+	      Position		      [1080, 123, 1110, 137]
+	      BlockMirror	      on
+	      BackgroundColor	      "lightBlue"
+	      Port		      "1"
+	      Side		      "Right"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "IN_Job_1"
+	      SID		      "312"
+	      Position		      [55, 123, 85, 137]
+	      BackgroundColor	      "lightBlue"
+	      Port		      "2"
+	      Side		      "Left"
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "IN_Job_1"
+	      SrcPort		      RConn1
+	      DstBlock		      "CartonPick"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "CartonPick"
+	      SrcPort		      RConn1
+	      DstBlock		      "OUT_Job_1"
+	      DstPort		      RConn1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "IN_Job_1"
+	  SID			  "313"
+	  Position		  [90, 158, 120, 172]
+	  Port			  "1"
+	  Side			  "Left"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "OUT_Job_1"
+	  SID			  "314"
+	  Position		  [900, 158, 930, 172]
+	  BlockMirror		  on
+	  Port			  "2"
+	  Side			  "Right"
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Job"
+	  SrcPort		  RConn1
+	  DstBlock		  "Workstation"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Workstation"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Job"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Job_1"
+	  SrcPort		  RConn1
+	  DstBlock		  "IN_Job"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "OUT_Job"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Job_1"
+	  DstPort		  RConn1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "PickHeavyCartonFromPalletStore1"
+      SID		      "235"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [1435, 617, 1790, 763]
+      BackgroundColor	      "lightBlue"
+      FontName		      "Arial Narrow"
+      FontSize		      20
+      FontWeight	      "bold"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"PickHeavyCartonFromPalletStore1"
+	Location		[724, 564, 1836, 1036]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  PathCombiner
+	  Name			  "IN_Job"
+	  SID			  "236"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [220, 138, 320, 192]
+	  ZOrder		  -3
+	  BackgroundColor	  "lightBlue"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberInputPorts	  "1"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  OutputSwitch
+	  Name			  "OUT_Job"
+	  SID			  "237"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [725, 137, 825, 193]
+	  ZOrder		  -2
+	  BackgroundColor	  "lightBlue"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberOutputPorts	  "1"
+	  SwitchingCriterion	  "Equiprobable"
+	  InitialSeed		  "9514"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Workstation"
+	  SID			  "238"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [435, 43, 600, 287]
+	  BackgroundColor	  "lightBlue"
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Workstation"
+	    Location		    [634, 837, 1892, 1536]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "CartonPick"
+	      SID		      "808"
+	      Ports		      [0, 0, 0, 0, 0, 2, 2]
+	      Position		      [485, 101, 790, 219]
+	      BackgroundColor	      "yellow"
+	      MinAlgLoopOccurrences   off
+	      PropExecContextOutsideSubsystem off
+	      RTWSystemCode	      "Auto"
+	      FunctionWithSeparateData off
+	      Opaque		      off
+	      RequestExecContextInheritance off
+	      MaskHideContents	      off
+	      System {
+		Name			"CartonPick"
+		Location		[262, 800, 2423, 1446]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"usletter"
+		PaperUnits		"inches"
+		TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+		TiledPageScale		1
+		ShowPageBoundaries	off
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  FIFOQueue
+		  Name			  "FIFO Queue"
+		  SID			  "809"
+		  Ports			  [0, 0, 0, 0, 0, 1, 1]
+		  Position		  [445, 227, 530, 283]
+		  ZOrder		  -1
+		  InputPortMap		  ""
+		  OutputPortMap		  ""
+		  Port {
+		    PortType		    2
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortIn"
+		  }
+		  Port {
+		    PortType		    3
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortOut"
+		  }
+		}
+		Block {
+		  BlockType		  NServer
+		  Name			  "N-Server"
+		  SID			  "810"
+		  Ports			  [1, 0, 0, 0, 0, 1, 1]
+		  Position		  [830, 232, 915, 288]
+		  ZOrder		  -2
+		  BackgroundColor	  "yellow"
+		  InputPortMap		  "u0"
+		  OutputPortMap		  ""
+		  NumberOfServers	  "inf"
+		  ServiceTimeFrom	  "Signal port t"
+		  ServiceTime		  "0"
+		  Port {
+		    PortType		    2
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortIn"
+		  }
+		  Port {
+		    PortType		    3
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortOut"
+		  }
+		}
+		Block {
+		  BlockType		  SubSystem
+		  Name			  "Pick_CycleTime"
+		  SID			  "811"
+		  Ports			  [0, 1, 0, 0, 0, 1, 1]
+		  Position		  [605, 213, 725, 297]
+		  MinAlgLoopOccurrences	  off
+		  PropExecContextOutsideSubsystem off
+		  RTWSystemCode		  "Auto"
+		  FunctionWithSeparateData off
+		  Opaque		  off
+		  RequestExecContextInheritance	off
+		  MaskHideContents	  off
+		  MaskPromptString	  "eachPickMean|eachPickStdDev|traveltime|carton_qty"
+		  MaskStyleString	  "promote(eachPickMean/Value),promote(eachPickStdDev/Value),promote(TravelTime/Value),promote(car"
+		  "ton_qty/Value)"
+		  MaskVariables		  "pickmean=@1;pickstddev=@2;traveltime=@3;qty=@4;"
+		  MaskTunableValueString  "on,on,on,on"
+		  MaskCallbackString	  "|||"
+		  MaskEnableString	  "on,on,on,on"
+		  MaskVisibilityString	  "on,on,on,on"
+		  MaskToolTipString	  "on,on,on,on"
+		  MaskIconFrame		  on
+		  MaskIconOpaque	  on
+		  MaskIconRotate	  "none"
+		  MaskPortRotate	  "default"
+		  MaskIconUnits		  "autoscale"
+		  MaskValueString	  "5|0.25|80|20"
+		  System {
+		    Name		    "Pick_CycleTime"
+		    Location		    [1227, 1007, 2142, 1511]
+		    Open		    off
+		    ModelBrowserVisibility  off
+		    ModelBrowserWidth	    200
+		    ScreenColor		    "white"
+		    PaperOrientation	    "landscape"
+		    PaperPositionMode	    "auto"
+		    PaperType		    "usletter"
+		    PaperUnits		    "inches"
+		    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+		    TiledPageScale	    1
+		    ShowPageBoundaries	    off
+		    ZoomFactor		    "100"
+		    Block {
+		    BlockType		    Sum
+		    Name		    "Add"
+		    SID			    "812"
+		    Ports		    [2, 1]
+		    Position		    [670, 147, 700, 178]
+		    ZOrder		    -2
+		    InputSameDT		    off
+		    OutDataTypeStr	    "Inherit: Inherit via internal rule"
+		    SaturateOnIntegerOverflow off
+		    }
+		    Block {
+		    BlockType		    SubSystem
+		    Name		    "MATLAB Function"
+		    SID			    "813"
+		    Ports		    [3, 1]
+		    Position		    [380, 147, 550, 223]
+		    ZOrder		    -4
+		    LibraryVersion	    "1.32"
+		    ErrorFcn		    "Stateflow.Translate.translate"
+		    PermitHierarchicalResolution "ExplicitOnly"
+		    TreatAsAtomicUnit	    on
+		    MinAlgLoopOccurrences   off
+		    PropExecContextOutsideSubsystem off
+		    RTWSystemCode	    "Auto"
+		    FunctionWithSeparateData off
+		    Opaque		    off
+		    RequestExecContextInheritance off
+		    MaskHideContents	    off
+		    SFBlockType		    "MATLAB Function"
+		    MaskType		    "Stateflow"
+		    MaskDescription	    "Embedded MATLAB block"
+		    MaskSelfModifiable	    on
+		    MaskDisplay		    "bgColor = Simulink.Root.ColorString2Rgb(get_param(gcbh, 'BackgroundColor')); image(imread('pri"
+		    "vate/eml_membrane_16.png','png','BackgroundColor',bgColor(1:3)),'center'); disp([10 10 'fcn']);"
+		    MaskIconFrame	    on
+		    MaskIconOpaque	    off
+		    MaskIconRotate	    "none"
+		    MaskPortRotate	    "default"
+		    MaskIconUnits	    "normalized"
+		    System {
+		    Name		    "MATLAB Function"
+		    Location		    [257, 457, 812, 717]
+		    Open		    off
+		    ModelBrowserVisibility  off
+		    ModelBrowserWidth	    200
+		    ScreenColor		    "white"
+		    PaperOrientation	    "landscape"
+		    PaperPositionMode	    "auto"
+		    PaperType		    "usletter"
+		    PaperUnits		    "inches"
+		    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+		    TiledPageScale	    1
+		    ShowPageBoundaries	    off
+		    ZoomFactor		    "100"
+		    SIDHighWatermark	    "11"
+		    Block {
+		    BlockType		    Inport
+		    Name		    "Quantity"
+		    SID			    "813::1"
+		    Position		    [20, 101, 40, 119]
+		    IconDisplay		    "Port number"
+		    }
+		    Block {
+		    BlockType		    Inport
+		    Name		    "PickMean"
+		    SID			    "813::10"
+		    Position		    [20, 136, 40, 154]
+		    ZOrder		    13
+		    Port		    "2"
+		    IconDisplay		    "Port number"
+		    }
+		    Block {
+		    BlockType		    Inport
+		    Name		    "PickStdDev"
+		    SID			    "813::11"
+		    Position		    [20, 171, 40, 189]
+		    ZOrder		    14
+		    Port		    "3"
+		    IconDisplay		    "Port number"
+		    }
+		    Block {
+		    BlockType		    Demux
+		    Name		    " Demux "
+		    SID			    "813::7"
+		    Ports		    [1, 1]
+		    Position		    [270, 180, 320, 220]
+		    ZOrder		    10
+		    Outputs		    "1"
+		    }
+		    Block {
+		    BlockType		    S-Function
+		    Name		    " SFunction "
+		    SID			    "813::6"
+		    Tag			    "Stateflow S-Function ProcessFlowRateModel_symbotic 2"
+		    Ports		    [3, 2]
+		    Position		    [180, 100, 230, 180]
+		    ZOrder		    9
+		    FunctionName	    "sf_sfun"
+		    PortCounts		    "[3 2]"
+		    EnableBusSupport	    on
+		    Port {
+		    PortNumber		    2
+		    Name		    "PickCycleTime"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		    }
+		    }
+		    Block {
+		    BlockType		    Terminator
+		    Name		    " Terminator "
+		    SID			    "813::9"
+		    Position		    [460, 191, 480, 209]
+		    ZOrder		    12
+		    }
+		    Block {
+		    BlockType		    Outport
+		    Name		    "PickCycleTime"
+		    SID			    "813::5"
+		    Position		    [460, 101, 480, 119]
+		    IconDisplay		    "Port number"
+		    }
+		    Line {
+		    SrcBlock		    "Quantity"
+		    SrcPort		    1
+		    DstBlock		    " SFunction "
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "PickMean"
+		    SrcPort		    1
+		    DstBlock		    " SFunction "
+		    DstPort		    2
+		    }
+		    Line {
+		    SrcBlock		    "PickStdDev"
+		    SrcPort		    1
+		    DstBlock		    " SFunction "
+		    DstPort		    3
+		    }
+		    Line {
+		    Name		    "PickCycleTime"
+		    Labels		    [0, 0]
+		    SrcBlock		    " SFunction "
+		    SrcPort		    2
+		    DstBlock		    "PickCycleTime"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    " Demux "
+		    SrcPort		    1
+		    DstBlock		    " Terminator "
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    " SFunction "
+		    SrcPort		    1
+		    DstBlock		    " Demux "
+		    DstPort		    1
+		    }
+		    }
+		    }
+		    Block {
+		    BlockType		    SingleServer
+		    Name		    "Single Server"
+		    SID			    "814"
+		    Ports		    [0, 0, 0, 0, 0, 1, 1]
+		    Position		    [420, 242, 505, 298]
+		    ZOrder		    -3
+		    InputPortMap	    ""
+		    OutputPortMap	    ""
+		    ServiceTime		    "0"
+		    Port {
+		    PortType		    2
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortIn"
+		    }
+		    Port {
+		    PortType		    3
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortOut"
+		    }
+		    }
+		    Block {
+		    BlockType		    TimedToEventSignal
+		    Name		    "Timed to\nEvent Signal"
+		    SID			    "815"
+		    Ports		    [1, 1]
+		    Position		    [235, 130, 265, 160]
+		    ZOrder		    -3
+		    ShowName		    off
+		    InputPortMap	    "u0"
+		    OutputPortMap	    "o0"
+		    }
+		    Block {
+		    BlockType		    TimedToEventSignal
+		    Name		    "Timed to\nEvent Signal1"
+		    SID			    "816"
+		    Ports		    [1, 1]
+		    Position		    [235, 185, 265, 215]
+		    ZOrder		    -3
+		    ShowName		    off
+		    InputPortMap	    "u0"
+		    OutputPortMap	    "o0"
+		    }
+		    Block {
+		    BlockType		    TimedToEventSignal
+		    Name		    "Timed to\nEvent Signal2"
+		    SID			    "817"
+		    Ports		    [1, 1]
+		    Position		    [615, 350, 645, 380]
+		    ZOrder		    -3
+		    ShowName		    off
+		    InputPortMap	    "u0"
+		    OutputPortMap	    "o0"
+		    }
+		    Block {
+		    BlockType		    TimedToEventSignal
+		    Name		    "Timed to\nEvent Signal3"
+		    SID			    "818"
+		    Ports		    [1, 1]
+		    Position		    [235, 75, 265, 105]
+		    ZOrder		    -3
+		    ShowName		    off
+		    InputPortMap	    "u0"
+		    OutputPortMap	    "o0"
+		    }
+		    Block {
+		    BlockType		    Constant
+		    Name		    "TravelTime"
+		    SID			    "819"
+		    Position		    [550, 350, 580, 380]
+		    ZOrder		    -4
+		    Value		    "traveltime"
+		    }
+		    Block {
+		    BlockType		    Constant
+		    Name		    "carton_qty"
+		    SID			    "820"
+		    Position		    [140, 75, 170, 105]
+		    ZOrder		    -4
+		    Value		    "qty"
+		    }
+		    Block {
+		    BlockType		    Constant
+		    Name		    "eachPickMean"
+		    SID			    "821"
+		    Position		    [140, 130, 170, 160]
+		    ZOrder		    -4
+		    Value		    "pickmean"
+		    }
+		    Block {
+		    BlockType		    Constant
+		    Name		    "eachPickStdDev"
+		    SID			    "822"
+		    Position		    [160, 185, 190, 215]
+		    ZOrder		    -4
+		    Value		    "pickstddev"
+		    }
+		    Block {
+		    BlockType		    PMIOPort
+		    Name		    "IN_Order"
+		    SID			    "823"
+		    Position		    [65, 263, 95, 277]
+		    Port		    "1"
+		    Side		    "Left"
+		    }
+		    Block {
+		    BlockType		    PMIOPort
+		    Name		    "OUT_Order"
+		    SID			    "824"
+		    Position		    [565, 263, 595, 277]
+		    BlockMirror		    on
+		    Port		    "2"
+		    Side		    "Right"
+		    }
+		    Block {
+		    BlockType		    Outport
+		    Name		    "PickCycleTime"
+		    SID			    "825"
+		    Position		    [800, 173, 830, 187]
+		    ZOrder		    -23
+		    IconDisplay		    "Port number"
+		    }
+		    Line {
+		    LineType		    "Connection"
+		    SrcBlock		    "OUT_Order"
+		    SrcPort		    RConn1
+		    DstBlock		    "Single Server"
+		    DstPort		    RConn1
+		    }
+		    Line {
+		    SrcBlock		    "MATLAB Function"
+		    SrcPort		    1
+		    Points		    [50, 0; 0, -30]
+		    DstBlock		    "Add"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Add"
+		    SrcPort		    1
+		    Points		    [40, 0; 0, 15]
+		    DstBlock		    "PickCycleTime"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "eachPickStdDev"
+		    SrcPort		    1
+		    DstBlock		    "Timed to\nEvent Signal1"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Timed to\nEvent Signal1"
+		    SrcPort		    1
+		    Points		    [40, 0; 0, 10]
+		    DstBlock		    "MATLAB Function"
+		    DstPort		    3
+		    }
+		    Line {
+		    SrcBlock		    "eachPickMean"
+		    SrcPort		    1
+		    DstBlock		    "Timed to\nEvent Signal"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Timed to\nEvent Signal"
+		    SrcPort		    1
+		    Points		    [90, 0; 0, 40]
+		    DstBlock		    "MATLAB Function"
+		    DstPort		    2
+		    }
+		    Line {
+		    SrcBlock		    "TravelTime"
+		    SrcPort		    1
+		    DstBlock		    "Timed to\nEvent Signal2"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Timed to\nEvent Signal2"
+		    SrcPort		    1
+		    Points		    [0, -195]
+		    DstBlock		    "Add"
+		    DstPort		    2
+		    }
+		    Line {
+		    LineType		    "Connection"
+		    SrcBlock		    "IN_Order"
+		    SrcPort		    RConn1
+		    DstBlock		    "Single Server"
+		    DstPort		    LConn1
+		    }
+		    Line {
+		    SrcBlock		    "carton_qty"
+		    SrcPort		    1
+		    DstBlock		    "Timed to\nEvent Signal3"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Timed to\nEvent Signal3"
+		    SrcPort		    1
+		    Points		    [95, 0]
+		    DstBlock		    "MATLAB Function"
+		    DstPort		    1
+		    }
+		  }
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Flow_IN"
+		  SID			  "826"
+		  Position		  [330, 248, 360, 262]
+		  BackgroundColor	  "gray"
+		  Port			  "1"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Message_IN"
+		  SID			  "827"
+		  Position		  [330, 408, 360, 422]
+		  BackgroundColor	  "darkGreen"
+		  Port			  "2"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Flow_OUT"
+		  SID			  "828"
+		  Position		  [960, 253, 990, 267]
+		  BlockMirror		  on
+		  BackgroundColor	  "gray"
+		  Port			  "3"
+		  Side			  "Right"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Message_OUT"
+		  SID			  "829"
+		  Position		  [740, 408, 770, 422]
+		  BlockMirror		  on
+		  BackgroundColor	  "darkGreen"
+		  Port			  "4"
+		  Side			  "Right"
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Flow_IN"
+		  SrcPort		  RConn1
+		  DstBlock		  "FIFO Queue"
+		  DstPort		  LConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Flow_OUT"
+		  SrcPort		  RConn1
+		  DstBlock		  "N-Server"
+		  DstPort		  RConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Message_OUT"
+		  SrcPort		  RConn1
+		  DstBlock		  "Message_IN"
+		  DstPort		  RConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "FIFO Queue"
+		  SrcPort		  RConn1
+		  DstBlock		  "Pick_CycleTime"
+		  DstPort		  LConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Pick_CycleTime"
+		  SrcPort		  RConn1
+		  DstBlock		  "N-Server"
+		  DstPort		  LConn1
+		}
+		Line {
+		  SrcBlock		  "Pick_CycleTime"
+		  SrcPort		  1
+		  Points		  [20, 0]
+		  Branch {
+		    Points		    [20, 0; 0, 10]
+		    DstBlock		    "N-Server"
+		    DstPort		    1
+		  }
+		  Branch {
+		    Points		    [0, -115; 65, 0]
+		  }
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      EntityCombiner
+	      Name		      "Entity_Combiner"
+	      SID		      "239"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [240, 100, 340, 160]
+	      ZOrder		      -1
+	      BackgroundColor	      "lightBlue"
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      NumberInputPorts	      "1"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      EntitySplitter
+	      Name		      "Entity_Splitter"
+	      SID		      "240"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [920, 102, 1020, 158]
+	      ZOrder		      -3
+	      BackgroundColor	      "lightBlue"
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      NumberOutputPorts	      "1"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      FIFOQueue
+	      Name		      "FIFO Queue"
+	      SID		      "241"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [120, 102, 205, 158]
+	      ZOrder		      -1
+	      BackgroundColor	      "lightBlue"
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "OUT_Job_1"
+	      SID		      "253"
+	      Position		      [1080, 123, 1110, 137]
+	      BlockMirror	      on
+	      BackgroundColor	      "lightBlue"
+	      Port		      "1"
+	      Side		      "Right"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "IN_Job_1"
+	      SID		      "254"
+	      Position		      [55, 123, 85, 137]
+	      BackgroundColor	      "lightBlue"
+	      Port		      "2"
+	      Side		      "Left"
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "FIFO Queue"
+	      SrcPort		      RConn1
+	      DstBlock		      "Entity_Combiner"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Entity_Splitter"
+	      SrcPort		      RConn1
+	      DstBlock		      "OUT_Job_1"
+	      DstPort		      RConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "IN_Job_1"
+	      SrcPort		      RConn1
+	      DstBlock		      "FIFO Queue"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Entity_Combiner"
+	      SrcPort		      RConn1
+	      DstBlock		      "CartonPick"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "CartonPick"
+	      SrcPort		      RConn1
+	      DstBlock		      "Entity_Splitter"
+	      DstPort		      LConn1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "IN_Job_1"
+	  SID			  "255"
+	  Position		  [90, 158, 120, 172]
+	  Port			  "1"
+	  Side			  "Left"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "OUT_Job_1"
+	  SID			  "256"
+	  Position		  [900, 158, 930, 172]
+	  BlockMirror		  on
+	  Port			  "2"
+	  Side			  "Right"
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Job"
+	  SrcPort		  RConn1
+	  DstBlock		  "Workstation"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Workstation"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Job"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Job_1"
+	  SrcPort		  RConn1
+	  DstBlock		  "IN_Job"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "OUT_Job"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Job_1"
+	  DstPort		  RConn1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "PickSlowCartonFromASRS"
+      SID		      "767"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [940, 467, 1295, 613]
+      BlockMirror	      on
+      BackgroundColor	      "lightBlue"
+      FontName		      "Arial Narrow"
+      FontSize		      20
+      FontWeight	      "bold"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"PickSlowCartonFromASRS"
+	Location		[724, 299, 1836, 771]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  PathCombiner
+	  Name			  "IN_Job"
+	  SID			  "768"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [220, 138, 320, 192]
+	  ZOrder		  -3
+	  BackgroundColor	  "lightBlue"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberInputPorts	  "1"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  OutputSwitch
+	  Name			  "OUT_Job"
+	  SID			  "769"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [725, 137, 825, 193]
+	  ZOrder		  -2
+	  BackgroundColor	  "lightBlue"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberOutputPorts	  "1"
+	  SwitchingCriterion	  "Equiprobable"
+	  InitialSeed		  "9514"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Workstation"
+	  SID			  "770"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [435, 43, 600, 287]
+	  BackgroundColor	  "lightBlue"
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Workstation"
+	    Location		    [11, 83, 629, 393]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "CartonPick"
+	      SID		      "852"
+	      Ports		      [0, 0, 0, 0, 0, 2, 2]
+	      Position		      [485, 101, 790, 219]
+	      BackgroundColor	      "yellow"
+	      MinAlgLoopOccurrences   off
+	      PropExecContextOutsideSubsystem off
+	      RTWSystemCode	      "Auto"
+	      FunctionWithSeparateData off
+	      Opaque		      off
+	      RequestExecContextInheritance off
+	      MaskHideContents	      off
+	      System {
+		Name			"CartonPick"
+		Location		[650, 125, 1910, 771]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"usletter"
+		PaperUnits		"inches"
+		TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+		TiledPageScale		1
+		ShowPageBoundaries	off
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Reference
+		  Name			  "Discrete Event Signal\nto Workspace1"
+		  SID			  "876"
+		  Ports			  [1]
+		  Position		  [970, 195, 1040, 235]
+		  ZOrder		  -2
+		  LibraryVersion	  "1.30"
+		  SourceBlock		  "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
+		  SourceType		  "Discrete Event Signal to Workspace"
+		  VariableName		  "utilization"
+		  MaxDataPoints		  "inf"
+		  Decimation		  "1"
+		  SaveFormat		  "Structure With Time"
+		  isMonitorOnly		  off
+		  isRecordIC		  off
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Discrete Event Signal\nto Workspace2"
+		  SID			  "384"
+		  Ports			  [1]
+		  Position		  [585, 15, 655, 55]
+		  ZOrder		  -2
+		  LibraryVersion	  "1.30"
+		  SourceBlock		  "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
+		  SourceType		  "Discrete Event Signal to Workspace"
+		  VariableName		  "serviced_qty"
+		  MaxDataPoints		  "inf"
+		  Decimation		  "1"
+		  SaveFormat		  "Structure With Time"
+		  isMonitorOnly		  off
+		  isRecordIC		  off
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Discrete Event Signal\nto Workspace3"
+		  SID			  "385"
+		  Ports			  [1]
+		  Position		  [585, 105, 655, 145]
+		  ZOrder		  -2
+		  LibraryVersion	  "1.30"
+		  SourceBlock		  "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
+		  SourceType		  "Discrete Event Signal to Workspace"
+		  VariableName		  "num_wait"
+		  MaxDataPoints		  "inf"
+		  Decimation		  "1"
+		  SaveFormat		  "Structure With Time"
+		  isMonitorOnly		  off
+		  isRecordIC		  off
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Discrete Event Signal\nto Workspace4"
+		  SID			  "388"
+		  Ports			  [1]
+		  Position		  [585, 220, 655, 260]
+		  ZOrder		  -2
+		  LibraryVersion	  "1.30"
+		  SourceBlock		  "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
+		  SourceType		  "Discrete Event Signal to Workspace"
+		  VariableName		  "avg_wait"
+		  MaxDataPoints		  "inf"
+		  Decimation		  "1"
+		  SaveFormat		  "Structure With Time"
+		  isMonitorOnly		  off
+		  isRecordIC		  off
+		}
+		Block {
+		  BlockType		  FIFOQueue
+		  Name			  "FIFO Queue"
+		  SID			  "853"
+		  Ports			  [0, 3, 0, 0, 0, 1, 1]
+		  Position		  [445, 274, 530, 331]
+		  ZOrder		  -1
+		  InputPortMap		  ""
+		  OutputPortMap		  "o0,o1,o2"
+		  StatNumberDeparted	  on
+		  StatNumberInBlock	  on
+		  StatAverageWait	  on
+		  Port {
+		    PortType		    2
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortIn"
+		  }
+		  Port {
+		    PortType		    3
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortOut"
+		  }
+		}
+		Block {
+		  BlockType		  NServer
+		  Name			  "N-Server"
+		  SID			  "854"
+		  Ports			  [1, 1, 0, 0, 0, 1, 1]
+		  Position		  [830, 302, 915, 358]
+		  ZOrder		  -2
+		  BackgroundColor	  "yellow"
+		  InputPortMap		  "u0"
+		  OutputPortMap		  "o5"
+		  NumberOfServers	  "6"
+		  ServiceTimeFrom	  "Signal port t"
+		  ServiceTime		  "0"
+		  StatUtilization	  on
+		  Port {
+		    PortType		    2
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortIn"
+		  }
+		  Port {
+		    PortType		    3
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortOut"
+		  }
+		}
+		Block {
+		  BlockType		  SubSystem
+		  Name			  "Pick_CycleTime"
+		  SID			  "855"
+		  Ports			  [0, 1, 0, 0, 0, 1, 1]
+		  Position		  [605, 283, 725, 367]
+		  MinAlgLoopOccurrences	  off
+		  PropExecContextOutsideSubsystem off
+		  RTWSystemCode		  "Auto"
+		  FunctionWithSeparateData off
+		  Opaque		  off
+		  RequestExecContextInheritance	off
+		  MaskHideContents	  off
+		  MaskPromptString	  "eachPickMean|eachPickStdDev|traveltime|carton_qty"
+		  MaskStyleString	  "promote(eachPickMean/Value),promote(eachPickStdDev/Value),promote(TravelTime/Value),promote(car"
+		  "ton_qty/Value)"
+		  MaskVariables		  "pickmean=@1;pickstddev=@2;traveltime=@3;qty=@4;"
+		  MaskTunableValueString  "on,on,on,on"
+		  MaskCallbackString	  "|||"
+		  MaskEnableString	  "on,on,on,on"
+		  MaskVisibilityString	  "on,on,on,on"
+		  MaskToolTipString	  "on,on,on,on"
+		  MaskIconFrame		  on
+		  MaskIconOpaque	  on
+		  MaskIconRotate	  "none"
+		  MaskPortRotate	  "default"
+		  MaskIconUnits		  "autoscale"
+		  MaskValueString	  "5|0.25|0|60"
+		  System {
+		    Name		    "Pick_CycleTime"
+		    Location		    [694, 558, 1609, 1062]
+		    Open		    off
+		    ModelBrowserVisibility  off
+		    ModelBrowserWidth	    200
+		    ScreenColor		    "white"
+		    PaperOrientation	    "landscape"
+		    PaperPositionMode	    "auto"
+		    PaperType		    "usletter"
+		    PaperUnits		    "inches"
+		    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+		    TiledPageScale	    1
+		    ShowPageBoundaries	    off
+		    ZoomFactor		    "100"
+		    Block {
+		    BlockType		    Sum
+		    Name		    "Add"
+		    SID			    "856"
+		    Ports		    [2, 1]
+		    Position		    [670, 147, 700, 178]
+		    ZOrder		    -2
+		    InputSameDT		    off
+		    OutDataTypeStr	    "Inherit: Inherit via internal rule"
+		    SaturateOnIntegerOverflow off
+		    }
+		    Block {
+		    BlockType		    SubSystem
+		    Name		    "MATLAB Function"
+		    SID			    "857"
+		    Ports		    [3, 1]
+		    Position		    [380, 147, 550, 223]
+		    ZOrder		    -4
+		    LibraryVersion	    "1.32"
+		    ErrorFcn		    "Stateflow.Translate.translate"
+		    PermitHierarchicalResolution "ExplicitOnly"
+		    TreatAsAtomicUnit	    on
+		    MinAlgLoopOccurrences   off
+		    PropExecContextOutsideSubsystem off
+		    RTWSystemCode	    "Auto"
+		    FunctionWithSeparateData off
+		    Opaque		    off
+		    RequestExecContextInheritance off
+		    MaskHideContents	    off
+		    SFBlockType		    "MATLAB Function"
+		    MaskType		    "Stateflow"
+		    MaskDescription	    "Embedded MATLAB block"
+		    MaskSelfModifiable	    on
+		    MaskDisplay		    "bgColor = Simulink.Root.ColorString2Rgb(get_param(gcbh, 'BackgroundColor')); image(imread('pri"
+		    "vate/eml_membrane_16.png','png','BackgroundColor',bgColor(1:3)),'center'); disp([10 10 'fcn']);"
+		    MaskIconFrame	    on
+		    MaskIconOpaque	    off
+		    MaskIconRotate	    "none"
+		    MaskPortRotate	    "default"
+		    MaskIconUnits	    "normalized"
+		    System {
+		    Name		    "MATLAB Function"
+		    Location		    [257, 457, 812, 717]
+		    Open		    off
+		    ModelBrowserVisibility  off
+		    ModelBrowserWidth	    200
+		    ScreenColor		    "white"
+		    PaperOrientation	    "landscape"
+		    PaperPositionMode	    "auto"
+		    PaperType		    "usletter"
+		    PaperUnits		    "inches"
+		    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+		    TiledPageScale	    1
+		    ShowPageBoundaries	    off
+		    ZoomFactor		    "100"
+		    SIDHighWatermark	    "11"
+		    Block {
+		    BlockType		    Inport
+		    Name		    "Quantity"
+		    SID			    "857::1"
+		    Position		    [20, 101, 40, 119]
+		    IconDisplay		    "Port number"
+		    }
+		    Block {
+		    BlockType		    Inport
+		    Name		    "PickMean"
+		    SID			    "857::10"
+		    Position		    [20, 136, 40, 154]
+		    ZOrder		    13
+		    Port		    "2"
+		    IconDisplay		    "Port number"
+		    }
+		    Block {
+		    BlockType		    Inport
+		    Name		    "PickStdDev"
+		    SID			    "857::11"
+		    Position		    [20, 171, 40, 189]
+		    ZOrder		    14
+		    Port		    "3"
+		    IconDisplay		    "Port number"
+		    }
+		    Block {
+		    BlockType		    Demux
+		    Name		    " Demux "
+		    SID			    "857::7"
+		    Ports		    [1, 1]
+		    Position		    [270, 180, 320, 220]
+		    ZOrder		    10
+		    Outputs		    "1"
+		    }
+		    Block {
+		    BlockType		    S-Function
+		    Name		    " SFunction "
+		    SID			    "857::6"
+		    Tag			    "Stateflow S-Function ProcessFlowRateModel_symbotic 3"
+		    Ports		    [3, 2]
+		    Position		    [180, 100, 230, 180]
+		    ZOrder		    9
+		    FunctionName	    "sf_sfun"
+		    PortCounts		    "[3 2]"
+		    EnableBusSupport	    on
+		    Port {
+		    PortNumber		    2
+		    Name		    "PickCycleTime"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		    }
+		    }
+		    Block {
+		    BlockType		    Terminator
+		    Name		    " Terminator "
+		    SID			    "857::9"
+		    Position		    [460, 191, 480, 209]
+		    ZOrder		    12
+		    }
+		    Block {
+		    BlockType		    Outport
+		    Name		    "PickCycleTime"
+		    SID			    "857::5"
+		    Position		    [460, 101, 480, 119]
+		    IconDisplay		    "Port number"
+		    }
+		    Line {
+		    SrcBlock		    "Quantity"
+		    SrcPort		    1
+		    DstBlock		    " SFunction "
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "PickMean"
+		    SrcPort		    1
+		    DstBlock		    " SFunction "
+		    DstPort		    2
+		    }
+		    Line {
+		    SrcBlock		    "PickStdDev"
+		    SrcPort		    1
+		    DstBlock		    " SFunction "
+		    DstPort		    3
+		    }
+		    Line {
+		    Name		    "PickCycleTime"
+		    Labels		    [0, 0]
+		    SrcBlock		    " SFunction "
+		    SrcPort		    2
+		    DstBlock		    "PickCycleTime"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    " Demux "
+		    SrcPort		    1
+		    DstBlock		    " Terminator "
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    " SFunction "
+		    SrcPort		    1
+		    DstBlock		    " Demux "
+		    DstPort		    1
+		    }
+		    }
+		    }
+		    Block {
+		    BlockType		    SingleServer
+		    Name		    "Single Server"
+		    SID			    "858"
+		    Ports		    [0, 0, 0, 0, 0, 1, 1]
+		    Position		    [420, 242, 505, 298]
+		    ZOrder		    -3
+		    InputPortMap	    ""
+		    OutputPortMap	    ""
+		    ServiceTime		    "0"
+		    Port {
+		    PortType		    2
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortIn"
+		    }
+		    Port {
+		    PortType		    3
+		    PortNumber		    1
+		    ConnectionType	    "SimEventsDDv2.SEPortOut"
+		    }
+		    }
+		    Block {
+		    BlockType		    TimedToEventSignal
+		    Name		    "Timed to\nEvent Signal"
+		    SID			    "859"
+		    Ports		    [1, 1]
+		    Position		    [235, 130, 265, 160]
+		    ZOrder		    -3
+		    ShowName		    off
+		    InputPortMap	    "u0"
+		    OutputPortMap	    "o0"
+		    }
+		    Block {
+		    BlockType		    TimedToEventSignal
+		    Name		    "Timed to\nEvent Signal1"
+		    SID			    "860"
+		    Ports		    [1, 1]
+		    Position		    [235, 185, 265, 215]
+		    ZOrder		    -3
+		    ShowName		    off
+		    InputPortMap	    "u0"
+		    OutputPortMap	    "o0"
+		    }
+		    Block {
+		    BlockType		    TimedToEventSignal
+		    Name		    "Timed to\nEvent Signal2"
+		    SID			    "861"
+		    Ports		    [1, 1]
+		    Position		    [615, 350, 645, 380]
+		    ZOrder		    -3
+		    ShowName		    off
+		    InputPortMap	    "u0"
+		    OutputPortMap	    "o0"
+		    }
+		    Block {
+		    BlockType		    TimedToEventSignal
+		    Name		    "Timed to\nEvent Signal3"
+		    SID			    "862"
+		    Ports		    [1, 1]
+		    Position		    [235, 75, 265, 105]
+		    ZOrder		    -3
+		    ShowName		    off
+		    InputPortMap	    "u0"
+		    OutputPortMap	    "o0"
+		    }
+		    Block {
+		    BlockType		    Constant
+		    Name		    "TravelTime"
+		    SID			    "863"
+		    Position		    [550, 350, 580, 380]
+		    ZOrder		    -4
+		    Value		    "traveltime"
+		    }
+		    Block {
+		    BlockType		    Constant
+		    Name		    "carton_qty"
+		    SID			    "864"
+		    Position		    [140, 75, 170, 105]
+		    ZOrder		    -4
+		    Value		    "qty"
+		    }
+		    Block {
+		    BlockType		    Constant
+		    Name		    "eachPickMean"
+		    SID			    "865"
+		    Position		    [140, 130, 170, 160]
+		    ZOrder		    -4
+		    Value		    "pickmean"
+		    }
+		    Block {
+		    BlockType		    Constant
+		    Name		    "eachPickStdDev"
+		    SID			    "866"
+		    Position		    [160, 185, 190, 215]
+		    ZOrder		    -4
+		    Value		    "pickstddev"
+		    }
+		    Block {
+		    BlockType		    PMIOPort
+		    Name		    "IN_Order"
+		    SID			    "867"
+		    Position		    [65, 263, 95, 277]
+		    Port		    "1"
+		    Side		    "Left"
+		    }
+		    Block {
+		    BlockType		    PMIOPort
+		    Name		    "OUT_Order"
+		    SID			    "868"
+		    Position		    [565, 263, 595, 277]
+		    BlockMirror		    on
+		    Port		    "2"
+		    Side		    "Right"
+		    }
+		    Block {
+		    BlockType		    Outport
+		    Name		    "PickCycleTime"
+		    SID			    "869"
+		    Position		    [800, 173, 830, 187]
+		    ZOrder		    -23
+		    IconDisplay		    "Port number"
+		    }
+		    Line {
+		    LineType		    "Connection"
+		    SrcBlock		    "OUT_Order"
+		    SrcPort		    RConn1
+		    DstBlock		    "Single Server"
+		    DstPort		    RConn1
+		    }
+		    Line {
+		    SrcBlock		    "MATLAB Function"
+		    SrcPort		    1
+		    Points		    [50, 0; 0, -30]
+		    DstBlock		    "Add"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Add"
+		    SrcPort		    1
+		    Points		    [40, 0; 0, 15]
+		    DstBlock		    "PickCycleTime"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "eachPickStdDev"
+		    SrcPort		    1
+		    DstBlock		    "Timed to\nEvent Signal1"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Timed to\nEvent Signal1"
+		    SrcPort		    1
+		    Points		    [40, 0; 0, 10]
+		    DstBlock		    "MATLAB Function"
+		    DstPort		    3
+		    }
+		    Line {
+		    SrcBlock		    "eachPickMean"
+		    SrcPort		    1
+		    DstBlock		    "Timed to\nEvent Signal"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Timed to\nEvent Signal"
+		    SrcPort		    1
+		    Points		    [90, 0; 0, 40]
+		    DstBlock		    "MATLAB Function"
+		    DstPort		    2
+		    }
+		    Line {
+		    SrcBlock		    "TravelTime"
+		    SrcPort		    1
+		    DstBlock		    "Timed to\nEvent Signal2"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Timed to\nEvent Signal2"
+		    SrcPort		    1
+		    Points		    [0, -195]
+		    DstBlock		    "Add"
+		    DstPort		    2
+		    }
+		    Line {
+		    LineType		    "Connection"
+		    SrcBlock		    "IN_Order"
+		    SrcPort		    RConn1
+		    DstBlock		    "Single Server"
+		    DstPort		    LConn1
+		    }
+		    Line {
+		    SrcBlock		    "carton_qty"
+		    SrcPort		    1
+		    DstBlock		    "Timed to\nEvent Signal3"
+		    DstPort		    1
+		    }
+		    Line {
+		    SrcBlock		    "Timed to\nEvent Signal3"
+		    SrcPort		    1
+		    Points		    [95, 0]
+		    DstBlock		    "MATLAB Function"
+		    DstPort		    1
+		    }
+		  }
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Flow_IN"
+		  SID			  "870"
+		  Position		  [330, 293, 360, 307]
+		  BackgroundColor	  "gray"
+		  Port			  "1"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Message_IN"
+		  SID			  "871"
+		  Position		  [330, 453, 360, 467]
+		  BackgroundColor	  "darkGreen"
+		  Port			  "2"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Flow_OUT"
+		  SID			  "872"
+		  Position		  [960, 338, 990, 352]
+		  BlockMirror		  on
+		  BackgroundColor	  "gray"
+		  Port			  "3"
+		  Side			  "Right"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Message_OUT"
+		  SID			  "873"
+		  Position		  [740, 453, 770, 467]
+		  BlockMirror		  on
+		  BackgroundColor	  "darkGreen"
+		  Port			  "4"
+		  Side			  "Right"
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Flow_IN"
+		  SrcPort		  RConn1
+		  Points		  [55, 0]
+		  DstBlock		  "FIFO Queue"
+		  DstPort		  LConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Flow_OUT"
+		  SrcPort		  RConn1
+		  DstBlock		  "N-Server"
+		  DstPort		  RConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Message_OUT"
+		  SrcPort		  RConn1
+		  DstBlock		  "Message_IN"
+		  DstPort		  RConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "FIFO Queue"
+		  SrcPort		  RConn1
+		  DstBlock		  "Pick_CycleTime"
+		  DstPort		  LConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Pick_CycleTime"
+		  SrcPort		  RConn1
+		  DstBlock		  "N-Server"
+		  DstPort		  LConn1
+		}
+		Line {
+		  SrcBlock		  "Pick_CycleTime"
+		  SrcPort		  1
+		  Points		  [40, 0; 0, 10]
+		  DstBlock		  "N-Server"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "FIFO Queue"
+		  SrcPort		  3
+		  Points		  [15, 0; 0, -70]
+		  DstBlock		  "Discrete Event Signal\nto Workspace4"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "FIFO Queue"
+		  SrcPort		  2
+		  Points		  [5, 0; 0, -170]
+		  DstBlock		  "Discrete Event Signal\nto Workspace3"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "FIFO Queue"
+		  SrcPort		  1
+		  Points		  [0, -145; -5, 0; 0, -100]
+		  DstBlock		  "Discrete Event Signal\nto Workspace2"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "N-Server"
+		  SrcPort		  1
+		  Points		  [15, 0; 0, -100]
+		  DstBlock		  "Discrete Event Signal\nto Workspace1"
+		  DstPort		  1
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      OutputSwitch
+	      Name		      "Output Switch"
+	      SID		      "802"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [910, 102, 1010, 158]
+	      ZOrder		      -2
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      NumberOutputPorts	      "1"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      PathCombiner
+	      Name		      "Path Combiner"
+	      SID		      "801"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [235, 103, 335, 157]
+	      ZOrder		      -3
+	      InputPortMap	      ""
+	      OutputPortMap	      ""
+	      NumberInputPorts	      "1"
+	      Port {
+		PortType		2
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortIn"
+	      }
+	      Port {
+		PortType		3
+		PortNumber		1
+		ConnectionType		"SimEventsDDv2.SEPortOut"
+	      }
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "OUT_Job_1"
+	      SID		      "795"
+	      Position		      [1080, 123, 1110, 137]
+	      BlockMirror	      on
+	      BackgroundColor	      "lightBlue"
+	      Port		      "1"
+	      Side		      "Right"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "IN_Job_1"
+	      SID		      "796"
+	      Position		      [55, 123, 85, 137]
+	      BackgroundColor	      "lightBlue"
+	      Port		      "2"
+	      Side		      "Left"
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Output Switch"
+	      SrcPort		      RConn1
+	      DstBlock		      "OUT_Job_1"
+	      DstPort		      RConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "IN_Job_1"
+	      SrcPort		      RConn1
+	      DstBlock		      "Path Combiner"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Path Combiner"
+	      SrcPort		      RConn1
+	      DstBlock		      "CartonPick"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "CartonPick"
+	      SrcPort		      RConn1
+	      DstBlock		      "Output Switch"
+	      DstPort		      LConn1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "IN_Job_1"
+	  SID			  "797"
+	  Position		  [90, 158, 120, 172]
+	  Port			  "1"
+	  Side			  "Left"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "OUT_Job_1"
+	  SID			  "798"
+	  Position		  [900, 158, 930, 172]
+	  BlockMirror		  on
+	  Port			  "2"
+	  Side			  "Right"
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Job"
+	  SrcPort		  RConn1
+	  DstBlock		  "Workstation"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Workstation"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Job"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "IN_Job_1"
+	  SrcPort		  RConn1
+	  DstBlock		  "IN_Job"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "OUT_Job"
+	  SrcPort		  RConn1
+	  DstBlock		  "OUT_Job_1"
+	  DstPort		  RConn1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Resource_Pool_TypeTriple"
+      SID		      "211"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [1330, 837, 1505, 913]
+      ZOrder		      -4
+      BlockMirror	      on
+      BackgroundColor	      "gray"
+      FontName		      "Arial Narrow"
+      FontSize		      20
+      FontWeight	      "bold"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      MaskPromptString	      "How many entities in resource pool?"
+      MaskStyleString	      "promote(Time-Based\nFunction-Call Generator/NumberOfEventsPerPeriod)"
+      MaskVariables	      "Quantity=@1;"
+      MaskTunableValueString  "off"
+      MaskEnableString	      "on"
+      MaskVisibilityString    "on"
+      MaskToolTipString	      "on"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskPortRotate	      "default"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "25"
+      System {
+	Name			"Resource_Pool_TypeTriple"
+	Location		[66, 352, 981, 654]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  EventBasedEntityGenerator
+	  Name			  "Event-Based\nEntity Generator"
+	  SID			  "390"
+	  Ports			  [1, 0, 0, 0, 0, 0, 1]
+	  Position		  [140, 77, 225, 133]
+	  ZOrder		  -1
+	  BackgroundColor	  "gray"
+	  InputPortMap		  "u0"
+	  OutputPortMap		  ""
+	  GenerateEntitiesUpon	  "Function call from port fcn"
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  FIFOQueue
+	  Name			  "FIFO Queue"
+	  SID			  "391"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [725, 92, 810, 148]
+	  ZOrder		  -1
+	  BackgroundColor	  "gray"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  Capacity		  "inf"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  FIFOQueue
+	  Name			  "FIFO Queue1"
+	  SID			  "523"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [265, 77, 350, 133]
+	  ZOrder		  -1
+	  BackgroundColor	  "gray"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  Capacity		  "inf"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  PathCombiner
+	  Name			  "Path Combiner"
+	  SID			  "392"
+	  Ports			  [0, 0, 0, 0, 0, 2, 1]
+	  Position		  [565, 90, 665, 145]
+	  ZOrder		  -3
+	  BackgroundColor	  "gray"
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberInputPorts	  "2"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    2
+	    PortNumber		    2
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  ReleaseGate
+	  Name			  "Release Gate"
+	  SID			  "524"
+	  Ports			  [1, 0, 0, 0, 0, 1, 1]
+	  Position		  [375, 62, 460, 118]
+	  ZOrder		  -2
+	  InputPortMap		  "u0"
+	  OutputPortMap		  ""
+	  OpenGateUpon		  "Function call from port fcn"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  TimeBasedFunctionCallGenerator
+	  Name			  "Time-Based\nFunction-Call Generator"
+	  SID			  "393"
+	  Ports			  [0, 1]
+	  Position		  [15, 78, 100, 132]
+	  ZOrder		  1
+	  BackgroundColor	  "gray"
+	  InputPortMap		  ""
+	  OutputPortMap		  "o0"
+	  EventGenerationMode	  "Only at simulation start"
+	  NumberOfEventsPerPeriod "Quantity"
+	}
+	Block {
+	  BlockType		  TimeBasedFunctionCallGenerator
+	  Name			  "Time-Based\nFunction-Call Generator1"
+	  SID			  "525"
+	  Ports			  [0, 1]
+	  Position		  [265, 13, 350, 67]
+	  ZOrder		  1
+	  InputPortMap		  ""
+	  OutputPortMap		  "o0"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "Acquire"
+	  SID			  "394"
+	  Position		  [895, 163, 925, 177]
+	  BackgroundColor	  "gray"
+	  Port			  "1"
+	  Side			  "Left"
+	}
+	Block {
+	  BlockType		  PMIOPort
+	  Name			  "Return"
+	  SID			  "395"
+	  Position		  [405, 193, 435, 207]
+	  BackgroundColor	  "gray"
+	  Port			  "2"
+	  Side			  "Right"
+	}
+	Line {
+	  SrcBlock		  "Time-Based\nFunction-Call Generator"
+	  SrcPort		  1
+	  DstBlock		  "Event-Based\nEntity Generator"
+	  DstPort		  1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Path Combiner"
+	  SrcPort		  RConn1
+	  DstBlock		  "FIFO Queue"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Return"
+	  SrcPort		  RConn1
+	  Points		  [65, 0; 0, -70]
+	  DstBlock		  "Path Combiner"
+	  DstPort		  LConn2
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Acquire"
+	  SrcPort		  RConn1
+	  Points		  [5, 0; 0, -25; -115, 0; 0, -25]
+	  DstBlock		  "FIFO Queue"
+	  DstPort		  RConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Event-Based\nEntity Generator"
+	  SrcPort		  RConn1
+	  DstBlock		  "FIFO Queue1"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Release Gate"
+	  SrcPort		  RConn1
+	  Points		  [35, 0; 0, 15]
+	  DstBlock		  "Path Combiner"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "FIFO Queue1"
+	  SrcPort		  RConn1
+	  DstBlock		  "Release Gate"
+	  DstPort		  LConn1
+	}
+	Line {
+	  SrcBlock		  "Time-Based\nFunction-Call Generator1"
+	  SrcPort		  1
+	  Points		  [0, 35]
+	  DstBlock		  "Release Gate"
+	  DstPort		  1
+	}
+      }
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "MHC_Store2ToShipping"
+      SrcPort		      RConn1
+      DstBlock		      "LTLShipping"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "MHC_ShippingToStore1"
+      SrcPort		      RConn1
+      Points		      [0, -80; -390, 0]
+      DstBlock		      "PickHeavyCartonFromPalletStore1"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "MHC_Store1ToASRS"
+      SrcPort		      LConn1
+      Points		      [60, 0]
+      DstBlock		      "PickHeavyCartonFromPalletStore1"
+      DstPort		      RConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "PickFastCartonFromPalletStore2"
+      SrcPort		      RConn1
+      Points		      [25, 0; 0, 130; -420, 0; 0, 55]
+      DstBlock		      "MHC_Store2ToShipping"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "MHC_ASRSTOStore2"
+      SrcPort		      RConn1
+      Points		      [-65, 0; 0, 150]
+      DstBlock		      "PickFastCartonFromPalletStore2"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "LTLShipping"
+      SrcPort		      RConn1
+      DstBlock		      "Resource_Pool_TypeTriple"
+      DstPort		      RConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Resource_Pool_TypeTriple"
+      SrcPort		      LConn1
+      DstBlock		      "MHC_ShippingToStore1"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "PickSlowCartonFromASRS"
+      SrcPort		      RConn1
+      DstBlock		      "MHC_ASRSTOStore2"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "PickSlowCartonFromASRS"
+      SrcPort		      LConn1
+      DstBlock		      "MHC_Store1ToASRS"
+      DstPort		      RConn1
+    }
+  }
+}
+# Finite State Machines
+#
+#    Stateflow Version 7.6 (R2011b) dated Jan 25 2012, 21:03:37
+#
+#
+
+
+Stateflow {
+  machine {
+    id			    1
+    name		    "ProcessFlowRateModel_symbotic"
+    created		    "28-Mar-2014 17:09:38"
+    isLibrary		    0
+    firstTarget		    29
+    sfVersion		    76014001.00040001
+  }
+  chart {
+    id			    2
+    name		    "PickFastCartonFromPalletStore2/Workstation/CartonPick/Pick_CycleTime/MATLAB Function"
+    windowPosition	    [435.75 143.25 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 2560 1600 1.333333333333333]
+    treeNode		    [0 3 0 0]
+    firstTransition	    5
+    firstJunction	    4
+    viewObj		    2
+    machine		    1
+    ssIdHighWaterMark	    8
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    6
+    chartFileNumber	    1
+    disableImplicitCasting  1
+    eml {
+      name		      "fcn"
+    }
+  }
+  state {
+    id			    3
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    2
+    treeNode		    [2 0 0 0]
+    superState		    SUBCHART
+    subviewer		    2
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function PickCycleTime = fcn(Quantity,  PickMean, PickStdDev)\n%#codegen\n\ncoder.extrinsic('norm"
+      "rnd');\nPickCycleTime = zeros(1, 'double');\n\nPick_Mean = Quantity*PickMean;\nPick_StdDev =Quantity*PickStdDev;"
+      "\n\nPickCycleTime = normrnd(Pick_Mean, sqrt(Pick_StdDev));\n\nend"
+      editorLayout	      "100 M4x1[10 5 700 500]"
+    }
+  }
+  junction {
+    id			    4
+    position		    [23.5747 49.5747 7]
+    chart		    2
+    linkNode		    [2 0 0]
+    subviewer		    2
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    5
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      4
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    2
+    linkNode		    [2 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    2
+    drawStyle		    SMART
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  data {
+    id			    6
+    ssIdNumber		    4
+    name		    "Quantity"
+    linkNode		    [2 0 7]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    7
+    ssIdNumber		    5
+    name		    "PickCycleTime"
+    linkNode		    [2 6 8]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    8
+    ssIdNumber		    7
+    name		    "PickMean"
+    linkNode		    [2 7 9]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    9
+    ssIdNumber		    8
+    name		    "PickStdDev"
+    linkNode		    [2 8 0]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  instance {
+    id			    10
+    name		    "PickFastCartonFromPalletStore2/Workstation/CartonPick/Pick_CycleTime/MATLAB Function"
+    machine		    1
+    chart		    2
+  }
+  chart {
+    id			    11
+    name		    "PickHeavyCartonFromPalletStore1/Workstation/CartonPick/Pick_CycleTime/MATLAB Function"
+    windowPosition	    [450.75 128.25 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 2560 1600 1.333333333333333]
+    treeNode		    [0 12 0 0]
+    firstTransition	    14
+    firstJunction	    13
+    viewObj		    11
+    machine		    1
+    ssIdHighWaterMark	    8
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    15
+    chartFileNumber	    2
+    disableImplicitCasting  1
+    eml {
+      name		      "fcn"
+    }
+  }
+  state {
+    id			    12
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    11
+    treeNode		    [11 0 0 0]
+    superState		    SUBCHART
+    subviewer		    11
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function PickCycleTime = fcn(Quantity,  PickMean, PickStdDev)\n%#codegen\n\ncoder.extrinsic('norm"
+      "rnd');\nPickCycleTime = zeros(1, 'double');\n\nPick_Mean = Quantity*PickMean;\nPick_StdDev =Quantity*PickStdDev;"
+      "\n\nPickCycleTime = normrnd(Pick_Mean, sqrt(Pick_StdDev));\n\nend"
+      editorLayout	      "100 M4x1[10 5 700 500]"
+    }
+  }
+  junction {
+    id			    13
+    position		    [23.5747 49.5747 7]
+    chart		    11
+    linkNode		    [11 0 0]
+    subviewer		    11
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    14
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      13
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    11
+    linkNode		    [11 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    11
+    drawStyle		    SMART
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  data {
+    id			    15
+    ssIdNumber		    4
+    name		    "Quantity"
+    linkNode		    [11 0 16]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    16
+    ssIdNumber		    5
+    name		    "PickCycleTime"
+    linkNode		    [11 15 17]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    17
+    ssIdNumber		    7
+    name		    "PickMean"
+    linkNode		    [11 16 18]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    18
+    ssIdNumber		    8
+    name		    "PickStdDev"
+    linkNode		    [11 17 0]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  instance {
+    id			    19
+    name		    "PickHeavyCartonFromPalletStore1/Workstation/CartonPick/Pick_CycleTime/MATLAB Function"
+    machine		    1
+    chart		    11
+  }
+  chart {
+    id			    20
+    name		    "PickSlowCartonFromASRS/Workstation/CartonPick/Pick_CycleTime/MATLAB Function"
+    windowPosition	    [450.75 128.25 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 2560 1600 1.333333333333333]
+    treeNode		    [0 21 0 0]
+    firstTransition	    23
+    firstJunction	    22
+    viewObj		    20
+    machine		    1
+    ssIdHighWaterMark	    8
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    24
+    chartFileNumber	    3
+    disableImplicitCasting  1
+    eml {
+      name		      "fcn"
+    }
+  }
+  state {
+    id			    21
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    20
+    treeNode		    [20 0 0 0]
+    superState		    SUBCHART
+    subviewer		    20
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function PickCycleTime = fcn(Quantity,  PickMean, PickStdDev)\n%#codegen\n\ncoder.extrinsic('norm"
+      "rnd');\nPickCycleTime = zeros(1, 'double');\n\nPick_Mean = Quantity*PickMean;\nPick_StdDev =Quantity*PickStdDev;"
+      "\n\nPickCycleTime = normrnd(Pick_Mean, sqrt(Pick_StdDev));\n\nend"
+      editorLayout	      "100 M4x1[10 5 700 500]"
+    }
+  }
+  junction {
+    id			    22
+    position		    [23.5747 49.5747 7]
+    chart		    20
+    linkNode		    [20 0 0]
+    subviewer		    20
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    23
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      22
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    20
+    linkNode		    [20 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    20
+    drawStyle		    SMART
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  data {
+    id			    24
+    ssIdNumber		    4
+    name		    "Quantity"
+    linkNode		    [20 0 25]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    25
+    ssIdNumber		    5
+    name		    "PickCycleTime"
+    linkNode		    [20 24 26]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    26
+    ssIdNumber		    7
+    name		    "PickMean"
+    linkNode		    [20 25 27]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    27
+    ssIdNumber		    8
+    name		    "PickStdDev"
+    linkNode		    [20 26 0]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  instance {
+    id			    28
+    name		    "PickSlowCartonFromASRS/Workstation/CartonPick/Pick_CycleTime/MATLAB Function"
+    machine		    1
+    chart		    20
+  }
+  target {
+    id			    29
+    name		    "sfun"
+    description		    "Default Simulink S-Function Target."
+    machine		    1
+    linkNode		    [1 0 0]
+  }
+}

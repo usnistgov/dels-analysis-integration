@@ -1,0 +1,552 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Aggregate Planning</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-29"><meta name="DC.source" content="DEMO_AggregatePlanning.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Aggregate Planning</h1><!--introduction--><p>Aggregate planning the long-range planning function that determines the resource levels, e.g. workforce levels, inventory levels, etc., and the production levels required over the planning horizon to meet forecasted demand.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Aggregate Planning Optimization Model</a></li><li><a href="#5">Deterministic Production System Simulation Model</a></li><li><a href="#7">Stochastic Production System Simulation Model</a></li><li><a href="#9">Incorporating Uncertainty into the Optimization Process</a></li><li><a href="#12">Conclusions and Future Work</a></li></ul></div><p>This section contains a optimization analysis module, AggregatePlanning(), that optimizes the resource and production levels for a production system and a system simulation module, ProductionSystem, that simulates the expected performance of the aggregate plan output by the optimization model.</p><h2>Aggregate Planning Optimization Model<a name="2"></a></h2><p>AggregatePlanning formulates and solves a Linear Programming Optimization model using the CPLEX solver to solve an Aggregate Planning problem, specifically (at this time) the workforce planning aspect. The system parameters are set within the AggregatePlanning file.</p><pre class="codeinput">[Production, Workforce, Overtime] = AggregatePlanning;
+</pre><pre class="codeoutput">Tried aggregator 2 times.
+MIP Presolve eliminated 0 rows and 1 columns.
+Aggregator did 2 substitutions.
+Reduced MIP has 34 rows, 69 columns, and 113 nonzeros.
+Reduced MIP has 0 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.06 ticks)
+Tried aggregator 1 time.
+Reduced MIP has 34 rows, 69 columns, and 113 nonzeros.
+Reduced MIP has 0 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.06 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 2 threads.
+Root relaxation solution time = 0.00 sec. (0.08 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0     0      integral     0  1292662.8571  1292662.8571       28    0.00%
+Elapsed time = 0.00 sec. (0.25 ticks, tree = 0.00 MB, solutions = 1)
+
+Root node processing (before b&amp;c):
+  Real time             =    0.00 sec. (0.25 ticks)
+Parallel b&amp;c, 2 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&amp;cut) =    0.00 sec. (0.25 ticks)
+ - Solution:
+
+ans = 
+
+  Columns 1 through 5
+
+    'Period'    'Demand'    'Inventory'    'Workforce'    'Overtime'
+
+  Columns 6 through 8
+
+    'Hiring'    'Firing'    'Production'
+
+
+ans = 
+
+  Columns 1 through 6
+
+    'Period1:'    [200]    '102.8571'    '3634.2857'    '0'    '1114.2857'
+
+  Columns 7 through 8
+
+    '0'    '302.8571'
+
+
+ans = 
+
+  Columns 1 through 7
+
+    'Period2:'    [220]    '185.7143'    '3634.2857'    '0'    '0'    '0'
+
+  Column 8
+
+    '302.8571'
+
+
+ans = 
+
+  Columns 1 through 7
+
+    'Period3:'    [230]    '258.5714'    '3634.2857'    '0'    '0'    '0'
+
+  Column 8
+
+    '302.8571'
+
+
+ans = 
+
+  Columns 1 through 7
+
+    'Period4:'    [300]    '261.4286'    '3634.2857'    '0'    '0'    '0'
+
+  Column 8
+
+    '302.8571'
+
+
+ans = 
+
+  Columns 1 through 7
+
+    'Period5:'    [400]    '164.2857'    '3634.2857'    '0'    '0'    '0'
+
+  Column 8
+
+    '302.8571'
+
+
+ans = 
+
+  Columns 1 through 7
+
+    'Period6:'    [450]    '17.1429'    '3634.2857'    '0'    '0'    '0'
+
+  Column 8
+
+    '302.8571'
+
+
+ans = 
+
+  Columns 1 through 7
+
+    'Period7:'    [320]    '0'    '3634.2857'    '0'    '0'    '0'
+
+  Column 8
+
+    '302.8571'
+
+
+ans = 
+
+    'Period8:'    [180]    '0'    '2160'    '0'    '0'    '1474.2857'    '180'
+
+
+ans = 
+
+    'Period9:'    [170]    '0'    '2040'    '0'    '0'    '120'    '170'
+
+
+ans = 
+
+    'Period10:'    [170]    '0'    '2040'    '0'    '0'    '0'    '170'
+
+
+ans = 
+
+    'Period11:'    [160]    '10'    '2040'    '0'    '0'    '0'    '170'
+
+
+ans = 
+
+    'Period12:'    [180]    '0'    '2040'    '0'    '0'    '0'    '170'
+
+
+   Cost = 1292662.857143
+
+   Profit = 1687337.142857
+</pre><p>TO DO: Description of the output</p><p>The AggregatePlanning model is a deterministic optimization model, so the next step is to examine the performance of this aggregated and deterministic solution in a simulation system model.</p><h2>Deterministic Production System Simulation Model<a name="5"></a></h2><p>The ProductionSystem model simulates the performance of the output of the aggregate planning model. Initially, we'll validate the simulation model by running a deterministic version. Then we'll add variable to the production process and examine the performance and robustness of the deterministic solution.</p><pre class="codeinput">[meanTotalProfit, varTotalProfit, meanServiceLevel, varServiceLevel ] = ProductionSystem(Production, Workforce, Overtime)
+</pre><pre class="codeoutput">
+meanTotalProfit =
+
+   1.6873e+06
+
+
+varTotalProfit =
+
+   1.1413e-20
+
+
+meanServiceLevel =
+
+     1
+
+
+varServiceLevel =
+
+     0
+
+</pre><p>In this example, the profit output from the optimization model matches the meanTotalProfit from the simulation and the meanServiceLevel is 1. This is because the system simulation is deterministic, so the ProductionSystem simulates exactly what the AggregatePlanning optimized.</p><h2>Stochastic Production System Simulation Model<a name="7"></a></h2><p>The next step is to examine the quality of the aggregate planning solution in a system model with uncertainty. The sources of uncertainty are:</p><div><ul><li>Proces uncertainty: If b is the total number of labor hours required to produce one unit, then varB is the variance in labor hours required to produce one unit (for a normal distribution). {'varB', '0.1'}</li><li>Resource uncertainty: Availability defines the productivity of the labor, e.g. they may not always be available. Given as a range of availabililty in each period (for a uniform distribution) {'availability', '[0.9,1]'}</li><li>Demand uncertainty: Defines the variability expected for demand in each period, given as a vector of standard deviations of demand in each period. For example, if we assume the standard deviation is 10% of the demand in the period: {'stdevDemand', '0.1*meanDemand'}</li></ul></div><pre class="codeinput">[meanTotalProfit, varTotalProfit, meanServiceLevel, varServiceLevel ] = ProductionSystem(Production, Workforce, Overtime, <span class="keyword">...</span>
+    {<span class="string">'varB'</span>, <span class="string">'0.1'</span>}, {<span class="string">'availability'</span>, <span class="string">'[0.9,1]'</span>}, {<span class="string">'stdevDemand'</span>,<span class="string">'0.1*meanDemand'</span>})
+</pre><pre class="codeoutput">
+meanTotalProfit =
+
+   1.4156e+06
+
+
+varTotalProfit =
+
+   4.5598e+07
+
+
+meanServiceLevel =
+
+    0.9120
+
+
+varServiceLevel =
+
+   7.8305e-05
+
+</pre><p>Compared to the deterministic simulation of the production system, the result is that the mean total profit is lower and the service level is lower as well. This is the result of assuming perfect knowledge and system execution when determining resource levels in the optimization model.</p><h2>Incorporating Uncertainty into the Optimization Process<a name="9"></a></h2><p>While more complex and detailed methods for stochastic optimization exist and should be covered at a later point, in this section, we'll discuss a practical approach to incorporating uncertainty into the aggregate planning process. This approach inflates the expected demand and reduces the expected productivity of the resources, which buffers out uncertainty in the long run.</p><pre class="codeinput">[Production, Workforce, Overtime] = AggregatePlanning({<span class="string">'meanDemand'</span>, <span class="string">'1.25*meanDemand'</span>}, {<span class="string">'b'</span>, <span class="string">'1.25*b'</span>});
+</pre><pre class="codeoutput">Tried aggregator 2 times.
+MIP Presolve eliminated 0 rows and 1 columns.
+Aggregator did 2 substitutions.
+Reduced MIP has 34 rows, 69 columns, and 113 nonzeros.
+Reduced MIP has 0 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.06 ticks)
+Tried aggregator 1 time.
+Reduced MIP has 34 rows, 69 columns, and 113 nonzeros.
+Reduced MIP has 0 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.06 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 2 threads.
+Root relaxation solution time = 0.00 sec. (0.08 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0     0      integral     0  2037923.2143  2037923.2143       28    0.00%
+Elapsed time = 0.00 sec. (0.25 ticks, tree = 0.00 MB, solutions = 1)
+
+Root node processing (before b&amp;c):
+  Real time             =    0.00 sec. (0.25 ticks)
+Parallel b&amp;c, 2 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&amp;cut) =    0.00 sec. (0.25 ticks)
+ - Solution:
+
+ans = 
+
+  Columns 1 through 5
+
+    'Period'    'Demand'    'Inventory'    'Workforce'    'Overtime'
+
+  Columns 6 through 8
+
+    'Hiring'    'Firing'    'Production'
+
+
+ans = 
+
+  Columns 1 through 6
+
+    'Period1:'    [250]    '128.5714'    '5678.5714'    '0'    '3158.5714'
+
+  Columns 7 through 8
+
+    '0'    '378.5714'
+
+
+ans = 
+
+  Columns 1 through 7
+
+    'Period2:'    [275]    '232.1429'    '5678.5714'    '0'    '0'    '0'
+
+  Column 8
+
+    '378.5714'
+
+
+ans = 
+
+  Columns 1 through 7
+
+    'Period3:'    [287.5000]    '323.2143'    '5678.5714'    '0'    '0'    '0'
+
+  Column 8
+
+    '378.5714'
+
+
+ans = 
+
+  Columns 1 through 7
+
+    'Period4:'    [375]    '326.7857'    '5678.5714'    '0'    '0'    '0'
+
+  Column 8
+
+    '378.5714'
+
+
+ans = 
+
+  Columns 1 through 7
+
+    'Period5:'    [500]    '205.3571'    '5678.5714'    '0'    '0'    '0'
+
+  Column 8
+
+    '378.5714'
+
+
+ans = 
+
+  Columns 1 through 7
+
+    'Period6:'    [562.5000]    '21.4286'    '5678.5714'    '0'    '0'    '0'
+
+  Column 8
+
+    '378.5714'
+
+
+ans = 
+
+  Columns 1 through 7
+
+    'Period7:'    [400]    '0'    '5678.5714'    '0'    '0'    '0'
+
+  Column 8
+
+    '378.5714'
+
+
+ans = 
+
+    'Period8:'    [225]    '0'    '3375'    '0'    '0'    '2303.5714'    '225'
+
+
+ans = 
+
+  Columns 1 through 7
+
+    'Period9:'    [212.5000]    '0'    '3187.5'    '0'    '0'    '187.5'
+
+  Column 8
+
+    '212.5'
+
+
+ans = 
+
+  Columns 1 through 7
+
+    'Period10:'    [212.5000]    '0'    '3187.5'    '0'    '0'    '0'
+
+  Column 8
+
+    '212.5'
+
+
+ans = 
+
+    'Period11:'    [200]    '12.5'    '3187.5'    '0'    '0'    '0'    '212.5'
+
+
+ans = 
+
+    'Period12:'    [225]    '0'    '3187.5'    '0'    '0'    '0'    '212.5'
+
+
+   Cost = 2037923.214286
+
+   Profit = 1687076.785714
+</pre><p>Then we'll run the recommendations of the aggregate planning process through the system model to see if expected performance is improved.</p><pre class="codeinput">[meanTotalProfit, varTotalProfit, meanServiceLevel, varServiceLevel ] = ProductionSystem(Production, Workforce, Overtime, <span class="keyword">...</span>
+    {<span class="string">'varB'</span>, <span class="string">'0.1'</span>}, {<span class="string">'availability'</span>, <span class="string">'[0.9,1]'</span>}, {<span class="string">'stdevDemand'</span>,<span class="string">'0.1*meanDemand'</span>})
+</pre><pre class="codeoutput">
+meanTotalProfit =
+
+   8.8009e+05
+
+
+varTotalProfit =
+
+   8.6652e+08
+
+
+meanServiceLevel =
+
+     1
+
+
+varServiceLevel =
+
+     0
+
+</pre><p>Obviously in this case, we added too much buffer to the aggregate planning process and while the service level is 100%, the total profit is signficantly lower. The process of selecting the optimal amount of buffer is an optimization process itself and left as an exercise or future work</p><h2>Conclusions and Future Work<a name="12"></a></h2><p>While the aggregate planning process optimizes the resource levels to maximize profit, the resulting solution is not robust in a stochastic system. The lesson here is that this is actually true of most deterministic optimization models. In practice, rules of thumb such as inflated demand or deflated productivity estimates are applied to correct for this lack of robustness and arrive at an implementable recommendation. Future work in this section includes:</p><div><ul><li>Extending the workforce planning model to incorporate complete Agregate and Production Planning</li><li>Incorporating multi-resource models (multiple resources and inventory)</li><li>Proposing a stochastic optimization approach to replace the inflation factors</li></ul></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Aggregate Planning
+% Aggregate planning the long-range planning function that determines the
+% resource levels, e.g. workforce levels, inventory levels, etc., and the
+% production levels required over the planning horizon to meet forecasted
+% demand.
+
+%%
+% This section contains a optimization analysis module, AggregatePlanning(), that optimizes the
+% resource and production levels for a production system and a system
+% simulation module, ProductionSystem, that simulates the expected
+% performance of the aggregate plan output by the optimization model.
+
+
+
+%% Aggregate Planning Optimization Model
+% AggregatePlanning formulates and solves a Linear Programming
+% Optimization model using the CPLEX solver to solve an Aggregate Planning
+% problem, specifically (at this time) the workforce planning aspect. The
+% system parameters are set within the AggregatePlanning file.
+
+
+[Production, Workforce, Overtime] = AggregatePlanning;
+
+%%
+% TO DO: Description of the output
+
+%%
+% The AggregatePlanning model is a deterministic optimization model, so the
+% next step is to examine the performance of this aggregated and
+% deterministic solution in a simulation system model.
+
+%% Deterministic Production System Simulation Model
+% The ProductionSystem model simulates the performance of the output of the
+% aggregate planning model. Initially, we'll validate the simulation model
+% by running a deterministic version. Then we'll add variable to the
+% production process and examine the performance and robustness of the
+% deterministic solution.
+
+[meanTotalProfit, varTotalProfit, meanServiceLevel, varServiceLevel ] = ProductionSystem(Production, Workforce, Overtime)
+
+%%
+% In this example, the profit output from the optimization model matches the
+% meanTotalProfit from the simulation and the meanServiceLevel is 1. This
+% is because the system simulation is deterministic, so the
+% ProductionSystem simulates exactly what the AggregatePlanning optimized.
+
+%% Stochastic Production System Simulation Model
+% The next step is to examine the quality of the aggregate
+% planning solution in a system model with uncertainty. The sources of
+% uncertainty are:
+%
+% * Proces uncertainty: If b is the total number of labor hours required to produce one unit,
+% then varB is the variance in labor hours required to produce one unit (for a normal distribution).
+% {'varB', '0.1'}
+% * Resource uncertainty: Availability defines the productivity of the labor, e.g. they may not
+% always be available. Given as a range of availabililty in each period (for a uniform distribution) {'availability', '[0.9,1]'}
+% * Demand uncertainty: Defines the variability expected for demand in each
+% period, given as a vector of standard deviations of demand in each
+% period. For example, if we assume the standard deviation is 10% of the demand in the period: {'stdevDemand', '0.1*meanDemand'}
+
+
+[meanTotalProfit, varTotalProfit, meanServiceLevel, varServiceLevel ] = ProductionSystem(Production, Workforce, Overtime, ...
+    {'varB', '0.1'}, {'availability', '[0.9,1]'}, {'stdevDemand','0.1*meanDemand'})
+
+%%
+% Compared to the deterministic simulation of the production system, the
+% result is that the mean total profit is lower and the service level is
+% lower as well. This is the result of assuming perfect knowledge and
+% system execution when determining resource levels in the optimization
+% model.
+
+%% Incorporating Uncertainty into the Optimization Process
+% While more complex and detailed methods for stochastic optimization exist
+% and should be covered at a later point, in this section, we'll discuss a
+% practical approach to incorporating uncertainty into the aggregate
+% planning process. This approach inflates the expected demand and reduces
+% the expected productivity of the resources, which buffers out uncertainty
+% in the long run.
+
+[Production, Workforce, Overtime] = AggregatePlanning({'meanDemand', '1.25*meanDemand'}, {'b', '1.25*b'});
+
+%%
+% Then we'll run the recommendations of the aggregate planning process
+% through the system model to see if expected performance is improved.
+
+[meanTotalProfit, varTotalProfit, meanServiceLevel, varServiceLevel ] = ProductionSystem(Production, Workforce, Overtime, ...
+    {'varB', '0.1'}, {'availability', '[0.9,1]'}, {'stdevDemand','0.1*meanDemand'})
+
+%% 
+% Obviously in this case, we added too much buffer to the aggregate
+% planning process and while the service level is 100%, the total profit is
+% signficantly lower. The process of selecting the optimal amount of buffer
+% is an optimization process itself and left as an exercise or future work
+
+%% Conclusions and Future Work
+% While the aggregate planning process optimizes the resource levels to
+% maximize profit, the resulting solution is not robust in a stochastic
+% system. The lesson here is that this is actually true of most deterministic optimization models. 
+% In practice, rules of thumb such as inflated demand or deflated productivity estimates are applied to correct for this lack
+% of robustness and arrive at an implementable recommendation. Future work
+% in this section includes:
+%
+% * Extending the workforce planning model to incorporate complete
+% Agregate and Production Planning
+% * Incorporating multi-resource models (multiple resources and inventory)
+% * Proposing a stochastic optimization approach to replace the inflation
+% factors
+##### SOURCE END #####
+--></body></html>

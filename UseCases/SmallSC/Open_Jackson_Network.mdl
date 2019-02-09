@@ -1,0 +1,2538 @@
+Model {
+  Name			  "Open_Jackson_Network"
+  Version		  7.9
+  MdlSubVersion		  0
+  GraphicalInterface {
+    NumRootInports	    0
+    NumRootOutports	    0
+    ParameterArgumentNames  ""
+    ComputedModelVersion    "1.22"
+    NumModelReferences	    0
+    NumTestPointedSignals   0
+  }
+  SavedCharacterEncoding  "windows-1252"
+  SaveDefaultBlockParams  on
+  ScopeRefreshTime	  0.035000
+  OverrideScopeRefreshTime on
+  DisableAllScopes	  off
+  DataTypeOverride	  "UseLocalSettings"
+  DataTypeOverrideAppliesTo "AllNumericTypes"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  FPTRunName		  "Run 1"
+  MaxMDLFileLineLength	  120
+  Created		  "Mon Aug 12 11:59:05 2013"
+  Creator		  "tsprock3"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "tsprock3"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Tue Aug 13 17:19:00 2013"
+  RTWModifiedTimeStamp	  298315137
+  ModelVersionFormat	  "1.%<AutoIncrement:22>"
+  ConfigurationManager	  "None"
+  SampleTimeColors	  off
+  SampleTimeAnnotations	  off
+  LibraryLinkDisplay	  "disabled"
+  WideLines		  off
+  ShowLineDimensions	  off
+  ShowPortDataTypes	  off
+  ShowDesignRanges	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ShowTestPointIcons	  on
+  ShowSignalResolutionIcons on
+  ShowViewerIcons	  on
+  SortedOrder		  off
+  ExecutionContextIcon	  off
+  ShowLinearizationAnnotations on
+  BlockNameDataTip	  off
+  BlockParametersDataTip  off
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  SimulationMode	  "normal"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  TryForcingSFcnDF	  off
+  Object {
+    $PropName		    "DataLoggingOverride"
+    $ObjectID		    1
+    $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
+    model_		    "Open_Jackson_Network"
+    overrideMode_	    [0.0]
+    Array {
+      Type		      "Cell"
+      Dimension		      1
+      Cell		      "Open_Jackson_Network"
+      PropName		      "logAsSpecifiedByModels_"
+    }
+    Array {
+      Type		      "Cell"
+      Dimension		      1
+      Cell		      []
+      PropName		      "logAsSpecifiedByModelsSSIDs_"
+    }
+  }
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  CovForceBlockReductionOff on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  CovReportOnPause	  on
+  CovModelRefEnable	  "Off"
+  CovExternalEMLEnable	  off
+  ExtModeBatchMode	  off
+  ExtModeEnableFloating	  on
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "normal"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigDurationFloating "auto"
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  on
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock on
+  BufferReuse		  on
+  ShowModelReferenceBlockVersion off
+  ShowModelReferenceBlockIO off
+  Array {
+    Type		    "Handle"
+    Dimension		    1
+    Simulink.ConfigSet {
+      $ObjectID		      2
+      Version		      "1.12.0"
+      Array {
+	Type			"Handle"
+	Dimension		9
+	Simulink.SolverCC {
+	  $ObjectID		  3
+	  Version		  "1.12.0"
+	  StartTime		  "0.0"
+	  StopTime		  "50"
+	  AbsTol		  "auto"
+	  FixedStep		  "auto"
+	  InitialStep		  "auto"
+	  MaxNumMinSteps	  "-1"
+	  MaxOrder		  5
+	  ZcThreshold		  "auto"
+	  ConsecutiveZCsStepRelTol "10*128*eps"
+	  MaxConsecutiveZCs	  "1000"
+	  ExtrapolationOrder	  4
+	  NumberNewtonIterations  1
+	  MaxStep		  "auto"
+	  MinStep		  "auto"
+	  MaxConsecutiveMinStep	  "1"
+	  RelTol		  "1e-3"
+	  SolverMode		  "Auto"
+	  EnableConcurrentExecution off
+	  ConcurrentTasks	  off
+	  Solver		  "VariableStepDiscrete"
+	  SolverName		  "VariableStepDiscrete"
+	  SolverJacobianMethodControl "auto"
+	  ShapePreserveControl	  "DisableAll"
+	  ZeroCrossControl	  "UseLocalSettings"
+	  ZeroCrossAlgorithm	  "Nonadaptive"
+	  AlgebraicLoopSolver	  "TrustRegion"
+	  SolverResetMethod	  "Fast"
+	  PositivePriorityOrder	  off
+	  AutoInsertRateTranBlk	  off
+	  SampleTimeConstraint	  "Unconstrained"
+	  InsertRTBMode		  "Whenever possible"
+	}
+	Simulink.DataIOCC {
+	  $ObjectID		  4
+	  Version		  "1.12.0"
+	  Decimation		  "1"
+	  ExternalInput		  "[t, u]"
+	  FinalStateName	  "xFinal"
+	  InitialState		  "xInitial"
+	  LimitDataPoints	  on
+	  MaxDataPoints		  "1000"
+	  LoadExternalInput	  off
+	  LoadInitialState	  off
+	  SaveFinalState	  off
+	  SaveCompleteFinalSimState off
+	  SaveFormat		  "Array"
+	  SignalLoggingSaveFormat "ModelDataLogs"
+	  SaveOutput		  on
+	  SaveState		  off
+	  SignalLogging		  on
+	  DSMLogging		  on
+	  InspectSignalLogs	  off
+	  SaveTime		  on
+	  ReturnWorkspaceOutputs  off
+	  StateSaveName		  "xout"
+	  TimeSaveName		  "tout"
+	  OutputSaveName	  "yout"
+	  SignalLoggingName	  "logsout"
+	  DSMLoggingName	  "dsmout"
+	  OutputOption		  "RefineOutputTimes"
+	  OutputTimes		  "[]"
+	  ReturnWorkspaceOutputsName "out"
+	  Refine		  "1"
+	}
+	Simulink.OptimizationCC {
+	  $ObjectID		  5
+	  Version		  "1.12.0"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    8
+	    Cell		    "BooleansAsBitfields"
+	    Cell		    "PassReuseOutputArgsAs"
+	    Cell		    "PassReuseOutputArgsThreshold"
+	    Cell		    "ZeroExternalMemoryAtStartup"
+	    Cell		    "ZeroInternalMemoryAtStartup"
+	    Cell		    "OptimizeModelRefInitCode"
+	    Cell		    "NoFixptDivByZeroProtection"
+	    Cell		    "UseSpecifiedMinMax"
+	    PropName		    "DisabledProps"
+	  }
+	  BlockReduction	  on
+	  BooleanDataType	  on
+	  ConditionallyExecuteInputs on
+	  InlineParams		  off
+	  UseIntDivNetSlope	  off
+	  UseFloatMulNetSlope	  off
+	  UseSpecifiedMinMax	  off
+	  InlineInvariantSignals  off
+	  OptimizeBlockIOStorage  on
+	  BufferReuse		  on
+	  EnhancedBackFolding	  off
+	  StrengthReduction	  off
+	  ExpressionFolding	  on
+	  BooleansAsBitfields	  off
+	  BitfieldContainerType	  "uint_T"
+	  EnableMemcpy		  on
+	  MemcpyThreshold	  64
+	  PassReuseOutputArgsAs	  "Structure reference"
+	  ExpressionDepthLimit	  2147483647
+	  FoldNonRolledExpr	  on
+	  LocalBlockOutputs	  on
+	  RollThreshold		  5
+	  SystemCodeInlineAuto	  off
+	  StateBitsets		  off
+	  DataBitsets		  off
+	  UseTempVars		  off
+	  ZeroExternalMemoryAtStartup on
+	  ZeroInternalMemoryAtStartup on
+	  InitFltsAndDblsToZero	  off
+	  NoFixptDivByZeroProtection off
+	  EfficientFloat2IntCast  off
+	  EfficientMapNaN2IntZero on
+	  OptimizeModelRefInitCode off
+	  LifeSpan		  "inf"
+	  MaxStackSize		  "Inherit from target"
+	  BufferReusableBoundary  on
+	  SimCompilerOptimization "Off"
+	  AccelVerboseBuild	  off
+	  ParallelExecutionInRapidAccelerator on
+	}
+	Simulink.DebuggingCC {
+	  $ObjectID		  6
+	  Version		  "1.12.0"
+	  RTPrefix		  "error"
+	  ConsistencyChecking	  "none"
+	  ArrayBoundsChecking	  "none"
+	  SignalInfNanChecking	  "none"
+	  SignalRangeChecking	  "none"
+	  ReadBeforeWriteMsg	  "UseLocalSettings"
+	  WriteAfterWriteMsg	  "UseLocalSettings"
+	  WriteAfterReadMsg	  "UseLocalSettings"
+	  AlgebraicLoopMsg	  "warning"
+	  ArtificialAlgebraicLoopMsg "warning"
+	  SaveWithDisabledLinksMsg "warning"
+	  SaveWithParameterizedLinksMsg	"warning"
+	  CheckSSInitialOutputMsg on
+	  UnderspecifiedInitializationDetection	"Classic"
+	  MergeDetectMultiDrivingBlocksExec "none"
+	  CheckExecutionContextPreStartOutputMsg off
+	  CheckExecutionContextRuntimeOutputMsg	off
+	  SignalResolutionControl "UseLocalSettings"
+	  BlockPriorityViolationMsg "warning"
+	  MinStepSizeMsg	  "warning"
+	  TimeAdjustmentMsg	  "none"
+	  MaxConsecutiveZCsMsg	  "error"
+	  MaskedZcDiagnostic	  "warning"
+	  IgnoredZcDiagnostic	  "warning"
+	  SolverPrmCheckMsg	  "none"
+	  InheritedTsInSrcMsg	  "warning"
+	  DiscreteInheritContinuousMsg "warning"
+	  MultiTaskDSMMsg	  "error"
+	  MultiTaskCondExecSysMsg "error"
+	  MultiTaskRateTransMsg	  "error"
+	  SingleTaskRateTransMsg  "none"
+	  TasksWithSamePriorityMsg "warning"
+	  SigSpecEnsureSampleTimeMsg "warning"
+	  CheckMatrixSingularityMsg "none"
+	  IntegerOverflowMsg	  "warning"
+	  Int32ToFloatConvMsg	  "warning"
+	  ParameterDowncastMsg	  "error"
+	  ParameterOverflowMsg	  "error"
+	  ParameterUnderflowMsg	  "none"
+	  ParameterPrecisionLossMsg "warning"
+	  ParameterTunabilityLossMsg "warning"
+	  FixptConstUnderflowMsg  "none"
+	  FixptConstOverflowMsg	  "none"
+	  FixptConstPrecisionLossMsg "none"
+	  UnderSpecifiedDataTypeMsg "none"
+	  UnnecessaryDatatypeConvMsg "none"
+	  VectorMatrixConversionMsg "none"
+	  InvalidFcnCallConnMsg	  "error"
+	  FcnCallInpInsideContextMsg "Enable All"
+	  SignalLabelMismatchMsg  "none"
+	  UnconnectedInputMsg	  "warning"
+	  UnconnectedOutputMsg	  "warning"
+	  UnconnectedLineMsg	  "warning"
+	  SFcnCompatibilityMsg	  "none"
+	  FrameProcessingCompatibilityMsg "warning"
+	  UniqueDataStoreMsg	  "none"
+	  BusObjectLabelMismatch  "warning"
+	  RootOutportRequireBusObject "warning"
+	  AssertControl		  "UseLocalSettings"
+	  EnableOverflowDetection off
+	  ModelReferenceIOMsg	  "none"
+	  ModelReferenceMultiInstanceNormalModeStructChecksumCheck "error"
+	  ModelReferenceVersionMismatchMessage "none"
+	  ModelReferenceIOMismatchMessage "none"
+	  ModelReferenceCSMismatchMessage "none"
+	  UnknownTsInhSupMsg	  "warning"
+	  ModelReferenceDataLoggingMessage "warning"
+	  ModelReferenceSymbolNameMessage "warning"
+	  ModelReferenceExtraNoncontSigs "error"
+	  StateNameClashWarn	  "warning"
+	  SimStateInterfaceChecksumMismatchMsg "warning"
+	  SimStateOlderReleaseMsg "warning"
+	  InitInArrayFormatMsg	  "warning"
+	  StrictBusMsg		  "ErrorLevel1"
+	  BusNameAdapt		  "WarnAndRepair"
+	  NonBusSignalsTreatedAsBus "none"
+	  LoggingUnavailableSignals "error"
+	  BlockIODiagnostic	  "none"
+	  SFUnusedDataAndEventsDiag "warning"
+	  SFUnexpectedBacktrackingDiag "warning"
+	  SFInvalidInputDataAccessInChartInitDiag "warning"
+	  SFNoUnconditionalDefaultTransitionDiag "warning"
+	  SFTransitionOutsideNaturalParentDiag "warning"
+	  SFUnconditionalTransitionShadowingDiag "warning"
+	}
+	Simulink.HardwareCC {
+	  $ObjectID		  7
+	  Version		  "1.12.0"
+	  ProdBitPerChar	  8
+	  ProdBitPerShort	  16
+	  ProdBitPerInt		  32
+	  ProdBitPerLong	  32
+	  ProdBitPerFloat	  32
+	  ProdBitPerDouble	  64
+	  ProdBitPerPointer	  32
+	  ProdLargestAtomicInteger "Char"
+	  ProdLargestAtomicFloat  "None"
+	  ProdIntDivRoundTo	  "Undefined"
+	  ProdEndianess		  "Unspecified"
+	  ProdWordSize		  32
+	  ProdShiftRightIntArith  on
+	  ProdHWDeviceType	  "32-bit Generic"
+	  TargetBitPerChar	  8
+	  TargetBitPerShort	  16
+	  TargetBitPerInt	  32
+	  TargetBitPerLong	  32
+	  TargetBitPerFloat	  32
+	  TargetBitPerDouble	  64
+	  TargetBitPerPointer	  32
+	  TargetLargestAtomicInteger "Char"
+	  TargetLargestAtomicFloat "None"
+	  TargetShiftRightIntArith on
+	  TargetIntDivRoundTo	  "Undefined"
+	  TargetEndianess	  "Unspecified"
+	  TargetWordSize	  32
+	  TargetTypeEmulationWarnSuppressLevel 0
+	  TargetPreprocMaxBitsSint 32
+	  TargetPreprocMaxBitsUint 32
+	  TargetHWDeviceType	  "Specified"
+	  TargetUnknown		  off
+	  ProdEqTarget		  on
+	}
+	Simulink.ModelReferenceCC {
+	  $ObjectID		  8
+	  Version		  "1.12.0"
+	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
+	  CheckModelReferenceTargetMessage "error"
+	  EnableParallelModelReferenceBuilds off
+	  ParallelModelReferenceErrorOnInvalidPool on
+	  ParallelModelReferenceMATLABWorkerInit "None"
+	  ModelReferenceNumInstancesAllowed "Multi"
+	  PropagateVarSize	  "Infer from blocks in model"
+	  ModelReferencePassRootInputsByReference on
+	  ModelReferenceMinAlgLoopOccurrences off
+	  PropagateSignalLabelsOutOfModel off
+	  SupportModelReferenceSimTargetCustomCode off
+	}
+	Simulink.SFSimCC {
+	  $ObjectID		  9
+	  Version		  "1.12.0"
+	  SFSimEnableDebug	  on
+	  SFSimOverflowDetection  on
+	  SFSimEcho		  on
+	  SimBlas		  on
+	  SimCtrlC		  on
+	  SimExtrinsic		  on
+	  SimIntegrity		  on
+	  SimUseLocalCustomCode	  off
+	  SimParseCustomCode	  on
+	  SimBuildMode		  "sf_incremental_build"
+	}
+	Simulink.RTWCC {
+	  $BackupClass		  "Simulink.RTWCC"
+	  $ObjectID		  10
+	  Version		  "1.12.0"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    9
+	    Cell		    "IncludeHyperlinkInReport"
+	    Cell		    "GenerateTraceInfo"
+	    Cell		    "GenerateTraceReport"
+	    Cell		    "GenerateTraceReportSl"
+	    Cell		    "GenerateTraceReportSf"
+	    Cell		    "GenerateTraceReportEml"
+	    Cell		    "GenerateWebview"
+	    Cell		    "GenerateCodeMetricsReport"
+	    Cell		    "GenerateCodeReplacementReport"
+	    PropName		    "DisabledProps"
+	  }
+	  SystemTargetFile	  "grt.tlc"
+	  GenCodeOnly		  off
+	  MakeCommand		  "make_rtw"
+	  GenerateMakefile	  on
+	  TemplateMakefile	  "grt_default_tmf"
+	  GenerateReport	  off
+	  SaveLog		  off
+	  RTWVerbose		  on
+	  RetainRTWFile		  off
+	  ProfileTLC		  off
+	  TLCDebug		  off
+	  TLCCoverage		  off
+	  TLCAssert		  off
+	  ProcessScriptMode	  "Default"
+	  ConfigurationMode	  "Optimized"
+	  ConfigAtBuild		  off
+	  RTWUseLocalCustomCode	  off
+	  RTWUseSimCustomCode	  off
+	  IncludeHyperlinkInReport off
+	  LaunchReport		  off
+	  TargetLang		  "C"
+	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
+	  IncludeERTFirstTime	  off
+	  GenerateTraceInfo	  off
+	  GenerateTraceReport	  off
+	  GenerateTraceReportSl	  off
+	  GenerateTraceReportSf	  off
+	  GenerateTraceReportEml  off
+	  GenerateCodeInfo	  off
+	  GenerateWebview	  off
+	  GenerateCodeMetricsReport off
+	  GenerateCodeReplacementReport	off
+	  RTWCompilerOptimization "Off"
+	  CheckMdlBeforeBuild	  "Off"
+	  CustomRebuildMode	  "OnUpdate"
+	  Array {
+	    Type		    "Handle"
+	    Dimension		    2
+	    Simulink.CodeAppCC {
+	      $ObjectID		      11
+	      Version		      "1.12.0"
+	      Array {
+		Type			"Cell"
+		Dimension		21
+		Cell			"IgnoreCustomStorageClasses"
+		Cell			"IgnoreTestpoints"
+		Cell			"InsertBlockDesc"
+		Cell			"InsertPolySpaceComments"
+		Cell			"SFDataObjDesc"
+		Cell			"MATLABFcnDesc"
+		Cell			"SimulinkDataObjDesc"
+		Cell			"DefineNamingRule"
+		Cell			"SignalNamingRule"
+		Cell			"ParamNamingRule"
+		Cell			"InlinedPrmAccess"
+		Cell			"CustomSymbolStr"
+		Cell			"CustomSymbolStrGlobalVar"
+		Cell			"CustomSymbolStrType"
+		Cell			"CustomSymbolStrField"
+		Cell			"CustomSymbolStrFcn"
+		Cell			"CustomSymbolStrFcnArg"
+		Cell			"CustomSymbolStrBlkIO"
+		Cell			"CustomSymbolStrTmpVar"
+		Cell			"CustomSymbolStrMacro"
+		Cell			"ReqsInCode"
+		PropName		"DisabledProps"
+	      }
+	      ForceParamTrailComments off
+	      GenerateComments	      on
+	      IgnoreCustomStorageClasses on
+	      IgnoreTestpoints	      off
+	      IncHierarchyInIds	      off
+	      MaxIdLength	      31
+	      PreserveName	      off
+	      PreserveNameWithParent  off
+	      ShowEliminatedStatement off
+	      IncAutoGenComments      off
+	      SimulinkDataObjDesc     off
+	      SFDataObjDesc	      off
+	      MATLABFcnDesc	      off
+	      IncDataTypeInIds	      off
+	      MangleLength	      1
+	      CustomSymbolStrGlobalVar "$R$N$M"
+	      CustomSymbolStrType     "$N$R$M"
+	      CustomSymbolStrField    "$N$M"
+	      CustomSymbolStrFcn      "$R$N$M$F"
+	      CustomSymbolStrFcnArg   "rt$I$N$M"
+	      CustomSymbolStrBlkIO    "rtb_$N$M"
+	      CustomSymbolStrTmpVar   "$N$M"
+	      CustomSymbolStrMacro    "$R$N$M"
+	      DefineNamingRule	      "None"
+	      ParamNamingRule	      "None"
+	      SignalNamingRule	      "None"
+	      InsertBlockDesc	      off
+	      InsertPolySpaceComments off
+	      SimulinkBlockComments   on
+	      MATLABSourceComments    off
+	      EnableCustomComments    off
+	      InlinedPrmAccess	      "Literals"
+	      ReqsInCode	      off
+	      UseSimReservedNames     off
+	    }
+	    Simulink.GRTTargetCC {
+	      $BackupClass	      "Simulink.TargetCC"
+	      $ObjectID		      12
+	      Version		      "1.12.0"
+	      Array {
+		Type			"Cell"
+		Dimension		16
+		Cell			"GeneratePreprocessorConditionals"
+		Cell			"IncludeMdlTerminateFcn"
+		Cell			"CombineOutputUpdateFcns"
+		Cell			"SuppressErrorStatus"
+		Cell			"ERTCustomFileBanners"
+		Cell			"GenerateSampleERTMain"
+		Cell			"GenerateTestInterfaces"
+		Cell			"ModelStepFunctionPrototypeControlCompliant"
+		Cell			"CPPClassGenCompliant"
+		Cell			"MultiInstanceERTCode"
+		Cell			"PurelyIntegerCode"
+		Cell			"SupportComplex"
+		Cell			"SupportAbsoluteTime"
+		Cell			"SupportContinuousTime"
+		Cell			"SupportNonInlinedSFcns"
+		Cell			"PortableWordSizes"
+		PropName		"DisabledProps"
+	      }
+	      TargetFcnLib	      "ansi_tfl_table_tmw.mat"
+	      TargetLibSuffix	      ""
+	      TargetPreCompLibLocation ""
+	      CodeReplacementLibrary  "ANSI_C"
+	      UtilityFuncGeneration   "Auto"
+	      ERTMultiwordTypeDef     "System defined"
+	      CodeExecutionProfiling  off
+	      ERTMultiwordLength      256
+	      MultiwordLength	      2048
+	      GenerateFullHeader      on
+	      GenerateSampleERTMain   off
+	      GenerateTestInterfaces  off
+	      IsPILTarget	      off
+	      ModelReferenceCompliant on
+	      ParMdlRefBuildCompliant on
+	      CompOptLevelCompliant   on
+	      ConcurrentExecutionCompliant on
+	      IncludeMdlTerminateFcn  on
+	      GeneratePreprocessorConditionals "Disable all"
+	      CombineOutputUpdateFcns on
+	      CombineSignalStateStructs	off
+	      SuppressErrorStatus     off
+	      ERTFirstTimeCompliant   off
+	      IncludeFileDelimiter    "Auto"
+	      ERTCustomFileBanners    off
+	      SupportAbsoluteTime     on
+	      LogVarNameModifier      "rt_"
+	      MatFileLogging	      on
+	      MultiInstanceERTCode    off
+	      SupportNonFinite	      on
+	      SupportComplex	      on
+	      PurelyIntegerCode	      off
+	      SupportContinuousTime   on
+	      SupportNonInlinedSFcns  on
+	      SupportVariableSizeSignals off
+	      EnableShiftOperators    on
+	      ParenthesesLevel	      "Nominal"
+	      PortableWordSizes	      off
+	      ModelStepFunctionPrototypeControlCompliant off
+	      CPPClassGenCompliant    off
+	      AutosarCompliant	      off
+	      GRTInterface	      off
+	      UseMalloc		      off
+	      ExtMode		      off
+	      ExtModeStaticAlloc      off
+	      ExtModeTesting	      off
+	      ExtModeStaticAllocSize  1000000
+	      ExtModeTransport	      0
+	      ExtModeMexFile	      "ext_comm"
+	      ExtModeIntrfLevel	      "Level1"
+	      RTWCAPISignals	      off
+	      RTWCAPIParams	      off
+	      RTWCAPIStates	      off
+	      RTWCAPIRootIO	      off
+	      GenerateASAP2	      off
+	    }
+	    PropName		    "Components"
+	  }
+	}
+	DES.SimEventsCC {
+	  $BackupClass		  "Simulink.CustomCC"
+	  $ObjectID		  13
+	  Version		  "1.12.0"
+	  Name			  "SimEvents"
+	  SimEventsActiveTab	  "0"
+	  propIdentEvents	  "0"
+	  propIdentEventSeed	  "123456789"
+	  propMaxDesBlkSimulEvents "1000"
+	  propMaxDesMdlSimulEvents "100000"
+	  propDiagAttribOutput	  "2"
+	  propDiagFcnCallOutput	  "2"
+	  propDiagStatOutput	  "2"
+	  propDiagChangeAttrib	  "2"
+	  propRNGIdenticalSeeds	  "1"
+	  propPreventDuplicateEvents 1
+	}
+	PropName		"Components"
+      }
+      Name		      "Configuration"
+      CurrentDlgPage	      "Diagnostics"
+      ConfigPrmDlgPosition     [ -1055, 200, -142, 1006 ] 
+    }
+    PropName		    "ConfigurationSets"
+  }
+  Simulink.ConfigSet {
+    $PropName		    "ActiveConfigurationSet"
+    $ObjectID		    2
+  }
+  ExplicitPartitioning	  off
+  BlockDefaults {
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Arial"
+    FontSize		    14
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+    BlockRotation	    0
+    BlockMirror		    off
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Arial"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    UseDisplayTextAsClickCallback off
+  }
+  LineDefaults {
+    FontName		    "Arial"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      EntitySink
+      AvailableForArrivals    on
+      StatNumberArrived	      off
+    }
+    Block {
+      BlockType		      EventBasedRandomNumber
+      Distribution	      "Exponential"
+      meanExp		      "1"
+      minUnif		      "0"
+      maxUnif		      "1"
+      pOneBern		      "0.25"
+      pSuccessBino	      "0.5"
+      numTrialBino	      "1"
+      minTri		      "1"
+      maxTri		      "3"
+      modeTri		      "2"
+      thresholdGam	      "0"
+      scaleGam		      "1"
+      shapeGam		      "1"
+      meanNorm		      "0"
+      stdNorm		      "1"
+      pSuccessGeo	      "0.5"
+      meanPoiss		      "1"
+      thresholdLogn	      "0"
+      scaleLogn		      "1"
+      shapeLogn		      "1"
+      thresholdLogl	      "0"
+      scaleLogl		      "1"
+      minBeta		      "0"
+      maxBeta		      "1"
+      shape1Beta	      "1"
+      shape2Beta	      "1"
+      minUnid		      "0"
+      maxUnid		      "1"
+      numValueUnid	      "2"
+      thresholdWbl	      "0"
+      scaleWbl		      "1"
+      shapeWbl		      "1"
+      valueVecCont	      "[0 1]"
+      cdfVecCont	      "[0 1]"
+      valueVecDisc	      "[0 1]"
+      probVecDisc	      "[0.5 0.5]"
+      Seed		      "12345"
+    }
+    Block {
+      BlockType		      FIFOQueue
+      Capacity		      "25"
+      EnableTOPort	      off
+      StatNumberDeparted      off
+      StatNumberInBlock	      off
+      StatAverageWait	      off
+      StatAverageQueueLength  off
+      StatNumberTimedout      off
+    }
+    Block {
+      BlockType		      NServer
+      NumberOfServers	      "5"
+      ServiceTimeFrom	      "Dialog"
+      ServiceTime	      "1"
+      AttributeName	      "ServiceTime"
+      PriorityServiceCompletion	"500"
+      EnableTOPort	      off
+      StatNumberDeparted      off
+      StatNumberInBlock	      off
+      StatPendingEntity	      off
+      StatNumberPending	      off
+      StatAverageWait	      off
+      StatUtilization	      off
+      StatNumberTimedout      off
+    }
+    Block {
+      BlockType		      OutputSwitch
+      NumberOutputPorts	      "3"
+      SwitchingCriterion      "First port that is not blocked"
+      InitialSeed	      "34567"
+      AttributeName	      "Attribute1"
+      InitialConditionsOpt    off
+      InitialConditions	      "1"
+      EntityBufferOpt	      off
+      SpecifyEventPriority    off
+      PriorityOutputSwitchSelectPort "4000"
+      TimeoutPortOpt	      off
+      StatNumberDeparted      off
+      StatNumberTimedOut      off
+      StatPendingEntity	      off
+      StatLastDeparturePort   off
+    }
+    Block {
+      BlockType		      PathCombiner
+      NumberInputPorts	      "3"
+      InputPortPrecedence     "IN1 port"
+      InitialSeed	      "45675"
+      SpecifyEventPriority    off
+      PriorityPathCombinerPortPrecedenceSelection "4100"
+      StatNumberDeparted      off
+      StatLastArrivalPort     off
+    }
+    Block {
+      BlockType		      Product
+      Inputs		      "2"
+      Multiplication	      "Element-wise(.*)"
+      CollapseMode	      "All dimensions"
+      CollapseDim	      "1"
+      InputSameDT	      on
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as first input"
+      LockScale		      off
+      RndMeth		      "Zero"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      ReadTimer
+      TimerTag		      "T1"
+      TimerModeOption	      "Error"
+      TimerStop		      off
+      StatNumberDeparted      off
+      StatTimerNumberDeparted off
+      StatTimeElapsed	      off
+      StatAverageTimeElapsed  off
+    }
+    Block {
+      BlockType		      SignalLatch
+      InitialMemoryValue      "0"
+      WriteMemoryUpon	      "Change in signal from port wvc"
+      MemoryWriteEdgeOption   "Rising"
+      SpecifyWriteEventPriority	off
+      PriorityMemoryWrite     "7100"
+      ReadMemoryUpon	      "Change in signal from port rvc"
+      MemoryReadEdgeOption    "Falling"
+      SpecifyReadEventPriority off
+      PriorityMemoryRead      "7000"
+      ReportMemoryState	      off
+      ReportMemoryUponWrite   off
+      ReportMemoryUponRead    on
+    }
+    Block {
+      BlockType		      SignalScope
+      PlotType		      "Stair"
+      PlotPointsUpon	      "Change in signal from port vc"
+      ChangeType	      "Rising"
+      XInputOptionSignal      "Event time"
+      OpenScopeAtSimStart     on
+      XMin		      "0"
+      XMax		      "10"
+      XLimitExceededOption    "Stretch axis limits"
+      YMin		      "0"
+      YMax		      "10"
+      YLimitExceededOption    "Stretch axis limits"
+      AxisGrid		      on
+      Title		      " "
+      XLabel		      " "
+      YLabel		      " "
+      FigurePosition	      "se_figureposition([5 60 25 25])"
+      ShowCountPlotted	      off
+      DataStoreOption	      "Limited"
+      DataPointsLimit	      "10000"
+      StatNumberArrived	      off
+      LineColors	      "b"
+      LineStyles	      "-"
+      LineMarkers	      "."
+      ShowToolbar	      on
+      BlockRole		      "Signal"
+    }
+    Block {
+      BlockType		      SignalViewerScope
+      Floating		      off
+      ModelBased	      off
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      DataFormat	      "Array"
+      LimitDataPoints	      on
+      MaxDataPoints	      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+      Disabled		      off
+      ScrollMode	      on
+    }
+    Block {
+      BlockType		      StartTimer
+      TimerTag		      "T1"
+      TimerStartedOption      "Warn and continue"
+      StatNumberDeparted      off
+    }
+    Block {
+      BlockType		      TimeBasedEntityGenerator
+      GenerateEntitiesUpon    "Intergeneration time from dialog"
+      Distribution	      "Constant"
+      Period		      "1"
+      InitialSeed	      "12345"
+      Minimum		      "0"
+      Maximum		      "1"
+      Mean		      "1"
+      PriorityEntityGeneration "300"
+      GenerateEntityAtSimulationStart on
+      ResponseWhenBlocked     "Pause generation"
+      ResponseWhenUnblocked   "Immediate restart"
+      EntityType	      "Blank"
+      StatNumberDeparted      off
+      StatPendingEntity	      off
+      StatAverageIntergenerationTime off
+    }
+  }
+  System {
+    Name		    "Open_Jackson_Network"
+    Location		    [2, 82, 2558, 1571]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "usletter"
+    PaperUnits		    "inches"
+    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+    TiledPageScale	    1
+    ShowPageBoundaries	    off
+    ZoomFactor		    "80"
+    ReportName		    "simulink-default.rpt"
+    SIDHighWatermark	    "78"
+    Block {
+      BlockType		      Reference
+      Name		      "Discrete Event Signal\nto Workspace"
+      SID		      "65"
+      Ports		      [1]
+      Position		      [395, 545, 465, 585]
+      ZOrder		      -2
+      LibraryVersion	      "1.30"
+      SourceBlock	      "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
+      SourceType	      "Discrete Event Signal to Workspace"
+      VariableName	      "Receiving_Metric"
+      MaxDataPoints	      "inf"
+      Decimation	      "1"
+      SaveFormat	      "Structure With Time"
+      isMonitorOnly	      off
+      isRecordIC	      off
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Discrete Event Signal\nto Workspace1"
+      SID		      "69"
+      Ports		      [1]
+      Position		      [995, 360, 1065, 400]
+      ZOrder		      -2
+      LibraryVersion	      "1.30"
+      SourceBlock	      "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
+      SourceType	      "Discrete Event Signal to Workspace"
+      VariableName	      "Q1_Metric"
+      MaxDataPoints	      "inf"
+      Decimation	      "1"
+      SaveFormat	      "Structure With Time"
+      isMonitorOnly	      off
+      isRecordIC	      off
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Discrete Event Signal\nto Workspace2"
+      SID		      "67"
+      Ports		      [1]
+      Position		      [985, 835, 1055, 875]
+      ZOrder		      -2
+      LibraryVersion	      "1.30"
+      SourceBlock	      "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
+      SourceType	      "Discrete Event Signal to Workspace"
+      VariableName	      "Q2_Metric"
+      MaxDataPoints	      "inf"
+      Decimation	      "1"
+      SaveFormat	      "Structure With Time"
+      isMonitorOnly	      off
+      isRecordIC	      off
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Discrete Event Signal\nto Workspace3"
+      SID		      "71"
+      Ports		      [1]
+      Position		      [1680, 555, 1750, 595]
+      ZOrder		      -2
+      LibraryVersion	      "1.30"
+      SourceBlock	      "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
+      SourceType	      "Discrete Event Signal to Workspace"
+      VariableName	      "Q3_Metric"
+      MaxDataPoints	      "inf"
+      Decimation	      "1"
+      SaveFormat	      "Structure With Time"
+      isMonitorOnly	      off
+      isRecordIC	      off
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Discrete Event Signal\nto Workspace4"
+      SID		      "73"
+      Ports		      [1]
+      Position		      [2315, 375, 2385, 415]
+      ZOrder		      -2
+      LibraryVersion	      "1.30"
+      SourceBlock	      "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
+      SourceType	      "Discrete Event Signal to Workspace"
+      VariableName	      "Q4_Metric"
+      MaxDataPoints	      "inf"
+      Decimation	      "1"
+      SaveFormat	      "Structure With Time"
+      isMonitorOnly	      off
+      isRecordIC	      off
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Discrete Event Signal\nto Workspace5"
+      SID		      "64"
+      Ports		      [1]
+      Position		      [2300, 830, 2370, 870]
+      ZOrder		      -2
+      LibraryVersion	      "1.30"
+      SourceBlock	      "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
+      SourceType	      "Discrete Event Signal to Workspace"
+      VariableName	      "Q5_Metric"
+      MaxDataPoints	      "inf"
+      Decimation	      "1"
+      SaveFormat	      "Structure With Time"
+      isMonitorOnly	      off
+      isRecordIC	      off
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Discrete Event Signal\nto Workspace6"
+      SID		      "75"
+      Ports		      [1]
+      Position		      [2850, 535, 2920, 575]
+      ZOrder		      -2
+      LibraryVersion	      "1.30"
+      SourceBlock	      "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
+      SourceType	      "Discrete Event Signal to Workspace"
+      VariableName	      "Final_Metric"
+      MaxDataPoints	      "inf"
+      Decimation	      "1"
+      SaveFormat	      "Structure With Time"
+      isMonitorOnly	      off
+      isRecordIC	      off
+    }
+    Block {
+      BlockType		      EntitySink
+      Name		      "Entity Sink"
+      SID		      "31"
+      Ports		      [0, 0, 0, 0, 0, 1]
+      Position		      [3005, 513, 3090, 567]
+      ZOrder		      -2
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+    }
+    Block {
+      BlockType		      EventBasedRandomNumber
+      Name		      "Event-Based\nRandom Number"
+      SID		      "32"
+      Ports		      [0, 1]
+      Position		      [905, 125, 975, 175]
+      ZOrder		      -1
+      BackgroundColor	      "orange"
+      InputPortMap	      ""
+      OutputPortMap	      "o0"
+      Distribution	      "Arbitrary discrete"
+      valueVecCont	      "[1 2]"
+      cdfVecCont	      "[.25 .75]"
+      valueVecDisc	      "[1 2]"
+      probVecDisc	      "[0.25 0.75]"
+      Seed		      "17144"
+    }
+    Block {
+      BlockType		      EventBasedRandomNumber
+      Name		      "Event-Based\nRandom Number1"
+      SID		      "33"
+      Ports		      [0, 1]
+      Position		      [890, 550, 960, 600]
+      ZOrder		      -1
+      BackgroundColor	      "yellow"
+      InputPortMap	      ""
+      OutputPortMap	      "o0"
+      Distribution	      "Arbitrary discrete"
+      valueVecCont	      "[1 2]"
+      cdfVecCont	      "[.25 .75]"
+      valueVecDisc	      "[1 2]"
+      probVecDisc	      "[0.25 0.75]"
+      Seed		      "20361"
+    }
+    Block {
+      BlockType		      EventBasedRandomNumber
+      Name		      "Event-Based\nRandom Number2"
+      SID		      "34"
+      Ports		      [0, 1]
+      Position		      [1540, 290, 1610, 340]
+      ZOrder		      -1
+      BackgroundColor	      "green"
+      InputPortMap	      ""
+      OutputPortMap	      "o0"
+      Distribution	      "Arbitrary discrete"
+      valueVecCont	      "[1 2]"
+      cdfVecCont	      "[.25 .75]"
+      valueVecDisc	      "[1 2]"
+      probVecDisc	      "[0.25 0.75]"
+      Seed		      "23578"
+    }
+    Block {
+      BlockType		      EventBasedRandomNumber
+      Name		      "Event-Based\nRandom Number3"
+      SID		      "35"
+      Ports		      [0, 1]
+      Position		      [2185, 130, 2255, 180]
+      ZOrder		      -1
+      BackgroundColor	      "magenta"
+      InputPortMap	      ""
+      OutputPortMap	      "o0"
+      Distribution	      "Arbitrary discrete"
+      valueVecCont	      "[1 2]"
+      cdfVecCont	      "[.25 .75]"
+      valueVecDisc	      "[1 2]"
+      probVecDisc	      "[0.1 0.9]"
+      Seed		      "26795"
+    }
+    Block {
+      BlockType		      EventBasedRandomNumber
+      Name		      "Event-Based\nRandom Number4"
+      SID		      "36"
+      Ports		      [0, 1]
+      Position		      [2200, 560, 2270, 610]
+      ZOrder		      -1
+      BackgroundColor	      "lightBlue"
+      InputPortMap	      ""
+      OutputPortMap	      "o0"
+      Distribution	      "Arbitrary discrete"
+      valueVecCont	      "[1 2]"
+      cdfVecCont	      "[.25 .75]"
+      valueVecDisc	      "[1 2]"
+      probVecDisc	      "[0.9 0.1]"
+      Seed		      "30012"
+    }
+    Block {
+      BlockType		      NServer
+      Name		      "Final"
+      SID		      "29"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [2860, 372, 2945, 428]
+      ZOrder		      -2
+      BackgroundColor	      "gray"
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      FIFOQueue
+      Name		      "FinalQ"
+      SID		      "28"
+      Ports		      [0, 2, 0, 0, 0, 1, 1]
+      Position		      [2735, 372, 2820, 428]
+      ZOrder		      -1
+      BackgroundColor	      "gray"
+      InputPortMap	      ""
+      OutputPortMap	      "o2,o3"
+      Capacity		      "inf"
+      StatAverageWait	      on
+      StatAverageQueueLength  on
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      OutputSwitch
+      Name		      "Output Switch"
+      SID		      "15"
+      Ports		      [1, 1, 0, 0, 0, 1, 2]
+      Position		      [1050, 212, 1150, 268]
+      ZOrder		      -2
+      BackgroundColor	      "orange"
+      InputPortMap	      "u0"
+      OutputPortMap	      "o0"
+      NumberOutputPorts	      "2"
+      SwitchingCriterion      "From signal port p"
+      StatNumberDeparted      on
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+      Port {
+	PortType		3
+	PortNumber		2
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      OutputSwitch
+      Name		      "Output Switch1"
+      SID		      "20"
+      Ports		      [0, 0, 0, 0, 0, 1, 2]
+      Position		      [420, 382, 520, 438]
+      ZOrder		      -2
+      BackgroundColor	      "red"
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      NumberOutputPorts	      "2"
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+      Port {
+	PortType		3
+	PortNumber		2
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      OutputSwitch
+      Name		      "Output Switch2"
+      SID		      "22"
+      Ports		      [1, 1, 0, 0, 0, 1, 2]
+      Position		      [1040, 657, 1140, 713]
+      ZOrder		      -2
+      BackgroundColor	      "yellow"
+      NamePlacement	      "alternate"
+      InputPortMap	      "u0"
+      OutputPortMap	      "o0"
+      NumberOutputPorts	      "2"
+      SwitchingCriterion      "From signal port p"
+      StatNumberDeparted      on
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+      Port {
+	PortType		3
+	PortNumber		2
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      OutputSwitch
+      Name		      "Output Switch3"
+      SID		      "25"
+      Ports		      [1, 1, 0, 0, 0, 1, 2]
+      Position		      [1705, 387, 1805, 443]
+      ZOrder		      -2
+      BackgroundColor	      "green"
+      InputPortMap	      "u0"
+      OutputPortMap	      "o0"
+      NumberOutputPorts	      "2"
+      SwitchingCriterion      "From signal port p"
+      StatNumberDeparted      on
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+      Port {
+	PortType		3
+	PortNumber		2
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      OutputSwitch
+      Name		      "Output Switch4"
+      SID		      "26"
+      Ports		      [1, 1, 0, 0, 0, 1, 2]
+      Position		      [2330, 652, 2430, 708]
+      ZOrder		      -2
+      BackgroundColor	      "lightBlue"
+      InputPortMap	      "u0"
+      OutputPortMap	      "o0"
+      NumberOutputPorts	      "2"
+      SwitchingCriterion      "From signal port p"
+      StatNumberDeparted      on
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+      Port {
+	PortType		3
+	PortNumber		2
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      OutputSwitch
+      Name		      "Output Switch5"
+      SID		      "27"
+      Ports		      [1, 1, 0, 0, 0, 1, 2]
+      Position		      [2315, 212, 2415, 268]
+      ZOrder		      -2
+      BackgroundColor	      "magenta"
+      InputPortMap	      "u0"
+      OutputPortMap	      "o0"
+      NumberOutputPorts	      "2"
+      SwitchingCriterion      "From signal port p"
+      StatNumberDeparted      on
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+      Port {
+	PortType		3
+	PortNumber		2
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      PathCombiner
+      Name		      "Path Combiner"
+      SID		      "16"
+      Ports		      [0, 0, 0, 0, 0, 2, 1]
+      Position		      [610, 295, 710, 350]
+      ZOrder		      -3
+      BackgroundColor	      "orange"
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      NumberInputPorts	      "2"
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		2
+	PortNumber		2
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      PathCombiner
+      Name		      "Path Combiner1"
+      SID		      "19"
+      Ports		      [0, 0, 0, 0, 0, 2, 1]
+      Position		      [610, 595, 710, 650]
+      ZOrder		      -3
+      BackgroundColor	      "yellow"
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      NumberInputPorts	      "2"
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		2
+	PortNumber		2
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      PathCombiner
+      Name		      "Path Combiner2"
+      SID		      "21"
+      Ports		      [0, 0, 0, 0, 0, 2, 1]
+      Position		      [1315, 400, 1415, 455]
+      ZOrder		      -3
+      BackgroundColor	      "green"
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      NumberInputPorts	      "2"
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		2
+	PortNumber		2
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      PathCombiner
+      Name		      "Path Combiner3"
+      SID		      "23"
+      Ports		      [0, 0, 0, 0, 0, 2, 1]
+      Position		      [1890, 225, 1990, 280]
+      ZOrder		      -3
+      BackgroundColor	      "magenta"
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      NumberInputPorts	      "2"
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		2
+	PortNumber		2
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      PathCombiner
+      Name		      "Path Combiner4"
+      SID		      "24"
+      Ports		      [0, 0, 0, 0, 0, 2, 1]
+      Position		      [1900, 665, 2000, 720]
+      ZOrder		      -3
+      BackgroundColor	      "lightBlue"
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      NumberInputPorts	      "2"
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		2
+	PortNumber		2
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      PathCombiner
+      Name		      "Path Combiner5"
+      SID		      "30"
+      Ports		      [0, 0, 0, 0, 0, 2, 1]
+      Position		      [2600, 370, 2700, 425]
+      ZOrder		      -3
+      BackgroundColor	      "gray"
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      NumberInputPorts	      "2"
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		2
+	PortNumber		2
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      NServer
+      Name		      "Process1"
+      SID		      "6"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [925, 227, 1010, 283]
+      ZOrder		      -2
+      BackgroundColor	      "orange"
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      NumberOfServers	      "4"
+      ServiceTime	      "3"
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      FIFOQueue
+      Name		      "Process1_Q"
+      SID		      "1"
+      Ports		      [0, 2, 0, 0, 0, 1, 1]
+      Position		      [750, 212, 835, 268]
+      ZOrder		      -1
+      BackgroundColor	      "orange"
+      InputPortMap	      ""
+      OutputPortMap	      "o2,o3"
+      Capacity		      "inf"
+      StatAverageWait	      on
+      StatAverageQueueLength  on
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      NServer
+      Name		      "Process2"
+      SID		      "7"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [915, 672, 1000, 728]
+      ZOrder		      -2
+      BackgroundColor	      "yellow"
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      NumberOfServers	      "1"
+      ServiceTime	      "3"
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      FIFOQueue
+      Name		      "Process2_Q"
+      SID		      "2"
+      Ports		      [0, 2, 0, 0, 0, 1, 1]
+      Position		      [750, 672, 835, 728]
+      ZOrder		      -1
+      BackgroundColor	      "yellow"
+      InputPortMap	      ""
+      OutputPortMap	      "o2,o3"
+      Capacity		      "inf"
+      StatAverageWait	      on
+      StatAverageQueueLength  on
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      NServer
+      Name		      "Process3"
+      SID		      "8"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [1575, 402, 1660, 458]
+      ZOrder		      -2
+      BackgroundColor	      "green"
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      NumberOfServers	      "2"
+      ServiceTime	      "2"
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      FIFOQueue
+      Name		      "Process3_Q"
+      SID		      "3"
+      Ports		      [0, 2, 0, 0, 0, 1, 1]
+      Position		      [1445, 402, 1530, 458]
+      ZOrder		      -1
+      BackgroundColor	      "green"
+      InputPortMap	      ""
+      OutputPortMap	      "o2,o3"
+      Capacity		      "inf"
+      StatAverageWait	      on
+      StatAverageQueueLength  on
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      NServer
+      Name		      "Process4"
+      SID		      "9"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [2180, 227, 2265, 283]
+      ZOrder		      -2
+      BackgroundColor	      "magenta"
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      NumberOfServers	      "3"
+      ServiceTime	      "5"
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      FIFOQueue
+      Name		      "Process4_Q"
+      SID		      "4"
+      Ports		      [0, 2, 0, 0, 0, 1, 1]
+      Position		      [2045, 227, 2130, 283]
+      ZOrder		      -1
+      BackgroundColor	      "magenta"
+      InputPortMap	      ""
+      OutputPortMap	      "o2,o3"
+      Capacity		      "inf"
+      StatAverageWait	      on
+      StatAverageQueueLength  on
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      NServer
+      Name		      "Process5"
+      SID		      "10"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [2190, 667, 2275, 723]
+      ZOrder		      -2
+      BackgroundColor	      "lightBlue"
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      ServiceTime	      "5"
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      FIFOQueue
+      Name		      "Process5_Q"
+      SID		      "5"
+      Ports		      [0, 2, 0, 0, 0, 1, 1]
+      Position		      [2060, 657, 2145, 713]
+      ZOrder		      -1
+      BackgroundColor	      "lightBlue"
+      InputPortMap	      ""
+      OutputPortMap	      "o2,o3"
+      Capacity		      "inf"
+      StatAverageWait	      on
+      StatAverageQueueLength  on
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      Product
+      Name		      "Product"
+      SID		      "66"
+      Ports		      [2, 1]
+      Position		      [290, 547, 320, 578]
+      ZOrder		      -19
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      Product
+      Name		      "Product1"
+      SID		      "70"
+      Ports		      [2, 1]
+      Position		      [890, 362, 920, 393]
+      ZOrder		      -19
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      Product
+      Name		      "Product2"
+      SID		      "68"
+      Ports		      [2, 1]
+      Position		      [880, 837, 910, 868]
+      ZOrder		      -19
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      Product
+      Name		      "Product3"
+      SID		      "72"
+      Ports		      [2, 1]
+      Position		      [1575, 557, 1605, 588]
+      ZOrder		      -19
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      Product
+      Name		      "Product4"
+      SID		      "74"
+      Ports		      [2, 1]
+      Position		      [2210, 377, 2240, 408]
+      ZOrder		      -19
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      Product
+      Name		      "Product5"
+      SID		      "61"
+      Ports		      [2, 1]
+      Position		      [2195, 832, 2225, 863]
+      ZOrder		      -19
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      Product
+      Name		      "Product6"
+      SID		      "76"
+      Ports		      [2, 1]
+      Position		      [2745, 537, 2775, 568]
+      ZOrder		      -19
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
+    }
+    Block {
+      BlockType		      ReadTimer
+      Name		      "Read Timer"
+      SID		      "44"
+      Ports		      [0, 1, 0, 0, 0, 1, 1]
+      Position		      [2995, 377, 3080, 433]
+      ZOrder		      -2
+      InputPortMap	      ""
+      OutputPortMap	      "o3"
+      StatAverageTimeElapsed  on
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      NServer
+      Name		      "Receiving"
+      SID		      "18"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [290, 382, 375, 438]
+      ZOrder		      -2
+      BackgroundColor	      "red"
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      NumberOfServers	      "3"
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      FIFOQueue
+      Name		      "Receiving Queue"
+      SID		      "17"
+      Ports		      [0, 2, 0, 0, 0, 1, 1]
+      Position		      [165, 382, 250, 438]
+      ZOrder		      -1
+      BackgroundColor	      "red"
+      InputPortMap	      ""
+      OutputPortMap	      "o2,o3"
+      Capacity		      "inf"
+      StatAverageWait	      on
+      StatAverageQueueLength  on
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      SignalLatch
+      Name		      "Signal Latch"
+      SID		      "37"
+      Ports		      [2, 1]
+      Position		      [995, 550, 1080, 605]
+      ZOrder		      -3
+      BackgroundColor	      "yellow"
+      InputPortMap	      "u0,u2"
+      OutputPortMap	      "o2"
+      InitialMemoryValue      "1"
+      ReadMemoryUpon	      "Write to memory event"
+    }
+    Block {
+      BlockType		      SignalLatch
+      Name		      "Signal Latch1"
+      SID		      "39"
+      Ports		      [2, 1]
+      Position		      [1025, 110, 1110, 165]
+      ZOrder		      -3
+      BackgroundColor	      "orange"
+      InputPortMap	      "u0,u2"
+      OutputPortMap	      "o2"
+      InitialMemoryValue      "1"
+      ReadMemoryUpon	      "Write to memory event"
+    }
+    Block {
+      BlockType		      SignalLatch
+      Name		      "Signal Latch2"
+      SID		      "40"
+      Ports		      [2, 1]
+      Position		      [1690, 275, 1775, 330]
+      ZOrder		      -3
+      BackgroundColor	      "green"
+      InputPortMap	      "u0,u2"
+      OutputPortMap	      "o2"
+      InitialMemoryValue      "1"
+      ReadMemoryUpon	      "Write to memory event"
+    }
+    Block {
+      BlockType		      SignalLatch
+      Name		      "Signal Latch3"
+      SID		      "41"
+      Ports		      [2, 1]
+      Position		      [2305, 115, 2390, 170]
+      ZOrder		      -3
+      BackgroundColor	      "magenta"
+      InputPortMap	      "u0,u2"
+      OutputPortMap	      "o2"
+      InitialMemoryValue      "1"
+      ReadMemoryUpon	      "Write to memory event"
+    }
+    Block {
+      BlockType		      SignalLatch
+      Name		      "Signal Latch4"
+      SID		      "42"
+      Ports		      [2, 1]
+      Position		      [2345, 555, 2430, 610]
+      ZOrder		      -3
+      BackgroundColor	      "lightBlue"
+      InputPortMap	      "u0,u2"
+      OutputPortMap	      "o2"
+      InitialMemoryValue      "1"
+      ReadMemoryUpon	      "Write to memory event"
+    }
+    Block {
+      BlockType		      SignalScope
+      Name		      "Signal Scope"
+      SID		      "78"
+      Ports		      [1]
+      Position		      [2995, 278, 3080, 332]
+      ZOrder		      1
+      BlockMirror	      on
+      CopyFcn		      "des.scope.CallbackSupport('seCopyFcn',gcbh)"
+      DeleteFcn		      "des.scope.CallbackSupport('seDeleteFcn',gcbh)"
+      LoadFcn		      "des.scope.CallbackSupport('seLoadFcn',gcbh)"
+      PreSaveFcn	      "des.scope.CallbackSupport('sePreSaveFcn',gcbh)"
+      StartFcn		      "des.scope.CallbackSupport('seStartFcn',gcbh)"
+      StopFcn		      "des.scope.CallbackSupport('seStopFcn',gcbh)"
+      NameChangeFcn	      "des.scope.CallbackSupport('seNameChangeFcn',gcbh)"
+      OpenFcn		      "des.scope.CallbackSupport('seOpenFcn',gcbh)"
+      InputPortMap	      "u0"
+      OutputPortMap	      ""
+    }
+    Block {
+      BlockType		      StartTimer
+      Name		      "Start Timer"
+      SID		      "43"
+      Ports		      [0, 0, 0, 0, 0, 1, 1]
+      Position		      [50, 383, 135, 437]
+      ZOrder		      -4
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      Port {
+	PortType		2
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortIn"
+      }
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      TimeBasedEntityGenerator
+      Name		      "Time-Based\nEntity Generator"
+      SID		      "11"
+      Ports		      [0, 0, 0, 0, 0, 0, 1]
+      Position		      [30, 268, 115, 322]
+      ZOrder		      -2
+      InputPortMap	      ""
+      OutputPortMap	      ""
+      Distribution	      "Exponential"
+      InitialSeed	      "33229"
+      Port {
+	PortType		3
+	PortNumber		1
+	ConnectionType		"SimEventsDDv2.SEPortOut"
+      }
+    }
+    Block {
+      BlockType		      SignalViewerScope
+      Name		      "Scope"
+      SID		      "51"
+      Ports		      []
+      Position		      [20, 15, 60, 55]
+      IOType		      "viewer"
+      Location		      [188, 365, 512, 604]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      ShowDataMarkers	      off
+      ShowLegends	      off
+      MaxDataPoints	      "7500"
+      RefreshTime	      0.035000
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Process1_Q"
+      SrcPort		      RConn1
+      Points		      [0, -5]
+      DstBlock		      "Process1"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Process2_Q"
+      SrcPort		      RConn1
+      Points		      [0, -20]
+      DstBlock		      "Process2"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Process3_Q"
+      SrcPort		      RConn1
+      Points		      [0, -20]
+      DstBlock		      "Process3"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Process4_Q"
+      SrcPort		      RConn1
+      Points		      [0, -20]
+      DstBlock		      "Process4"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Process5_Q"
+      SrcPort		      RConn1
+      Points		      [0, -10]
+      DstBlock		      "Process5"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Path Combiner"
+      SrcPort		      RConn1
+      Points		      [10, 0]
+      DstBlock		      "Process1_Q"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Receiving Queue"
+      SrcPort		      RConn1
+      Points		      [0, -20]
+      DstBlock		      "Receiving"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Receiving"
+      SrcPort		      RConn1
+      DstBlock		      "Output Switch1"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Output Switch1"
+      SrcPort		      RConn1
+      Points		      [30, 0; 0, -60]
+      DstBlock		      "Path Combiner"
+      DstPort		      LConn2
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Output Switch1"
+      SrcPort		      RConn2
+      Points		      [30, 0; 0, 185]
+      DstBlock		      "Path Combiner1"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Path Combiner1"
+      SrcPort		      RConn1
+      Points		      [0, 75]
+      DstBlock		      "Process2_Q"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Output Switch"
+      SrcPort		      RConn2
+      Points		      [35, 0; 0, 155]
+      DstBlock		      "Path Combiner2"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Process1"
+      SrcPort		      RConn1
+      DstBlock		      "Output Switch"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Process2"
+      SrcPort		      RConn1
+      DstBlock		      "Output Switch2"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Output Switch2"
+      SrcPort		      RConn1
+      Points		      [45, 0; 0, -245]
+      DstBlock		      "Path Combiner2"
+      DstPort		      LConn2
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Path Combiner3"
+      SrcPort		      RConn1
+      DstBlock		      "Process4_Q"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Path Combiner4"
+      SrcPort		      RConn1
+      Points		      [30, 0]
+      DstBlock		      "Process5_Q"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Output Switch2"
+      SrcPort		      RConn2
+      DstBlock		      "Path Combiner4"
+      DstPort		      LConn2
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Output Switch"
+      SrcPort		      RConn1
+      DstBlock		      "Path Combiner3"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Process3"
+      SrcPort		      RConn1
+      DstBlock		      "Output Switch3"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Output Switch3"
+      SrcPort		      RConn1
+      Points		      [25, 0; 0, -150]
+      DstBlock		      "Path Combiner3"
+      DstPort		      LConn2
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Output Switch3"
+      SrcPort		      RConn2
+      Points		      [30, 0; 0, 245]
+      DstBlock		      "Path Combiner4"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Process5"
+      SrcPort		      RConn1
+      DstBlock		      "Output Switch4"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Process4"
+      SrcPort		      RConn1
+      DstBlock		      "Output Switch5"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Output Switch5"
+      SrcPort		      RConn1
+      Points		      [85, 0; 0, 585; -1925, 0; 0, -190]
+      DstBlock		      "Path Combiner1"
+      DstPort		      LConn2
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Output Switch4"
+      SrcPort		      RConn2
+      Points		      [70, 0; 0, -620; -1925, 0; 0, 230]
+      DstBlock		      "Path Combiner"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "FinalQ"
+      SrcPort		      RConn1
+      Points		      [0, -20]
+      DstBlock		      "Final"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Output Switch5"
+      SrcPort		      RConn2
+      Points		      [150, 0; 0, 125]
+      DstBlock		      "Path Combiner5"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Output Switch4"
+      SrcPort		      RConn1
+      Points		      [135, 0; 0, -270]
+      DstBlock		      "Path Combiner5"
+      DstPort		      LConn2
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Path Combiner2"
+      SrcPort		      RConn1
+      DstBlock		      "Process3_Q"
+      DstPort		      LConn1
+    }
+    Line {
+      SrcBlock		      "Event-Based\nRandom Number2"
+      SrcPort		      1
+      DstBlock		      "Signal Latch2"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Event-Based\nRandom Number4"
+      SrcPort		      1
+      Points		      [20, 0; 0, 10]
+      DstBlock		      "Signal Latch4"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Event-Based\nRandom Number1"
+      SrcPort		      1
+      Points		      [5, 0; 0, 15]
+      DstBlock		      "Signal Latch"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Signal Latch"
+      SrcPort		      1
+      Points		      [0, 55; -60, 0]
+      DstBlock		      "Output Switch2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Output Switch2"
+      SrcPort		      1
+      Points		      [0, -125; -165, 0]
+      DstBlock		      "Signal Latch"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Event-Based\nRandom Number"
+      SrcPort		      1
+      DstBlock		      "Signal Latch1"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Output Switch"
+      SrcPort		      1
+      Points		      [0, -105; -145, 0]
+      DstBlock		      "Signal Latch1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Signal Latch1"
+      SrcPort		      1
+      Points		      [0, 75; -80, 0]
+      DstBlock		      "Output Switch"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Output Switch3"
+      SrcPort		      1
+      Points		      [0, -130; -135, 0]
+      DstBlock		      "Signal Latch2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Signal Latch2"
+      SrcPort		      1
+      Points		      [0, 70; -90, 0]
+      DstBlock		      "Output Switch3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Signal Latch4"
+      SrcPort		      1
+      Points		      [0, 50; -120, 0]
+      DstBlock		      "Output Switch4"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Output Switch4"
+      SrcPort		      1
+      Points		      [5, 0; 0, -115; -110, 0]
+      DstBlock		      "Signal Latch4"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Output Switch5"
+      SrcPort		      1
+      Points		      [0, -120; -130, 0]
+      DstBlock		      "Signal Latch3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Signal Latch3"
+      SrcPort		      1
+      Points		      [10, 0; 0, 55; -105, 0]
+      DstBlock		      "Output Switch5"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Event-Based\nRandom Number3"
+      SrcPort		      1
+      DstBlock		      "Signal Latch3"
+      DstPort		      2
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Start Timer"
+      SrcPort		      RConn1
+      DstBlock		      "Receiving Queue"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Time-Based\nEntity Generator"
+      SrcPort		      RConn1
+      Points		      [5, 0; 0, 80; -105, 0; 0, 35]
+      DstBlock		      "Start Timer"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Final"
+      SrcPort		      RConn1
+      Points		      [20, 0]
+      DstBlock		      "Read Timer"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Read Timer"
+      SrcPort		      RConn1
+      Points		      [5, 0; 0, 85; -115, 0; 0, 35]
+      DstBlock		      "Entity Sink"
+      DstPort		      LConn1
+    }
+    Line {
+      LineType		      "Connection"
+      SrcBlock		      "Path Combiner5"
+      SrcPort		      RConn1
+      DstBlock		      "FinalQ"
+      DstPort		      LConn1
+    }
+    Line {
+      SrcBlock		      "Process5_Q"
+      SrcPort		      1
+      Points		      [15, 0; 0, 175]
+      DstBlock		      "Product5"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Process5_Q"
+      SrcPort		      2
+      Points		      [15, 0; 0, 170]
+      DstBlock		      "Product5"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Product5"
+      SrcPort		      1
+      DstBlock		      "Discrete Event Signal\nto Workspace5"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Product"
+      SrcPort		      1
+      DstBlock		      "Discrete Event Signal\nto Workspace"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Receiving Queue"
+      SrcPort		      1
+      Points		      [15, 0; 0, 165]
+      DstBlock		      "Product"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Receiving Queue"
+      SrcPort		      2
+      Points		      [15, 0; 0, 160]
+      DstBlock		      "Product"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Product2"
+      SrcPort		      1
+      DstBlock		      "Discrete Event Signal\nto Workspace2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Process2_Q"
+      SrcPort		      2
+      Points		      [15, 0; 0, 160]
+      DstBlock		      "Product2"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Process2_Q"
+      SrcPort		      1
+      Points		      [15, 0; 0, 145; 10, 0]
+      DstBlock		      "Product2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Product1"
+      SrcPort		      1
+      DstBlock		      "Discrete Event Signal\nto Workspace1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Process1_Q"
+      SrcPort		      2
+      Points		      [35, 0]
+      DstBlock		      "Product1"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Process1_Q"
+      SrcPort		      1
+      Points		      [35, 0]
+      DstBlock		      "Product1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Product3"
+      SrcPort		      1
+      DstBlock		      "Discrete Event Signal\nto Workspace3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Process3_Q"
+      SrcPort		      2
+      Points		      [20, 0; 0, 150]
+      DstBlock		      "Product3"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Process3_Q"
+      SrcPort		      1
+      Points		      [20, 0; 0, 155]
+      DstBlock		      "Product3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Product4"
+      SrcPort		      1
+      DstBlock		      "Discrete Event Signal\nto Workspace4"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Process4_Q"
+      SrcPort		      2
+      Points		      [25, 0; 0, 145]
+      DstBlock		      "Product4"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Process4_Q"
+      SrcPort		      1
+      Points		      [25, 0; 0, 150]
+      DstBlock		      "Product4"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Product6"
+      SrcPort		      1
+      DstBlock		      "Discrete Event Signal\nto Workspace6"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "FinalQ"
+      SrcPort		      2
+      Points		      [15, 0; 0, 125; -110, 0]
+      DstBlock		      "Product6"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "FinalQ"
+      SrcPort		      1
+      Points		      [15, 0; 0, 145; -110, 0]
+      DstBlock		      "Product6"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Read Timer"
+      SrcPort		      1
+      Points		      [20, 0; 0, -85]
+      DstBlock		      "Signal Scope"
+      DstPort		      1
+    }
+  }
+}
