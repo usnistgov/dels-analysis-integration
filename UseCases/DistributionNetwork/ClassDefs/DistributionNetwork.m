@@ -41,7 +41,7 @@ classdef DistributionNetwork < FlowNetwork
 
             %Map Commodity Flow Solution to Commodities -- Eventually Map to a
             %Product with a Process Plan / Route
-            DN.commoditySet = DN.mapFlowCommodity2Commodity;
+            DN.commodityList = DN.mapFlowCommodity2Commodity;
 
             %Map commodity flow solution to Probabilistic Commodity Flow.
             for jj = 1:length(FlowEdge_Solution) %For each FlowEdge selected in the solution
@@ -57,34 +57,40 @@ classdef DistributionNetwork < FlowNetwork
             [ DN.depotSet, selecteddepotList, FlowEdge_Solution ] = DN.mapFlowNode2DepotProbFlow( DN.depotList, FlowEdge_Solution, DN.depotMapping);
 
             % Add Transportation Channels for Flow Edges
-            [ DN.transportationChannelSet, DN.edgeSet] = DN.mapFlowEdge2TransportationChannel([DN.customerList; DN.depotList], selecteddepotList, FlowEdge_Solution );
+            [ DN.transportationChannelSet, DN.FlowEdgeSet] = DN.mapFlowEdge2TransportationChannel([DN.customerList; DN.depotList], selecteddepotList, FlowEdge_Solution );
             DN.FlowEdge_Solution = FlowEdge_Solution;
          end
     
     end
 
     methods(Access = private)
-        function [ commoditySet ] = mapFlowCommodity2Commodity(DN)
+        function [ commodityList ] = mapFlowCommodity2Commodity(DN)
         %mapFlowCommodity2Commodity maps the Flow Network Commodity to Distribution Network Commodity
         %Eventually should transition to mapping to Product with Route being the proces plan
 
             %Initialize the struct (ie specify the classdef)
-            commoditySet = struct('ID', [], 'OriginID', [], 'DestinationID', [], 'Quantity', [], 'Route', []);
+            commodityList = struct('instanceID', [], 'OriginID', [], 'DestinationID', [], 'Quantity', [], 'Route', []);
             FlowNode_CommoditySet = DN.FlowNode_ConsumptionProduction;
             commodityFlow_Solution = DN.commodityFlow_Solution;
 
             %commodityFlowSolution %FlowEdgeID origin destination commodity flowUnitCost flowQuantity
 
             for ii = 1:max(FlowNode_CommoditySet(:,2))
-               commoditySet(ii).ID = ii;
-               commoditySet(ii).OriginID = FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == ii & FlowNode_CommoditySet(:,3)>0,1);
-               commoditySet(ii).DestinationID = FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == ii & FlowNode_CommoditySet(:,3)<0,1);
-               commoditySet(ii).Quantity =  FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == ii & FlowNode_CommoditySet(:,3)>0,3);
-               commoditySet(ii).Route = DN.buildCommodityRoute(commodityFlow_Solution(commodityFlow_Solution(:,4) == ii,2:6));
+               commodityList(ii).instanceID = ii;
+               commodityList(ii).OriginID = FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == ii & FlowNode_CommoditySet(:,3)>0,1);
+               commodityList(ii).DestinationID = FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == ii & FlowNode_CommoditySet(:,3)<0,1);
+               commodityList(ii).Quantity =  FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == ii & FlowNode_CommoditySet(:,3)>0,3);
+               commodityList(ii).Route = DN.buildCommodityRoute(commodityFlow_Solution(commodityFlow_Solution(:,4) == ii,2:6));
                %Should return later to generalize to support production/consumption of
                %each commodity at each node.
+               % TO DO: This is overwriting the original commoditySET!!
+               
+               commodity = findobj(DN.commoditySet, 'instanceID', ii);
+               commodity.Quantity = commodityList(ii).Quantity;
+               commodity.Route = commodityList(ii).Route;
             end
-
+            
+            DN.commodityList = commodityList;
             %Return to call commodity constructor prior to MCNF
             %then call buildCommodityRoute after MCNF
         end
@@ -116,9 +122,9 @@ classdef DistributionNetwork < FlowNetwork
             TransportationChannelSet(length(FlowEdge_Solution(1:end-length(selecteddepotList),1))) = TransportationChannel;
             for ii = 1:length(TransportationChannelSet)
                 if FlowEdge_Solution(ii,1) == 1
-                        TransportationChannelSet(ii).ID = ii+length(nodeSet);
-                        TransportationChannelSet(ii).Type = 'TransportationChannel_noInfo';
-                        TransportationChannelSet(ii).Name = strcat('TransportationChannel_', num2str(ii+length(nodeSet)));
+                        TransportationChannelSet(ii).instanceID = ii+length(nodeSet);
+                        TransportationChannelSet(ii).typeID = 'TransportationChannel_noInfo';
+                        TransportationChannelSet(ii).name = strcat('TransportationChannel_', num2str(ii+length(nodeSet)));
                         TransportationChannelSet(ii).Echelon = 2;
                         TransportationChannelSet(ii).TravelRate = 30;
                         TransportationChannelSet(ii).TravelDistance = sqrt(sum((nodeSet(FlowEdge_Solution(ii,3),2:3)-nodeSet(FlowEdge_Solution(ii,4),2:3)).^2));
@@ -142,10 +148,10 @@ classdef DistributionNetwork < FlowNetwork
 
             %Remove extra TransportationChannels from the Set
             %[TransportationChannelSet.Node_ID] only returns properties with value
-            TransportationChannelSet = TransportationChannelSet(1:length([TransportationChannelSet.ID]));
+            TransportationChannelSet = TransportationChannelSet(1:length([TransportationChannelSet.instanceID]));
             for jj = 1:length(TransportationChannelSet)
                 %renumber transportation channel nodes
-                TransportationChannelSet(jj).ID = length(nodeSet)+ TransportationChannelSet(jj).ID;
+                TransportationChannelSet(jj).instanceID = length(nodeSet)+ TransportationChannelSet(jj).instanceID;
             end
 
 
@@ -166,22 +172,23 @@ classdef DistributionNetwork < FlowNetwork
 
             numCustomers = length(flowNodeSet(:,1));
             customerSet(numCustomers) = Customer;
-            commoditySet = struct('ID', [], 'Origin', [], 'Destination', [], 'Quantity', [], 'Route', []);
+            %commoditySet = struct('instanceID', [], 'Origin', [], 'Destination', [], 'Quantity', [], 'Route', []);
             for jj = 1:numCustomers
-                customerSet(jj).ID = flowNodeSet(jj,1);
-                customerSet(jj).Name = strcat('Customer_', num2str(flowNodeSet(jj,1)));
+                customerSet(jj).instanceID = flowNodeSet(jj,1);
+                customerSet(jj).name = strcat('Customer_', num2str(flowNodeSet(jj,1)));
                 customerSet(jj).Echelon = 1;
                 customerSet(jj).X = flowNodeSet(jj,2);
                 customerSet(jj).Y = flowNodeSet(jj,3);
-                customerSet(jj).Type = 'Customer_probflow';
-                customerSet(jj).routingProbability = FlowEdge_Solution(FlowEdge_Solution(:,3) == customerSet(jj).ID,8);
+                customerSet(jj).typeID = 'Customer_probflow';
+                customerSet(jj).routingProbability = FlowEdge_Solution(FlowEdge_Solution(:,3) == customerSet(jj).instanceID,8);
 
                 %Aggregate the Commodities Into 1 Commodity for Each Customer
-                commoditySet(jj).ID = jj;
+                commoditySet(jj) = Commodity;
+                commoditySet(jj).instanceID = jj;
                 commoditySet(jj).OriginID = jj;
                 commoditySet(jj).DestinationID = 0;
                 commoditySet(jj).Route = 0;
-                commoditySet(jj).Quantity = sum(FlowEdge_Solution(FlowEdge_Solution(:,3) == customerSet(jj).ID, 7));
+                commoditySet(jj).Quantity = sum(FlowEdge_Solution(FlowEdge_Solution(:,3) == customerSet(jj).instanceID, 7));
                 customerSet(jj).setCommoditySet(commoditySet(jj));
             end
 
@@ -206,18 +213,18 @@ classdef DistributionNetwork < FlowNetwork
             numDepot = length(FlowNodeSet(:,1));
             depotSet(numDepot) = Depot;
             for jj = 1:numDepot
-                depotSet(jj).ID = FlowNodeSet(jj,1);
-                depotSet(jj).Name = strcat('Depot_', num2str(FlowNodeSet(jj,1)));
+                depotSet(jj).instanceID = FlowNodeSet(jj,1);
+                depotSet(jj).name = strcat('Depot_', num2str(FlowNodeSet(jj,1)));
                 depotSet(jj).Echelon = 3;
                 depotSet(jj).X = FlowNodeSet(jj,2);
                 depotSet(jj).Y = FlowNodeSet(jj,3);
-                depotSet(jj).Type = 'Depot_probflow';
-                mappedFlowNode = depotMapping(depotMapping(:,1) == depotSet(jj).ID,2);
+                depotSet(jj).typeID = 'Depot_probflow';
+                mappedFlowNode = depotMapping(depotMapping(:,1) == depotSet(jj).instanceID,2);
                 depotSet(jj).routingProbability = FlowEdge_Solution(FlowEdge_Solution(:,3) == FlowNodeSet(jj,1) ...
                                                                 & FlowEdge_Solution(:,4) ~= mappedFlowNode,8);
             end
 
-            depotSet = depotSet(ismember([depotSet.ID], selecteddepotList));
+            depotSet = depotSet(ismember([depotSet.instanceID], selecteddepotList));
         end
 
     end

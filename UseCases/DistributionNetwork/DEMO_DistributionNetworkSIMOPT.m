@@ -1,8 +1,14 @@
 %% 0) Generate Random Instance of Distribution Network
+tic;
 rng default;
 dn1 = DistributionFlowNetworkGenerator;
 
 %% 0.5) Map FlowNetwork 2 Optimization
+% a) Map Class data to MCFN OPT list
+
+dn1.mapFlowNodes2ProductionConsumptionList;
+dn1.mapFlowEdges2FlowTypeAllowed;
+
 % a) Transform capacitated flow nodes
 %2/9/19 TO DO: Make this more general -- for any FlowNode that is
 %capacitated, split it.
@@ -14,6 +20,7 @@ dn1 = DistributionFlowNetworkGenerator;
     depotMapping = zeros(numDepot,2);
     depotList = dn1.depotList;
     flowEdgeList = dn1.FlowEdgeList;
+    flowNodeList = dn1.FlowNodeList;
     FlowEdge_flowTypeAllowed = dn1.FlowEdge_flowTypeAllowed;
     FlowNode_ConsumptionProduction = dn1.FlowNode_ConsumptionProduction;
     gg = max(flowEdgeList(:,1))+1;
@@ -22,6 +29,7 @@ dn1 = DistributionFlowNetworkGenerator;
     for ii =1:numDepot
         newIndex = depotList(end,1)+1;
         depotList(end+1,:) = [newIndex, depotList(ii,2), depotList(ii,3)];
+        flowNodeList(end+1,:) = [newIndex, depotList(ii,2), depotList(ii,3)];
         depotMapping(ii,:) = [depotList(ii,1), newIndex];
         
         flowEdgeList(flowEdgeList(:,2) == depotList(ii,1),2) = depotList(end,1);
@@ -50,23 +58,23 @@ dn1 = DistributionFlowNetworkGenerator;
     % -- Alternatively, could inject the new consumption/production rows
     % (associated with the split node) into the array where they belong
     % (contiguous with the other rows associated with that commodityKind)
-    FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction(any(FlowNode_ConsumptionProduction,2),:);
+    %FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction(any(FlowNode_ConsumptionProduction,2),:);
     [~,I] = sort(FlowNode_ConsumptionProduction(:,2));
     FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction(I,:);
     dn1.FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction;
-    
+    dn1.FlowNodeList = flowNodeList;
     dn1.depotList = depotList;
     dn1.depotMapping = depotMapping;
     
 %% 0.6) Solve MCFN
-
+toc;
 solveMultiCommodityFlowNetwork(dn1)
 
 
 %% 1) Build and Solve Desteriministic MCFN
 %GenerateFlowNetworkSet implements a leave one out heuristic to generate a
 %family of candidate MCFN solutions
-flowNetworkSet = GenerateFlowNetworkSet(dn1, dn1.depotSet(1:length(dn1.depotSet)/2,:), dn1.depotFixedCost);
+flowNetworkSet = GenerateFlowNetworkSet(dn1, dn1.depotList(1:length(dn1.depotList)/2,:), dn1.depotFixedCost);
 
 %% 2) MAP MCFN Solution to Distribution System Model
 distributionNetworkSet(length(flowNetworkSet)) = DistributionNetwork(dn1);
@@ -76,6 +84,7 @@ clear dn1;
 for ii = 1:length(distributionNetworkSet)
     distributionNetworkSet(ii).mapFlowNetwork2DistributionNetwork;
 end
+
 clear flowNetworkSet ii;
 
 %% 3) Build and Run Low-Fidelity Simulations
@@ -108,12 +117,12 @@ end
 for ii = 1:length(distributionNetworkSet)
        
     for jj = 1:length(distributionNetworkSet(ii).customerNodeSet)
-        distributionNetworkSet(ii).customerNodeSet(jj).Type = 'Customer'; %Change Resolution from Probabilistic to Complete
+        distributionNetworkSet(ii).customerNodeSet(jj).typeID = 'Customer'; %Change Resolution from Probabilistic to Complete
         distributionNetworkSet(ii).customerNodeSet(jj).setCommoditySet(distributionNetworkSet(ii).commoditySet);
     end
     
     for jj = 1:length(distributionNetworkSet(ii).depotNodeSet)
-        distributionNetworkSet(ii).depotNodeSet(jj).Type = 'Depot';
+        distributionNetworkSet(ii).depotNodeSet(jj).typeID = 'Depot';
     end
     
 end 

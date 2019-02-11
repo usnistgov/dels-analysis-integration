@@ -25,10 +25,10 @@ function [ flowNetworkSet ] = GenerateFlowNetworkSet( inputFlowNetwork, targetFl
     for ii = 1:length(SelectedDepotSetIndex)
         %flowNetworkSet(1) is the original
         flowNetworkSet(ii+1) = FlowNetwork(inputFlowNetwork);
-        flowNetworkSet(ii+1).FlowEdgeSet(SelectedDepotSetIndex(:), 5) = flowNodeFixedCost;
+        flowNetworkSet(ii+1).FlowEdgeList(SelectedDepotSetIndex(:), 5) = flowNodeFixedCost;
         % 2/24/18 -- Matlab INTLINPROG doesn't accept inf (too big), change to big M
         %flowNetworkSet(ii+1).FlowEdgeSet(SelectedDepotSetIndex(ii), 5) = inf;
-        flowNetworkSet(ii+1).FlowEdgeSet(SelectedDepotSetIndex(ii), 5) = flowNodeFixedCost*10e10;
+        flowNetworkSet(ii+1).FlowEdgeList(SelectedDepotSetIndex(ii), 5) = flowNodeFixedCost*10e10;
         solveMultiCommodityFlowNetwork(flowNetworkSet(ii+1));
         %fprintf('Complete %d of %d', ii+1, length(SelectedDepotSetIndex)+1);
     end

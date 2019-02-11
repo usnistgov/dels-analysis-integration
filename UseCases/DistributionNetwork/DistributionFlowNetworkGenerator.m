@@ -26,7 +26,7 @@ distributionNetwork = DistributionNetwork;
         %[i x y]
         customerList(ii,:) = [ii, gridSize*rand(1), gridSize*rand(1)];
         customerSet(ii) = Customer(customerList(ii,:));
-        customerSet(ii).Name = strcat('Customer', num2str(ii));
+        customerSet(ii).name = strcat('Customer', num2str(ii));
     end
 
 
@@ -44,13 +44,9 @@ distributionNetwork = DistributionNetwork;
         depotSet(ii) = Depot(depotList(ii,:));
         depotSet(ii).fixedCost = depotFixedCost;
         depotSet(ii).capacity = depotGrossCapacity;
-        depotSet(ii).Name = strcat('Depot', num2str(ii));
+        depotSet(ii).name = strcat('Depot', num2str(ii));
         jj = jj+1;
     end
-
-    flowNodeList = [customerList; depotList];
-    numNodes = numCustomers+numDepot;
-    numCommodity = (numCustomers-1)*numCustomers;
 
     flowNodeList = [customerList; depotList];
     distributionNetwork.FlowNodeList = flowNodeList;
@@ -58,7 +54,7 @@ distributionNetwork = DistributionNetwork;
     numNodes = length(flowNodeList);
     
     %% Generate FlowEdge Set
-    % FlowEdge = ID sourceFlowNode targetFlowNode grossCapacity flowFixedCost
+    % FlowEdge = instanceID sourceFlowNode targetFlowNode grossCapacity flowFixedCost
     numArc = numNodes*(numNodes-1);
     flowEdgeList = zeros(numArc, 5);
     gg = 1;
@@ -68,14 +64,14 @@ distributionNetwork = DistributionNetwork;
                 flowEdgeList(gg,:) = [gg, flowNodeList(ii,1), flowNodeList(jj,1), 1e7, 0.01];
                 flowEdgeSet(gg) = FlowEdge(flowEdgeList(gg,:));
                 
-                %Lookup the FlowNetwork with the source/target ID
+                %Lookup the FlowNetwork with the source/target instanceID
                 for kk = 1:length(distributionNetwork.FlowNodeSet)
-                    sourceFlowNetwork = findobj(distributionNetwork.FlowNodeSet{kk}, 'ID', ii);
+                    sourceFlowNetwork = findobj(distributionNetwork.FlowNodeSet{kk}, 'instanceID', ii);
                     if isempty(sourceFlowNetwork) == 0
                         flowEdgeSet(gg).sourceFlowNetwork = sourceFlowNetwork;
                     end
                     
-                    targetFlowNetwork = findobj(distributionNetwork.FlowNodeSet{kk}, 'ID', jj);
+                    targetFlowNetwork = findobj(distributionNetwork.FlowNodeSet{kk}, 'instanceID', jj);
                     if isempty(targetFlowNetwork) == 0
                         flowEdgeSet(gg).targetFlowNetwork = targetFlowNetwork;
                     end
@@ -88,12 +84,9 @@ distributionNetwork = DistributionNetwork;
 
     distributionNetwork.FlowEdgeList = flowEdgeList;
     distributionNetwork.FlowEdgeSet = flowEdgeSet;
-    numArc = length(flowEdgeList);
-    
+   
 
     %% Generate Production/Consumption Data
-    %FlowNode_ConsumptionProduction := FlowNodeID Commodity Production/Consumption
-    FlowNode_ConsumptionProduction = zeros(numNodes*numCommodity, 3);
     %Customer < FlowNetwork -- produces, consumes, productionRate, consumptionRate
     kk = 1;
     for ii = 1:numCustomers
@@ -101,20 +94,17 @@ distributionNetwork = DistributionNetwork;
             if eq(ii,jj)==0
                 if rand(1) < commoditydensity
                     supply = randi(500);
-                    FlowNode_ConsumptionProduction(numNodes*(kk-1)+1:numNodes*(kk-1)+ numNodes,1) = 1:numNodes;
-                    FlowNode_ConsumptionProduction(numNodes*(kk-1)+1:numNodes*(kk-1)+ numNodes,2) = kk;
-                    FlowNode_ConsumptionProduction(numNodes*(kk-1)+ii,3) = supply;
-                    FlowNode_ConsumptionProduction(numNodes*(kk-1)+jj,3) = -1*supply;
                     
                     newCommodity(kk) = Commodity;
-                    newCommodity(kk).ID = kk;
+                    newCommodity(kk).instanceID = kk;
                     newCommodity(kk).Quantity = supply;
                     newCommodity(kk).OriginID = ii;
                     newCommodity(kk).Origin = customerSet(ii);
-                    customerSet(ii).produces(end+1) = newCommodity(kk);
-                    customerSet(ii).productionRate(end+1) = supply;
                     newCommodity(kk).DestinationID = jj;
                     newCommodity(kk).Destination = customerSet(jj);
+                    
+                    customerSet(ii).produces(end+1) = newCommodity(kk);
+                    customerSet(ii).productionRate(end+1) = supply;
                     customerSet(jj).consumes(end+1) = newCommodity(kk);
                     customerSet(jj).consumptionRate(end+1) = supply;
 
@@ -125,40 +115,24 @@ distributionNetwork = DistributionNetwork;
     end
     
     distributionNetwork.commoditySet = newCommodity;
-    distributionNetwork.FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction;
-    numCommodity = kk-1;
+    distributionNetwork.numCommodity = kk-1;
 
     %% Generate flowTypeAllowed and flowUnitCost for each FlowEdge
     % FlowEdge_flowTypeAllowed: FlowEdgeID origin destination commodityKind flowUnitCost
-    %flowUnitCost is the distance of the 
-    FlowEdge_flowTypeAllowed = zeros(numArc*numCommodity, 5);
-    for kk = 1:numCommodity
-    	FlowEdge_flowTypeAllowed((kk-1)*numArc+1:kk*numArc,:) = [flowEdgeList(:,1:3),kk*ones(numArc,1),sqrt((flowNodeList(flowEdgeList(:,2),2)-flowNodeList(flowEdgeList(:,3),2)).^2 + (flowNodeList(flowEdgeList(:,2),3)-flowNodeList(flowEdgeList(:,3),3)).^2)];
-    end
-    
+
     for ii = 1:length(distributionNetwork.FlowEdgeSet)
        distributionNetwork.FlowEdgeSet(ii).flowTypeAllowed = [1:length(distributionNetwork.commoditySet)];
        distributionNetwork.FlowEdgeSet(ii).setEdgeWeight;
        distributionNetwork.FlowEdgeSet(ii).flowUnitCost = distributionNetwork.FlowEdgeSet(ii).Weight.*ones(1,length(distributionNetwork.commoditySet));
        
+       %For flows between depots: multiple flowUnitCost by intraDepotDiscount
        if isa(distributionNetwork.FlowEdgeSet(ii).sourceFlowNetwork, 'Depot') && isa(distributionNetwork.FlowEdgeSet(ii).targetFlowNetwork, 'Depot')
            distributionNetwork.FlowEdgeSet(ii).flowUnitCost = intraDepotDiscount.*distributionNetwork.FlowEdgeSet(ii).flowUnitCost;
        end
        
     end
-
-    %For flows between depots: multiple flowUnitCost by intraDepotDiscount
-    FlowEdge_flowTypeAllowed(FlowEdge_flowTypeAllowed(:,2)>numCustomers & FlowEdge_flowTypeAllowed(:,3)>numCustomers,5) = intraDepotDiscount*FlowEdge_flowTypeAllowed(FlowEdge_flowTypeAllowed(:,2)>numCustomers & FlowEdge_flowTypeAllowed(:,3)>numCustomers,5);
-
-    %% Cleanup: Remove Customer to Customer Edges
-
-    for jj= 1:length(FlowEdge_flowTypeAllowed)
-        if le(FlowEdge_flowTypeAllowed(jj,2), numCustomers) && le(FlowEdge_flowTypeAllowed(jj,3), numCustomers)
-           FlowEdge_flowTypeAllowed(jj,5) = inf; 
-        end
-    end
-    FlowEdge_flowTypeAllowed = FlowEdge_flowTypeAllowed(FlowEdge_flowTypeAllowed(:,5)<inf,:);
     
+    %% Cleanup: Remove Customer to Customer Edges
     ii= 1;
     while true
        if ii == length(distributionNetwork.FlowEdgeSet)
@@ -169,8 +143,6 @@ distributionNetwork = DistributionNetwork;
            ii = ii + 1;
        end
     end 
-    
-    distributionNetwork.FlowEdge_flowTypeAllowed = FlowEdge_flowTypeAllowed;
 
     %% Display Generated Data
     %scatter([customerSet(:,2); depotList(:,2)], [customerSet(:,3); depotList(:,3)])
@@ -183,9 +155,6 @@ distributionNetwork = DistributionNetwork;
     distributionNetwork.depotSet = depotSet;
     distributionNetwork.customerList = customerList;
     distributionNetwork.customerSet = customerSet;
-
-    
-    %distributionNetwork.depotMapping = depotMapping;
     distributionNetwork.depotFixedCost = depotFixedCost;
 
 end

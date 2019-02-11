@@ -104,8 +104,8 @@ classdef Process < FlowNetwork
         
         function setTimer(P)
             %Set the dialog parameter TimerTag of the timer blocks: start_ProcessTimer & read_ProcessTimer. 
-            set_param(strcat(P.SimEventsPath, '/Process/start_ProcessTimer'), 'TimerTag', strcat('T_', P.Name))
-            set_param(strcat(P.SimEventsPath, '/Process/read_ProcessTimer'), 'TimerTag', strcat('T_', P.Name))
+            set_param(strcat(P.SimEventsPath, '/Process/start_ProcessTimer'), 'TimerTag', strcat('T_', P.name))
+            set_param(strcat(P.SimEventsPath, '/Process/read_ProcessTimer'), 'TimerTag', strcat('T_', P.name))
         end
         
         function setStorageCapacity(P)
@@ -119,7 +119,7 @@ classdef Process < FlowNetwork
             %Utilization of the server, which is the fraction of simulation time spent storing an entity.
             %Update the signal only after each entity departure via the OUT or TO port, and after each entity arrival.
             metric_block = add_block('simeventslib/SimEvents Sinks/Discrete Event Signal to Workspace', strcat(P.SimEventsPath, '/Process/Utilization_Metric'));
-            set_param(metric_block, 'VariableName', strcat('Utilization_', P.Name), 'Position', [800 25 900 75]);
+            set_param(metric_block, 'VariableName', strcat('Utilization_', P.name), 'Position', [800 25 900 75]);
             add_line(strcat(P.SimEventsPath, '/Process'), 'ProcessServer/2', 'Utilization_Metric/1')
         end
         
@@ -127,7 +127,7 @@ classdef Process < FlowNetwork
             %Builder method for recording the throughput of the n-server block called ProcessServer
             %Number of entities that have departed from this block via the OUT port since the start of the simulation.
             metric_block = add_block('simeventslib/SimEvents Sinks/Discrete Event Signal to Workspace', strcat(P.SimEventsPath, '/Process/Throughput_Metric'));
-            set_param(metric_block, 'VariableName', strcat('Throughput_', P.Name), 'Position', [800 25 900 75]);
+            set_param(metric_block, 'VariableName', strcat('Throughput_', P.name), 'Position', [800 25 900 75]);
             add_line(strcat(P.SimEventsPath, '/Process'), 'ProcessServer/1', 'Throughput_Metric/1')
         end
         
@@ -135,7 +135,7 @@ classdef Process < FlowNetwork
             %Builder method for recording the Average System Time of the Process node
             %Recorded and Output by the timer pair, start_ProcessTimer and read_ProcessTimer
             metric_block = add_block('simeventslib/SimEvents Sinks/Discrete Event Signal to Workspace', strcat(P.SimEventsPath, '/Process/AverageSystemTime_Metric'));
-            set_param(metric_block, 'VariableName', strcat('AverageSystemTime_', P.Name), 'Position', [800 25 900 75]);
+            set_param(metric_block, 'VariableName', strcat('AverageSystemTime_', P.name), 'Position', [800 25 900 75]);
             add_line(strcat(P.SimEventsPath, '/Process'), 'read_ProcessTimer/1', 'AverageSystemTime_Metric/1')
         end
         
@@ -143,7 +143,7 @@ classdef Process < FlowNetwork
             %Builder method for recording the Average Waiting Time of the Process node as output by the ProcessQueue block
             %Sample mean of the waiting times in this block for all entities that have departed via any port.
             metric_block = add_block('simeventslib/SimEvents Sinks/Discrete Event Signal to Workspace', strcat(P.SimEventsPath, '/Process/AverageWaitingTime_Metric'));
-            set_param(metric_block, 'VariableName', strcat('AverageWaitingTime_', P.Name), 'Position', [800 25 900 75]);
+            set_param(metric_block, 'VariableName', strcat('AverageWaitingTime_', P.name), 'Position', [800 25 900 75]);
             add_line(strcat(P.SimEventsPath, '/Process'), 'ProcessQueue/1', 'AverageWaitingTime_Metric/1')
         end
         
@@ -151,7 +151,7 @@ classdef Process < FlowNetwork
             %Builder method for recording the Average Queue Length of the Process node as output by the ProcessQueue block
             %Average number of entities in the queue over time, that is, the time average of the #n signal
             metric_block = add_block('simeventslib/SimEvents Sinks/Discrete Event Signal to Workspace', strcat(P.SimEventsPath, '/Process/AverageQueueLength_Metric'));
-            set_param(metric_block, 'VariableName', strcat('AverageQueueLength_', P.Name), 'Position', [800 25 900 75]);
+            set_param(metric_block, 'VariableName', strcat('AverageQueueLength_', P.name), 'Position', [800 25 900 75]);
             add_line(strcat(P.SimEventsPath, '/Process'), 'ProcessQueue/2', 'AverageQueueLength_Metric/1')
         end
         

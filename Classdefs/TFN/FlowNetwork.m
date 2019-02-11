@@ -3,18 +3,19 @@ classdef FlowNetwork < Network
     %   Detailed explanation goes here
     
     properties
-    %Name
-    %ID
+    %name
+    %instanceID
     %X
     %Y
     %Z
-    FlowNodeList % [ID, X, Y]
+    FlowNodeList % [instanceID, X, Y]
     FlowNodeSet  %NodeSet@FlowNetwork %Use set method to "override" and type check for Flow Network
-    %TO DO: 2/7 -- replaced FlowEdgeSet with FlowEdgeList -- propogate to code
-    FlowEdgeList %[ID sourceFlowNode targetFlowNode grossCapacity flowFixedCost]
+    %TO DO: 2/7 -- replaced FlowEdgeSet with FlowEdgeList -- propagate to code
+    FlowEdgeList %[instanceID sourceFlowNode targetFlowNode grossCapacity flowFixedCost]
     FlowEdgeSet % flow edges within the flow network
     
     commoditySet@Commodity
+    commodityList
     produces@Commodity
     consumes@Commodity
     productionRate
@@ -29,6 +30,7 @@ classdef FlowNetwork < Network
     OUTFlowEdgeSet@FlowEdge %A set of flow edges outgoing to the flow network
     numArc
     numNodes
+    numCommodity
     builder %lightweight delegate to builderClass for constructing simulation 
     
     %2/8/19 -- to be deprecated or made private
@@ -57,9 +59,9 @@ classdef FlowNetwork < Network
         end
         
         function addEdge(self, edgeSet)
-            e = findobj(edgeSet, 'isa', 'FlowEdge', 'targetFlowNetworkID', self.ID, '-or', 'sourceFlowNetworkID', self.ID);
-            self.INFlowEdgeSet = findobj(e, 'targetFlowNetworkID', self.ID);
-            self.OUTFlowEdgeSet = findobj(e, 'sourceFlowNetworkID', self.ID);
+            e = findobj(edgeSet, 'isa', 'FlowEdge', 'targetFlowNetworkID', self.instanceID, '-or', 'sourceFlowNetworkID', self.instanceID);
+            self.INFlowEdgeSet = findobj(e, 'targetFlowNetworkID', self.instanceID);
+            self.OUTFlowEdgeSet = findobj(e, 'sourceFlowNetworkID', self.instanceID);
         end
         
         function setNodeSet(FN, nodes)
@@ -95,7 +97,7 @@ classdef FlowNetwork < Network
                 for kk = 1:length(N.EdgeTypeSet)
                     if strcmp(N.PortSet(end).Type, N.EdgeTypeSet{kk}) ==1
                         TypeCount(kk) = TypeCount(kk) +1;
-                        N.PortSet(end).Name = strcat('IN_', N.EdgeTypeSet{kk},'_', num2str(TypeCount(kk)));
+                        N.PortSet(end).name = strcat('IN_', N.EdgeTypeSet{kk},'_', num2str(TypeCount(kk)));
                     end
                 end
             end
@@ -122,7 +124,7 @@ classdef FlowNetwork < Network
                 for kk = 1:length(N.EdgeTypeSet)
                     if strcmp(N.PortSet(end).Type, N.EdgeTypeSet{kk}) ==1
                         TypeCount(kk) = TypeCount(kk) +1;
-                        N.PortSet(end).Name = strcat('OUT_', N.EdgeTypeSet{kk},'_', num2str(TypeCount(kk)));
+                        N.PortSet(end).name = strcat('OUT_', N.EdgeTypeSet{kk},'_', num2str(TypeCount(kk)));
                     end
                 end
             end
@@ -142,13 +144,13 @@ classdef FlowNetwork < Network
                     for jj = 1:length(INset) %For Each edge in INset build port
                         try
                             Port = INset(jj).DestinationPort;
-                            Port.SimEventsPath = strcat(N.SimEventsPath, '/', Port.Name);
+                            Port.SimEventsPath = strcat(N.SimEventsPath, '/', Port.name);
                             add_block('simeventslib/SimEvents Ports and Subsystems/Conn', Port.SimEventsPath);
                             set_param(Port.SimEventsPath, 'Port', num2str(Port.Number));
                             set_param(Port.SimEventsPath, 'Side', Port.Side);
                             Port.setPosition
-                            add_line(strcat(N.Model, '/', N.Name), strcat(Port.Direction, '_', Port.Type, '/LConn', num2str(jj)), ...
-                            strcat(Port.Name,'/RConn1'), 'autorouting', 'on');
+                            add_line(strcat(N.Model, '/', N.name), strcat(Port.Direction, '_', Port.Type, '/LConn', num2str(jj)), ...
+                            strcat(Port.name,'/RConn1'), 'autorouting', 'on');
                         catch err
                             continue
                         end
@@ -164,13 +166,13 @@ classdef FlowNetwork < Network
                     for jj = 1:length(OUTset) %For Each edge in OUTset build port
                         try
                             Port = OUTset(jj).OriginPort;
-                            Port.SimEventsPath = strcat(N.SimEventsPath, '/', Port.Name);
+                            Port.SimEventsPath = strcat(N.SimEventsPath, '/', Port.name);
                             add_block('simeventslib/SimEvents Ports and Subsystems/Conn', Port.SimEventsPath);
                             set_param(Port.SimEventsPath, 'Port', num2str(Port.Number));
                             set_param(Port.SimEventsPath, 'Side', Port.Side);
                             Port.setPosition
-                            add_line(strcat(N.Model, '/', N.Name), strcat(Port.Direction, '_', Port.Type, '/RConn', num2str(jj)), ...
-                            strcat(Port.Name,'/RConn1'), 'autorouting', 'on');
+                            add_line(strcat(N.Model, '/', N.name), strcat(Port.Direction, '_', Port.Type, '/RConn', num2str(jj)), ...
+                            strcat(Port.name,'/RConn1'), 'autorouting', 'on');
                         catch err
                             rethrow(err)
                             %continue
@@ -211,6 +213,50 @@ classdef FlowNetwork < Network
         
         function transformCapacitatedNodes(self)
             
+        end
+        
+        function [FlowNode_ConsumptionProduction] = mapFlowNodes2ProductionConsumptionList(self)
+            
+            FlowNode_ConsumptionProduction = zeros(length(self.FlowNodeList)*self.numCommodity,3);
+            
+            for kk = 1:self.numCommodity
+                FlowNode_ConsumptionProduction((kk-1)*length(self.FlowNodeList(:,1))+ 1: kk*length(self.FlowNodeList(:,1)),:) ...
+                                = [self.FlowNodeList(:,1), kk*ones(length(self.FlowNodeList(:,1)),1), ...
+                                  zeros(length(self.FlowNodeList(:,1)),1)];
+            end
+            
+            
+            for ii = 1:length(self.FlowNodeSet)
+                %FlowNodeSet is type cell with each cell containing a set
+                %of Flow Nodes (of a particular type)
+                for jj = 1:length(self.FlowNodeSet{ii})
+                    for kk = 1:length(self.FlowNodeSet{ii}(jj).produces)
+                        index = FlowNode_ConsumptionProduction(:,1) == self.FlowNodeSet{ii}(jj).instanceID & FlowNode_ConsumptionProduction(:,2) == self.FlowNodeSet{ii}(jj).produces(kk).instanceID;
+                        FlowNode_ConsumptionProduction(index,3) = self.FlowNodeSet{ii}(jj).productionRate(kk);
+                    end %for each commodity that flowNode 'produces'
+                    
+                    for kk = 1:length(self.FlowNodeSet{ii}(jj).consumes)
+                        index = FlowNode_ConsumptionProduction(:,1) == self.FlowNodeSet{ii}(jj).instanceID & FlowNode_ConsumptionProduction(:,2) == self.FlowNodeSet{ii}(jj).consumes(kk).instanceID;
+                        FlowNode_ConsumptionProduction(index,3) = -1*self.FlowNodeSet{ii}(jj).consumptionRate(kk);
+                    end %for each commodity that flowNode 'consumes'
+                end % for each Flow Node
+            end % for each Flow Node
+            
+            self.FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction;
+        end
+        
+        function [FlowEdge_flowTypeAllowed] = mapFlowEdges2FlowTypeAllowed(self)
+            %FlowEdge_flowTypeAllowed: FlowEdgeID origin destination commodityKind flowUnitCost
+            
+            FlowEdge_flowTypeAllowed = zeros(self.numArc*self.numCommodity, 5);
+            
+            for ee = 1:length(self.FlowEdgeSet)
+                ID = [self.FlowEdgeSet(ee).instanceID, self.FlowEdgeSet(ee).sourceFlowNetworkID, self.FlowEdgeSet(ee).targetFlowNetworkID];
+                FlowEdge_flowTypeAllowed((ee-1)*self.numCommodity+1:(ee)*self.numCommodity,:) = ...
+                            [repmat(ID, [self.numCommodity,1]), self.FlowEdgeSet(ee).flowTypeAllowed', self.FlowEdgeSet(ee).flowUnitCost'];
+            end
+            
+            self.FlowEdge_flowTypeAllowed = FlowEdge_flowTypeAllowed;
         end
     end
     

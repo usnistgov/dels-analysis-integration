@@ -8,11 +8,11 @@ classdef Customer < FlowNetwork
     
     methods (Access = public)
         function self = Customer(input)
-            %Input := ID X Y
+            %Input := instanceID X Y
            if nargin == 0
                % default constructor
            else
-               self.ID = input(1);
+               self.instanceID = input(1);
                self.X = input(2);
                self.Y = input(3);
            end
@@ -20,7 +20,7 @@ classdef Customer < FlowNetwork
         
         
         function setCommoditySet(C, commoditySet)
-            C.commoditySet = commoditySet([commoditySet.OriginID] == C.ID);
+            C.commoditySet = commoditySet([commoditySet.OriginID] == C.instanceID);
         end
         
         function decorateNode(C)
@@ -35,7 +35,7 @@ classdef Customer < FlowNetwork
     
     methods (Access = private)
         function setMetrics(C)
-            set_param(strcat(C.SimEventsPath, '/Shipment_Metrics'), 'VariableName', C.Name);
+            set_param(strcat(C.SimEventsPath, '/Shipment_Metrics'), 'VariableName', C.name);
         end
         
         function buildShipmentRouting(C)
@@ -66,7 +66,7 @@ classdef Customer < FlowNetwork
                 lookup_table = '[';
 
                 for ii = 1:length(shipmentDestination)
-                    if eq(shipmentDestination(ii).Destination_Node.SourceID, C.ID) == 1
+                    if eq(shipmentDestination(ii).Destination_Node.SourceID, C.instanceID) == 1
                         lookup_table = strcat(lookup_table,',', num2str(shipmentDestination(ii).Destination.Target));
                     else
                         lookup_table = strcat(lookup_table,',', num2str(shipmentDestination(ii).Destination.Source));
@@ -75,7 +75,7 @@ classdef Customer < FlowNetwork
                 lookup_table = strcat('[',lookup_table(3:end), ']');
 
                 set_param(strcat(C.SimEventsPath, '/Lookup'), 'Value', lookup_table);
-                set_param(strcat(C.SimEventsPath, '/Node_ID'), 'Value', num2str(C.ID));
+                set_param(strcat(C.SimEventsPath, '/Node_ID'), 'Value', num2str(C.instanceID));
             end
         end
         
@@ -87,14 +87,14 @@ classdef Customer < FlowNetwork
                 position = get_param(strcat(C.SimEventsPath, '/IN_Commodity'), 'Position') - [400 0 400 0] + [0 (ii-1)*100 0 (ii-1)*100];
                 %add the block
                 block = add_block(strcat('Distribution_Library/CommoditySource'), strcat(C.SimEventsPath,'/Commodity_',...
-                    num2str(C.commoditySet(ii).ID)), 'Position', position);
+                    num2str(C.commoditySet(ii).instanceID)), 'Position', position);
                 set_param(block, 'LinkStatus', 'none');
 
                 set_param(block, 'Mean', strcat('2000/', num2str(C.commoditySet(ii).Quantity)))
                 %AttributeValue = '[Route]|Origin|Destination|Start'
                 set_param(block, 'AttributeValue', strcat('[',num2str(C.commoditySet(ii).Route),']|', num2str(C.commoditySet(ii).OriginID), '|', num2str(C.commoditySet(ii).DestinationID), '|1'));
 
-                add_line(C.SimEventsPath, strcat('Commodity_', num2str(C.commoditySet(ii).ID), '/RConn1'), strcat('IN_Commodity/LConn', num2str(ii)));
+                add_line(C.SimEventsPath, strcat('Commodity_', num2str(C.commoditySet(ii).instanceID), '/RConn1'), strcat('IN_Commodity/LConn', num2str(ii)));
             end
         end
     end

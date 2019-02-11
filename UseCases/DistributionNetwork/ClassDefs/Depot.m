@@ -13,7 +13,7 @@ classdef Depot < FlowNetwork
            if nargin == 0
                % default constructor
            else
-               self.ID = input(1);
+               self.instanceID = input(1);
                self.X = input(2);
                self.Y = input(3);
            end

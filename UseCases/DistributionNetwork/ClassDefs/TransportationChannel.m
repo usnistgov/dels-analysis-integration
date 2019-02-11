@@ -35,56 +35,56 @@ classdef TransportationChannel < FlowNetwork
             kk=1;
             
             %Add Edges for flows from Source to Target
-            FlowEdgeSet(kk).EdgeID = kk;
+            FlowEdgeSet(kk).instanceID = kk;
             FlowEdgeSet(kk).OriginID = TC.Source;
-            FlowEdgeSet(kk).DestinationID = TC.ID;
-            FlowEdgeSet(kk).EdgeType = 'Shipment';
+            FlowEdgeSet(kk).DestinationID = TC.instanceID;
+            FlowEdgeSet(kk).typeID = 'Shipment';
             kk= kk+1;
 
-            FlowEdgeSet(kk).EdgeID = kk;
-            FlowEdgeSet(kk).OriginID = TC.ID;
+            FlowEdgeSet(kk).instanceID = kk;
+            FlowEdgeSet(kk).OriginID = TC.instanceID;
             FlowEdgeSet(kk).DestinationID = TC.Target;
-            FlowEdgeSet(kk).EdgeType = 'Shipment';
+            FlowEdgeSet(kk).typeID = 'Shipment';
             kk=kk+1;
             
             if any(TC.Source == DepotSet(:))
-                FlowEdgeSet(kk).EdgeID = kk;
+                FlowEdgeSet(kk).instanceID = kk;
                 FlowEdgeSet(kk).OriginID = TC.Source;
-                FlowEdgeSet(kk).DestinationID = TC.ID;
-                FlowEdgeSet(kk).EdgeType = 'Resource';
+                FlowEdgeSet(kk).DestinationID = TC.instanceID;
+                FlowEdgeSet(kk).typeID = 'Resource';
                 kk=kk+1;
 
-                FlowEdgeSet(kk).EdgeID = kk;
-                FlowEdgeSet(kk).OriginID = TC.ID;
+                FlowEdgeSet(kk).instanceID = kk;
+                FlowEdgeSet(kk).OriginID = TC.instanceID;
                 FlowEdgeSet(kk).DestinationID = TC.Source;
-                FlowEdgeSet(kk).EdgeType = 'Resource';
+                FlowEdgeSet(kk).typeID = 'Resource';
                 kk=kk+1;
             end
             
             %Add Edges for flows from Target To Source
-            FlowEdgeSet(kk).EdgeID = kk;
+            FlowEdgeSet(kk).instanceID = kk;
             FlowEdgeSet(kk).OriginID = TC.Target;
-            FlowEdgeSet(kk).DestinationID = TC.ID;
-            FlowEdgeSet(kk).EdgeType = 'Shipment';
+            FlowEdgeSet(kk).DestinationID = TC.instanceID;
+            FlowEdgeSet(kk).typeID = 'Shipment';
             kk=kk+1;
 
-            FlowEdgeSet(kk).EdgeID = kk;
-            FlowEdgeSet(kk).OriginID = TC.ID;
+            FlowEdgeSet(kk).instanceID = kk;
+            FlowEdgeSet(kk).OriginID = TC.instanceID;
             FlowEdgeSet(kk).DestinationID = TC.Source;
-            FlowEdgeSet(kk).EdgeType = 'Shipment';
+            FlowEdgeSet(kk).typeID = 'Shipment';
             kk=kk+1;
 
            if any(TC.Target == DepotSet(:))
-                FlowEdgeSet(kk).EdgeID = kk;
+                FlowEdgeSet(kk).instanceID = kk;
                 FlowEdgeSet(kk).OriginID = TC.Target;
-                FlowEdgeSet(kk).DestinationID = TC.ID;
-                FlowEdgeSet(kk).EdgeType = 'Resource';
+                FlowEdgeSet(kk).DestinationID = TC.instanceID;
+                FlowEdgeSet(kk).typeID = 'Resource';
                 kk=kk+1;
 
-                FlowEdgeSet(kk).EdgeID = kk;
-                FlowEdgeSet(kk).OriginID = TC.ID;
+                FlowEdgeSet(kk).instanceID = kk;
+                FlowEdgeSet(kk).OriginID = TC.instanceID;
                 FlowEdgeSet(kk).DestinationID = TC.Target;
-                FlowEdgeSet(kk).EdgeType = 'Resource';
+                FlowEdgeSet(kk).typeID = 'Resource';
                 kk=kk+1;
             end
             

@@ -1,10 +1,10 @@
-classdef Commodity < handle
+classdef Commodity < NetworkElement
     
     %COMMODITY Summary of this class goes here
     %   Detailed explanation goes here
     
     properties
-        ID
+        %ID
         Origin@FlowNetwork
         OriginID
         Destination@FlowNetwork

@@ -1,4 +1,4 @@
-classdef Network < handle
+classdef Network < NetworkElement
     %NETWORK Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -9,18 +9,17 @@ classdef Network < handle
     %http://www.mathworks.com/help/matlab/graph-and-network-algorithms.html
     
     properties
-        Name
-        ID 
+
         NodeSet@Network
         EdgeSet@Edge
         ParentID %From the instance data
         Parent@Network
-        EdgeSetList = [0 0 0 0] %[ID Origin Destination Weight]
+        EdgeSetList = [0 0 0 0] %[instanceID Origin Destination Weight]
         EdgeSetAdjList
-        NodeSetList = [0, 0, 0, 0] %[ID, X, Y, Z] %2/7/19 Removed "Type = 'Node'"
+        NodeSetList = [0, 0, 0, 0] %[instanceID, X, Y, Z] %2/7/19 Removed "Type = 'Node'"
         
         
-        Type %Designation of type of node to be instantiated in simulation
+        
         INEdgeSet@Edge %A set of edge classes incoming to the node
         OUTEdgeSet@Edge %A set of edge classes outgoing to the node
         NestedNetwork@Network
@@ -35,12 +34,17 @@ classdef Network < handle
         X
         Y
         Z
+        
+        %2/11/19 - deprecated properties, abstracted to networkelement
+        %name
+        %instanceID 
+        %Type %Designation of type of node to be instantiated in simulation
     end
     
     methods
         function obj = Network(NetworkID, X, Y, Z, Type)
             if nargin>0
-                obj.ID = NetworkID;
+                obj.instanceID = NetworkID;
                 obj.X = X;
                 obj.Y = Y;
                 obj.Z = Z;
@@ -54,11 +58,11 @@ classdef Network < handle
         %   Detailed explanation goes here
 
             parfor jj = 1:length(N.NodeSet)
-                E = findobj(N.EdgeSet, 'OriginID', N.NodeSet(jj).ID);
+                E = findobj(N.EdgeSet, 'OriginID', N.NodeSet(jj).instanceID);
                 for e = 1:length(E)
                     N.NodeSet(jj).addEdge(E(e));
                 end
-                E = findobj(N.EdgeSet, 'DestinationID', N.NodeSet(jj).ID);
+                E = findobj(N.EdgeSet, 'DestinationID', N.NodeSet(jj).instanceID);
                 for e = 1:length(E)
                     N.NodeSet(jj).addEdge(E(e));
                 end
@@ -80,13 +84,13 @@ classdef Network < handle
         function addEdge(N, e)
             %Add edges incident to the Node to one of the two sets
             %7/5/16: Switched from If/Elseif to if/if to accomodate self-edges
-            if eq(e.DestinationID, N.ID) == 1
+            if eq(e.DestinationID, N.instanceID) == 1
             %if e.Destination == N.Node_ID
                 N.INEdgeSet(end+1) = e;
                 e.Destination = N;
                 N.EdgeTypeSet{end+1} = e.EdgeType;
             end
-            if eq(e.OriginID, N.ID) == 1
+            if eq(e.OriginID, N.instanceID) == 1
             %if e.Origin == N.Node_ID
                 N.OUTEdgeSet(end+1) = e;
                 e.Origin = N;

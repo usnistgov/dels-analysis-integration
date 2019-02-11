@@ -26,7 +26,7 @@ classdef FlowEdge < Edge
            if nargin == 0
                % default constructor
            else
-               self.ID = input(1);
+               self.instanceID = input(1);
                self.sourceFlowNetworkID = input(2);
                self.targetFlowNetworkID = input(3);
                self.grossCapacity = input(4);
