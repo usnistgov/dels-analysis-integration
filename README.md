@@ -9,10 +9,15 @@ A discrete event logistics system (or DELS) can be described as:
 
 ## Project Overview
 The goal of this project is to develop abstractions and methodologies to integrate systems models with analysis models and tools, such as discrete event simulation. The target analysis toolboxes currently include:
+
 •	Multi-commodity flow network (MCFN) & facility location via Math Programming tools (such as CPLEX)
+
 •	Queueing Network analysis
+
 •	Newsvendor Networks
+
 •	Discrete Event Simulation - using SimEvents
+
 •	Simulation Optimization - using Genetic Algorithms
 
 
