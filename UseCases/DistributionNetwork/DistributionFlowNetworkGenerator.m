@@ -27,6 +27,8 @@ distributionNetwork = DistributionNetwork;
         customerList(ii,:) = [ii, gridSize*rand(1), gridSize*rand(1)];
         customerSet(ii) = Customer(customerList(ii,:));
         customerSet(ii).name = strcat('Customer', num2str(ii));
+        customerSet(ii).capacity = inf;
+        customerSet(ii).fixedCost = 0;
     end
 
 

@@ -1,5 +1,4 @@
 %% 0) Generate Random Instance of Distribution Network
-tic;
 rng default;
 dn1 = DistributionFlowNetworkGenerator;
 
@@ -8,73 +7,21 @@ dn1 = DistributionFlowNetworkGenerator;
 
 dn1.mapFlowNodes2ProductionConsumptionList;
 dn1.mapFlowEdges2FlowTypeAllowed;
+dn1.transformCapacitatedFlowNodes;
 
-% a) Transform capacitated flow nodes
-%2/9/19 TO DO: Make this more general -- for any FlowNode that is
-%capacitated, split it.
-
-    %split depots & keep track of the mapping
-    numDepot = length(dn1.depotSet);
-    numCommodity = length(dn1.commoditySet);
-    numEdges = length(dn1.FlowEdgeList);
-    depotMapping = zeros(numDepot,2);
-    depotList = dn1.depotList;
-    flowEdgeList = dn1.FlowEdgeList;
-    flowNodeList = dn1.FlowNodeList;
-    FlowEdge_flowTypeAllowed = dn1.FlowEdge_flowTypeAllowed;
-    FlowNode_ConsumptionProduction = dn1.FlowNode_ConsumptionProduction;
-    gg = max(flowEdgeList(:,1))+1;
     
-    % Split capacitated node, add capacity and 'cost of opening' to edge
-    for ii =1:numDepot
-        newIndex = depotList(end,1)+1;
-        depotList(end+1,:) = [newIndex, depotList(ii,2), depotList(ii,3)];
-        flowNodeList(end+1,:) = [newIndex, depotList(ii,2), depotList(ii,3)];
-        depotMapping(ii,:) = [depotList(ii,1), newIndex];
-        
-        flowEdgeList(flowEdgeList(:,2) == depotList(ii,1),2) = depotList(end,1);
-        FlowEdge_flowTypeAllowed(FlowEdge_flowTypeAllowed(:,2) == depotList(ii,1),2) = depotList(end,1);
-        
-        
-        %2/9/19 assume all commodities can flow through all depots
-        %FlowEdge_flowTypeAllowed: FlowEdgeID origin destination commodityKind flowUnitCost
-        
-        flowEdgeList(end+1,:) = [gg, depotList(ii,1), depotList(end,1), dn1.depotSet(ii).capacity, dn1.depotSet(ii).fixedCost];
-        FlowEdge_flowTypeAllowed(end+1:end+numCommodity, :) = [repmat(flowEdgeList(end,1:3), numCommodity,1), [1:numCommodity]', zeros(numCommodity,1)];
-        FlowNode_ConsumptionProduction(end+1:end+numCommodity,:) = [newIndex*ones(numCommodity,1), [1:numCommodity]', zeros(numCommodity,1)];
-        
-        %Add split capacitated flow node to flowTypeAllowed list
-        %FlowEdge_flowTypeAllowed(end+1:end+numCommodity,:) = [repmat(flowEdgeList(end,1:3), numCommodity,1),kk*ones(numCommodity,1), zeros(numCommodity,1)];
-        
-        gg = gg +1;
-    end
-    
-    dn1.FlowEdge_flowTypeAllowed = FlowEdge_flowTypeAllowed;
-    dn1.FlowEdgeList = flowEdgeList;
-    %2/9/19 -- The optimization algorithm is going to add flow balance
-    %constraints based on consumption/production, where the flow nodes are
-    %the variables. So the ConsumptionProduction data needs to be sequenced
-    %by commodityKind first then NodeID.
-    % -- Alternatively, could inject the new consumption/production rows
-    % (associated with the split node) into the array where they belong
-    % (contiguous with the other rows associated with that commodityKind)
-    %FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction(any(FlowNode_ConsumptionProduction,2),:);
-    [~,I] = sort(FlowNode_ConsumptionProduction(:,2));
-    FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction(I,:);
-    dn1.FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction;
-    dn1.FlowNodeList = flowNodeList;
-    dn1.depotList = depotList;
-    dn1.depotMapping = depotMapping;
-    
-%% 0.6) Solve MCFN
-toc;
+%% 1) Build and Solve Desteriministic MCFN
 solveMultiCommodityFlowNetwork(dn1)
 
-
-%% 1) Build and Solve Desteriministic MCFN
+%% 1.5) Generate family of candidate solutions
 %GenerateFlowNetworkSet implements a leave one out heuristic to generate a
 %family of candidate MCFN solutions
-flowNetworkSet = GenerateFlowNetworkSet(dn1, dn1.depotList(1:length(dn1.depotList)/2,:), dn1.depotFixedCost);
+flowNetworkSet = GenerateFlowNetworkSet(dn1, dn1.depotList);
+
+%2/13/19 -- The distribution network sets are returning the same depot as
+%the selected node, I don't think that the generate flow network set is
+%correctly cycling through the selected nodes, I tried to change the fixed
+%cost so that it resets it after setting it to inf
 
 %% 2) MAP MCFN Solution to Distribution System Model
 distributionNetworkSet(length(flowNetworkSet)) = DistributionNetwork(dn1);

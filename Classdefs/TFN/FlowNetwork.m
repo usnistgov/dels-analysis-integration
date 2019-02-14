@@ -38,6 +38,7 @@ classdef FlowNetwork < Network
     FlowEdge_flowTypeAllowed %FlowEdgeID sourceFlowNode targetFlowNode commodity flowUnitCost
     FlowEdge_Solution %Binary FlowEdgeID sourceFlowNode targetFlowNode grossCapacity flowFixedCost
     commodityFlow_Solution %FlowEdgeID origin destination commodity flowUnitCost flowQuantity
+    nodeMapping
     end
     
     methods
@@ -257,6 +258,65 @@ classdef FlowNetwork < Network
             end
             
             self.FlowEdge_flowTypeAllowed = FlowEdge_flowTypeAllowed;
+        end
+        
+        function transformCapacitatedFlowNodes(self)
+           % a) Transform capacitated flow nodes
+            numCommodity = length(self.commoditySet);
+            flowEdgeList = self.FlowEdgeList;
+            flowNodeList = self.FlowNodeList;
+            FlowEdge_flowTypeAllowed = self.FlowEdge_flowTypeAllowed;
+            FlowNode_ConsumptionProduction = self.FlowNode_ConsumptionProduction;
+            gg = max(flowEdgeList(:,1))+1;
+
+            % Split capacitated node, add capacity and 'cost of opening' to edge
+            for jj = 1:length(self.FlowNodeSet)
+                capacitatedNodeSet = findobj(self.FlowNodeSet{jj}, '-not', 'capacity', inf);
+                for ii =1:length(capacitatedNodeSet)
+                    nodeInstanceID = capacitatedNodeSet(ii).instanceID;
+                    newInstanceID = max(flowNodeList(:,1))+1;
+                    flowNodeList(end+1,:) = [newInstanceID, capacitatedNodeSet(ii).X, capacitatedNodeSet(ii).Y];
+                    nodeMapping(ii,:) = [nodeInstanceID, newInstanceID];
+
+                    %Replace all origin nodes with newly created node
+                    flowEdgeList(flowEdgeList(:,2) == nodeInstanceID, 2) = newInstanceID;
+                    FlowEdge_flowTypeAllowed(FlowEdge_flowTypeAllowed(:,2) == nodeInstanceID,2) = newInstanceID;
+
+
+                    %2/9/19 assume all commodities can flow through all depots
+                    %TO DO: only add edge/commodity flow variable for commodities
+                    %that can flow (and allow for productionCode for flowUnitCost
+                    %FlowEdge_flowTypeAllowed: FlowEdgeID origin destination commodityKind flowUnitCost
+
+                    flowEdgeList(end+1,:) = [gg, nodeInstanceID, newInstanceID, capacitatedNodeSet(ii).capacity, capacitatedNodeSet(ii).fixedCost];
+                    FlowEdge_flowTypeAllowed(end+1:end+numCommodity, :) = [repmat(flowEdgeList(end,1:3), numCommodity,1), [1:numCommodity]', zeros(numCommodity,1)];
+                    FlowNode_ConsumptionProduction(end+1:end+numCommodity,:) = [newInstanceID*ones(numCommodity,1), [1:numCommodity]', zeros(numCommodity,1)];
+
+                    %Add split capacitated flow node to flowTypeAllowed list
+                    %FlowEdge_flowTypeAllowed(end+1:end+numCommodity,:) = [repmat(flowEdgeList(end,1:3), numCommodity,1),kk*ones(numCommodity,1), zeros(numCommodity,1)];
+
+                    gg = gg +1;
+                end
+            end
+
+            self.FlowEdge_flowTypeAllowed = FlowEdge_flowTypeAllowed;
+            self.FlowEdgeList = flowEdgeList;
+            %2/9/19 -- The optimization algorithm is going to add flow balance
+            %constraints based on consumption/production, where the flow nodes are
+            %the variables. So the ConsumptionProduction data needs to be sequenced
+            %by commodityKind first then NodeID.
+            % -- Alternatively, could inject the new consumption/production rows
+            % (associated with the split node) into the array where they belong
+            % (contiguous with the other rows associated with that commodityKind)
+            %FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction(any(FlowNode_ConsumptionProduction,2),:);
+            [~,I] = sort(FlowNode_ConsumptionProduction(:,2));
+            FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction(I,:);
+            self.FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction;
+            self.FlowNodeList = flowNodeList;
+            self.nodeMapping = nodeMapping;
+            %for now only depots are capacitated -- 
+            %TO DO -- propagate changes
+            self.depotMapping = nodeMapping;  
         end
     end
     

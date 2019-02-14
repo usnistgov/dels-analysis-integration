@@ -200,6 +200,7 @@ classdef DistributionNetwork < FlowNetwork
 
             % Isolate the Depots Selected by the Optimization
             %depotMapping = distributionNetworkSet(ii).depotMapping;
+            %2/13/19 -- changed depotMapping to all capacitated nodes
             [LIA, LOCB] = ismember(depotMapping, FlowEdge_Solution(:, 3:4), 'rows');
             selecteddepotList = FlowEdge_Solution(LOCB(LIA), 3);
             FlowNodeSet = FlowNodeSet(ismember(FlowNodeSet(:,1), selecteddepotList),:);
