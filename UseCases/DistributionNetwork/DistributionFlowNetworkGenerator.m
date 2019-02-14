@@ -29,6 +29,7 @@ distributionNetwork = DistributionNetwork;
         customerSet(ii).name = strcat('Customer', num2str(ii));
         customerSet(ii).capacity = inf;
         customerSet(ii).fixedCost = 0;
+        customerSet(ii).typeID = 'Customer';
     end
 
 
@@ -47,6 +48,7 @@ distributionNetwork = DistributionNetwork;
         depotSet(ii).fixedCost = depotFixedCost;
         depotSet(ii).capacity = depotGrossCapacity;
         depotSet(ii).name = strcat('Depot', num2str(ii));
+        depotSet(ii).typeID = 'Depot';
         jj = jj+1;
     end
 
@@ -99,6 +101,8 @@ distributionNetwork = DistributionNetwork;
                     
                     newCommodity(kk) = Commodity;
                     newCommodity(kk).instanceID = kk;
+                    newCommodity(kk).typeID = 'Commodity';
+                    newCommodity(kk).name = strcat('Commodity_', num2str(kk));
                     newCommodity(kk).Quantity = supply;
                     newCommodity(kk).OriginID = ii;
                     newCommodity(kk).Origin = customerSet(ii);
@@ -117,7 +121,6 @@ distributionNetwork = DistributionNetwork;
     end
     
     distributionNetwork.commoditySet = newCommodity;
-    distributionNetwork.numCommodity = kk-1;
 
     %% Generate flowTypeAllowed and flowUnitCost for each FlowEdge
     % FlowEdge_flowTypeAllowed: FlowEdgeID origin destination commodityKind flowUnitCost
@@ -141,6 +144,7 @@ distributionNetwork = DistributionNetwork;
            break;
        elseif    isa(distributionNetwork.FlowEdgeSet(ii).sourceFlowNetwork, 'Customer') && isa(distributionNetwork.FlowEdgeSet(ii).targetFlowNetwork, 'Customer')
            distributionNetwork.FlowEdgeSet(ii) = [];
+           distributionNetwork.FlowEdgeList(ii,:) = [];
        else
            ii = ii + 1;
        end
@@ -157,7 +161,6 @@ distributionNetwork = DistributionNetwork;
     distributionNetwork.depotSet = depotSet;
     distributionNetwork.customerList = customerList;
     distributionNetwork.customerSet = customerSet;
-    distributionNetwork.depotFixedCost = depotFixedCost;
 
 end
 

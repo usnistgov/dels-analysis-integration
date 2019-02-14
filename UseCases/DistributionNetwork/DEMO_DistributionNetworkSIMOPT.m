@@ -1,30 +1,33 @@
 %% 0) Generate Random Instance of Distribution Network
+tic;
 rng default;
 dn1 = DistributionFlowNetworkGenerator;
 
-%% 0.5) Map FlowNetwork 2 Optimization
-% a) Map Class data to MCFN OPT list
-
+%% 1) Generate family of candidate solutions
+% a) Map FlowNetwork 2 Optimization
 dn1.mapFlowNodes2ProductionConsumptionList;
 dn1.mapFlowEdges2FlowTypeAllowed;
 dn1.transformCapacitatedFlowNodes;
+toc
 
-    
-%% 1) Build and Solve Desteriministic MCFN
-solveMultiCommodityFlowNetwork(dn1)
-
-%% 1.5) Generate family of candidate solutions
+% b) Solve MCFN and Generate Flow Network Set
 %GenerateFlowNetworkSet implements a leave one out heuristic to generate a
 %family of candidate MCFN solutions
+solveMultiCommodityFlowNetwork(dn1);
 flowNetworkSet = GenerateFlowNetworkSet(dn1, dn1.depotList);
 
-%2/13/19 -- The distribution network sets are returning the same depot as
-%the selected node, I don't think that the generate flow network set is
-%correctly cycling through the selected nodes, I tried to change the fixed
-%cost so that it resets it after setting it to inf
+%% c) map MCFN solution to Flow Network
+%TO DO: concatentate dn1 and flownetwork set somehow
+% currently having casting issues.
+%TO DO: finish implementing the commodity solution mapping
 
-%% 2) MAP MCFN Solution to Distribution System Model
-distributionNetworkSet(length(flowNetworkSet)) = DistributionNetwork(dn1);
+dn1.mapMCFNSolution2FlowNetwork;
+for ii = 1:length(flowNetworkSet)
+   flowNetworkSet(ii).mapMCFNSolution2FlowNetwork; 
+end
+
+%% 2) MAP Flow Network to Distribution System Model
+distributionNetworkSet(length(flowNetworkSet)+1) = DistributionNetwork(dn1);
 distributionNetworkSet(1) = dn1;
 clear dn1;
 
@@ -83,7 +86,7 @@ for ii = 1:length(distributionNetworkSet)
     strcat('complete: ', num2str(ii))
 end
 
-%% Pareto Analysis
+%% 6) Pareto Analysis
 
 TravelDist = [reshape(distributionNetworkSet(1).policySolution(:,:,1), [],1); reshape(distributionNetworkSet(2).policySolution(:,:,1), [],1); reshape(distributionNetworkSet(3).policySolution(:,:,1), [],1); reshape(distributionNetworkSet(4).policySolution(:,:,1), [],1); reshape(distributionNetworkSet(5).policySolution(:,:,1), [],1)];
 ResourceInvestment =  [reshape(distributionNetworkSet(1).policySolution(:,:,3), [],1); reshape(distributionNetworkSet(2).policySolution(:,:,3), [],1); reshape(distributionNetworkSet(3).policySolution(:,:,3), [],1); reshape(distributionNetworkSet(4).policySolution(:,:,3), [],1); reshape(distributionNetworkSet(5).policySolution(:,:,3), [],1)];

@@ -28,9 +28,6 @@ classdef FlowNetwork < Network
     %2/23/18: Can't redefine property type in subclass
     INFlowEdgeSet@FlowEdge %A set of flow edges incoming to the flow network
     OUTFlowEdgeSet@FlowEdge %A set of flow edges outgoing to the flow network
-    numArc
-    numNodes
-    numCommodity
     builder %lightweight delegate to builderClass for constructing simulation 
     
     %2/8/19 -- to be deprecated or made private
@@ -218,9 +215,10 @@ classdef FlowNetwork < Network
         
         function [FlowNode_ConsumptionProduction] = mapFlowNodes2ProductionConsumptionList(self)
             
-            FlowNode_ConsumptionProduction = zeros(length(self.FlowNodeList)*self.numCommodity,3);
+            numCommodity = length(self.commoditySet);
+            FlowNode_ConsumptionProduction = zeros(length(self.FlowNodeList)*numCommodity,3);
             
-            for kk = 1:self.numCommodity
+            for kk = 1:numCommodity
                 FlowNode_ConsumptionProduction((kk-1)*length(self.FlowNodeList(:,1))+ 1: kk*length(self.FlowNodeList(:,1)),:) ...
                                 = [self.FlowNodeList(:,1), kk*ones(length(self.FlowNodeList(:,1)),1), ...
                                   zeros(length(self.FlowNodeList(:,1)),1)];
@@ -249,12 +247,14 @@ classdef FlowNetwork < Network
         function [FlowEdge_flowTypeAllowed] = mapFlowEdges2FlowTypeAllowed(self)
             %FlowEdge_flowTypeAllowed: FlowEdgeID origin destination commodityKind flowUnitCost
             
-            FlowEdge_flowTypeAllowed = zeros(self.numArc*self.numCommodity, 5);
+            numArc = length(self.FlowEdgeSet);
+            numCommodity = length(self.commoditySet);
+            FlowEdge_flowTypeAllowed = zeros(numArc*numCommodity, 5);
             
             for ee = 1:length(self.FlowEdgeSet)
                 ID = [self.FlowEdgeSet(ee).instanceID, self.FlowEdgeSet(ee).sourceFlowNetworkID, self.FlowEdgeSet(ee).targetFlowNetworkID];
-                FlowEdge_flowTypeAllowed((ee-1)*self.numCommodity+1:(ee)*self.numCommodity,:) = ...
-                            [repmat(ID, [self.numCommodity,1]), self.FlowEdgeSet(ee).flowTypeAllowed', self.FlowEdgeSet(ee).flowUnitCost'];
+                FlowEdge_flowTypeAllowed((ee-1)*numCommodity+1:(ee)*numCommodity,:) = ...
+                            [repmat(ID, [numCommodity,1]), self.FlowEdgeSet(ee).flowTypeAllowed', self.FlowEdgeSet(ee).flowUnitCost'];
             end
             
             self.FlowEdge_flowTypeAllowed = FlowEdge_flowTypeAllowed;
@@ -314,11 +314,42 @@ classdef FlowNetwork < Network
             self.FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction;
             self.FlowNodeList = flowNodeList;
             self.nodeMapping = nodeMapping;
-            %for now only depots are capacitated -- 
-            %TO DO -- propagate changes
-            self.depotMapping = nodeMapping;  
         end
-    end
+        
+        
+        function mapMCFNSolution2FlowNetwork(self)
+           
+            capacitatedNodeSelection = self.FlowEdge_Solution(ismember(self.FlowEdge_Solution(:, 3:4), self.nodeMapping,'rows'),:);
+
+            self.FlowNodeList(ismember(self.FlowNodeList(:,1), self.nodeMapping(:,2)),:) = [];
+
+            for ii = 1:length(capacitatedNodeSelection(:,1))
+                if capacitatedNodeSelection(ii,1) == 0
+                   self.FlowNodeList(self.FlowNodeList(:,1) == capacitatedNodeSelection(ii,3),:) = [];
+                end
+            end
+
+            for ii = 1:length(self.FlowNodeSet)
+                jj = 1;
+                while jj <= length(self.FlowNodeSet{ii})
+                    instanceID = self.FlowNodeSet{ii}(jj).instanceID;
+                    isSelected = capacitatedNodeSelection(capacitatedNodeSelection(:,3)==instanceID,1);
+                    if ~isSelected
+                        self.FlowNodeSet{ii}(jj) = [];
+                    else
+                        jj = jj +1;
+                    end
+                end
+            end
+
+            self.FlowEdgeList(ismember(self.FlowEdgeList(:, 2:3), self.nodeMapping,'rows'),:) = [];
+            selectedEdges = logical(self.FlowEdge_Solution(1:length(self.FlowEdgeList),1));
+            self.FlowEdgeList = self.FlowEdgeList(selectedEdges,:);
+            self.FlowEdgeSet = self.FlowEdgeSet(selectedEdges); 
+        end
+        
+
+   end
     
 end
 

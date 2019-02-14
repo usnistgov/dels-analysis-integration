@@ -5,15 +5,12 @@ classdef DistributionNetwork < FlowNetwork
     properties
         depotList
         depotSet@Depot
-        depotMapping
-        depotFixedCost
         customerList
         customerSet@Customer
         transportationChannelSet@TransportationChannel
         transportationChannelSolution
         resourceSolution
         policySolution
-        %flowNetworkAbstraction@FlowNetwork
     end
     
     methods
@@ -32,16 +29,16 @@ classdef DistributionNetwork < FlowNetwork
           end
         end
         
-        function mapFlowNetwork2DistributionNetwork(DN)
+        function mapFlowNetwork2DistributionNetwork(self)
             %FlowEdge_Solution = Binary FlowEdgeID Origin Destination grossCapacity flowFixedCost
-            FlowEdge_Solution = DN.FlowEdge_Solution(DN.FlowEdge_Solution(:,1) ==1,:);
+            FlowEdge_Solution = self.FlowEdge_Solution(self.FlowEdge_Solution(:,1) ==1,:);
 
             %commodityFlowSolution := FlowEdgeID origin destination commodity flowUnitCost flowQuantity
-            commodityFlow_Solution = DN.commodityFlow_Solution; 
+            commodityFlow_Solution = self.commodityFlow_Solution; 
 
             %Map Commodity Flow Solution to Commodities -- Eventually Map to a
             %Product with a Process Plan / Route
-            DN.commodityList = DN.mapFlowCommodity2Commodity;
+            self.commodityList = self.mapFlowCommodity2Commodity;
 
             %Map commodity flow solution to Probabilistic Commodity Flow.
             for jj = 1:length(FlowEdge_Solution) %For each FlowEdge selected in the solution
@@ -51,14 +48,14 @@ classdef DistributionNetwork < FlowNetwork
             clear commodityFlow_Solution;
 
             %map FlowNode to Customer Node (Probabilistic Flow)
-            [DN.customerSet] = DN.mapFlowNode2CustomerProbFlow(DN.customerList, FlowEdge_Solution);
+            [self.customerSet] = self.mapFlowNode2CustomerProbFlow(self.customerList, FlowEdge_Solution);
 
             %Map FlowNode to Depot Node (Probabilistic Flow)
-            [ DN.depotSet, selecteddepotList, FlowEdge_Solution ] = DN.mapFlowNode2DepotProbFlow( DN.depotList, FlowEdge_Solution, DN.depotMapping);
+            [ self.depotSet, selecteddepotList, FlowEdge_Solution ] = self.mapFlowNode2DepotProbFlow( self.depotList, FlowEdge_Solution, self.nodeMapping);
 
             % Add Transportation Channels for Flow Edges
-            [ DN.transportationChannelSet, DN.FlowEdgeSet] = DN.mapFlowEdge2TransportationChannel([DN.customerList; DN.depotList], selecteddepotList, FlowEdge_Solution );
-            DN.FlowEdge_Solution = FlowEdge_Solution;
+            [ self.transportationChannelSet, self.FlowEdgeSet] = self.mapFlowEdge2TransportationChannel([self.customerList; self.depotList], selecteddepotList, FlowEdge_Solution );
+            self.FlowEdge_Solution = FlowEdge_Solution;
          end
     
     end
