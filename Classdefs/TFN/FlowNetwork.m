@@ -207,7 +207,6 @@ classdef FlowNetwork < Network
             %flow network from instance data set
             %TO DO: 
         end
-        
        
         function mapFlowNodes2ProductionConsumptionList(self)
             
@@ -322,29 +321,29 @@ classdef FlowNetwork < Network
         function mapMCFNSolution2FlowNetwork(self)
             
             %% Transform Capacitated Nodes
-            %1) Find capacitated nodes that were selected
+            % 1) Find capacitated nodes that were selected
             capacitatedNodeSelection = self.FlowEdge_Solution(ismember(self.FlowEdge_Solution(:, 3:4), self.nodeMapping,'rows'),:);
             
-            %2) Remove split nodes from FlowNodeList
+            % 2) Remove split nodes from FlowNodeList
             self.FlowNodeList(ismember(self.FlowNodeList(:,1), self.nodeMapping(:,2)),:) = [];
             
-            %3) Find and replace InstanceIDs of split nodes
+            % 3) Find and replace InstanceIDs of split nodes
             for ii = 1:length(self.nodeMapping)
                 self.FlowEdgeList(self.FlowEdgeList(:,2) ==  self.nodeMapping(ii,2),2) = self.nodeMapping(ii,1);
             end
             
-            %4) Remove the 
+            % 4) Remove the 
             self.FlowEdgeList(ismember(self.FlowEdgeList(:, 2:3), self.nodeMapping,'rows'),:) = [];
             
             %% Remove unselected Flow Nodes
-            %1) Remove not selected from FlowNodeList
+            % 1) Remove not selected from FlowNodeList
             for ii = 1:length(capacitatedNodeSelection(:,1))
                 if capacitatedNodeSelection(ii,1) == 0
                    self.FlowNodeList(self.FlowNodeList(:,1) == capacitatedNodeSelection(ii,3),:) = [];
                 end
             end
             
-            %2) Remove not selected from FlowNodeSet
+            % 2) Remove not selected from FlowNodeSet
             for ii = 1:length(self.FlowNodeSet)
                 jj = 1;
                 while jj <= length(self.FlowNodeSet{ii})
@@ -363,6 +362,14 @@ classdef FlowNetwork < Network
             self.FlowEdgeList = self.FlowEdgeList(selectedEdges,:);
             self.FlowEdgeSet = self.FlowEdgeSet(selectedEdges); 
             
+            % Add flow edge sets to each flow node
+            for ii = 1:length(self.FlowNodeSet)
+                for jj = 1:length(self.FlowNodeSet{ii})
+                    self.FlowNodeSet{ii}(jj).INFlowEdgeSet = findobj(self.FlowEdgeSet, 'targetFlowNetworkID', self.FlowNodeSet{ii}(jj).instanceID);
+                    self.FlowNodeSet{ii}(jj).OUTFlowEdgeSet = findobj(self.FlowEdgeSet, 'sourceFlowNetworkID', self.FlowNodeSet{ii}(jj).instanceID);
+                end
+            end
+            
             %% Add selected commodities
             % 1) Add to flow edges
             commodityFlow_Solution = self.commodityFlow_Solution;
@@ -374,7 +381,6 @@ classdef FlowNetwork < Network
                 self.FlowEdgeSet(ii).flowUnitCost = edgeXCommodity(:,5)';
                 self.FlowEdgeSet(ii).flowAmount = edgeXCommodity(:,6)';
                 %May add later to add the flow solution as the flow capacity per commodity kind
-                
             end % for each flow edge in flowEdgeSet
             
             % 2) Add to flow nodes
@@ -406,10 +412,47 @@ classdef FlowNetwork < Network
                     self.FlowNodeSet{ii}(jj).commoditySet = produces;
                 end %for each node in flow node set (inner)
             end %for each node in flow node set (outer)
+            
+            % 3) Build commodity routes
+            %TO DO: consider the case with BOM where the same input part is sourced from two different suppliers
+            % It has to be represented with the same commodity, but has different route.
+            for ii = 1:length(self.commoditySet)
+                instanceID = self.commoditySet(ii).instanceID;
+                self.commoditySet(ii).Route = self.buildCommodityRoute(commodityFlow_Solution(commodityFlow_Solution(:,4) == instanceID,2:6));
+            end
+            
+            % 4) Build probabilistic routing
+            for ii = 1:length(self.FlowNodeSet)
+                for jj = 1:length(self.FlowNodeSet{ii})
+                    totalOutFlow = 0;
+                    edgeFlowAmount = [];
+                    for kk = 1:length(self.FlowNodeSet{ii}(jj).OUTFlowEdgeSet)
+                        edgeFlowAmount(end+1) = sum(self.FlowNodeSet{ii}(jj).OUTFlowEdgeSet(kk).flowAmount);
+                        totalOutFlow = totalOutFlow + edgeFlowAmount(end);
+                    end
+                    self.FlowNodeSet{ii}(jj).routingProbability = edgeFlowAmount./totalOutFlow;
+                end
+            end
+            
+            
         end %mapMCFNSolution2FlowNetwork
         
-
-   end
+        function route = buildCommodityRoute(self, commodityFlowSolution)
+        %Commodity_Route is a set of arcs that the commodity flows on
+        %need to assemble the arcs into a route or path
+            ii = 1;
+            route = commodityFlowSolution(ii,1:2);
+            while sum(commodityFlowSolution(:,1) == commodityFlowSolution(ii,2))>0
+                ii = find(commodityFlowSolution(:,1) == commodityFlowSolution(ii,2));
+                if eq(commodityFlowSolution(ii,4),0)==0
+                    route = [route, commodityFlowSolution(ii,2)];
+                end
+            end
+            %NOTE: Need a better solution to '10', it should be 2+numDepot
+            while length(route)<6
+                route = [route, 0];
+            end
+       end  %end build commodity route
     
 end
-
+end

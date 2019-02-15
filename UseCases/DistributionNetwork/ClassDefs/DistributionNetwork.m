@@ -38,86 +38,52 @@ classdef DistributionNetwork < FlowNetwork
           end
         end
         
-        function mapFlowNetwork2DistributionNetwork(self)
+        function mapFlowNetwork2DistributionNetworkProbabilisticFlow(self)
             %FlowEdge_Solution = Binary FlowEdgeID Origin Destination grossCapacity flowFixedCost
             FlowEdge_Solution = self.FlowEdge_Solution(self.FlowEdge_Solution(:,1) ==1,:);
 
-            %commodityFlowSolution := FlowEdgeID origin destination commodity flowUnitCost flowQuantity
-            commodityFlow_Solution = self.commodityFlow_Solution; 
-
-            %Map Commodity Flow Solution to Commodities -- Eventually Map to a
-            %Product with a Process Plan / Route
-            self.commodityList = self.mapFlowCommodity2Commodity;
-
             %Map commodity flow solution to Probabilistic Commodity Flow.
-            for jj = 1:length(FlowEdge_Solution) %For each FlowEdge selected in the solution
-                FlowEdge_Solution(jj,7) = sum(commodityFlow_Solution(commodityFlow_Solution(:,1) == FlowEdge_Solution(jj,2), 6));
-                FlowEdge_Solution(jj,8) = FlowEdge_Solution(jj,7) / sum(commodityFlow_Solution(commodityFlow_Solution(:,2) == FlowEdge_Solution(jj,3), 6));
-            end
-            clear commodityFlow_Solution;
+            FlowEdge_ProbabilisticFlowSolution = mapCommodityFlow2ProbabilisticFlow(FlowEdge_Solution);
 
             %map FlowNode to Customer Node (Probabilistic Flow)
-            [self.customerSet] = self.mapFlowNode2CustomerProbFlow(self.customerList, FlowEdge_Solution);
+            [self.customerSet] = self.mapFlowNode2CustomerProbFlow(self.customerList, FlowEdge_ProbabilisticFlowSolution);
 
             %Map FlowNode to Depot Node (Probabilistic Flow)
-            [ self.depotSet, selecteddepotList, FlowEdge_Solution ] = self.mapFlowNode2DepotProbFlow( self.depotList, FlowEdge_Solution, self.nodeMapping);
+            [self.depotSet, selecteddepotList, FlowEdge_ProbabilisticFlowSolution] = self.mapFlowNode2DepotProbFlow( self.depotList, FlowEdge_ProbabilisticFlowSolution, self.nodeMapping);
 
             % Add Transportation Channels for Flow Edges
-            [ self.transportationChannelSet, self.FlowEdgeSet] = self.mapFlowEdge2TransportationChannel([self.customerList; self.depotList], selecteddepotList, FlowEdge_Solution );
-            self.FlowEdge_Solution = FlowEdge_Solution;
-         end
-    
+            [ self.transportationChannelSet, self.FlowEdgeSet] = self.mapFlowEdge2TransportationChannel([self.customerList; self.depotList], selecteddepotList, FlowEdge_ProbabilisticFlowSolution );
+            self.FlowEdge_Solution = FlowEdge_ProbabilisticFlowSolution;
+        end
+        
+        function mapFlowNetwork2DistributionNetwork(self)
+            
+            % 1) Remove unselected depots
+            ii = 1;
+            while ii <= length(self.depotSet)
+               if ~any(self.FlowNodeList(:,1) == self.depotSet(ii).instanceID)
+                   self.depotSet(ii) = [];
+               else
+                   ii = ii + 1;
+               end
+            end
+            
+            % 2) Remove unselected customers
+            ii = 1;
+            while ii <= length(self.customerSet)
+               if ~any(self.FlowNodeList(:,1) == self.customerSet(ii).instanceID)
+                   self.customerSet(ii) = [];
+               else
+                   ii = ii + 1;
+               end
+            end
+            
+            % 3) Transform flow edges into transportation channels
+            % self.mapFlowEdge2TransportationChannel
+        end
     end
 
     methods(Access = private)
-        function [ commodityList ] = mapFlowCommodity2Commodity(DN)
-        %mapFlowCommodity2Commodity maps the Flow Network Commodity to Distribution Network Commodity
-        %Eventually should transition to mapping to Product with Route being the proces plan
-
-            %Initialize the struct (ie specify the classdef)
-            commodityList = struct('instanceID', [], 'OriginID', [], 'DestinationID', [], 'Quantity', [], 'Route', []);
-            FlowNode_CommoditySet = DN.FlowNode_ConsumptionProduction;
-            commodityFlow_Solution = DN.commodityFlow_Solution;
-
-            %commodityFlowSolution %FlowEdgeID origin destination commodity flowUnitCost flowQuantity
-
-            for ii = 1:max(FlowNode_CommoditySet(:,2))
-               commodityList(ii).instanceID = ii;
-               commodityList(ii).OriginID = FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == ii & FlowNode_CommoditySet(:,3)>0,1);
-               commodityList(ii).DestinationID = FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == ii & FlowNode_CommoditySet(:,3)<0,1);
-               commodityList(ii).Quantity =  FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == ii & FlowNode_CommoditySet(:,3)>0,3);
-               commodityList(ii).Route = DN.buildCommodityRoute(commodityFlow_Solution(commodityFlow_Solution(:,4) == ii,2:6));
-               %Should return later to generalize to support production/consumption of
-               %each commodity at each node.
-               % TO DO: This is overwriting the original commoditySET!!
-               
-               commodity = findobj(DN.commoditySet, 'instanceID', ii);
-               commodity.Quantity = commodityList(ii).Quantity;
-               commodity.Route = commodityList(ii).Route;
-            end
-            
-            DN.commodityList = commodityList;
-            %Return to call commodity constructor prior to MCNF
-            %then call buildCommodityRoute after MCNF
-        end
-
-        function route = buildCommodityRoute(DN, commodityFlowSolution)
-        %Commodity_Route is a set of arcs that the commodity flows on
-        %need to assemble the arcs into a route or path
-
-            ii = 1;
-            route = commodityFlowSolution(ii,1:2);
-            while sum(commodityFlowSolution(:,1) == commodityFlowSolution(ii,2))>0
-                ii = find(commodityFlowSolution(:,1) == commodityFlowSolution(ii,2));
-                if eq(commodityFlowSolution(ii,4),0)==0
-                    route = [route, commodityFlowSolution(ii,2)];
-                end
-            end
-            %NOTE: Need a better solution to '10', it should be 2+numDepot
-            while length(route)<6
-                route = [route, 0];
-            end
-        end
 
         function [ TransportationChannelSet, FlowEdgeSet ] = mapFlowEdge2TransportationChannel(DN, nodeSet, selecteddepotList, FlowEdge_Solution )
         %UNTITLED4 Summary of this function goes here
@@ -232,6 +198,13 @@ classdef DistributionNetwork < FlowNetwork
             end
 
             depotSet = depotSet(ismember([depotSet.instanceID], selecteddepotList));
+        end
+        
+        function [ FlowEdge_Solution ] = mapCommodityFlow2ProbabilisticFlow(DN, FlowEdge_Solution)
+            % Flow Network implements a method to find probabilistic flow of commodities
+            % This should simply implement a method that consolidates all commodities into one with 
+            % total flow sum of individual flows
+            
         end
 
     end

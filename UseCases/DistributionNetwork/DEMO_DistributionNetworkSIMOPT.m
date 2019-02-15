@@ -1,12 +1,10 @@
 %% 0) Generate Random Instance of Distribution Network
-tic;
 rng default;
 dn1 = DistributionFlowNetworkGenerator;
 
 %% 1) Generate family of candidate solutions
 % a) Map FlowNetwork 2 Optimization
     dn1.mapFlowNetwork2MCFNOPT;
-    toc
 
 % b) Solve MCFN and Generate Flow Network Set
     %GenerateFlowNetworkSet implements a leave one out heuristic to generate a
@@ -22,7 +20,7 @@ dn1 = DistributionFlowNetworkGenerator;
        flowNetworkSet(ii).mapMCFNSolution2FlowNetwork; 
     end
     
-    clear dn1;
+    clear dn1 ii;
 % TO DO: Make the MCFN optimization more robust: 
 % There seems to be an issue when we take the flow network solution and then put it back into the 
 % MCFNOPT. It should solve an MCFN opt where there's pretty much only one solution, which is the one we started with
@@ -33,7 +31,7 @@ dn1 = DistributionFlowNetworkGenerator;
 % it has 0 flow rate of a commodity.
 
 %% 2) MAP Flow Network to Distribution System Model
-    
+load('flowNetworkSet.mat'); %checkpoint demo above    
     %Since we copied the original distribution network, it should be a simple recast
     %2/15/19 -- i don't know if we want to cover cases in this demo where we get a pure flow network
     %input to this stage. we won't know which flow nodes are supposed to be depots and which are supposed to be customers
