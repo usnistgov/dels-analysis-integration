@@ -26,6 +26,15 @@ classdef DistributionNetwork < FlowNetwork
             for i=1:length(fns)
               self.(fns{i}) = input.(fns{i});
             end
+          
+          
+          elseif isa(input, 'FlowNetwork')
+            % downcast to distribution network
+            % potentially unsafe!
+            fns = properties(input);
+            for i=1:length(fns)
+              self.(fns{i}) = input.(fns{i});
+            end
           end
         end
         

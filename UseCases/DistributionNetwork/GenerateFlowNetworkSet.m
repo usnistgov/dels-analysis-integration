@@ -23,8 +23,15 @@ function [ flowNetworkSet ] = GenerateFlowNetworkSet( inputFlowNetwork, targetFl
     SelectedDepot_EdgeIndex = find(inNodeMapping & inTargetNodeSet & isSolution);
     
     %For each Depot selected during the MCFN optimization: 
-    %Use the FlowNetwork Constructor to create deep copies of the original flow network
-    flowNetworkSet(length(SelectedDepot_EdgeIndex)) = FlowNetwork(inputFlowNetwork);
+    %Create deep copies of the original flow network using save/load
+    %TO DO 2/15/19 -- implement better deep copy
+    save(strcat(fileparts(which('GenerateFlowNetworkSet')),'/inputFlowNetwork'), 'inputFlowNetwork');
+    for ii = 1:length(SelectedDepot_EdgeIndex)
+         copyOfInputFlowNetworkAsStruct = load(strcat(fileparts('GenerateFlowNetworkSet'),'inputFlowNetwork'));%loaded as struct
+         flowNetworkSet(ii) = copyOfInputFlowNetworkAsStruct.inputFlowNetwork;
+         flowNetworkSet(ii).instanceID = ii+1;
+    end
+    delete(strcat(fileparts(which('GenerateFlowNetworkSet')),'/inputFlowNetwork.mat'))
 
     % For each Depot selected during the MCFN optimization: 
     % Set the value of the cost of using that depot to inf and re-solve
@@ -36,6 +43,6 @@ function [ flowNetworkSet ] = GenerateFlowNetworkSet( inputFlowNetwork, targetFl
         solveMultiCommodityFlowNetwork(flowNetworkSet(ii));
         flowNetworkSet(ii).FlowEdgeList(SelectedDepot_EdgeIndex(ii), 5) = flowNodeFixedCost;
     end
-
+    flowNetworkSet = [inputFlowNetwork, flowNetworkSet];
 end
 

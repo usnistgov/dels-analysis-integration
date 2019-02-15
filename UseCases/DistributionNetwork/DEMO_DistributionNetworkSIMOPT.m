@@ -5,37 +5,45 @@ dn1 = DistributionFlowNetworkGenerator;
 
 %% 1) Generate family of candidate solutions
 % a) Map FlowNetwork 2 Optimization
-dn1.mapFlowNodes2ProductionConsumptionList;
-dn1.mapFlowEdges2FlowTypeAllowed;
-dn1.transformCapacitatedFlowNodes;
-toc
+    dn1.mapFlowNetwork2MCFNOPT;
+    toc
 
 % b) Solve MCFN and Generate Flow Network Set
-%GenerateFlowNetworkSet implements a leave one out heuristic to generate a
-%family of candidate MCFN solutions
-solveMultiCommodityFlowNetwork(dn1);
-flowNetworkSet = GenerateFlowNetworkSet(dn1, dn1.depotList);
+    %GenerateFlowNetworkSet implements a leave one out heuristic to generate a
+    %family of candidate MCFN solutions
+    
+    flowNetworkSet = GenerateFlowNetworkSet(dn1, dn1.depotList);
 
-%% c) map MCFN solution to Flow Network
-%TO DO: concatentate dn1 and flownetwork set somehow
-% currently having casting issues.
-%TO DO: finish implementing the commodity solution mapping
-
-dn1.mapMCFNSolution2FlowNetwork;
-for ii = 1:length(flowNetworkSet)
-   flowNetworkSet(ii).mapMCFNSolution2FlowNetwork; 
-end
+% c) map MCFN solution to Flow Network
+    %TO DO: concatentate dn1 and flownetwork set somehow
+    % currently having casting issues.
+    
+    for ii = 1:length(flowNetworkSet)
+       flowNetworkSet(ii).mapMCFNSolution2FlowNetwork; 
+    end
+    
+    clear dn1;
+% TO DO: Make the MCFN optimization more robust: 
+% There seems to be an issue when we take the flow network solution and then put it back into the 
+% MCFNOPT. It should solve an MCFN opt where there's pretty much only one solution, which is the one we started with
+% However, when all the input matrices are not sized for the complete commodity set, then you get mismatched 
+% matrix input sizes. I think this points to a broader issue of the robustness of the MCFN optimization, it needs to be set up
+% a really particular way. 
+% Solution: Map the flow network to MCFN more robustly to accommodate flow edges that don't allow all flow kinds -- currently we would just say that 
+% it has 0 flow rate of a commodity.
 
 %% 2) MAP Flow Network to Distribution System Model
-distributionNetworkSet(length(flowNetworkSet)+1) = DistributionNetwork(dn1);
-distributionNetworkSet(1) = dn1;
-clear dn1;
+    
+    %Since we copied the original distribution network, it should be a simple recast
+    %2/15/19 -- i don't know if we want to cover cases in this demo where we get a pure flow network
+    %input to this stage. we won't know which flow nodes are supposed to be depots and which are supposed to be customers
+    distributionNetworkSet = flowNetworkSet;
 
-for ii = 1:length(distributionNetworkSet)
-    distributionNetworkSet(ii).mapFlowNetwork2DistributionNetwork;
-end
+    for ii = 1:length(distributionNetworkSet)
+        distributionNetworkSet(ii).mapFlowNetwork2DistributionNetwork;
+    end
 
-clear flowNetworkSet ii;
+    clear flowNetworkSet ii;
 
 %% 3) Build and Run Low-Fidelity Simulations
 flowNetworkFactorySet(length(distributionNetworkSet)) = FlowNetworkFactory;
