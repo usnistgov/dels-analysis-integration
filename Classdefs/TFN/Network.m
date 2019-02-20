@@ -20,16 +20,10 @@ classdef Network < NetworkElement
         
         
         
-        INEdgeSet@Edge %A set of edge classes incoming to the node
-        OUTEdgeSet@Edge %A set of edge classes outgoing to the node
+        inEdgeSet@Edge %A set of edge classes incoming to the node
+        outEdgeSet@Edge %A set of edge classes outgoing to the node
         NestedNetwork@Network
-        EdgeTypeSet = {} %Collection of types of edges incident to the node (should be private)
-        PortSet@Port %A set of port classes that define the node interface
-        
-        Model
-        SimEventsPath %The associated SimEvents block identifier >> CHANGED ON 1/22/15; expect errors
-        Echelon = 1 %A parameter currently used for aesthetic organization purposes
-        
+
         %Spacial Properties
         X
         Y
@@ -117,14 +111,7 @@ classdef Network < NetworkElement
         
     end
     
-    methods (Abstract = true)
-        decorateNode(N) %Add additional functionality based on the specific subclass
-            %e.g. make a normal node a customer node
-            %Can be re-called to change the decoration of a simulation node
-        assignPorts(N)
-        buildPorts(N)
-    end
-    
+  
     
 end
 

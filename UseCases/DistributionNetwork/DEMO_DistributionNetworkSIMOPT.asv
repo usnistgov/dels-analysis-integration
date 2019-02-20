@@ -54,23 +54,20 @@ for ii = 1:length(distributionNetworkSet)
     %Instantiate and set builder helper classes for each flow network
     for jj = 1:length(distributionNetworkSet(ii).depotSet)
         depotBuilder = DepotSimulationBuilder;
-        depotBuilder.analysisTypeID = 'Depot_probflow';
         depotBuilder.setSystemElement(distributionNetworkSet(ii).depotSet(jj));
     end
     
     for jj = 1:length(distributionNetworkSet(ii).customerSet)
         customerBuilder = CustomerSimulationBuilder;
-        customerBuilder.analysisTypeID = 'Customer_probflow';
         customerBuilder.setSystemElement(distributionNetworkSet(ii).customerSet(jj));
     end
     
     for jj = 1:length(distributionNetworkSet(ii).transportationChannelSet)
-        transportationBuilder = TransportationChannelSimulationBuilder;
-        transportationBuilder.analysisTypeID = 'TransportationChannel_noinfo';
-        transportationBuilder.setSystemElement(distributionNetworkSet(ii).transportationChannelSet(jj));
+        customerBuilder = TransportationChannelSimulationBuilder;
+        customerBuilder.setSystemElement(distributionNetworkSet(ii).transportationChannelSet(jj));
     end
     
-    flowNetworkFactorySet(ii).inputFlowNetwork = distributionNetworkSet(ii);
+    flowNetworkFactorySet(ii).targetFlowNetwork = distributionNetworkSet(ii);
     flowNetworkFactorySet(ii).buildSimulation;
     
     %TO DO: Transition GA opt to a distributionNetwork based interface

@@ -1,4 +1,4 @@
-classdef IDepotBuilder < IFlowNetworkBuilder
+classdef DepotSimulationBuilder < FlowNetworkSimulationBuilder
     %IDEPOTBUILDER Defines the interface or abstract Builder associated
     %with the Depot class. Contains methods for creating depot simulation
     %objects
@@ -7,17 +7,17 @@ classdef IDepotBuilder < IFlowNetworkBuilder
     end
     
     methods
-        function Construct(self, FlowNetwork)
-            Construct@IFlowNetworkBuilder(self, FlowNetwork);
-            self.buildShipmentRouting(FlowNetwork);
-            self.buildResourceAllocation(FlowNetwork);
+        function construct(self)
+            construct@FlowNetworkSimulationBuilder;
+            self.buildShipmentRouting;
+            self.buildResourceAllocation;
         end
         
     end
         
     methods (Access = private)
-        function buildResourceAllocation(self, Depot)
-            try find_system(strcat(Depot.SimEventsPath, '/Control: Resource Allocation'));
+        function buildResourceAllocation(self)
+            try find_system(strcat(self.simEventsPath, '/Control: Resource Allocation'));
                 %If Depot requires Resource Assignment actuator
                 %Other Depot variants use round-robin assignment (no logic block)
                 resource_destination = findobj(Depot.OUTEdgeSet, 'EdgeType', 'Resource');
@@ -30,10 +30,10 @@ classdef IDepotBuilder < IFlowNetworkBuilder
             end
         end
         
-        function buildShipmentRouting(self, Depot)
+        function buildShipmentRouting(self)
             %Need to move the routing into a strategy class
-            if strcmp(Depot.Type, 'Depot_probflow') ==1
-               probability = round(Depot.routingProbability*10000);
+            if strcmp(self.analysisTypeID, 'Depot_probflow') ==1
+               probability = round(self.systemElement.routingProbability*10000);
                error = 10000 - sum(probability);
                [Y, I] = max(probability);
                probability(I) = Y + error;
@@ -49,23 +49,24 @@ classdef IDepotBuilder < IFlowNetworkBuilder
                    ProbabilityVector = strcat(ProbabilityVector, ']');
 
                    %Note to Self: must set values simultaneously to avoid 'equal length' error
-                   set_param(strcat(Depot.SimEventsPath, '/Routing'), 'probVecDisc', ProbabilityVector, 'valueVecDisc', ValueVector);
+                   set_param(strcat(self.simEventsPath, '/Routing'), 'probVecDisc', ProbabilityVector, 'valueVecDisc', ValueVector);
                 
             else
-                shipment_destination = findobj(Depot.OUTEdgeSet, 'EdgeType', 'Shipment');
+                shipment_destination = findobj(self.systemElement.outFlowEdgeSet, 'typeID', 'Shipment');
                 lookup_table = '[';
 
-                for i = 1:length(shipment_destination)
-                    if eq(shipment_destination(i).Destination_Node.Source, Depot.Node_ID) == 1
-                        lookup_table = strcat(lookup_table,',', num2str(shipment_destination(i).Destination_Node.Target));
+                for ii = 1:length(shipment_destination)
+                    %shipment_destination(ii).targetFlowNetwork is a transportation channel
+                    if eq(shipment_destination(ii).targetFlowNetwork.source.instanceID, self.systemElement.instanceID)
+                        lookup_table = strcat(lookup_table,',', num2str(shipment_destination(ii).targetFlowNetwork.target));
                     else
-                        lookup_table = strcat(lookup_table,',', num2str(shipment_destination(i).Destination_Node.Source));
+                        lookup_table = strcat(lookup_table,',', num2str(shipment_destination(ii).targetFlowNetwork.source));
                     end
                 end
                 lookup_table = strcat('[',lookup_table(3:end), ']');
 
-                set_param(strcat(Depot.SimEventsPath, '/Lookup'), 'Value', lookup_table);
-                set_param(strcat(Depot.SimEventsPath, '/Node_ID'), 'Value', num2str(Depot.Node_ID));
+                set_param(strcat(self.simEventsPath, '/Lookup'), 'Value', lookup_table);
+                set_param(strcat(self.simEventsPath, '/Node_ID'), 'Value', num2str(self.systemElement.instanceID));
             end
             
         end

@@ -6,46 +6,46 @@ classdef Port < handle
     %the creator class at the same time. Sorry Future Tim
     
     properties
-        Name
-        Owner@FlowNetwork
-        Type 
-        Direction % IN or OUT
-        Side % Left or Right
-        Number %Port Number relative to all ports in owner
-        Conn %LConn#/RConn# assignment
-        IncidentEdge%@FlowEdge
-        SimEventsPath
+        name
+        owner@FlowNetwork
+        typeID 
+        direction % IN or OUT
+        side % Left or Right
+        number %Port number relative to all ports in owner
+        conn %LConn#/RConn# assignment
+        incidentEdge%@FlowEdge
+        simEventsPath
     end %properties
     
     methods        
-        function setPosition(P)
-            if strcmp(P.Side, 'Right') ==1
-                set_param(P.SimEventsPath, 'BlockMirror', 'on')
-                position = get_param(strcat(P.Owner.SimEventsPath, '/', P.Direction, '_', P.Type), 'Position');
-                count = str2num(P.Name(end))-1;
+        function setPosition(self)
+            if strcmp(self.side, 'Right') ==1
+                set_param(self.simEventsPath, 'BlockMirror', 'on')
+                position = get_param(self.simEventsPath, 'Position');
+                count = str2num(self.name(end))-1;
                 position = [position(3) + 100, position(2) + 40*count, position(3) + 130, position(2)  + 40*count+15];
-                set_param(strcat(P.Owner.SimEventsPath, '/', P.Name), 'Position', position);
+                set_param(self.simEventsPath, 'Position', position);
             else
-                position = get_param(strcat(P.Owner.SimEventsPath, '/', P.Direction, '_', P.Type), 'Position');
-                count = str2num(P.Name(end))-1;
+                position = get_param(self.simEventsPath, 'Position');
+                count = str2num(self.name(end))-1;
                 position = [position(1) - 130, position(2) + 40*count, position(1) - 100, position(2)  + 40*count+15];
-                set_param(P.SimEventsPath, 'Position', position);
+                set_param(self.simEventsPath, 'Position', position);
             end %left/right
         end %set_location method
         
-        function setSide(P)
+        function setSide(self)
             %Decide which side the port should be on
             %Eventually should be replaced with a lookup-table
-            if strcmp(P.Direction, 'IN') == 1
-                P.Side = 'Left';
+            if strcmp(self.direction, 'IN') == 1
+                self.side = 'Left';
             else
-                P.Side = 'Right';
+                self.side = 'Right';
             end %direction_if
         end %set_side
         
-        function setPortNum(P)
-            set_param(P.SimEventsPath, 'Port', num2str(P.Number));
-            set_param(P.SimEventsPath, 'Side', P.Side);
+        function setPortNum(self)
+            set_param(self.simEventsPath, 'Port', num2str(self.number));
+            set_param(self.simEventsPath, 'side', self.side);
         end
         
     end %methods

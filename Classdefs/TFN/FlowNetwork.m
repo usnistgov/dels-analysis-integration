@@ -13,21 +13,25 @@ classdef FlowNetwork < Network
     FlowEdgeList %[instanceID sourceFlowNode targetFlowNode grossCapacity flowFixedCost]
     FlowEdgeSet % flow edges within the flow network
     
-    commoditySet@Commodity
-    commodityList
-    produces@Commodity
-    consumes@Commodity
-    productionRate
-    consumptionRate
+    %Commodity flow in/outbound to Flow Network
+    produces@Commodity %{ordered}
+    consumes@Commodity %{ordered}
+    productionRate %{ordered} by produces
+    consumptionRate %{ordered} by consumes
     consumptionProductionRatio %default is eye(numCommodity)
     
-    flowCapacity
+    %Commodity flow within Network
+    commoditySet@Commodity %{ordered}
+    commodityList
+    flowAmount %{ordered} by commoditySet
+    flowCapacity %{ordered} by commoditySet
     grossCapacity
-    fixedCost
+    flowFixedCost
+    flowUnitCost %{ordered} by commoditySet
     
     %2/23/18: Can't redefine property type in subclass
-    INFlowEdgeSet@FlowEdge %A set of flow edges incoming to the flow network
-    OUTFlowEdgeSet@FlowEdge %A set of flow edges outgoing to the flow network
+    inFlowEdgeSet@FlowEdge %A set of flow edges incoming to the flow network
+    outFlowEdgeSet@FlowEdge %A set of flow edges outgoing to the flow network
     builder %lightweight delegate to builderClass for constructing simulation 
     
     %2/8/19 -- to be deprecated or made private
@@ -39,151 +43,29 @@ classdef FlowNetwork < Network
     end
     
     methods
-        function self=FlowNetwork(rhs)
+        function self=FlowNetwork(varargin)
           if nargin==0
             % default constructor
-            
-          elseif isa(rhs, 'FlowNetwork')
-            % copy constructor
-            fns = properties(rhs);
-            for i=1:length(fns)
-                %Try statement covers cases where you're copying something
-                %that is a specialization of flowNetwork
-                try
-                    self.(fns{i}) = rhs.(fns{i});
-                end
-            end
           end
         end
         
         function addEdge(self, edgeSet)
-            e = findobj(edgeSet, 'isa', 'FlowEdge', 'targetFlowNetworkID', self.instanceID, '-or', 'sourceFlowNetworkID', self.instanceID);
-            self.INFlowEdgeSet = findobj(e, 'targetFlowNetworkID', self.instanceID);
-            self.OUTFlowEdgeSet = findobj(e, 'sourceFlowNetworkID', self.instanceID);
+            self.inFlowEdgeSet = findobj(edgeSet, 'targetFlowNetworkID', self.instanceID);
+            self.outFlowEdgeSet = findobj(edgeSet, 'sourceFlowNetworkID', self.instanceID);
         end
         
-        function setNodeSet(FN, nodes)
+        function setNodeSet(self, nodes)
             if isa(nodes, 'FlowNetwork')
-                FN.NodeSet = nodes;
+                self.NodeSet = nodes;
             else
                 error('NodesSet for FlowNetwork must be of type Flow Network');
             end
         end
         
-        function setBuilder(FN, builder)
+        function setBuilder(self, builder)
             %assert(isa(builder, 'IFlowNetworkBuilder') == 1, 'Invalid Builder Object')
-            FN.builder = builder;
-        end
-        
-        function assignPorts(N)
-            %Assigns LConn and RConn port numbers to incoming/outgoing
-            %edges respectively
-            TypeCount = zeros(1,length(N.EdgeTypeSet));
-            
-            for ii = 1:length(N.INFlowEdgeSet)
-                N.PortSet(end+1) = Port;
-                N.PortSet(end).Owner = N;
-                N.PortSet(end).IncidentEdge = N.INFlowEdgeSet(ii);
-                N.PortSet(end).Type = N.INFlowEdgeSet(ii).EdgeType;
-                N.PortSet(end).Direction = 'IN';
-                N.PortSet(end).setSide;
-                N.PortSet(end).Number = ii;
-                N.PortSet(end).Conn = strcat('LConn', num2str(ii));
-                N.INFlowEdgeSet(ii).DestinationPort = N.PortSet(end);
-                
-                
-                for kk = 1:length(N.EdgeTypeSet)
-                    if strcmp(N.PortSet(end).Type, N.EdgeTypeSet{kk}) ==1
-                        TypeCount(kk) = TypeCount(kk) +1;
-                        N.PortSet(end).name = strcat('IN_', N.EdgeTypeSet{kk},'_', num2str(TypeCount(kk)));
-                    end
-                end
-            end
-            
-            %if there are no incoming edges, the i needs to be 0 instead of
-            %an empty double, which f's up the indexing
-            if isempty(N.INFlowEdgeSet) ==1
-                ii = 0;
-            end
-            
-            TypeCount = zeros(1,length(N.EdgeTypeSet));
-            for jj = 1:length(N.OUTFlowEdgeSet)
-                N.PortSet(end+1) = Port;
-                N.PortSet(end).Owner = N;
-                N.PortSet(end).IncidentEdge = N.OUTFlowEdgeSet(jj);
-                N.PortSet(end).Type = N.OUTFlowEdgeSet(jj).EdgeType;
-                N.PortSet(end).Direction = 'OUT';
-                N.PortSet(end).setSide;
-                N.PortSet(end).Number = ii + jj;
-                N.PortSet(end).Conn = strcat('RConn', num2str(jj));
-                N.OUTFlowEdgeSet(jj).OriginPort = N.PortSet(end);
-                
-                
-                for kk = 1:length(N.EdgeTypeSet)
-                    if strcmp(N.PortSet(end).Type, N.EdgeTypeSet{kk}) ==1
-                        TypeCount(kk) = TypeCount(kk) +1;
-                        N.PortSet(end).name = strcat('OUT_', N.EdgeTypeSet{kk},'_', num2str(TypeCount(kk)));
-                    end
-                end
-            end
-        end %assignPorts function
-        
-        function buildPorts(N)
-            % 7/8/16 -- Fix bug to handle nodes with zero ports in or out,
-            % e.g. source or sink nodes.
-            
-            for ii = 1:length(N.EdgeTypeSet)
-                %IN
-                INset = findobj(N.INFlowEdgeSet, 'EdgeType', N.EdgeTypeSet{ii});
-                if isempty(INset) == 0
-                        %INset = findobj(N.INEdgeSet, 'EdgeType', N.EdgeTypeSet{i});
-                        set_param(strcat(N.SimEventsPath, '/IN_', N.PortSet(ii).Type), 'NumberInputPorts', num2str(length(INset)));
- 
-                    for jj = 1:length(INset) %For Each edge in INset build port
-                        try
-                            Port = INset(jj).DestinationPort;
-                            Port.SimEventsPath = strcat(N.SimEventsPath, '/', Port.name);
-                            add_block('simeventslib/SimEvents Ports and Subsystems/Conn', Port.SimEventsPath);
-                            set_param(Port.SimEventsPath, 'Port', num2str(Port.Number));
-                            set_param(Port.SimEventsPath, 'Side', Port.Side);
-                            Port.setPosition
-                            add_line(strcat(N.Model, '/', N.name), strcat(Port.Direction, '_', Port.Type, '/LConn', num2str(jj)), ...
-                            strcat(Port.name,'/RConn1'), 'autorouting', 'on');
-                        catch err
-                            continue
-                        end
-                    end
-                end
-                
-                
-                %OUT
-                OUTset = findobj(N.OUTFlowEdgeSet, 'EdgeType', N.EdgeTypeSet{ii});
-                if isempty(OUTset) == 0
-                    set_param(strcat(N.SimEventsPath, '/OUT_', N.PortSet(ii).Type), 'NumberOutputPorts', num2str(length(OUTset)));
-               
-                    for jj = 1:length(OUTset) %For Each edge in OUTset build port
-                        try
-                            Port = OUTset(jj).OriginPort;
-                            Port.SimEventsPath = strcat(N.SimEventsPath, '/', Port.name);
-                            add_block('simeventslib/SimEvents Ports and Subsystems/Conn', Port.SimEventsPath);
-                            set_param(Port.SimEventsPath, 'Port', num2str(Port.Number));
-                            set_param(Port.SimEventsPath, 'Side', Port.Side);
-                            Port.setPosition
-                            add_line(strcat(N.Model, '/', N.name), strcat(Port.Direction, '_', Port.Type, '/RConn', num2str(jj)), ...
-                            strcat(Port.name,'/RConn1'), 'autorouting', 'on');
-                        catch err
-                            rethrow(err)
-                            %continue
-                        end
-                    end 
-                end %End: Check if OUTset is empty
-            end %End: For each type of Edge
-
-        end %Role: ConcreteBuilder of Ports
-        
-        function decorateNode(N)
-            assignPorts(N);
-            buildPorts(N);
+            self.builder = builder;
+            self.builder.systemElement = self;
         end
         
         function plotMFNSolution(FN,varargin)
@@ -366,8 +248,8 @@ classdef FlowNetwork < Network
             % Add flow edge sets to each flow node
             for ii = 1:length(self.FlowNodeSet)
                 for jj = 1:length(self.FlowNodeSet{ii})
-                    self.FlowNodeSet{ii}(jj).INFlowEdgeSet = findobj(self.FlowEdgeSet, 'targetFlowNetworkID', self.FlowNodeSet{ii}(jj).instanceID);
-                    self.FlowNodeSet{ii}(jj).OUTFlowEdgeSet = findobj(self.FlowEdgeSet, 'sourceFlowNetworkID', self.FlowNodeSet{ii}(jj).instanceID);
+                    self.FlowNodeSet{ii}(jj).inFlowEdgeSet = findobj(self.FlowEdgeSet, 'targetFlowNetworkID', self.FlowNodeSet{ii}(jj).instanceID);
+                    self.FlowNodeSet{ii}(jj).outFlowEdgeSet = findobj(self.FlowEdgeSet, 'sourceFlowNetworkID', self.FlowNodeSet{ii}(jj).instanceID);
                 end
             end
             
@@ -427,8 +309,8 @@ classdef FlowNetwork < Network
                 for jj = 1:length(self.FlowNodeSet{ii})
                     totalOutFlow = 0;
                     edgeFlowAmount = [];
-                    for kk = 1:length(self.FlowNodeSet{ii}(jj).OUTFlowEdgeSet)
-                        edgeFlowAmount(end+1) = sum(self.FlowNodeSet{ii}(jj).OUTFlowEdgeSet(kk).flowAmount);
+                    for kk = 1:length(self.FlowNodeSet{ii}(jj).outFlowEdgeSet)
+                        edgeFlowAmount(end+1) = sum(self.FlowNodeSet{ii}(jj).outFlowEdgeSet(kk).flowAmount);
                         totalOutFlow = totalOutFlow + edgeFlowAmount(end);
                     end
                     self.FlowNodeSet{ii}(jj).routingProbability = edgeFlowAmount./totalOutFlow;
@@ -455,5 +337,5 @@ classdef FlowNetwork < Network
             end
        end  %end build commodity route
     
-end
+    end
 end

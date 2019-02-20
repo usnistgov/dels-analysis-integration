@@ -1,6 +1,6 @@
 classdef FlowEdge < Edge
     %FLOWEDGE Summary of this class goes here
-    %   Detailed explanation goes here
+    %   flow edges are directed
     
     properties
         %EdgeID

@@ -20,7 +20,7 @@ classdef Depot < FlowNetwork
         end
         
         function decorateNode(self)
-            self.builder.Construct(self);
+            self.builder.construct(self);
         end
     end
 end
