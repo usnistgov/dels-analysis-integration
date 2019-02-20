@@ -1,6 +1,7 @@
 function solution = MultiCommodityFlowNetwork(arc_comm_data, arc_data, supply_data)
 % Solve Multi-Commodity Flow problem using CPLEX
 % 2/23/18 Switch CPLEX solver to Matlab INTLINPROG
+% 2/19/19 Added OPTI toolbox. 
 % Commented out CPLEX code with note
 
 % Indices:
@@ -103,7 +104,15 @@ try
    %options.Diagnostics = 'on';
    %options.MaxTime = 2400;
    
-   [solution, fval, exitflag, output] = intlinprog (f, intcon', Aineq, bineq, Aeq, beq, lb, ub);
+   %%%% MATLAB Optimization Toolbox
+   %[solution, fval, exitflag, output] = intlinprog (f, intcon', Aineq, bineq, Aeq, beq, lb, ub);
+    
+   %%%% OPTI Toolbox
+   %If MATLAB Optimization toolbox is available, OPTI will call it.
+   opts = optiset('solver', 'auto','display','iter');
+   Opt = opti('f',f,'ineq',Aineq,bineq,'eq',Aeq,beq,'bounds',lb,ub,'int',intcon', 'options', opts);
+   [solution, fval, exitflag, output] =  solve(Opt);
+
    %%%% CPLEX-Specific:
    %[solution, fval, exitflag, output] = cplexmilp (f, Aineq, bineq, Aeq, beq, ...
    %   [ ], [ ], [ ], lb, ub, ctype, [ ], options);
