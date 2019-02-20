@@ -27,7 +27,7 @@ distributionNetwork = DistributionNetwork;
         customerList(ii,:) = [ii, gridSize*rand(1), gridSize*rand(1)];
         customerSet(ii) = Customer(customerList(ii,:));
         customerSet(ii).name = strcat('Customer', num2str(ii));
-        customerSet(ii).capacity = inf;
+        customerSet(ii).grossCapacity = inf;
         customerSet(ii).fixedCost = 0;
         customerSet(ii).typeID = 'Customer';
     end
@@ -46,7 +46,7 @@ distributionNetwork = DistributionNetwork;
         depotList(ii,:) = [jj, x, y];
         depotSet(ii) = Depot(depotList(ii,:));
         depotSet(ii).fixedCost = depotFixedCost;
-        depotSet(ii).capacity = depotGrossCapacity;
+        depotSet(ii).grossCapacity = depotGrossCapacity;
         depotSet(ii).name = strcat('Depot', num2str(ii));
         depotSet(ii).typeID = 'Depot';
         jj = jj+1;

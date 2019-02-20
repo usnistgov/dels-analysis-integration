@@ -21,7 +21,8 @@ classdef FlowNetwork < Network
     consumptionRate
     consumptionProductionRatio %default is eye(numCommodity)
     
-    capacity
+    flowCapacity
+    grossCapacity
     fixedCost
     
     %2/23/18: Can't redefine property type in subclass
@@ -267,7 +268,7 @@ classdef FlowNetwork < Network
 
             % Split capacitated node, add capacity and 'cost of opening' to edge
             for jj = 1:length(self.FlowNodeSet)
-                capacitatedNodeSet = findobj(self.FlowNodeSet{jj}, '-not', 'capacity', inf);
+                capacitatedNodeSet = findobj(self.FlowNodeSet{jj}, '-not', 'grossCapacity', inf);
                 for ii =1:length(capacitatedNodeSet)
                     nodeInstanceID = capacitatedNodeSet(ii).instanceID;
                     newInstanceID = max(flowNodeList(:,1))+1;
@@ -284,7 +285,7 @@ classdef FlowNetwork < Network
                     %that can flow (and allow for productionCode for flowUnitCost
                     %FlowEdge_flowTypeAllowed: FlowEdgeID origin destination commodityKind flowUnitCost
 
-                    flowEdgeList(end+1,:) = [gg, nodeInstanceID, newInstanceID, capacitatedNodeSet(ii).capacity, capacitatedNodeSet(ii).fixedCost];
+                    flowEdgeList(end+1,:) = [gg, nodeInstanceID, newInstanceID, capacitatedNodeSet(ii).grossCapacity, capacitatedNodeSet(ii).fixedCost];
                     FlowEdge_flowTypeAllowed(end+1:end+numCommodity, :) = [repmat(flowEdgeList(end,1:3), numCommodity,1), [1:numCommodity]', zeros(numCommodity,1)];
                     FlowNode_ConsumptionProduction(end+1:end+numCommodity,:) = [newInstanceID*ones(numCommodity,1), [1:numCommodity]', zeros(numCommodity,1)];
 

@@ -12,7 +12,7 @@ classdef FlowEdge < Edge
         targetFlowNetworkID
         sourceFlowNetwork
         targetFlowNetwork
-        flowTypeAllowed %{ordered} %Array of Commodities allowed to flow
+        flowTypeAllowed %{ordered} %Array of Commodities' typeID allowed to flow
         flowCapacity %{ordered} %Capacity (upper bound) for each commodity flow
         grossCapacity = Inf;
         flowFixedCost = 0; %Fixed cost to use flow edge

@@ -5,10 +5,10 @@ classdef TransportationChannel < FlowNetwork
     %Transportation_Channel
     
     properties
-        TravelDistance = 0 %{redefines: Weight}
-        TravelRate
-        Source
-        Target
+        travelDistance = 0 %{redefines: Weight}
+        travelRate
+        source
+        target
     end
     
     methods
@@ -26,69 +26,88 @@ classdef TransportationChannel < FlowNetwork
             %Transportation Channel comes pre-built with its ports complete
         end
         
-        function FlowEdgeSet = createEdgeSet(TC, DepotSet)
+        function flowEdgeSet = createEdgeSet(self)
             %Maps a set of Flow Edges to a single Flow/Process Node and
             %creates the required new flow edges.
             %Future Work: How does mapping multiple flow edges to a TC
             
-            FlowEdgeSet(8) = FlowEdge;
+            flowEdgeSet(8) = FlowEdge;
             kk=1;
             
-            %Add Edges for flows from Source to Target
-            FlowEdgeSet(kk).instanceID = kk;
-            FlowEdgeSet(kk).OriginID = TC.Source;
-            FlowEdgeSet(kk).DestinationID = TC.instanceID;
-            FlowEdgeSet(kk).typeID = 'Shipment';
+            %Add Edges for flows from source to self
+            flowEdgeSet(kk).instanceID = kk;
+            flowEdgeSet(kk).sourceFlowNetwork = self.source;
+            flowEdgeSet(kk).sourceFlowNetworkID = self.source.instanceID;
+            flowEdgeSet(kk).targetFlowNetwork = self;
+            flowEdgeSet(kk).targetFlowNetworkID = self.instanceID;
+            flowEdgeSet(kk).typeID = 'Shipment';
             kk= kk+1;
 
-            FlowEdgeSet(kk).instanceID = kk;
-            FlowEdgeSet(kk).OriginID = TC.instanceID;
-            FlowEdgeSet(kk).DestinationID = TC.Target;
-            FlowEdgeSet(kk).typeID = 'Shipment';
+            flowEdgeSet(kk).instanceID = kk;
+            flowEdgeSet(kk).sourceFlowNetwork = self;
+            flowEdgeSet(kk).sourceFlowNetworkID = self.instanceID;
+            flowEdgeSet(kk).targetFlowNetwork = self.target;
+            flowEdgeSet(kk).targetFlowNetworkID = self.target.instanceID;
+            flowEdgeSet(kk).typeID = 'Shipment';
             kk=kk+1;
             
-            if any(TC.Source == DepotSet(:))
-                FlowEdgeSet(kk).instanceID = kk;
-                FlowEdgeSet(kk).OriginID = TC.Source;
-                FlowEdgeSet(kk).DestinationID = TC.instanceID;
-                FlowEdgeSet(kk).typeID = 'Resource';
+            if isa(self.source, 'Depot')
+                flowEdgeSet(kk).instanceID = kk;
+                flowEdgeSet(kk).sourceFlowNetwork = self.source;
+                flowEdgeSet(kk).sourceFlowNetworkID = self.source.instanceID;
+                flowEdgeSet(kk).targetFlowNetwork = self;
+                flowEdgeSet(kk).targetFlowNetworkID = self.instanceID;
+                flowEdgeSet(kk).typeID = 'Resource';
                 kk=kk+1;
 
-                FlowEdgeSet(kk).instanceID = kk;
-                FlowEdgeSet(kk).OriginID = TC.instanceID;
-                FlowEdgeSet(kk).DestinationID = TC.Source;
-                FlowEdgeSet(kk).typeID = 'Resource';
+                flowEdgeSet(kk).instanceID = kk;
+                flowEdgeSet(kk).sourceFlowNetwork = self;
+                flowEdgeSet(kk).sourceFlowNetworkID = self.instanceID;
+                flowEdgeSet(kk).targetFlowNetwork = self.source;
+                flowEdgeSet(kk).targetFlowNetworkID = self.source.instanceID;
+                flowEdgeSet(kk).typeID = 'Resource';
                 kk=kk+1;
             end
             
-            %Add Edges for flows from Target To Source
-            FlowEdgeSet(kk).instanceID = kk;
-            FlowEdgeSet(kk).OriginID = TC.Target;
-            FlowEdgeSet(kk).DestinationID = TC.instanceID;
-            FlowEdgeSet(kk).typeID = 'Shipment';
+            %Add Edges for flows from target To source
+            flowEdgeSet(kk).instanceID = kk;
+            flowEdgeSet(kk).sourceFlowNetwork = self.target;
+            flowEdgeSet(kk).sourceFlowNetworkID = self.target.instanceID;
+            flowEdgeSet(kk).targetFlowNetwork = self;
+            flowEdgeSet(kk).targetFlowNetworkID = self.instanceID;
+            flowEdgeSet(kk).typeID = 'Shipment';
             kk=kk+1;
 
-            FlowEdgeSet(kk).instanceID = kk;
-            FlowEdgeSet(kk).OriginID = TC.instanceID;
-            FlowEdgeSet(kk).DestinationID = TC.Source;
-            FlowEdgeSet(kk).typeID = 'Shipment';
+            flowEdgeSet(kk).instanceID = kk;
+            flowEdgeSet(kk).sourceFlowNetwork = self;
+            flowEdgeSet(kk).sourceFlowNetworkID = self.instanceID;
+            flowEdgeSet(kk).targetFlowNetwork = self.source;
+            flowEdgeSet(kk).targetFlowNetworkID = self.source.instanceID;
+            flowEdgeSet(kk).typeID = 'Shipment';
             kk=kk+1;
 
-           if any(TC.Target == DepotSet(:))
-                FlowEdgeSet(kk).instanceID = kk;
-                FlowEdgeSet(kk).OriginID = TC.Target;
-                FlowEdgeSet(kk).DestinationID = TC.instanceID;
-                FlowEdgeSet(kk).typeID = 'Resource';
+           if isa(self.target, 'Depot')
+                flowEdgeSet(kk).instanceID = kk;
+                flowEdgeSet(kk).sourceFlowNetwork = self.target;
+                flowEdgeSet(kk).sourceFlowNetworkID = self.target.instanceID;
+                flowEdgeSet(kk).targetFlowNetwork = self;
+                flowEdgeSet(kk).targetFlowNetworkID = self.instanceID;
+                flowEdgeSet(kk).typeID = 'Resource';
                 kk=kk+1;
 
-                FlowEdgeSet(kk).instanceID = kk;
-                FlowEdgeSet(kk).OriginID = TC.instanceID;
-                FlowEdgeSet(kk).DestinationID = TC.Target;
-                FlowEdgeSet(kk).typeID = 'Resource';
+                flowEdgeSet(kk).instanceID = kk;
+                flowEdgeSet(kk).sourceFlowNetwork = self;
+                flowEdgeSet(kk).sourceFlowNetworkID = self.instanceID;
+                flowEdgeSet(kk).targetFlowNetwork = self.target;
+                flowEdgeSet(kk).targetFlowNetworkID = self.target.instanceID;
+                flowEdgeSet(kk).typeID = 'Resource';
                 kk=kk+1;
             end
             
-            FlowEdgeSet = FlowEdgeSet(1:kk-1);
+            flowEdgeSet = flowEdgeSet(1:kk-1);
+            
+            self.INFlowEdgeSet = findobj(flowEdgeSet, 'targetFlowNetworkID', self.instanceID);
+            self.OUTFlowEdgeSet = findobj(flowEdgeSet, 'sourceFlowNetworkID', self.instanceID);
         end
     end
     

@@ -38,24 +38,6 @@ classdef DistributionNetwork < FlowNetwork
           end
         end
         
-        function mapFlowNetwork2DistributionNetworkProbabilisticFlow(self)
-            %FlowEdge_Solution = Binary FlowEdgeID Origin Destination grossCapacity flowFixedCost
-            FlowEdge_Solution = self.FlowEdge_Solution(self.FlowEdge_Solution(:,1) ==1,:);
-
-            %Map commodity flow solution to Probabilistic Commodity Flow.
-            FlowEdge_ProbabilisticFlowSolution = mapCommodityFlow2ProbabilisticFlow(FlowEdge_Solution);
-
-            %map FlowNode to Customer Node (Probabilistic Flow)
-            [self.customerSet] = self.mapFlowNode2CustomerProbFlow(self.customerList, FlowEdge_ProbabilisticFlowSolution);
-
-            %Map FlowNode to Depot Node (Probabilistic Flow)
-            [self.depotSet, selecteddepotList, FlowEdge_ProbabilisticFlowSolution] = self.mapFlowNode2DepotProbFlow( self.depotList, FlowEdge_ProbabilisticFlowSolution, self.nodeMapping);
-
-            % Add Transportation Channels for Flow Edges
-            [ self.transportationChannelSet, self.FlowEdgeSet] = self.mapFlowEdge2TransportationChannel([self.customerList; self.depotList], selecteddepotList, FlowEdge_ProbabilisticFlowSolution );
-            self.FlowEdge_Solution = FlowEdge_ProbabilisticFlowSolution;
-        end
-        
         function mapFlowNetwork2DistributionNetwork(self)
             
             % 1) Remove unselected depots
@@ -79,16 +61,71 @@ classdef DistributionNetwork < FlowNetwork
             end
             
             % 3) Transform flow edges into transportation channels
-            % self.mapFlowEdge2TransportationChannel
+            % [ TransportationChannelSet, FlowEdgeSet ] = self.mapFlowEdge2TransportationChannel
+            %for each flow edge, create a new transportation channel node
+            transportationChannelSet(length(self.FlowEdgeSet)) = TransportationChannel;
+           
+            %populate the transportation channel with details of the edge
+            for ii = 1:length(transportationChannelSet)
+                transportationChannelSet(ii).instanceID = ii+max(self.FlowNodeList(:,1));
+                transportationChannelSet(ii).typeID = 'TransportationChannel';
+                transportationChannelSet(ii).name = strcat('TransportationChannel_', num2str(transportationChannelSet(ii).instanceID));
+                transportationChannelSet(ii).travelRate = 30;
+                transportationChannelSet(ii).travelDistance = self.FlowEdgeSet(ii).calculateEdgeLength;
+                transportationChannelSet(ii).commodityList = self.FlowEdgeSet(ii).flowTypeAllowed;
+                transportationChannelSet(ii).productionRate = self.FlowEdgeSet(ii).flowAmount;
+                transportationChannelSet(ii).consumptionRate = self.FlowEdgeSet(ii).flowAmount;
+                transportationChannelSet(ii).flowCapacity = self.FlowEdgeSet(ii).flowCapacity;
+                transportationChannelSet(ii).grossCapacity = self.FlowEdgeSet(ii).grossCapacity;
+                
+                
+                %Set Depot as Source;
+                if isa(self.FlowEdgeSet(ii).sourceFlowNetwork, 'Depot')
+                    transportationChannelSet(ii).source = self.FlowEdgeSet(ii).sourceFlowNetwork;
+                    transportationChannelSet(ii).target = self.FlowEdgeSet(ii).targetFlowNetwork;
+                else
+                    transportationChannelSet(ii).target = self.FlowEdgeSet(ii).sourceFlowNetwork;
+                    transportationChannelSet(ii).source = self.FlowEdgeSet(ii).targetFlowNetwork;
+                end
+            end
+            % 4)  Create Edges from Transportation Channel
+            % Call createEdgeSet method of transportation channel
+            % TO DO: Move method to mapping class
+            %Add 8 flow edges: {resource, commodity} x {inbound, outbound} x {toDepot, toCustomer}
+            flowEdgeSet(8*length(transportationChannelSet)) = FlowEdge;
+            jj = 1;
+            for ii = 1:length(transportationChannelSet)
+                e2 = transportationChannelSet(ii).createEdgeSet;
+                flowEdgeSet(jj:jj+length(e2)-1) = e2;
+                jj = jj+length(e2);
+            end
+            
+            self.transportationChannelSet = transportationChannelSet;
+            self.FlowNodeSet{end+1} = transportationChannelSet;
+        end
+       
+        function mapFlowNetwork2DistributionNetworkProbabilisticFlow(self)
+        %FlowEdge_Solution = Binary FlowEdgeID Origin Destination grossCapacity flowFixedCost
+        FlowEdge_Solution = self.FlowEdge_Solution(self.FlowEdge_Solution(:,1) ==1,:);
+
+        %Map commodity flow solution to Probabilistic Commodity Flow.
+        FlowEdge_ProbabilisticFlowSolution = mapCommodityFlow2ProbabilisticFlow(FlowEdge_Solution);
+
+        %map FlowNode to Customer Node (Probabilistic Flow)
+        [self.customerSet] = self.mapFlowNode2CustomerProbFlow(self.customerList, FlowEdge_ProbabilisticFlowSolution);
+
+        %Map FlowNode to Depot Node (Probabilistic Flow)
+        [self.depotSet, selecteddepotList, FlowEdge_ProbabilisticFlowSolution] = self.mapFlowNode2DepotProbFlow( self.depotList, FlowEdge_ProbabilisticFlowSolution, self.nodeMapping);
+
+        % Add Transportation Channels for Flow Edges
+        [ self.transportationChannelSet, self.FlowEdgeSet] = self.mapFlowEdge2TransportationChannel([self.customerList; self.depotList], selecteddepotList, FlowEdge_ProbabilisticFlowSolution );
+        self.FlowEdge_Solution = FlowEdge_ProbabilisticFlowSolution;
         end
     end
 
     methods(Access = private)
 
         function [ TransportationChannelSet, FlowEdgeSet ] = mapFlowEdge2TransportationChannel(DN, nodeSet, selecteddepotList, FlowEdge_Solution )
-        %UNTITLED4 Summary of this function goes here
-        %   Detailed explanation goes here
-
         %FlowEdge_Solution = Binary FlowEdgeID Origin Destination grossCapacity flowFixedCost
     
             TransportationChannelSet(length(FlowEdge_Solution(1:end-length(selecteddepotList),1))) = TransportationChannel;

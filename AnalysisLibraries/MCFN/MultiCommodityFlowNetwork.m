@@ -1,7 +1,7 @@
 function solution = MultiCommodityFlowNetwork(arc_comm_data, arc_data, supply_data)
 % Solve Multi-Commodity Flow problem using CPLEX
 % 2/23/18 Switch CPLEX solver to Matlab INTLINPROG
-% 2/19/19 Added OPTI toolbox. 
+% 2/19/19 Added OPTI toolbox. https://inverseproblem.co.nz/OPTI/index.php
 % Commented out CPLEX code with note
 
 % Indices:
