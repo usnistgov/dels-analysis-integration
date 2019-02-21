@@ -95,28 +95,25 @@ for ii = 1:length(distributionNetworkSet)
 end
     clear builderSet ii jj ans;
 %% 4) ReBuild Hi-Fidelity Simulation 
-
-% TO DO -- something about routing!
 for ii = 1:length(flowNetworkFactorySet)
     for jj = 1:length(flowNetworkFactorySet(ii).flowNodeBuilders)
+           
         if isa(flowNetworkFactorySet(ii).flowNodeBuilders{jj}, 'DepotSimEventsBuilder')
-            for kk = 1:length(flowNetworkFactorySet(ii).flowNodeBuilders{jj})
-                flowNetworkFactorySet(ii).flowNodeBuilders{jj}(kk).analysisTypeID = 'Depot';
+            for ll = 1:length(flowNetworkFactorySet(ii).flowNodeBuilders{kk})
+                flowNetworkFactorySet(ii).flowNodeBuilders{kk}(ll).analysisTypeID = 'Depot';
             end
-        elseif isa(flowNetworkFactorySet(ii).flowNodeBuilders{jj}, 'CustomerSimEventsBuilder')
-            for ll = 1:length(flowNetworkFactorySet(ii).flowNodeBuilders{jj})
-                flowNetworkFactorySet(ii).flowNodeBuilders{jj}(kk).analysisTypeID = 'Customer';
+        elseif isa(flowNetworkFactorySet(ii).flowNodeBuilders{kk}, 'CustomerSimEventsBuilder')
+            for ll = 1:length(flowNetworkFactorySet(ii).flowNodeBuilders{kk})
+                flowNetworkFactorySet(ii).flowNodeBuilders{kk}(ll).analysisTypeID = 'Customer';
             end
-        elseif isa(flowNetworkFactorySet(ii).flowNodeBuilders{jj}, 'TransportationChannelSimEventsBuilder')
+        elseif isa(flowNetworkFactorySet(ii).flowNodeBuilders{kk}, 'TransportationChannelSimEventsBuilder')
             %do nothing
-            %for ll = 1:length(factoryNetworkSet(ii).flowNodeBuilders{jj})
-            %    factoryNetworkSet(ii).flowNodeBuilders{jj}(kk).analysisTypeID = 'TransportationChannel';
+            %for ll = 1:length(factoryNetworkSet(ii).flowNodeBuilders{kk})
+            %    factoryNetworkSet(ii).flowNodeBuilders{kk}(ll).analysisTypeID = 'TransportationChannel';
             %end
         end
     end
 end 
-
-clear ii jj kk;
 
 %% 5) Build and Run High-Fidelity Simulations
 for ii = 1:length(distributionNetworkSet)

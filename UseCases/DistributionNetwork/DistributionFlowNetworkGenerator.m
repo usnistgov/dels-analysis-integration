@@ -2,7 +2,7 @@ function [distributionNetwork] = DistributionFlowNetworkGenerator(varargin)
 % DistributionFlowNetworkGenerator generates a random 
 % TO DO: Output a Distribution Network Instance that contains the
 % flownetwork as a reference
-import Classdefs.*
+addpath dels-analysis-integration\Classdefs\TFN
 
 distributionNetwork = DistributionNetwork;
 

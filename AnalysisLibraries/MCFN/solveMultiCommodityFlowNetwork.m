@@ -1,6 +1,6 @@
 function solveMultiCommodityFlowNetwork(FlowNetwork)
     assert(isa(FlowNetwork, 'FlowNetwork') == 1, 'Input must be a Flow Network')
-    import AnalysisLibraries/MCFN.*
+    addpath dels-analysis-integration\AnalysisLibraries\MCFN
     
     MCFNsolution = MultiCommodityFlowNetwork(FlowNetwork.FlowEdge_flowTypeAllowed(:, 2:end), FlowNetwork.FlowEdgeList(:,2:end), FlowNetwork.FlowNode_ConsumptionProduction);
     MCFNsolution = round(MCFNsolution); %NOTE: distribution network requires it 4/25/16

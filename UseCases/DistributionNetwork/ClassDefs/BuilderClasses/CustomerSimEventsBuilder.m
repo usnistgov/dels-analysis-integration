@@ -10,8 +10,8 @@ classdef CustomerSimEventsBuilder < FlowNetworkSimEventsBuilder
        function construct(self)
             construct@FlowNetworkSimEventsBuilder(self);
             self.buildCommoditySet;
-            self.setMetrics;
             self.buildShipmentRouting;
+            self.setMetrics;
        end
     end
     
@@ -62,21 +62,34 @@ classdef CustomerSimEventsBuilder < FlowNetworkSimEventsBuilder
         end
         
         function buildCommoditySet(self)
-           set_param(strcat(self.simEventsPath, '/IN_Commodity'), 'NumberInputPorts', num2str(length(self.systemElement.produces)));
-
-
-            for ii = 1:length(self.systemElement.produces)
-                position = get_param(strcat(self.simEventsPath, '/IN_Commodity'), 'Position') - [400 0 400 0] + [0 (ii-1)*100 0 (ii-1)*100];
-                %add the block
-                block = add_block(strcat('Distribution_Library/CommoditySource'), strcat(self.simEventsPath,'/Commodity_',...
-                    num2str(self.systemElement.produces(ii).instanceID)), 'Position', position);
+           
+            if strcmp(self.analysisTypeID, 'Customer_probflow') %aggregate into one commodity
+                set_param(strcat(self.simEventsPath, '/IN_Commodity'), 'NumberInputPorts', num2str(1));
+                position = get_param(strcat(self.simEventsPath, '/IN_Commodity'), 'Position') - [400 0 400 0];
+                block = add_block(strcat('Distribution_Library/CommoditySource'), strcat(self.simEventsPath,'/AggregateCommodity'), 'Position', position);
                 set_param(block, 'LinkStatus', 'none');
+                
+                set_param(block, 'Mean', strcat('2000/', num2str(sum(self.systemElement.productionRate))));
+                set_param(block, 'AttributeValue', strcat('[1 0 1]|1|1|1'));
+                
+                add_line(self.simEventsPath, 'AggregateCommodity/RConn1', 'IN_Commodity/LConn1');
+                
+            else % build complete commodity set
+                set_param(strcat(self.simEventsPath, '/IN_Commodity'), 'NumberInputPorts', num2str(length(self.systemElement.produces)));
+                %for each commodity, add a commodity source
+                for ii = 1:length(self.systemElement.produces)
+                    position = get_param(strcat(self.simEventsPath, '/IN_Commodity'), 'Position') - [400 0 400 0] + [0 (ii-1)*100 0 (ii-1)*100];
+                    %add the block
+                    block = add_block(strcat('Distribution_Library/CommoditySource'), strcat(self.simEventsPath,'/Commodity_',...
+                        num2str(self.systemElement.produces(ii).instanceID)), 'Position', position);
+                    set_param(block, 'LinkStatus', 'none');
 
-                set_param(block, 'Mean', strcat('2000/', num2str(self.systemElement.produces(ii).Quantity)))
-                %AttributeValue = '[Route]|Origin|Destination|Start'
-                set_param(block, 'AttributeValue', strcat('[',num2str(self.systemElement.produces(ii).Route),']|', num2str(self.systemElement.produces(ii).OriginID), '|', num2str(self.systemElement.produces(ii).DestinationID), '|1'));
+                    set_param(block, 'Mean', strcat('2000/', num2str(self.systemElement.produces(ii).Quantity)))
+                    %AttributeValue = '[Route]|Origin|Destination|Start'
+                    set_param(block, 'AttributeValue', strcat('[',num2str(self.systemElement.produces(ii).Route),']|', num2str(self.systemElement.produces(ii).OriginID), '|', num2str(self.systemElement.produces(ii).DestinationID), '|1'));
 
-                add_line(self.simEventsPath, strcat('Commodity_', num2str(self.systemElement.produces(ii).instanceID), '/RConn1'), strcat('IN_Commodity/LConn', num2str(ii)));
+                    add_line(self.simEventsPath, strcat('Commodity_', num2str(self.systemElement.produces(ii).instanceID), '/RConn1'), strcat('IN_Commodity/LConn', num2str(ii)));
+                end
             end
         end
     end
