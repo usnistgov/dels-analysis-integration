@@ -7,7 +7,7 @@ classdef SimEventsFlowNetworkFactory < NetworkFactory
         model %where the network factory will operate
         modelLibrary % Source of simulation objects to clone from
         inputFlowNetwork@FlowNetwork
-        flowNodeBuilders@IFlowNetworkBuilder
+        flowNodeBuilders%@FlowNetworkSimEventsBuilder
         
     end
     
@@ -54,7 +54,7 @@ classdef SimEventsFlowNetworkFactory < NetworkFactory
                    %add the block
                    targetBuilder.simEventsPath = strcat(self.model, '/', flowNodeSet(ii).name);
                    targetBuilder.model = self.model;
-                   add_block(strcat(self.modelLibrary, '/', flowNodeSet(ii).typeID), targetBuilder.simEventsPath, 'Position', position);
+                   add_block(strcat(self.modelLibrary, '/', targetBuilder.analysisTypeID), targetBuilder.simEventsPath, 'Position', position);
                    set_param(targetBuilder.simEventsPath, 'LinkStatus', 'none');
 
                    %NodeFactory is the Director
@@ -68,14 +68,20 @@ classdef SimEventsFlowNetworkFactory < NetworkFactory
         function createEdges(self)
             %For each edge in edgeset, use the add_line method to add a
             %connector line in the simulation
-            targetFlowEdgeSet = self.inputFlowNetwork.flowEdgeSet;
+            targetFlowEdgeSet = self.inputFlowNetwork.FlowEdgeSet;
             for ii = 1:length(targetFlowEdgeSet)
                 %check nestedness: needs to be fixed somehow to allow nodes
                 %to connect to their nested networks
-                add_line(self.model, strcat(targetFlowEdgeSet(ii).sourceFlowNetwork.name,'/', targetFlowEdgeSet(ii).OriginPort.Conn),...
-                    strcat(targetFlowEdgeSet(ii).inputFlowNetwork.name,'/', targetFlowEdgeSet(ii).DestinationPort.Conn), 'autorouting', 'on');
+                add_line(self.model, strcat(targetFlowEdgeSet(ii).sourceFlowNetwork.name,'/', targetFlowEdgeSet(ii).OriginPort.conn),...
+                    strcat(targetFlowEdgeSet(ii).targetFlowNetwork.name,'/', targetFlowEdgeSet(ii).DestinationPort.conn), 'autorouting', 'on');
             end
         end %creatEdges
+        
+        function addFlowNodeBuilder(self, input)
+            if isa(input, 'FlowNetworkSimEventsBuilder')
+                self.flowNodeBuilders{end+1} = input;
+            end
+        end
         
     end
     

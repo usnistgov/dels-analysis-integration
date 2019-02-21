@@ -1,4 +1,4 @@
-classdef TransportationChannelSimulationBuilder < FlowNetworkSimulationBuilder
+classdef TransportationChannelSimEventsBuilder < FlowNetworkSimEventsBuilder
     %TRANSPORTATIONCHANNELSIMULATIONBUILDER Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -8,23 +8,26 @@ classdef TransportationChannelSimulationBuilder < FlowNetworkSimulationBuilder
     
     methods (Access = public)
         function construct(self)
-            construct@FlowNetwork(self);
+            self.assignPorts;
             for jj = 1:length(self.portSet)
                 self.portSet(jj).setPortNum;
             end
+            self.buildPorts;
             self.setTravelTime;
             self.buildStatusMetric; 
         end
         
-        function buildPorts(TC)
+       function buildPorts(self)
             %Override Node's method to buildPorts; in this use case, the
             %Transportation Channel comes pre-built with its ports complete
-        end
+       end
     end
     
     methods (Access = private)
+
+
        function setTravelTime(self)
-            set_param(strcat(self.simEventsPath, '/TravelTime'), 'Value', strcat(num2str(self.systemElement.TravelDistance),'/', num2str(self.systemElement.TravelRate)));
+            set_param(strcat(self.simEventsPath, '/TravelTime'), 'Value', strcat(num2str(self.systemElement.travelDistance),'/', num2str(self.systemElement.travelRate)));
         end
         
        function buildStatusMetric(self)

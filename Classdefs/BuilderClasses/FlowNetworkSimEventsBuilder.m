@@ -1,28 +1,22 @@
-classdef FlowNetworkSimulationBuilder <IFlowNetworkBuilder
+classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
     %FLOWNETWORKSIMULATIONBUILDER Summary of this class goes here
     %   Detailed explanation goes here
     
     properties
-        %systemElement@FlowNetwork
-        portSet@Port %A set of port classes that define the node interface
+        %systemElement@self.systemElement
+        portSet %A set of port classes that define the node interface
         edgeTypeIDSet
+        echelon = 1
+        position
+        simEventsPath %The associated SimEvents block identifier >> CHANGED ON 1/22/15; expect errors
     end
     
-    methods
-        
+    methods (Access = public)
         function construct(self)
             self.assignPorts;
             self.buildPorts; 
         end
         
-        function decorateNode(self)
-            self.assignPorts(self);
-            self.buildPorts(self);
-        end
-
-    end
-    
-    methods (Access = private)
        function assignPorts(self)
             %Assigns LConn and RConn port numbers to incoming/outgoing
             %edges respectively
@@ -30,7 +24,7 @@ classdef FlowNetworkSimulationBuilder <IFlowNetworkBuilder
             %% Create ports for IN Flow Edges
             typeID = {};
             typeCount = [];
-            
+            self.portSet = Port.empty(0);
             for ii = 1:length(self.systemElement.inFlowEdgeSet)
                 self.portSet(end+1) = Port;
                 self.portSet(end).owner = self.systemElement;
@@ -42,14 +36,14 @@ classdef FlowNetworkSimulationBuilder <IFlowNetworkBuilder
                 self.portSet(end).conn = strcat('LConn', num2str(ii));
                 self.systemElement.inFlowEdgeSet(ii).DestinationPort = self.portSet(end);
                 
-                isType = ismember(typeID, self.portSet(end).type);
+                isType = ismember(typeID, self.portSet(end).typeID);
                 if any(isType)
                     typeCount(isType) = typeCount(isType) + 1;
                     self.portSet(end).name = strcat('IN_', typeID{isType},'_', num2str(typeCount(isType)));
                 else
-                    typeID{end+1} = self.portSet(end).type;
+                    typeID{end+1} = self.portSet(end).typeID;
                     typeCount(end+1) = 1;
-                    self.portSet(end).name = strcat('IN_', typeID{isType},'_', num2str(typeCount(isType)));
+                    self.portSet(end).name = strcat('IN_', typeID{end},'_1');
                 end
             end
             
@@ -60,32 +54,32 @@ classdef FlowNetworkSimulationBuilder <IFlowNetworkBuilder
             %% Create ports for OUT Flow Edges
             typeCount = zeros(length(typeID),1);
             
-            for jj = 1:length(FlowNetwork.outFlowEdgeSet)
+            for jj = 1:length(self.systemElement.outFlowEdgeSet)
                 self.portSet(end+1) = Port;
                 self.portSet(end).owner = self.systemElement;
                 self.portSet(end).incidentEdge = self.systemElement.outFlowEdgeSet(jj);
-                self.portSet(end).typeID = FlowNetwork.outFlowEdgeSet(jj).EdgeType;
+                self.portSet(end).typeID = self.systemElement.outFlowEdgeSet(jj).typeID;
                 self.portSet(end).direction = 'OUT';
                 self.portSet(end).setSide;
                 self.portSet(end).number = ii + jj;
                 self.portSet(end).conn = strcat('RConn', num2str(jj));
-                self.systemElement.outFlowEdgeSet(jj).OriginPort = self.systemElement.portSet(end);
+                self.systemElement.outFlowEdgeSet(jj).OriginPort = self.portSet(end);
                 
-                isType = ismember(typeID, self.portSet(end).type);
+                isType = ismember(typeID, self.portSet(end).typeID);
                 if any(isType)
                     typeCount(isType) = typeCount(isType) + 1;
                     self.portSet(end).name = strcat('OUT_', typeID{isType},'_', num2str(typeCount(isType)));
                 else
                     typeID{end+1} = self.portSet(end).type;
                     typeCount(end+1) = 1;
-                    self.portSet(end).name = strcat('OUT_', typeID{isType},'_', num2str(typeCount(isType)));
+                    self.portSet(end).name = strcat('OUT_', typeID{end},'_1');
                 end
             end
             self.edgeTypeIDSet = typeID;
             
         end %assignPorts function
         
-       function buildPorts(self, FlowNetwork)
+       function buildPorts(self)
             % 7/8/16 -- Fix bug to handle nodes with zero ports in or out,
             % e.g. source or sink nodes.
             
@@ -103,8 +97,8 @@ classdef FlowNetworkSimulationBuilder <IFlowNetworkBuilder
                             set_param(inPortSet(jj).simEventsPath, 'Port', num2str(inPortSet(jj).number));
                             set_param(inPortSet(jj).simEventsPath, 'Side', inPortSet(jj).side);
                             inPortSet(jj).setPosition
-                            add_line(strcat(self.model, '/', self.systemElement.name), strcat(inPortSet(jj).direction, '_', inPortSet(jj).type, '/LConn', num2str(jj)), ...
-                            strcat(Port.Name,'/RConn1'), 'autorouting', 'on');
+                            add_line(strcat(self.model, '/', self.systemElement.name), strcat(inPortSet(jj).direction, '_', inPortSet(jj).typeID, '/LConn', num2str(jj)), ...
+                            strcat(inPortSet(jj).name,'/RConn1'), 'autorouting', 'on');
                         catch err
                             continue
                         end
@@ -113,26 +107,25 @@ classdef FlowNetworkSimulationBuilder <IFlowNetworkBuilder
                 
                 
                 %OUT
-                OUTset = findobj(FlowNetwork.outFlowEdgeSet, 'EdgeType', FlowNetwork.EdgeTypeSet{ii});
-                if isempty(OUTset) == 0
-                    set_param(strcat(FlowNetwork.SimEventsPath, '/OUT_', FlowNetwork.portSet(ii).Type), 'NumberOutputPorts', num2str(length(OUTset)));
+                outPortSet = findobj(self.portSet, 'typeID', self.edgeTypeIDSet{ii}, '-and', 'direction', 'OUT');
+                if ~isempty(outPortSet)
+                    set_param(strcat(self.simEventsPath, '/OUT_', self.portSet(ii).typeID), 'NumberOutputPorts', num2str(length(outPortSet)));
                
-                    for jj = 1:length(OUTset) %For Each edge in OUTset build port
+                    for jj = 1:length(outPortSet) %For Each edge in outPortSet build port
                         try
-                            Port = OUTset(jj).OriginPort;
-                            Port.SimEventsPath = strcat(FlowNetwork.SimEventsPath, '/', Port.Name);
-                            add_block('simeventslib/SimEvents Ports and Subsystems/Conn', Port.SimEventsPath);
-                            set_param(Port.SimEventsPath, 'Port', num2str(Port.Number));
-                            set_param(Port.SimEventsPath, 'Side', Port.Side);
-                            Port.setPosition
-                            add_line(strcat(FlowNetwork.Model, '/', FlowNetwork.Name), strcat(Port.Direction, '_', Port.Type, '/RConn', num2str(jj)), ...
-                            strcat(Port.Name,'/RConn1'), 'autorouting', 'on');
+                            outPortSet(jj).simEventsPath = strcat(self.simEventsPath, '/', outPortSet(jj).name);
+                            add_block('simeventslib/SimEvents Ports and Subsystems/Conn', outPortSet(jj).simEventsPath);
+                            set_param(outPortSet(jj).simEventsPath, 'Port', num2str(outPortSet(jj).number));
+                            set_param(outPortSet(jj).simEventsPath, 'Side', outPortSet(jj).side);
+                            outPortSet(jj).setPosition
+                            add_line(strcat(self.model, '/', self.systemElement.name), strcat(outPortSet(jj).direction, '_', outPortSet(jj).typeID, '/RConn', num2str(jj)), ...
+                            strcat(outPortSet(jj).name,'/RConn1'), 'autorouting', 'on');
                         catch err
                             rethrow(err)
                             %continue
                         end
                     end 
-                end %End: Check if OUTset is empty
+                end %End: Check if outPortSet is empty
             end %End: For each type of Edge
 
         end %Role: ConcreteBuilder of Ports 

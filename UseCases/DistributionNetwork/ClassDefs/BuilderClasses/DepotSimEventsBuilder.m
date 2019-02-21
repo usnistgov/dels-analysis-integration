@@ -1,4 +1,4 @@
-classdef DepotSimulationBuilder < FlowNetworkSimulationBuilder
+classdef DepotSimEventsBuilder < FlowNetworkSimEventsBuilder
     %IDEPOTBUILDER Defines the interface or abstract Builder associated
     %with the Depot class. Contains methods for creating depot simulation
     %objects
@@ -8,7 +8,7 @@ classdef DepotSimulationBuilder < FlowNetworkSimulationBuilder
     
     methods
         function construct(self)
-            construct@FlowNetworkSimulationBuilder;
+            construct@FlowNetworkSimEventsBuilder(self);
             self.buildShipmentRouting;
             self.buildResourceAllocation;
         end

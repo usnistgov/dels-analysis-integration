@@ -1,4 +1,4 @@
-classdef CustomerSimulationBuilder < FlowNetworkSimulationBuilder
+classdef CustomerSimEventsBuilder < FlowNetworkSimEventsBuilder
     %CUSTOMERSIMULATIONBUILDER Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -8,7 +8,7 @@ classdef CustomerSimulationBuilder < FlowNetworkSimulationBuilder
     
     methods (Access = public)
        function construct(self)
-            construct@FlowNetworkSimulationBuilder(self);
+            construct@FlowNetworkSimEventsBuilder(self);
             self.buildCommoditySet;
             self.setMetrics;
             self.buildShipmentRouting;
@@ -17,7 +17,7 @@ classdef CustomerSimulationBuilder < FlowNetworkSimulationBuilder
     
     methods (Access = private)
         function setMetrics(self)
-            set_param(strcat(self.simEventsPath, '/Shipment_Metrics'), 'VariableName', self.name);
+            set_param(strcat(self.simEventsPath, '/Shipment_Metrics'), 'VariableName', self.systemElement.name);
         end
         
         function buildShipmentRouting(self)
@@ -65,7 +65,7 @@ classdef CustomerSimulationBuilder < FlowNetworkSimulationBuilder
            set_param(strcat(self.simEventsPath, '/IN_Commodity'), 'NumberInputPorts', num2str(length(self.systemElement.produces)));
 
 
-            for ii = 1:length(self.commoditySet)
+            for ii = 1:length(self.systemElement.produces)
                 position = get_param(strcat(self.simEventsPath, '/IN_Commodity'), 'Position') - [400 0 400 0] + [0 (ii-1)*100 0 (ii-1)*100];
                 %add the block
                 block = add_block(strcat('Distribution_Library/CommoditySource'), strcat(self.simEventsPath,'/Commodity_',...

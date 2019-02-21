@@ -52,23 +52,32 @@ for ii = 1:length(distributionNetworkSet)
     flowNetworkFactorySet(ii).modelLibrary = 'Distribution_Library';
     
     %Instantiate and set builder helper classes for each flow network
+    builderSet = DepotSimEventsBuilder.empty(0);
     for jj = 1:length(distributionNetworkSet(ii).depotSet)
-        depotBuilder = DepotSimulationBuilder;
-        depotBuilder.analysisTypeID = 'Depot_probflow';
-        depotBuilder.setSystemElement(distributionNetworkSet(ii).depotSet(jj));
+        builderSet(jj) = DepotSimEventsBuilder;
+        builderSet(jj).analysisTypeID = 'Depot_probflow';
+        builderSet(jj).echelon = 3;
+        builderSet(jj).setSystemElement(distributionNetworkSet(ii).depotSet(jj));
     end
+    flowNetworkFactorySet(ii).flowNodeBuilders{1} = builderSet;
     
+    builderSet = CustomerSimEventsBuilder.empty(0);
     for jj = 1:length(distributionNetworkSet(ii).customerSet)
-        customerBuilder = CustomerSimulationBuilder;
-        customerBuilder.analysisTypeID = 'Customer_probflow';
-        customerBuilder.setSystemElement(distributionNetworkSet(ii).customerSet(jj));
+        builderSet(jj) = CustomerSimEventsBuilder;
+        builderSet(jj).analysisTypeID = 'Customer_probflow';
+        builderSet(jj).echelon = 1;
+        builderSet(jj).setSystemElement(distributionNetworkSet(ii).customerSet(jj));
     end
+    flowNetworkFactorySet(ii).flowNodeBuilders{2} = builderSet;
     
+    builderSet = TransportationChannelSimEventsBuilder.empty(0);
     for jj = 1:length(distributionNetworkSet(ii).transportationChannelSet)
-        transportationBuilder = TransportationChannelSimulationBuilder;
-        transportationBuilder.analysisTypeID = 'TransportationChannel_noinfo';
-        transportationBuilder.setSystemElement(distributionNetworkSet(ii).transportationChannelSet(jj));
+        builderSet(jj) = TransportationChannelSimEventsBuilder;
+        builderSet(jj).analysisTypeID = 'TransportationChannel_noInfo';
+        builderSet(jj).echelon = 2;
+        builderSet(jj).setSystemElement(distributionNetworkSet(ii).transportationChannelSet(jj));
     end
+    flowNetworkFactorySet(ii).flowNodeBuilders{3} = builderSet;
     
     flowNetworkFactorySet(ii).inputFlowNetwork = distributionNetworkSet(ii);
     flowNetworkFactorySet(ii).buildSimulation;
