@@ -29,6 +29,8 @@ dn1 = DistributionFlowNetworkGenerator;
 % Solution: Map the flow network to MCFN more robustly to accommodate flow edges that don't allow all flow kinds -- currently we would just say that 
 % it has 0 flow rate of a commodity.
 
+%TO DO: Refactor this section into a MCFNFactory class
+
 %% 2) MAP Flow Network to Distribution System Model
 load('flowNetworkSet.mat'); %checkpoint demo above    
     %Since we copied the original distribution network, it should be a simple recast
@@ -45,7 +47,7 @@ load('flowNetworkSet.mat'); %checkpoint demo above
 %% 3) Build and Run Low-Fidelity Simulations
 
 % a) Instantiate new Factory objects
-flowNetworkFactorySet(length(distributionNetworkSet)) = SimEventsFlowNetworkFactory;
+flowNetworkFactorySet(length(distributionNetworkSet)) = SimEventsFactory;
 for ii = 1:length(distributionNetworkSet)
     
     %b) Set the model where the factory will operate and model library that it 
@@ -83,7 +85,7 @@ for ii = 1:length(distributionNetworkSet)
     flowNetworkFactorySet(ii).flowNodeBuilders{3} = builderSet;
     
     %d) Call Factory method to build the simulation
-    flowNetworkFactorySet(ii).buildSimulation;
+    flowNetworkFactorySet(ii).buildAnalysisModel;
     
     %e) Call GA to optimize Resources
     %TO DO: Transition GA opt to a distributionNetwork based interface
@@ -96,7 +98,6 @@ end
     clear builderSet ii jj ans;
 %% 4) ReBuild Hi-Fidelity Simulation 
 
-% TO DO -- something about routing!
 for ii = 1:length(flowNetworkFactorySet)
     for jj = 1:length(flowNetworkFactorySet(ii).flowNodeBuilders)
         if isa(flowNetworkFactorySet(ii).flowNodeBuilders{jj}, 'DepotSimEventsBuilder')
@@ -120,7 +121,7 @@ clear ii jj kk;
 
 %% 5) Build and Run High-Fidelity Simulations
 for ii = 1:length(distributionNetworkSet)
-    flowNetworkFactorySet(ii).buildSimulation;
+    flowNetworkFactorySet(ii).buildAnalysisModel;
 
     %distributionNetworkSet(ii).policySolution = Distribution_Pareto(model, distributionNetworkSet(ii).customerNodeSet, distributionNetworkSet(ii).depotNodeSet, distributionNetworkSet(ii).transportationNodeSet, distributionNetworkSet(ii).resourceSolution, 1000*ones(length(distributionNetworkSet(ii).resourceSolution(1,:)),1));
     %save GenerateFamily.mat;

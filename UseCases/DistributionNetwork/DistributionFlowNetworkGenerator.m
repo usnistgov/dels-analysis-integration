@@ -28,7 +28,7 @@ distributionNetwork = DistributionNetwork;
         customerSet(ii) = Customer(customerList(ii,:));
         customerSet(ii).name = strcat('Customer', num2str(ii));
         customerSet(ii).grossCapacity = inf;
-        customerSet(ii).fixedCost = 0;
+        customerSet(ii).flowFixedCost = 0;
         customerSet(ii).typeID = 'Customer';
     end
 
@@ -45,7 +45,7 @@ distributionNetwork = DistributionNetwork;
         y = (maxLoc-minLoc)*rand(1) + minLoc;
         depotList(ii,:) = [jj, x, y];
         depotSet(ii) = Depot(depotList(ii,:));
-        depotSet(ii).fixedCost = depotFixedCost;
+        depotSet(ii).flowFixedCost = depotFixedCost;
         depotSet(ii).grossCapacity = depotGrossCapacity;
         depotSet(ii).name = strcat('Depot', num2str(ii));
         depotSet(ii).typeID = 'Depot';

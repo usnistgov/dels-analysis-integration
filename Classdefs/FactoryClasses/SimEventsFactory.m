@@ -1,4 +1,4 @@
-classdef SimEventsFlowNetworkFactory < FlowNetworkFactory
+classdef SimEventsFactory < FlowNetworkFactory
     %SimEventsFlowNetworkFactory Summary of this class goes here
     %2/20/19 -- deprecated flowNode/Edge in favor of FlowNetwork
     %2/20/19 -- lower case 'model'
@@ -13,7 +13,7 @@ classdef SimEventsFlowNetworkFactory < FlowNetworkFactory
     
     methods
        
-        function buildSimulation(self)
+        function buildAnalysisModel(self, varargin)
             addpath dels-analysis-integration\AnalysisLibraries\SimulationModelLibrary
             open(self.model);
             self.deleteModel(self.model);

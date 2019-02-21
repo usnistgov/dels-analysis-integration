@@ -68,29 +68,22 @@ classdef FlowNetwork < Network
             self.builder.systemElement = self;
         end
         
-        function plotMFNSolution(FN,varargin)
-            import AnalysisLibraries/matlog.*
+        function plotMCFNSolution(self,varargin)
+            addpath dels-analysis-integration\AnalysisLibraries\matlog
             
-            gplot(list2adj(FN.commodityFlowPath(:,1:2)), FN.FlowNodeSet(:,2:3))
+            gplot(list2adj(self.FlowEdgeList(:,2:3)), self.FlowNodeList(:,2:3))
             hold on;
             if length(varargin) == 2
-                customerSet = varargin{1};
-                depotSet = varargin{2};
-                scatter(customerSet(:,2),customerSet(:,3))
-                scatter(depotSet(:,2),depotSet(:,3), 'filled')
+                customerList = varargin{1};
+                depotList = varargin{2};
+                scatter(customerList(:,2),customerList(:,3))
+                scatter(depotList(:,2),depotList(:,3), 'filled')
             else
-                scatter(FN.FlowNodeSet(:,2),FN.FlowNodeSet(:,3), 'filled')
+                scatter(self.FlowNodeList(:,2),self.FlowNodeList(:,3), 'filled')
             end
             hold off;
         end
-        
-        function list2Class(FN)
-            %This function should convert the list based flow network into
-            %a class based representation; more or less a constructor for a
-            %flow network from instance data set
-            %TO DO: 
-        end
-       
+      
         function mapFlowNodes2ProductionConsumptionList(self)
             
             numCommodity = length(self.commoditySet);
