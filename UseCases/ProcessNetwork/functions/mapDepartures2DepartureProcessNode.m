@@ -4,24 +4,23 @@ function [departureProcess, departureEdgeSet] = mapDepartures2DepartureProcessNo
 
 [nProcess,~] = size(P);
 departureProcess = Process;
-departureProcess.ID = nProcess+2;
-departureProcess.Name = 'Departure_Process';
-departureProcess.Type = 'DepartureProcess';
+departureProcess.instanceID = nProcess+2;
+departureProcess.name = 'Departure_Process';
+departureProcess.typeID = 'DepartureProcess';
 departureProcess.ServerCount = inf;
 departureProcess.ProcessTime_Mean = 0.05;
 departureProcess.ProcessTime_Stdev = eps;
 departureProcess.StorageCapacity = inf;
-departureProcess.Echelon = 10;
 departureProcess.routingProbability = [0 0];
 
 rowSum = sum(P,2);
 I = find(rowSum < 1);
-departureEdgeSet(length(I)) = FlowEdge;
+departureEdgeSet(length(I)) = FlowNetworkLink;
 for ii = 1:length(I)
-    departureEdgeSet(ii).EdgeID = length(edgeSet) + ii;
-    departureEdgeSet(ii).OriginID =  processSet(I(ii)).ID;
-    departureEdgeSet(ii).EdgeType = 'Job';
-    departureEdgeSet(ii).DestinationID = departureProcess.ID;
+    departureEdgeSet(ii).instanceID = length(edgeSet) + ii;
+    departureEdgeSet(ii).sourceFlowNetworkID =  processSet(I(ii)).instanceID;
+    departureEdgeSet(ii).typeID = 'Job';
+    departureEdgeSet(ii).targetFlowNetworkID = departureProcess.instanceID;
 end
 
 end

@@ -12,21 +12,20 @@ for ii = 1:nProd
 end
 
 arrivalProcess = Process;
-arrivalProcess.ID = nProcess+1;
-arrivalProcess.Name = 'Arrival_Process';
-arrivalProcess.Type = 'ArrivalProcess';
+arrivalProcess.instanceID = nProcess+1;
+arrivalProcess.name = 'Arrival_Process';
+arrivalProcess.typeID = 'ArrivalProcess';
 arrivalProcess.ServerCount = inf;
 arrivalProcess.ProcessTime_Mean = 1/totalArrivalRate;
 arrivalProcess.StorageCapacity = inf;
-arrivalProcess.Echelon = 1;
 arrivalProcess.routingProbability = Parrival ./ totalArrivalRate;
 
-arrivalEdgeSet(nProcess) = FlowEdge;
+arrivalEdgeSet(nProcess) = FlowNetworkLink;
 for ii = 1:nProcess
-    arrivalEdgeSet(ii).EdgeID = length(edgeSet)+ ii;
-    arrivalEdgeSet(ii).OriginID = arrivalProcess.ID;
-    arrivalEdgeSet(ii).EdgeType = 'Job';
-    arrivalEdgeSet(ii).DestinationID = processSet(ii).ID;
+    arrivalEdgeSet(ii).instanceID = length(edgeSet)+ ii;
+    arrivalEdgeSet(ii).sourceFlowNetworkID = arrivalProcess.instanceID;
+    arrivalEdgeSet(ii).typeID = 'Job';
+    arrivalEdgeSet(ii).targetFlowNetworkID = processSet(ii).instanceID;
 end
 
 end

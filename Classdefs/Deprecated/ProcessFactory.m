@@ -1,4 +1,4 @@
-classdef ProcessFactory < NodeFactory
+classdef ProcessFactory < FlowNodeFactory
     %PROCESSFACTORY: ConcreteFactory object subclassed from NodeFactory
     
     properties
@@ -6,14 +6,8 @@ classdef ProcessFactory < NodeFactory
     end
     
     methods (Access = public)
-        function obj = ProcessFactory(processSet)
-           obj@NodeFactory(processSet);
-
-           
-        end %Constructor
-        
       
-        function Construct(PF, P)
+        function construct(PF, P)
             %Director Role: ProcessFactory switches from ConcreteFactory to Director pattern; 
             %Process class is configured as ConcreteBuilder. This ConcreteBuilder is responsible for
             %finishing the instantiation and customization of each process node
@@ -23,6 +17,10 @@ classdef ProcessFactory < NodeFactory
             P.setTimer;
             P.setStorageCapacity;
         end %redefines{NodeFactory.Construct}
+        
+        function buildAnalysisModel(self, varargin)
+
+        end %end buildAnalysisModel
         
     end
     

@@ -29,10 +29,11 @@ try
     nbComm = max(arc_comm_data(:,1));
     flowUB = max(supply_data(:,3));
     
-    %Declare Cplex Input Variables
+    %Declare Input Variables
     f = zeros(nbVar,1);
     lb = zeros(nbVar,1);
     ub = ones(nbVar,1);
+    intcon = [1:nbflowVar+nbfixedVar];
     
     % Add flow variables
     f(1:nbflowVar,:) = arc_comm_data(:,4);
@@ -45,9 +46,10 @@ try
     %Add fixed variables
     f(nbflowVar+1: nbflowVar+nbfixedVar,:) = arc_data(:, 4);
     ub(nbflowVar+1: nbflowVar+nbfixedVar,:) = ones(nbfixedVar,1);
-    for i = 1:nbfixedVar
-        ctype = strcat(ctype,'B');
-    end
+    %for i = 1:nbfixedVar
+    %    ctype = strcat(ctype,'B');
+    %end
+    
     
     %Allocate Sparse Matrix
     nzmax = 3*nbflowVar;
@@ -84,15 +86,26 @@ try
     end
     
 
-   options = cplexoptimset;
-   options.Diagnostics = 'on';
+   %%%% CPLEX-Specific:
+   %options = cplexoptimset;
+   %options.Diagnostics = 'on';
+   %options.MaxTime = 2400;
    
-   [x, fval, exitflag, output] = cplexmilp (f, Aineq, bineq, Aeq, beq,...
-      [ ], [ ], [ ], lb, ub, ctype, [ ], options);
+   %%%% MATLAB Optimization Toolbox
+   %[solution, fval, exitflag, output] = intlinprog (f, intcon', Aineq, bineq, Aeq, beq, lb, ub);
+    
+   %%%% OPTI Toolbox
+   %If MATLAB Optimization toolbox is available, OPTI will call it.
+   opts = optiset('solver', 'auto','display','iter');
+   Opt = opti('f',f,'ineq',Aineq,bineq,'eq',Aeq,beq,'bounds',lb,ub,'int',intcon', 'options', opts);
+   [solution, fval, exitflag, output] =  solve(Opt);
+
+   %%%% CPLEX-Specific:
+   %[solution, fval, exitflag, output] = cplexmilp (f, Aineq, bineq, Aeq, beq, ...
+   %   [ ], [ ], [ ], lb, ub, ctype, [ ], options);
   
-   save('MCFN.mat', 'f', 'Aineq', 'bineq', 'Aeq', 'beq', 'lb', 'ub', 'ctype', 'x')
-   
-   fprintf('\n   Cost = %f\n', fval);   
+   fprintf('\n   Cost = %f\n', fval);    
+   %save('MCFN.mat', 'f', 'Aineq', 'bineq', 'Aeq', 'beq', 'lb', 'ub', 'ctype', 'x')
    
 
    solution = x;

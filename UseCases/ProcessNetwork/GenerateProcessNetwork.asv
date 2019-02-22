@@ -52,13 +52,8 @@ FNF.inputFlowNetwork = PN;
     for jj = 1:length(PN.ProcessStep)
         builderSet(jj) = ProcessNetworkSimEventsBuilder;
         builderSet(jj).analysisTypeID = PN.ProcessStep(jj).typeID;
-        if strcmp(builderSet(jj).analysisTypeID, 'ArrivalProcess')
-            builderSet(jj).echelon = 1;
-        elseif strcmp(builderSet(jj).analysisTypeID,'DepartureProcess')
-            builderSet(jj).echelon = 10;
-        else
-            builderSet(jj).echelon = mod(jj,10)+1;
-        end
+        
+        builderSet(jj).echelon = mod(jj,10)+1;
         builderSet(jj).setSystemElement(PN.ProcessStep(jj));
     end
 
