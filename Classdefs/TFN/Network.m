@@ -9,40 +9,34 @@ classdef Network < NetworkElement
     %http://www.mathworks.com/help/matlab/graph-and-network-algorithms.html
     
     properties
-
-        NodeSet@Network
-        EdgeSet@Edge
-        ParentID %From the instance data
-        Parent@Network
-        EdgeSetList = [0 0 0 0] %[instanceID Origin Destination Weight]
-        EdgeSetAdjList
-        NodeSetList = [0, 0, 0, 0] %[instanceID, X, Y, Z] %2/7/19 Removed "Type = 'Node'"
+        %^name
+        %^instanceID
+        %^typeID
+        nodeSet@Network
+        edgeSet@NetworkLink
+        parentID %From the instance data
+        parentNetwork@Network
+        edgeSetList = [0 0 0 0] %[instanceID Origin Destination Weight]
+        edgeSetAdjList
+        nodeSetList = [0, 0, 0, 0] %[instanceID, X, Y, Z] %2/7/19 Removed "Type = 'Node'"
         
-        
-        
-        inEdgeSet@Edge %A set of edge classes incoming to the node
-        outEdgeSet@Edge %A set of edge classes outgoing to the node
-        NestedNetwork@Network
+        %inEdgeSet@NetworkLink %A set of edge classes incoming to the node
+        %outEdgeSet@NetworkLink %A set of edge classes outgoing to the node
 
         %Spacial Properties
         X
         Y
         Z
-        
-        %2/11/19 - deprecated properties, abstracted to networkelement
-        %name
-        %instanceID 
-        %Type %Designation of type of node to be instantiated in simulation
     end
     
     methods
-        function obj = Network(NetworkID, X, Y, Z, Type)
+        function obj = Network(instanceID, X, Y, Z, typeID)
             if nargin>0
-                obj.instanceID = NetworkID;
+                obj.instanceID = instanceID;
                 obj.X = X;
                 obj.Y = Y;
                 obj.Z = Z;
-                obj.Type = Type;
+                obj.typeID = typeID;
             end
             
         end
@@ -65,48 +59,32 @@ classdef Network < NetworkElement
             end %for each node
         end
         
-        function setEdgeWeights(N)
+        function setEdgeWeights(self)
             
-           for e = 1:length(N.EdgeSet)
-               n1 = N.EdgeSet(e).Origin;
-               n2 = N.EdgeSet(e).Destination;
-               N.EdgeSet(e).Weight = max(sqrt(abs(n1.X - n2.X)^2 + abs(n1.Y - n2.Y)^2 + abs(n1.Z - n2.Z)^2), 1e-06);
-               N.EdgeSetList(e,4) = N.EdgeSet(e).Weight;
+           for e = 1:length(self.edgeSet)
+               n1 = self.edgeSet(e).endNetwork1;
+               n2 = self.edgeSet(e).endNetwork2;
+               self.edgeSet(e).weight = max(sqrt(abs(n1.X - n2.X)^2 + abs(n1.Y - n2.Y)^2 + abs(n1.Z - n2.Z)^2), 1e-06);
+               self.edgeSetList(e,4) = self.edgeSet(e).weight;
            end
         end
         
-        function addEdge(N, e)
-            %Add edges incident to the Node to one of the two sets
-            %7/5/16: Switched from If/Elseif to if/if to accomodate self-edges
-            if eq(e.DestinationID, N.instanceID) == 1
-            %if e.Destination == N.Node_ID
-                N.INEdgeSet(end+1) = e;
-                e.Destination = N;
-                N.EdgeTypeSet{end+1} = e.EdgeType;
-            end
-            if eq(e.OriginID, N.instanceID) == 1
-            %if e.Origin == N.Node_ID
-                N.OUTEdgeSet(end+1) = e;
-                e.Origin = N;
-                N.EdgeTypeSet{end+1} = e.EdgeType;
-            end
-            N.EdgeTypeSet = unique(N.EdgeTypeSet);
-        end %add (incident) edges function
+         function addEdge(self, edgeSet)
+            self.edgeSet = findobj(edgeSet, 'endNetwork1', self.instanceID, '-or', 'endNetwork2', self.instanceID);
+        end
         
-        function edgeSetToList(N)
-           EdgeSetList = [0 0 0 0];
-           for i = 1:length(N.EdgeSet)
-               e = N.EdgeSet(i);
-               EdgeSetList = [EdgeSetList; e.EdgeID, e.OriginID, e.DestinationID, e.Weight];
-               N.EdgeSetList = EdgeSetList(2:end, :);
+        function edgeSetToList(self)
+           edgeSetList = [0 0 0 0];
+           for ii = 1:length(self.edgeSet)
+               e = self.edgeSet(ii);
+               edgeSetList = [edgeSetList; e.instanceID, e.endNetwork1, e.endNetwork2, e.weight];
+               self.edgeSetList = edgeSetList(2:end, :);
            end
         end
         
-        function plotNetwork(N)
-            coordinates = [N.NodeSetList(:,2), N.NodeSetList(:,3)];
-            %[X2, Y2] = gplot(MovementNetwork.EdgeSetAdjList, coordinates, '-*');
-            %[X1,Y1] = gplot(MovementNetwork.EdgeSetAdjList, coordinates, '-*');
-            gplot(N.EdgeSetAdjList, coordinates, '-*')
+        function plotNetwork(self)
+            coordinates = [self.nodeSetList(:,2), self.nodeSetList(:,3)];
+            gplot(self.edgeSetAdjList, coordinates, '-*')
         end
         
     end

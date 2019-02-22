@@ -8,12 +8,12 @@ classdef FlowNetwork < Network
     %^X
     %^Y
     %^Z
-    FlowNodeList % [instanceID, X, Y]
-    FlowNodeSet  %NodeSet@FlowNetwork %Use set method to "override" and type check for Flow Network
-    FlowEdgeList %[instanceID sourceFlowNode targetFlowNode grossCapacity flowFixedCost]
-    FlowEdgeSet % flow edges within the flow network
+    flowNodeList % [instanceID, X, Y]
+    flowNodeSet  %NodeSet@flowNetwork %Use set method to "override" and type check for flow Network
+    flowEdgeList %[instanceID sourceflowNode targetflowNode grossCapacity flowFixedCost]
+    flowEdgeSet % flow edges within the flow network
     
-    %Commodity flow in/outbound to Flow Network
+    %Commodity flow in/outbound to flow Network
     produces@Commodity %{ordered}
     consumes@Commodity %{ordered}
     productionRate %{ordered} by produces
@@ -30,20 +30,20 @@ classdef FlowNetwork < Network
     flowUnitCost %{ordered} by commoditySet
     
     %2/23/18: Can't redefine property type in subclass
-    inFlowEdgeSet@FlowEdge %A set of flow edges incoming to the flow network
-    outFlowEdgeSet@FlowEdge %A set of flow edges outgoing to the flow network
+    inFlowEdgeSet@FlowNetworkLink %A set of flow edges incoming to the flow network
+    outFlowEdgeSet@FlowNetworkLink %A set of flow edges outgoing to the flow network
     builder %lightweight delegate to builderClass for constructing simulation 
     
     %2/8/19 -- to be deprecated or made private
-    FlowNode_ConsumptionProduction %FlowNode Commodity Production/Consumption
-    FlowEdge_flowTypeAllowed %FlowEdgeID sourceFlowNode targetFlowNode commodity flowUnitCost
-    FlowEdge_Solution %Binary FlowEdgeID sourceFlowNode targetFlowNode grossCapacity flowFixedCost
-    commodityFlow_Solution %FlowEdgeID origin destination commodity flowUnitCost flowQuantity
+    flowNode_ConsumptionProduction %flowNode Commodity Production/Consumption
+    flowEdge_flowTypeAllowed %flowEdgeID sourceflowNode targetflowNode commodity flowUnitCost
+    flowEdge_Solution %Binary flowEdgeID sourceflowNode targetflowNode grossCapacity flowFixedCost
+    commodityFlow_Solution %flowEdgeID origin destination commodity flowUnitCost flowQuantity
     nodeMapping
     end
     
     methods
-        function self=FlowNetwork(varargin)
+        function self=flowNetwork(varargin)
           if nargin==0
             % default constructor
           end
@@ -56,14 +56,14 @@ classdef FlowNetwork < Network
         
         function setNodeSet(self, nodes)
             if isa(nodes, 'FlowNetwork')
-                self.NodeSet = nodes;
+                self.flowNodeSet = nodes;
             else
-                error('NodesSet for FlowNetwork must be of type Flow Network');
+                error('NodesSet for flowNetwork must be of type flow Network');
             end
         end
         
         function setBuilder(self, builder)
-            %assert(isa(builder, 'IFlowNetworkBuilder') == 1, 'Invalid Builder Object')
+            %assert(isa(builder, 'IflowNetworkBuilder') == 1, 'Invalid Builder Object')
             self.builder = builder;
             self.builder.systemElement = self;
         end
@@ -71,7 +71,7 @@ classdef FlowNetwork < Network
         function plotMCFNSolution(self,varargin)
             addpath dels-analysis-integration\AnalysisLibraries\matlog
             
-            gplot(list2adj(self.FlowEdgeList(:,2:3)), self.FlowNodeList(:,2:3))
+            gplot(list2adj(self.flowEdgeList(:,2:3)), self.flowNodeList(:,2:3))
             hold on;
             if length(varargin) == 2
                 customerList = varargin{1};
@@ -79,7 +79,7 @@ classdef FlowNetwork < Network
                 scatter(customerList(:,2),customerList(:,3))
                 scatter(depotList(:,2),depotList(:,3), 'filled')
             else
-                scatter(self.FlowNodeList(:,2),self.FlowNodeList(:,3), 'filled')
+                scatter(self.flowNodeList(:,2),self.flowNodeList(:,3), 'filled')
             end
             hold off;
         end
@@ -87,63 +87,63 @@ classdef FlowNetwork < Network
         function mapFlowNodes2ProductionConsumptionList(self)
             
             numCommodity = length(self.commoditySet);
-            FlowNode_ConsumptionProduction = zeros(length(self.FlowNodeList)*numCommodity,3);
+            flowNode_ConsumptionProduction = zeros(length(self.flowNodeList)*numCommodity,3);
             
             for kk = 1:numCommodity
-                FlowNode_ConsumptionProduction((kk-1)*length(self.FlowNodeList(:,1))+ 1: kk*length(self.FlowNodeList(:,1)),:) ...
-                                = [self.FlowNodeList(:,1), kk*ones(length(self.FlowNodeList(:,1)),1), ...
-                                  zeros(length(self.FlowNodeList(:,1)),1)];
+                flowNode_ConsumptionProduction((kk-1)*length(self.flowNodeList(:,1))+ 1: kk*length(self.flowNodeList(:,1)),:) ...
+                                = [self.flowNodeList(:,1), kk*ones(length(self.flowNodeList(:,1)),1), ...
+                                  zeros(length(self.flowNodeList(:,1)),1)];
             end
             
             
-            for ii = 1:length(self.FlowNodeSet)
-                %FlowNodeSet is type cell with each cell containing a set
-                %of Flow Nodes (of a particular type)
-                for jj = 1:length(self.FlowNodeSet{ii})
-                    for kk = 1:length(self.FlowNodeSet{ii}(jj).produces)
-                        index = FlowNode_ConsumptionProduction(:,1) == self.FlowNodeSet{ii}(jj).instanceID & FlowNode_ConsumptionProduction(:,2) == self.FlowNodeSet{ii}(jj).produces(kk).instanceID;
-                        FlowNode_ConsumptionProduction(index,3) = self.FlowNodeSet{ii}(jj).productionRate(kk);
+            for ii = 1:length(self.flowNodeSet)
+                %flowNodeSet is type cell with each cell containing a set
+                %of flow Nodes (of a particular type)
+                for jj = 1:length(self.flowNodeSet{ii})
+                    for kk = 1:length(self.flowNodeSet{ii}(jj).produces)
+                        index = flowNode_ConsumptionProduction(:,1) == self.flowNodeSet{ii}(jj).instanceID & flowNode_ConsumptionProduction(:,2) == self.flowNodeSet{ii}(jj).produces(kk).instanceID;
+                        flowNode_ConsumptionProduction(index,3) = self.flowNodeSet{ii}(jj).productionRate(kk);
                     end %for each commodity that flowNode 'produces'
                     
-                    for kk = 1:length(self.FlowNodeSet{ii}(jj).consumes)
-                        index = FlowNode_ConsumptionProduction(:,1) == self.FlowNodeSet{ii}(jj).instanceID & FlowNode_ConsumptionProduction(:,2) == self.FlowNodeSet{ii}(jj).consumes(kk).instanceID;
-                        FlowNode_ConsumptionProduction(index,3) = -1*self.FlowNodeSet{ii}(jj).consumptionRate(kk);
+                    for kk = 1:length(self.flowNodeSet{ii}(jj).consumes)
+                        index = flowNode_ConsumptionProduction(:,1) == self.flowNodeSet{ii}(jj).instanceID & flowNode_ConsumptionProduction(:,2) == self.flowNodeSet{ii}(jj).consumes(kk).instanceID;
+                        flowNode_ConsumptionProduction(index,3) = -1*self.flowNodeSet{ii}(jj).consumptionRate(kk);
                     end %for each commodity that flowNode 'consumes'
-                end % for each Flow Node
-            end % for each Flow Node
+                end % for each flow Node
+            end % for each flow Node
             
-            self.FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction;
+            self.flowNode_ConsumptionProduction = flowNode_ConsumptionProduction;
         end
         
         function mapFlowEdges2FlowTypeAllowed(self)
-            %FlowEdge_flowTypeAllowed: FlowEdgeID origin destination commodityKind flowUnitCost
+            %flowEdge_flowTypeAllowed: flowEdgeID origin destination commodityKind flowUnitCost
             
-            numArc = length(self.FlowEdgeSet);
+            numArc = length(self.flowEdgeSet);
             numCommodity = length(self.commoditySet);
-            FlowEdge_flowTypeAllowed = zeros(numArc*numCommodity, 5);
+            flowEdge_flowTypeAllowed = zeros(numArc*numCommodity, 5);
             
-            for ee = 1:length(self.FlowEdgeSet)
-                numCommodity = length(self.FlowEdgeSet(ee).flowTypeAllowed);
-                ID = [self.FlowEdgeSet(ee).instanceID, self.FlowEdgeSet(ee).sourceFlowNetworkID, self.FlowEdgeSet(ee).targetFlowNetworkID];
-                FlowEdge_flowTypeAllowed((ee-1)*numCommodity+1:(ee)*numCommodity,:) = ...
-                            [repmat(ID, [numCommodity,1]), self.FlowEdgeSet(ee).flowTypeAllowed', self.FlowEdgeSet(ee).flowUnitCost'];
+            for ee = 1:length(self.flowEdgeSet)
+                numCommodity = length(self.flowEdgeSet(ee).flowTypeAllowed);
+                ID = [self.flowEdgeSet(ee).instanceID, self.flowEdgeSet(ee).sourceFlowNetworkID, self.flowEdgeSet(ee).targetFlowNetworkID];
+                flowEdge_flowTypeAllowed((ee-1)*numCommodity+1:(ee)*numCommodity,:) = ...
+                            [repmat(ID, [numCommodity,1]), self.flowEdgeSet(ee).flowTypeAllowed', self.flowEdgeSet(ee).flowUnitCost'];
             end
             
-            self.FlowEdge_flowTypeAllowed = FlowEdge_flowTypeAllowed(FlowEdge_flowTypeAllowed(:,1) > 0,:);
+            self.flowEdge_flowTypeAllowed = flowEdge_flowTypeAllowed(flowEdge_flowTypeAllowed(:,1) > 0,:);
         end
         
         function transformCapacitatedFlowNodes(self)
            % a) Transform capacitated flow nodes
             numCommodity = length(self.commoditySet);
-            flowEdgeList = self.FlowEdgeList;
-            flowNodeList = self.FlowNodeList;
-            FlowEdge_flowTypeAllowed = self.FlowEdge_flowTypeAllowed;
-            FlowNode_ConsumptionProduction = self.FlowNode_ConsumptionProduction;
+            flowEdgeList = self.flowEdgeList;
+            flowNodeList = self.flowNodeList;
+            flowEdge_flowTypeAllowed = self.flowEdge_flowTypeAllowed;
+            flowNode_ConsumptionProduction = self.flowNode_ConsumptionProduction;
             gg = max(flowEdgeList(:,1))+1;
 
             % Split capacitated node, add capacity and 'cost of opening' to edge
-            for jj = 1:length(self.FlowNodeSet)
-                capacitatedNodeSet = findobj(self.FlowNodeSet{jj}, '-not', 'grossCapacity', inf);
+            for jj = 1:length(self.flowNodeSet)
+                capacitatedNodeSet = findobj(self.flowNodeSet{jj}, '-not', 'grossCapacity', inf);
                 for ii =1:length(capacitatedNodeSet)
                     nodeInstanceID = capacitatedNodeSet(ii).instanceID;
                     newInstanceID = max(flowNodeList(:,1))+1;
@@ -152,27 +152,27 @@ classdef FlowNetwork < Network
 
                     %Replace all origin nodes with newly created node
                     flowEdgeList(flowEdgeList(:,2) == nodeInstanceID, 2) = newInstanceID;
-                    FlowEdge_flowTypeAllowed(FlowEdge_flowTypeAllowed(:,2) == nodeInstanceID,2) = newInstanceID;
+                    flowEdge_flowTypeAllowed(flowEdge_flowTypeAllowed(:,2) == nodeInstanceID,2) = newInstanceID;
 
 
                     %2/9/19 assume all commodities can flow through all depots
                     %TO DO: only add edge/commodity flow variable for commodities
                     %that can flow (and allow for productionCode for flowUnitCost
-                    %FlowEdge_flowTypeAllowed: FlowEdgeID origin destination commodityKind flowUnitCost
+                    %flowEdge_flowTypeAllowed: flowEdgeID origin destination commodityKind flowUnitCost
 
-                    flowEdgeList(end+1,:) = [gg, nodeInstanceID, newInstanceID, capacitatedNodeSet(ii).grossCapacity, capacitatedNodeSet(ii).fixedCost];
-                    FlowEdge_flowTypeAllowed(end+1:end+numCommodity, :) = [repmat(flowEdgeList(end,1:3), numCommodity,1), [1:numCommodity]', zeros(numCommodity,1)];
-                    FlowNode_ConsumptionProduction(end+1:end+numCommodity,:) = [newInstanceID*ones(numCommodity,1), [1:numCommodity]', zeros(numCommodity,1)];
+                    flowEdgeList(end+1,:) = [gg, nodeInstanceID, newInstanceID, capacitatedNodeSet(ii).grossCapacity, capacitatedNodeSet(ii).flowFixedCost];
+                    flowEdge_flowTypeAllowed(end+1:end+numCommodity, :) = [repmat(flowEdgeList(end,1:3), numCommodity,1), [1:numCommodity]', zeros(numCommodity,1)];
+                    flowNode_ConsumptionProduction(end+1:end+numCommodity,:) = [newInstanceID*ones(numCommodity,1), [1:numCommodity]', zeros(numCommodity,1)];
 
                     %Add split capacitated flow node to flowTypeAllowed list
-                    %FlowEdge_flowTypeAllowed(end+1:end+numCommodity,:) = [repmat(flowEdgeList(end,1:3), numCommodity,1),kk*ones(numCommodity,1), zeros(numCommodity,1)];
+                    %flowEdge_flowTypeAllowed(end+1:end+numCommodity,:) = [repmat(flowEdgeList(end,1:3), numCommodity,1),kk*ones(numCommodity,1), zeros(numCommodity,1)];
 
                     gg = gg +1;
                 end
             end
 
-            self.FlowEdge_flowTypeAllowed = FlowEdge_flowTypeAllowed;
-            self.FlowEdgeList = flowEdgeList;
+            self.flowEdge_flowTypeAllowed = flowEdge_flowTypeAllowed;
+            self.flowEdgeList = flowEdgeList;
             %2/9/19 -- The optimization algorithm is going to add flow balance
             %constraints based on consumption/production, where the flow nodes are
             %the variables. So the ConsumptionProduction data needs to be sequenced
@@ -180,11 +180,11 @@ classdef FlowNetwork < Network
             % -- Alternatively, could inject the new consumption/production rows
             % (associated with the split node) into the array where they belong
             % (contiguous with the other rows associated with that commodityKind)
-            %FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction(any(FlowNode_ConsumptionProduction,2),:);
-            [~,I] = sort(FlowNode_ConsumptionProduction(:,2));
-            FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction(I,:);
-            self.FlowNode_ConsumptionProduction = FlowNode_ConsumptionProduction;
-            self.FlowNodeList = flowNodeList;
+            %flowNode_ConsumptionProduction = flowNode_ConsumptionProduction(any(flowNode_ConsumptionProduction,2),:);
+            [~,I] = sort(flowNode_ConsumptionProduction(:,2));
+            flowNode_ConsumptionProduction = flowNode_ConsumptionProduction(I,:);
+            self.flowNode_ConsumptionProduction = flowNode_ConsumptionProduction;
+            self.flowNodeList = flowNodeList;
             self.nodeMapping = nodeMapping;
         end
         
@@ -198,51 +198,51 @@ classdef FlowNetwork < Network
             
             %% Transform Capacitated Nodes
             % 1) Find capacitated nodes that were selected
-            capacitatedNodeSelection = self.FlowEdge_Solution(ismember(self.FlowEdge_Solution(:, 3:4), self.nodeMapping,'rows'),:);
+            capacitatedNodeSelection = self.flowEdge_Solution(ismember(self.flowEdge_Solution(:, 3:4), self.nodeMapping,'rows'),:);
             
-            % 2) Remove split nodes from FlowNodeList
-            self.FlowNodeList(ismember(self.FlowNodeList(:,1), self.nodeMapping(:,2)),:) = [];
+            % 2) Remove split nodes from flowNodeList
+            self.flowNodeList(ismember(self.flowNodeList(:,1), self.nodeMapping(:,2)),:) = [];
             
             % 3) Find and replace InstanceIDs of split nodes
             for ii = 1:length(self.nodeMapping)
-                self.FlowEdgeList(self.FlowEdgeList(:,2) ==  self.nodeMapping(ii,2),2) = self.nodeMapping(ii,1);
+                self.flowEdgeList(self.flowEdgeList(:,2) ==  self.nodeMapping(ii,2),2) = self.nodeMapping(ii,1);
             end
             
             % 4) Remove the 
-            self.FlowEdgeList(ismember(self.FlowEdgeList(:, 2:3), self.nodeMapping,'rows'),:) = [];
+            self.flowEdgeList(ismember(self.flowEdgeList(:, 2:3), self.nodeMapping,'rows'),:) = [];
             
-            %% Remove unselected Flow Nodes
-            % 1) Remove not selected from FlowNodeList
+            %% Remove unselected flow Nodes
+            % 1) Remove not selected from flowNodeList
             for ii = 1:length(capacitatedNodeSelection(:,1))
                 if capacitatedNodeSelection(ii,1) == 0
-                   self.FlowNodeList(self.FlowNodeList(:,1) == capacitatedNodeSelection(ii,3),:) = [];
+                   self.flowNodeList(self.flowNodeList(:,1) == capacitatedNodeSelection(ii,3),:) = [];
                 end
             end
             
-            % 2) Remove not selected from FlowNodeSet
-            for ii = 1:length(self.FlowNodeSet)
+            % 2) Remove not selected from flowNodeSet
+            for ii = 1:length(self.flowNodeSet)
                 jj = 1;
-                while jj <= length(self.FlowNodeSet{ii})
-                    instanceID = self.FlowNodeSet{ii}(jj).instanceID;
+                while jj <= length(self.flowNodeSet{ii})
+                    instanceID = self.flowNodeSet{ii}(jj).instanceID;
                     isSelected = capacitatedNodeSelection(capacitatedNodeSelection(:,3)==instanceID,1);
                     if ~isSelected
-                        self.FlowNodeSet{ii}(jj) = [];
+                        self.flowNodeSet{ii}(jj) = [];
                     else
                         jj = jj +1;
                     end
                 end
             end
             
-            %% Remove Unselected FlowEdges
-            selectedEdges = logical(self.FlowEdge_Solution(1:length(self.FlowEdgeList),1));
-            self.FlowEdgeList = self.FlowEdgeList(selectedEdges,:);
-            self.FlowEdgeSet = self.FlowEdgeSet(selectedEdges); 
+            %% Remove Unselected flowEdges
+            selectedEdges = logical(self.flowEdge_Solution(1:length(self.flowEdgeList),1));
+            self.flowEdgeList = self.flowEdgeList(selectedEdges,:);
+            self.flowEdgeSet = self.flowEdgeSet(selectedEdges); 
             
             % Add flow edge sets to each flow node
-            for ii = 1:length(self.FlowNodeSet)
-                for jj = 1:length(self.FlowNodeSet{ii})
-                    self.FlowNodeSet{ii}(jj).inFlowEdgeSet = findobj(self.FlowEdgeSet, 'targetFlowNetworkID', self.FlowNodeSet{ii}(jj).instanceID);
-                    self.FlowNodeSet{ii}(jj).outFlowEdgeSet = findobj(self.FlowEdgeSet, 'sourceFlowNetworkID', self.FlowNodeSet{ii}(jj).instanceID);
+            for ii = 1:length(self.flowNodeSet)
+                for jj = 1:length(self.flowNodeSet{ii})
+                    self.flowNodeSet{ii}(jj).inFlowEdgeSet = findobj(self.flowEdgeSet, 'targetFlowNetworkID', self.flowNodeSet{ii}(jj).instanceID);
+                    self.flowNodeSet{ii}(jj).outFlowEdgeSet = findobj(self.flowEdgeSet, 'sourceFlowNetworkID', self.flowNodeSet{ii}(jj).instanceID);
                 end
             end
             
@@ -250,29 +250,29 @@ classdef FlowNetwork < Network
             % 1) Add to flow edges
             commodityFlow_Solution = self.commodityFlow_Solution;
             commoditySet = self.commoditySet;
-            for ii = 1:length(self.FlowEdgeSet)
+            for ii = 1:length(self.flowEdgeSet)
                 %filter to commodity on specified edge
-                edgeXCommodity = commodityFlow_Solution(commodityFlow_Solution(:,1) == self.FlowEdgeSet(ii).instanceID,:);
-                self.FlowEdgeSet(ii).flowTypeAllowed = edgeXCommodity(:,4)'; %should flow type allowed be commodities?
-                self.FlowEdgeSet(ii).flowUnitCost = edgeXCommodity(:,5)';
-                self.FlowEdgeSet(ii).flowAmount = edgeXCommodity(:,6)';
+                edgeXCommodity = commodityFlow_Solution(commodityFlow_Solution(:,1) == self.flowEdgeSet(ii).instanceID,:);
+                self.flowEdgeSet(ii).flowTypeAllowed = edgeXCommodity(:,4)'; %should flow type allowed be commodities?
+                self.flowEdgeSet(ii).flowUnitCost = edgeXCommodity(:,5)';
+                self.flowEdgeSet(ii).flowAmount = edgeXCommodity(:,6)';
                 %May add later to add the flow solution as the flow capacity per commodity kind
             end % for each flow edge in flowEdgeSet
             
             % 2) Add to flow nodes
-            for ii = 1:length(self.FlowNodeSet)
-                for jj = 1:length(self.FlowNodeSet{ii})
-                    sourceXCommodity = commodityFlow_Solution(commodityFlow_Solution(:,2) == self.FlowNodeSet{ii}(jj).instanceID,:);
-                    targetXCommodity = commodityFlow_Solution(commodityFlow_Solution(:,3) == self.FlowNodeSet{ii}(jj).instanceID,:);
+            for ii = 1:length(self.flowNodeSet)
+                for jj = 1:length(self.flowNodeSet{ii})
+                    sourceXCommodity = commodityFlow_Solution(commodityFlow_Solution(:,2) == self.flowNodeSet{ii}(jj).instanceID,:);
+                    targetXCommodity = commodityFlow_Solution(commodityFlow_Solution(:,3) == self.flowNodeSet{ii}(jj).instanceID,:);
                     
-                    self.FlowNodeSet{ii}(jj).productionRate = sourceXCommodity(:, 6);
-                    self.FlowNodeSet{ii}(jj).consumptionRate = targetXCommodity(:, 6);
+                    self.flowNodeSet{ii}(jj).productionRate = sourceXCommodity(:, 6);
+                    self.flowNodeSet{ii}(jj).consumptionRate = targetXCommodity(:, 6);
                     
                     produces = Commodity.empty;
                     for kk = 1:length(sourceXCommodity(:,1))
                         produces(end+1) = findobj(commoditySet, 'instanceID', sourceXCommodity(kk,4));
                     end
-                    self.FlowNodeSet{ii}(jj).produces = produces;
+                    self.flowNodeSet{ii}(jj).produces = produces;
                     
                     %We're going to repurpose the produces variable now to fill out the commoditySet
                     consumes = Commodity.empty;
@@ -284,8 +284,8 @@ classdef FlowNetwork < Network
                             produces(end+1) = consumes(end);
                         end
                     end
-                    self.FlowNodeSet{ii}(jj).consumes = consumes;
-                    self.FlowNodeSet{ii}(jj).commoditySet = produces;
+                    self.flowNodeSet{ii}(jj).consumes = consumes;
+                    self.flowNodeSet{ii}(jj).commoditySet = produces;
                 end %for each node in flow node set (inner)
             end %for each node in flow node set (outer)
             
@@ -294,34 +294,34 @@ classdef FlowNetwork < Network
             % It has to be represented with the same commodity, but has different route.
             for ii = 1:length(self.commoditySet)
                 instanceID = self.commoditySet(ii).instanceID;
-                self.commoditySet(ii).Route = self.buildCommodityRoute(commodityFlow_Solution(commodityFlow_Solution(:,4) == instanceID,2:6));
+                self.commoditySet(ii).route = self.buildCommodityRoute(commodityFlow_Solution(commodityFlow_Solution(:,4) == instanceID,2:6));
             end
             
             % 4) Build probabilistic routing
-            for ii = 1:length(self.FlowNodeSet)
-                for jj = 1:length(self.FlowNodeSet{ii})
-                    totalOutFlow = 0;
-                    edgeFlowAmount = [];
-                    for kk = 1:length(self.FlowNodeSet{ii}(jj).outFlowEdgeSet)
-                        edgeFlowAmount(end+1) = sum(self.FlowNodeSet{ii}(jj).outFlowEdgeSet(kk).flowAmount);
-                        totalOutFlow = totalOutFlow + edgeFlowAmount(end);
+            for ii = 1:length(self.flowNodeSet)
+                for jj = 1:length(self.flowNodeSet{ii})
+                    totalOutflow = 0;
+                    edgeflowAmount = [];
+                    for kk = 1:length(self.flowNodeSet{ii}(jj).outFlowEdgeSet)
+                        edgeflowAmount(end+1) = sum(self.flowNodeSet{ii}(jj).outFlowEdgeSet(kk).flowAmount);
+                        totalOutflow = totalOutflow + edgeflowAmount(end);
                     end
-                    self.FlowNodeSet{ii}(jj).routingProbability = edgeFlowAmount./totalOutFlow;
+                    self.flowNodeSet{ii}(jj).routingProbability = edgeflowAmount./totalOutflow;
                 end
             end
             
             
-        end %mapMCFNSolution2FlowNetwork
+        end %mapMCFNSolution2flowNetwork
         
-        function route = buildCommodityRoute(self, commodityFlowSolution)
+        function route = buildCommodityRoute(self, commodityflowSolution)
         %Commodity_Route is a set of arcs that the commodity flows on
         %need to assemble the arcs into a route or path
             ii = 1;
-            route = commodityFlowSolution(ii,1:2);
-            while sum(commodityFlowSolution(:,1) == commodityFlowSolution(ii,2))>0
-                ii = find(commodityFlowSolution(:,1) == commodityFlowSolution(ii,2));
-                if eq(commodityFlowSolution(ii,4),0)==0
-                    route = [route, commodityFlowSolution(ii,2)];
+            route = commodityflowSolution(ii,1:2);
+            while sum(commodityflowSolution(:,1) == commodityflowSolution(ii,2))>0
+                ii = find(commodityflowSolution(:,1) == commodityflowSolution(ii,2));
+                if eq(commodityflowSolution(ii,4),0)==0
+                    route = [route, commodityflowSolution(ii,2)];
                 end
             end
             %NOTE: Need a better solution to '10', it should be 2+numDepot

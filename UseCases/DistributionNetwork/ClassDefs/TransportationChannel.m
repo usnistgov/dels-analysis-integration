@@ -17,7 +17,7 @@ classdef TransportationChannel < FlowNetwork
             %creates the required new flow edges.
             %Future Work: How does mapping multiple flow edges to a TC
             
-            flowEdgeSet(8) = FlowEdge;
+            flowEdgeSet(8) = FlowNetworkLink;
             kk=1;
             
             %Add Edges for flows from source to self

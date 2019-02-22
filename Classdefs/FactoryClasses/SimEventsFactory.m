@@ -31,8 +31,8 @@ classdef SimEventsFactory < FlowNetworkFactory
         
         function createFlowNodes(self)
            echelon_position = [0 0 0 0 0 0 0 0 0 0]; %[1 2 3 4 5 6 7 8 9 10]
-           for jj = 1:length(self.inputFlowNetwork.FlowNodeSet)
-               flowNodeSet = self.inputFlowNetwork.FlowNodeSet{jj};
+           for jj = 1:length(self.inputFlowNetwork.flowNodeSet)
+               flowNodeSet = self.inputFlowNetwork.flowNodeSet{jj};
                for ii = 1:length(flowNodeSet)
                    %set position of new block relative to its echelon and
                    %previous blocks in that echelon
@@ -61,12 +61,12 @@ classdef SimEventsFactory < FlowNetworkFactory
         function createFlowEdges(self)
             %For each FlowEdge in flwoEdgeSet, use the add_line method to add a
             %connector line in the simulation
-            targetFlowEdgeSet = self.inputFlowNetwork.FlowEdgeSet;
+            targetFlowEdgeSet = self.inputFlowNetwork.flowEdgeSet;
             for ii = 1:length(targetFlowEdgeSet)
                 %check nestedness: needs to be fixed somehow to allow nodes
                 %to connect to their nested networks
-                add_line(self.model, strcat(targetFlowEdgeSet(ii).sourceFlowNetwork.name,'/', targetFlowEdgeSet(ii).OriginPort.conn),...
-                    strcat(targetFlowEdgeSet(ii).targetFlowNetwork.name,'/', targetFlowEdgeSet(ii).DestinationPort.conn), 'autorouting', 'on');
+                add_line(self.model, strcat(targetFlowEdgeSet(ii).sourceFlowNetwork.name,'/', targetFlowEdgeSet(ii).endNetwork1Port.conn),...
+                    strcat(targetFlowEdgeSet(ii).targetFlowNetwork.name,'/', targetFlowEdgeSet(ii).endNetwork2Port.conn), 'autorouting', 'on');
             end
         end %createFlowEdges -- ROLE: ConcreteFlowEdgeFactory
         

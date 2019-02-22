@@ -4,13 +4,15 @@ classdef Commodity < NetworkElement
     %   Detailed explanation goes here
     
     properties
-        %ID
-        Origin@FlowNetwork
-        OriginID
-        Destination@FlowNetwork
-        DestinationID
-        Quantity
-        Route = []
+        %^instanceID
+        %^typeID
+        %^name
+        origin@FlowNetwork
+        originID
+        destination@FlowNetwork
+        destinationID
+        quantity
+        route = []
     end
     
     methods

@@ -36,7 +36,7 @@ classdef Port < handle
         function setSide(self)
             %Decide which side the port should be on
             %Eventually should be replaced with a lookup-table
-            if strcmp(self.direction, 'IN') == 1
+            if strcmp(self.direction, 'in') == 1
                 self.side = 'Left';
             else
                 self.side = 'Right';

@@ -26,7 +26,7 @@ classdef DistributionNetwork < FlowNetwork
             % 2) Remove unselected depots
             ii = 1;
             while ii <= length(self.depotSet)
-               if ~any(self.FlowNodeList(:,1) == self.depotSet(ii).instanceID)
+               if ~any(self.flowNodeList(:,1) == self.depotSet(ii).instanceID)
                    self.depotSet(ii) = [];
                else
                    ii = ii + 1;
@@ -36,7 +36,7 @@ classdef DistributionNetwork < FlowNetwork
             % 3) Remove unselected customers
             ii = 1;
             while ii <= length(self.customerSet)
-               if ~any(self.FlowNodeList(:,1) == self.customerSet(ii).instanceID)
+               if ~any(self.flowNodeList(:,1) == self.customerSet(ii).instanceID)
                    self.customerSet(ii) = [];
                else
                    ii = ii + 1;
@@ -45,10 +45,10 @@ classdef DistributionNetwork < FlowNetwork
             
             % 3.1) Add flow edges to customers & depots
             for ii = 1:length(self.customerSet)
-                self.customerSet(ii).addEdge(self.FlowEdgeSet);
+                self.customerSet(ii).addEdge(self.flowEdgeSet);
             end
             for ii = 1:length(self.depotSet)
-                self.depotSet(ii).addEdge(self.FlowEdgeSet);
+                self.depotSet(ii).addEdge(self.flowEdgeSet);
             end
             
         end
@@ -66,14 +66,14 @@ classdef DistributionNetwork < FlowNetwork
             
             % 1) Create transportation Channel container
             transportationChannelSet = TransportationChannel.empty(0);
-            flowEdgeList = self.FlowEdgeList;
+            flowEdgeList = self.flowEdgeList;
            
             % 2) Make a new transportation channel from them (using the properties of the first indexed flow edge)
             ii = 1;
             while ~isempty(flowEdgeList)
-                flowEdge = findobj(self.FlowEdgeSet, 'instanceID', flowEdgeList(1,1));
+                flowEdge = findobj(self.flowEdgeSet, 'instanceID', flowEdgeList(1,1));
                 transportationChannelSet(ii) = TransportationChannel;
-                transportationChannelSet(ii).instanceID = ii+max(self.FlowNodeList(:,1));
+                transportationChannelSet(ii).instanceID = ii+max(self.flowNodeList(:,1));
                 transportationChannelSet(ii).typeID = 'TransportationChannel';
                 transportationChannelSet(ii).name = strcat('TransportationChannel_', num2str(transportationChannelSet(ii).instanceID));
                 transportationChannelSet(ii).travelRate = 30;
@@ -86,7 +86,7 @@ classdef DistributionNetwork < FlowNetwork
                 transportationChannelSet(ii).flowFixedCost = flowEdge.flowFixedCost;
                
                 %2.1 Set Depot as Source;
-                if isa(self.FlowEdgeSet(ii).sourceFlowNetwork, 'Depot')
+                if isa(self.flowEdgeSet(ii).sourceFlowNetwork, 'Depot')
                     transportationChannelSet(ii).source = flowEdge.sourceFlowNetwork;
                     transportationChannelSet(ii).target = flowEdge.targetFlowNetwork;
                 else
@@ -95,7 +95,7 @@ classdef DistributionNetwork < FlowNetwork
                 end
                 
                 %2.2 Find the two edges that are reciprocals of each other
-                transportationChannelSet(ii).FlowEdgeSet = findobj(self.FlowEdgeSet,...
+                transportationChannelSet(ii).flowEdgeSet = findobj(self.flowEdgeSet,...
                               'sourceFlowNetworkID', transportationChannelSet(ii).source.instanceID, '-and', 'targetFlowNetworkID', transportationChannelSet(ii).target.instanceID, ...
                               '-or',...
                               'sourceFlowNetworkID', transportationChannelSet(ii).target.instanceID, '-and', 'targetFlowNetworkID', transportationChannelSet(ii).source.instanceID);
@@ -111,7 +111,7 @@ classdef DistributionNetwork < FlowNetwork
             % TO DO: Move method to mapping class
             
             % Add 8 flow edges: {resource, commodity} x {inbound, outbound} x {toDepot, toCustomer}
-            flowEdgeSet(8*length(transportationChannelSet)) = FlowEdge;
+            flowEdgeSet(8*length(transportationChannelSet)) = FlowNetworkLink;
             jj = 1;
             % Call createEdgeSet method of transportation channel
             for ii = 1:length(transportationChannelSet)
@@ -137,9 +137,9 @@ classdef DistributionNetwork < FlowNetwork
             
             
             self.transportationChannelSet = transportationChannelSet;
-            self.FlowNodeSet{end+1} = transportationChannelSet;
-            self.FlowEdgeSet = flowEdgeSet;
-            self.FlowEdgeList = flowEdgeList;
+            self.flowNodeSet{end+1} = transportationChannelSet;
+            self.flowEdgeSet = flowEdgeSet;
+            self.flowEdgeList = flowEdgeList;
         end
 
     end

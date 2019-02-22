@@ -30,20 +30,20 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
                 self.portSet(end).owner = self.systemElement;
                 self.portSet(end).incidentEdge = self.systemElement.inFlowEdgeSet(ii);
                 self.portSet(end).typeID = self.systemElement.inFlowEdgeSet(ii).typeID;
-                self.portSet(end).direction = 'IN';
+                self.portSet(end).direction = 'in';
                 self.portSet(end).setSide;
                 self.portSet(end).number = ii;
                 self.portSet(end).conn = strcat('LConn', num2str(ii));
-                self.systemElement.inFlowEdgeSet(ii).DestinationPort = self.portSet(end);
+                self.systemElement.inFlowEdgeSet(ii).endNetwork2Port = self.portSet(end);
                 
                 isType = ismember(typeID, self.portSet(end).typeID);
                 if any(isType)
                     typeCount(isType) = typeCount(isType) + 1;
-                    self.portSet(end).name = strcat('IN_', typeID{isType},'_', num2str(typeCount(isType)));
+                    self.portSet(end).name = strcat('in', typeID{isType},'_', num2str(typeCount(isType)));
                 else
                     typeID{end+1} = self.portSet(end).typeID;
                     typeCount(end+1) = 1;
-                    self.portSet(end).name = strcat('IN_', typeID{end},'_1');
+                    self.portSet(end).name = strcat('in', typeID{end},'_1');
                 end
             end
             
@@ -59,20 +59,20 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
                 self.portSet(end).owner = self.systemElement;
                 self.portSet(end).incidentEdge = self.systemElement.outFlowEdgeSet(jj);
                 self.portSet(end).typeID = self.systemElement.outFlowEdgeSet(jj).typeID;
-                self.portSet(end).direction = 'OUT';
+                self.portSet(end).direction = 'out';
                 self.portSet(end).setSide;
                 self.portSet(end).number = ii + jj;
                 self.portSet(end).conn = strcat('RConn', num2str(jj));
-                self.systemElement.outFlowEdgeSet(jj).OriginPort = self.portSet(end);
+                self.systemElement.outFlowEdgeSet(jj).endNetwork1Port = self.portSet(end);
                 
                 isType = ismember(typeID, self.portSet(end).typeID);
                 if any(isType)
                     typeCount(isType) = typeCount(isType) + 1;
-                    self.portSet(end).name = strcat('OUT_', typeID{isType},'_', num2str(typeCount(isType)));
+                    self.portSet(end).name = strcat('out', typeID{isType},'_', num2str(typeCount(isType)));
                 else
                     typeID{end+1} = self.portSet(end).type;
                     typeCount(end+1) = 1;
-                    self.portSet(end).name = strcat('OUT_', typeID{end},'_1');
+                    self.portSet(end).name = strcat('out', typeID{end},'_1');
                 end
             end
             self.edgeTypeIDSet = typeID;
@@ -85,7 +85,7 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
             
             for ii = 1:length(self.edgeTypeIDSet)
                 %IN
-                inPortSet = findobj(self.portSet, 'typeID', self.edgeTypeIDSet{ii}, '-and', 'direction', 'IN');
+                inPortSet = findobj(self.portSet, 'typeID', self.edgeTypeIDSet{ii}, '-and', 'direction', 'in');
                 if ~isempty(inPortSet)
                         %INset = findobj(N.INEdgeSet, 'EdgeType', N.EdgeTypeSet{i});
                     set_param(strcat(self.simEventsPath, '/IN_', self.edgeTypeIDSet{ii}), 'NumberInputPorts', num2str(length(inPortSet)));
@@ -97,7 +97,7 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
                             set_param(inPortSet(jj).simEventsPath, 'Port', num2str(inPortSet(jj).number));
                             set_param(inPortSet(jj).simEventsPath, 'Side', inPortSet(jj).side);
                             inPortSet(jj).setPosition
-                            add_line(strcat(self.model, '/', self.systemElement.name), strcat(inPortSet(jj).direction, '_', inPortSet(jj).typeID, '/LConn', num2str(jj)), ...
+                            add_line(strcat(self.model, '/', self.systemElement.name), strcat('IN_', inPortSet(jj).typeID, '/LConn', num2str(jj)), ...
                             strcat(inPortSet(jj).name,'/RConn1'), 'autorouting', 'on');
                         catch err
                             continue
@@ -107,7 +107,7 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
                 
                 
                 %OUT
-                outPortSet = findobj(self.portSet, 'typeID', self.edgeTypeIDSet{ii}, '-and', 'direction', 'OUT');
+                outPortSet = findobj(self.portSet, 'typeID', self.edgeTypeIDSet{ii}, '-and', 'direction', 'out');
                 if ~isempty(outPortSet)
                     set_param(strcat(self.simEventsPath, '/OUT_', self.portSet(ii).typeID), 'NumberOutputPorts', num2str(length(outPortSet)));
                
@@ -118,7 +118,7 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
                             set_param(outPortSet(jj).simEventsPath, 'Port', num2str(outPortSet(jj).number));
                             set_param(outPortSet(jj).simEventsPath, 'Side', outPortSet(jj).side);
                             outPortSet(jj).setPosition
-                            add_line(strcat(self.model, '/', self.systemElement.name), strcat(outPortSet(jj).direction, '_', outPortSet(jj).typeID, '/RConn', num2str(jj)), ...
+                            add_line(strcat(self.model, '/', self.systemElement.name), strcat('OUT_', outPortSet(jj).typeID, '/RConn', num2str(jj)), ...
                             strcat(outPortSet(jj).name,'/RConn1'), 'autorouting', 'on');
                         catch err
                             rethrow(err)
