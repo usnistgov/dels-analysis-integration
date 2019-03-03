@@ -12,6 +12,8 @@ classdef FlowNetwork < Network
     flowNodeSet  %NodeSet@flowNetwork %Use set method to "override" and type check for flow Network
     flowEdgeList %[instanceID sourceflowNode targetflowNode grossCapacity flowFixedCost]
     flowEdgeSet % flow edges within the flow network
+    sourceFlowNetwork@FlowNetwork
+    targetFlowNetwork@FlowNetwork
     
     %Commodity flow in/outbound to flow Network
     produces@Commodity %{ordered}

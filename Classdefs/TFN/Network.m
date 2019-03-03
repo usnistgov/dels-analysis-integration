@@ -8,17 +8,22 @@ classdef Network < NetworkElement
     %http://www.ise.ncsu.edu/kay/matlog/MatlogRef.htm
     %http://www.mathworks.com/help/matlab/graph-and-network-algorithms.html
     
+    %NOTE: endNetwork1 & endNetwork2 are functionally no different than
+    % endNetwork = Network.empty(2) and refering to them as endNetwork{1} & endNetwork{2}
+    
     properties
         %^name
         %^instanceID
         %^typeID
         nodeSet@Network
         edgeSet@NetworkLink
+        endNetwork1
+        endNetwork2
         parentID %From the instance data
         parentNetwork@Network
         edgeSetList = [0 0 0 0] %[instanceID Origin Destination Weight]
-        edgeSetAdjList
         nodeSetList = [0, 0, 0, 0] %[instanceID, X, Y, Z] %2/7/19 Removed "Type = 'Node'"
+        edgeSetAdjList
         
         %inEdgeSet@NetworkLink %A set of edge classes incoming to the node
         %outEdgeSet@NetworkLink %A set of edge classes outgoing to the node
@@ -41,43 +46,25 @@ classdef Network < NetworkElement
             
         end
         
-        function allocate_edges(N)
-        %ALLOCATE_EDGES Summary of this function goes here
-        %   Detailed explanation goes here
-
-            parfor jj = 1:length(N.NodeSet)
-                E = findobj(N.EdgeSet, 'OriginID', N.NodeSet(jj).instanceID);
-                for e = 1:length(E)
-                    N.NodeSet(jj).addEdge(E(e));
-                end
-                E = findobj(N.EdgeSet, 'DestinationID', N.NodeSet(jj).instanceID);
-                for e = 1:length(E)
-                    N.NodeSet(jj).addEdge(E(e));
-                end
-
-                N.NodeSet(jj).assignPorts;
-            end %for each node
-        end
-        
         function setEdgeWeights(self)
             
            for e = 1:length(self.edgeSet)
-               n1 = self.edgeSet(e).endNetwork1;
-               n2 = self.edgeSet(e).endNetwork2;
+               n1 = self.edgeSet(e).linkEnd1;
+               n2 = self.edgeSet(e).linkEnd2;
                self.edgeSet(e).weight = max(sqrt(abs(n1.X - n2.X)^2 + abs(n1.Y - n2.Y)^2 + abs(n1.Z - n2.Z)^2), 1e-06);
                self.edgeSetList(e,4) = self.edgeSet(e).weight;
            end
         end
         
          function addEdge(self, edgeSet)
-            self.edgeSet = findobj(edgeSet, 'endNetwork1', self.instanceID, '-or', 'endNetwork2', self.instanceID);
+            self.edgeSet = findobj(edgeSet, 'linkEnd1', self.instanceID, '-or', 'linkEnd2', self.instanceID);
         end
         
         function edgeSetToList(self)
            edgeSetList = [0 0 0 0];
            for ii = 1:length(self.edgeSet)
                e = self.edgeSet(ii);
-               edgeSetList = [edgeSetList; e.instanceID, e.endNetwork1, e.endNetwork2, e.weight];
+               edgeSetList = [edgeSetList; e.instanceID, e.linkEnd1, e.linkEnd2, e.weight];
                self.edgeSetList = edgeSetList(2:end, :);
            end
         end

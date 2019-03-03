@@ -9,7 +9,7 @@ classdef ProcessNetworkSimEventsBuilder < FlowNetworkSimEventsBuilder
     
     methods
         function construct(self)
-            construct@FlowNetworkSimEventsBuilder;
+            construct@FlowNetworkSimEventsBuilder(self);
             self.setProcessTime;
             self.setServerCount;
             self.setTimer;
@@ -31,29 +31,29 @@ classdef ProcessNetworkSimEventsBuilder < FlowNetworkSimEventsBuilder
             end
         end
         
-        function setServerCount(P)
+        function setServerCount(self)
             %Set the dialog parameter NumberofServers of the n-server block called ProcessServer. 
-            set_param(strcat(self.simEventsPath, '/Process/ProcessServer'), 'NumberOfServers', num2str(self.systemElement.ServerCount));
+            set_param(strcat(self.simEventsPath, '/Process/ProcessServer'), 'NumberOfServers', num2str(self.systemElement.concurrentProcessingCapacity));
         end
         
-        function setTimer(P)
+        function setTimer(self)
             %Set the dialog parameter TimerTag of the timer blocks: start_ProcessTimer & read_ProcessTimer. 
             set_param(strcat(self.simEventsPath, '/Process/start_ProcessTimer'), 'TimerTag', strcat('T_', self.systemElement.name))
             set_param(strcat(self.simEventsPath, '/Process/read_ProcessTimer'), 'TimerTag', strcat('T_', self.systemElement.name))
         end
         
-        function setStorageCapacity(P)
+        function setStorageCapacity(self)
             %Set the dialog parameter Capacity of the (FIFO) queue block called ProcessQueue
             set_param(strcat(self.simEventsPath, '/Process/ProcessQueue'), 'Capacity', num2str(self.systemElement.StorageCapacity));
         end
         
-        function buildTokenRouting(P)
+        function buildCommodityRouting(self)
             % Needs to be moved to a strategy class
             % Needs to be moved to the flow node/edge layer
             
                 %Check that the probabilities, when converted to 5 sig fig by num2str,
                 %add up to one
-               probability = round(P.routingProbability*10000);
+               probability = round(self.routingProbability*10000);
                error = 10000 - sum(probability);
                [Y, I] = max(probability);
                probability(I) = Y + error;
@@ -69,7 +69,7 @@ classdef ProcessNetworkSimEventsBuilder < FlowNetworkSimEventsBuilder
                ValueVector = strcat(ValueVector, ']');
                ProbabilityVector = strcat(ProbabilityVector, ']');
 
-               set_param(strcat(P.SimEventsPath, '/Process/Routing'), 'probVecDisc', ProbabilityVector, 'valueVecDisc', ValueVector);
+               set_param(strcat(self.simEventsPath, '/Process/Routing'), 'probVecDisc', ProbabilityVector, 'valueVecDisc', ValueVector);
         end
         
 %        %function buildPorts(P)

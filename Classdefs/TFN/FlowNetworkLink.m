@@ -19,6 +19,10 @@ classdef FlowNetworkLink < NetworkLink
         flowFixedCost = 0; %Fixed cost to use flow edge
         flowUnitCost %{ordered}  %Cost per unit for each commodity to flow 
         flowAmount %{ordered} %Amount of each commodity that does flow
+        
+        %To be private or deprecated:
+        endNetwork1Port@Port
+        endNetwork2Port@Port
     end
     
     methods

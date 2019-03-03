@@ -3,12 +3,12 @@ function processSet = mapProcessArray2Class(P, machineCount, serviceTime)
 %   Detailed explanation goes here
 
     [nProcess, ~] = size(P);
-    processSet(nProcess) = Process;
+    processSet(nProcess) = ProcessNetwork;
     for ii = 1:nProcess
        processSet(ii).instanceID = ii;
        processSet(ii).name = strcat('Process_', num2str(ii));
        processSet(ii).typeID = 'Process';
-       processSet(ii).ServerCount = machineCount(ii);
+       processSet(ii).concurrentProcessingCapacity = machineCount(ii);
        processSet(ii).ProcessTime_Mean = serviceTime(ii);
        processSet(ii).StorageCapacity = inf;
        routingProbability = P(ii,(P(ii,:)>0));

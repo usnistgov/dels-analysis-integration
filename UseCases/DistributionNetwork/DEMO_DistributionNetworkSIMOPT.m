@@ -1,4 +1,5 @@
 addpath dels-analysis-integration\UseCases\DistributionNetwork
+addpath dels-analysis-integration\ClassDefs\TFN
 %% 0) Generate Random Instance of Distribution Network
 rng default;
 dn1 = DistributionFlowNetworkGenerator;

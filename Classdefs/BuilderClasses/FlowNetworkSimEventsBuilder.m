@@ -9,6 +9,9 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
         echelon = 1
         position
         simEventsPath %The associated SimEvents block identifier >> CHANGED ON 1/22/15; expect errors
+        
+        %control behaviors
+        routingTypeID = 'probFlow';
     end
     
     methods (Access = public)
@@ -70,7 +73,7 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
                     typeCount(isType) = typeCount(isType) + 1;
                     self.portSet(end).name = strcat('out', typeID{isType},'_', num2str(typeCount(isType)));
                 else
-                    typeID{end+1} = self.portSet(end).type;
+                    typeID{end+1} = self.portSet(end).typeID;
                     typeCount(end+1) = 1;
                     self.portSet(end).name = strcat('out', typeID{end},'_1');
                 end

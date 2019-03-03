@@ -7,11 +7,14 @@ classdef Commodity < NetworkElement
         %^instanceID
         %^typeID
         %^name
-        origin@FlowNetwork
-        originID
-        destination@FlowNetwork
-        destinationID
+        producedBy@FlowNetwork
+        producedByID
+        productionRate  % 
+        consumedBy@FlowNetwork
+        consumedByID
+        consumptionRate %
         quantity
+        value %{subsets measure}
         route = []
     end
     

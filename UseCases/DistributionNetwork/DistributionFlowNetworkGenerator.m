@@ -104,10 +104,10 @@ distributionNetwork = DistributionNetwork;
                     newCommodity(kk).typeID = 'Commodity';
                     newCommodity(kk).name = strcat('Commodity_', num2str(kk));
                     newCommodity(kk).quantity = supply;
-                    newCommodity(kk).originID = ii;
-                    newCommodity(kk).origin = customerSet(ii);
-                    newCommodity(kk).destinationID = jj;
-                    newCommodity(kk).destination = customerSet(jj);
+                    newCommodity(kk).producedByID = ii;
+                    newCommodity(kk).producedBy = customerSet(ii);
+                    newCommodity(kk).consumedByID = jj;
+                    newCommodity(kk).consumedBy = customerSet(jj);
                     
                     customerSet(ii).produces(end+1) = newCommodity(kk);
                     customerSet(ii).productionRate(end+1) = supply;

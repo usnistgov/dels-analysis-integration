@@ -11,11 +11,11 @@ for ii = 1:nProd
     Parrival(processPlanSet(ii,1)) = Parrival(processPlanSet(ii,1)) + productArrivalRate(ii);
 end
 
-arrivalProcess = Process;
+arrivalProcess = ProcessNetwork;
 arrivalProcess.instanceID = nProcess+1;
 arrivalProcess.name = 'Arrival_Process';
 arrivalProcess.typeID = 'ArrivalProcess';
-arrivalProcess.ServerCount = inf;
+arrivalProcess.concurrentProcessingCapacity = inf;
 arrivalProcess.ProcessTime_Mean = 1/totalArrivalRate;
 arrivalProcess.StorageCapacity = inf;
 arrivalProcess.routingProbability = Parrival ./ totalArrivalRate;

@@ -1,3 +1,6 @@
+addpath dels-analysis-integration\UseCases\ProcessNetwork
+addpath dels-analysis-integration\ClassDefs\TFN
+addpath dels-analysis-integration\AnalysisLibraries\QueueingLib
 
 %% Make Random Process Network
 %Instance Parameters
@@ -6,7 +9,7 @@ nProd = 15;
 nProcess = 50;
 lengthProcessPlan = 20;
 
-PN = Process;
+PN = ProcessNetwork;
 
 PN.processPlanSet = randi(nProcess, nProd, lengthProcessPlan);
 productArrivalRate = randi([1, 10],nProd);
@@ -26,12 +29,12 @@ serviceTime = randi([5, 25],nProcess)/100;
 PN.serviceTime = serviceTime(1, :);
 clear serviceTime
 
-addpath dels-analysis-integration\AnalysisLibraries\QueueingLib
+
 try
     avgNoVisits = qnosvisits(PN.probabilityTransitionMatrix, PN.processArrivalRate);   
     %Set Number of machines at each workstation
-    PN.ServerCount = ceil(sum(PN.processArrivalRate) * PN.serviceTime .* avgNoVisits / 0.95);
-    [Util, avgResponseTime, avgNoRequests, Throughput] = qnopen(sum(PN.processArrivalRate), PN.serviceTime, avgNoVisits, PN.ServerCount);
+    PN.concurrentProcessingCapacity = ceil(sum(PN.processArrivalRate) * PN.serviceTime .* avgNoVisits / 0.95);
+    [Util, avgResponseTime, avgNoRequests, Throughput] = qnopen(sum(PN.processArrivalRate), PN.serviceTime, avgNoVisits, PN.concurrentProcessingCapacity);
 catch err
     rethrow(err)
 end
@@ -39,25 +42,32 @@ end
 %% Visualize the Process Network
 PN.plot;
 %% Create ProcessNetwork Representation
+addpath dels-analysis-integration\ClassDefs\FactoryClasses
+addpath dels-analysis-integration\ClassDefs\BuilderClasses
 clear NF PF EF
 PN.matrix2Network;
 
-FNF = SimEventsFactory;
-FNF.model = 'ProcessNetworkSimulation';
-FNF.modelLibrary = 'DELS_Library';
+simFac = SimEventsFactory;
+simFac.model = 'ProcessNetworkSimulation';
+simFac.modelLibrary = 'DELS_Library';
 
-FNF.inputFlowNetwork = PN;
+simFac.inputFlowNetwork = PN;
 
     builderSet = ProcessNetworkSimEventsBuilder.empty(0);
-    for jj = 1:length(PN.ProcessStep)
+    for jj = 1:length(PN.processStep)
         builderSet(jj) = ProcessNetworkSimEventsBuilder;
-        builderSet(jj).analysisTypeID = PN.ProcessStep(jj).typeID;
-        
-        builderSet(jj).echelon = mod(jj,10)+1;
-        builderSet(jj).setSystemElement(PN.ProcessStep(jj));
+        builderSet(jj).analysisTypeID = PN.processStep(jj).typeID;
+        if strcmp(builderSet(jj).analysisTypeID, 'ArrivalProcess')
+            builderSet(jj).echelon = 1;
+        elseif strcmp(builderSet(jj).analysisTypeID,'DepartureProcess')
+            builderSet(jj).echelon = 10;
+        else
+            builderSet(jj).echelon = mod(jj,10)+1;
+        end
+        builderSet(jj).setSystemElement(PN.processStep(jj));
     end
 
-FNF.buildAnalysisModel;
+simFac.buildAnalysisModel;
 
 %utilDirector = MetricDirector;
 %utilDirector.ConstructMetric(processSet, 'Utilization');
