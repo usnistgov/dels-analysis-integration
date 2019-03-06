@@ -7,9 +7,9 @@ classdef MetricDirector
     end
     
     methods
-        function ConstructMetric(Director, NodeSet, MetricName)
-            for i = 1:length(NodeSet)
-                eval(strcat('NodeSet(i).build', MetricName))
+        function ConstructMetric(~, flowNodeBuilderSet, metricName)
+            for ii = 1:length(flowNodeBuilderSet)
+                eval(strcat('flowNodeBuilderSet(ii).build', metricName))
             end %for each node in nodeset
         end %end Construct() Method
     end %end methods
