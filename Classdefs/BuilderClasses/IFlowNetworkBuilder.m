@@ -13,14 +13,11 @@ classdef IFlowNetworkBuilder < handle
             
         end
         
-        function decorateNode(self)
-            
-        end
-        
+     
         function setSystemElement(self, input)
            if isa(input, 'FlowNetwork')
               self.systemElement = input;
-              self.systemElement.builder = self;
+              %self.systemElement.builder = self;
            end
         end
         

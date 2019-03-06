@@ -71,7 +71,10 @@ try
     % Add Capacity Constraints
     j = 1;
     for i = 1:nbArc
-       arc_comm = find(arc_comm_data(:, 1) == arc_data(i,1) & arc_comm_data(:, 2) == arc_data(i,2));
+       sameOrigin = arc_comm_data(:, 1) == arc_data(i,1);
+       sameDestination = arc_comm_data(:, 2) == arc_data(i,2);
+       commodityShift = ((i-1)*nbComm); %shift the indices by arcs x commodity
+       arc_comm = (arc_comm_data(sameOrigin & sameDestination,3) + commodityShift);
        
        if isempty(arc_comm) ==0
            A(j:j+length(arc_comm)-1,:) = [(i*2-1)*ones(length(arc_comm),1), arc_comm, -1*ones(length(arc_comm),1)];

@@ -34,7 +34,7 @@ classdef FlowNetwork < Network
     %2/23/18: Can't redefine property type in subclass
     inFlowEdgeSet@FlowNetworkLink %A set of flow edges incoming to the flow network
     outFlowEdgeSet@FlowNetworkLink %A set of flow edges outgoing to the flow network
-    builder %lightweight delegate to builderClass for constructing simulation 
+    
     
     %2/8/19 -- to be deprecated or made private
     flowNode_ConsumptionProduction %flowNode Commodity Production/Consumption
@@ -42,6 +42,7 @@ classdef FlowNetwork < Network
     flowEdge_Solution %Binary flowEdgeID sourceflowNode targetflowNode grossCapacity flowFixedCost
     commodityFlow_Solution %flowEdgeID origin destination commodity flowUnitCost flowQuantity
     nodeMapping
+    %builder %lightweight delegate to builderClass for constructing simulation 
     end
     
     methods

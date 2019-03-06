@@ -17,12 +17,18 @@ classdef ProcessNetwork < FlowNetwork
         %outFlowEdgeSet@FlowNetworkLink %A set of flow edges outgoing to the flow network
         %builder %lightweight delegate to builderClass for constructing simulation 
         
-        incomingSeqDep@SequencingDependency
-        outgoingSeqDep@SequencingDependency
+        %^produces
+        %^consumes
+        %^productionRate
+        %^consumptionRate
+        
+        incomingSeqDep@SequencingDependency %{subset edges}
+        outgoingSeqDep@SequencingDependency %{subset edges}
+        SequenceDependencySet@SequencingDependency
         %Hierarchical Organization
         parentProcessNetwork@ProcessNetwork
-        processStep@ProcessNetwork
-        SequenceDependencySet@SequencingDependency
+        processStep %= {@ProcessNetwork} 
+        
         
         %Behavioral Parameters %Abstraction of PPRF
         concurrentProcessingCapacity %3/3/19 -- replaces concurrentProcessingCapacity
@@ -38,20 +44,30 @@ classdef ProcessNetwork < FlowNetwork
         AverageWaitingTime %Stored as Data structure, not single point
         AverageQueueLength %Stored as Data structure, not single point
         
-
-
-        SequenceDependencyMatrix
+        %Queuing Network Representation
         probabilityTransitionMatrix
         serviceTime
+        % sequenceDependencyMatrix %deprecated 3/4/19
         
+        %DELS Abstraction?
         productArrivalRate
         processPlanSet
         processArrivalRate
     end
     
     methods
+        
+        function setProcessStep(self, processStep)
+            if isa(processStep, 'ProcessNetwork')
+               % processStep are a subset of flowNodes; we have enforce subsetting 
+               % via set methods.
+               self.processStep{end+1} = processStep;
+               self.flowNodeSet{end+1} = processStep;
+            end
+        end
        
         function matrix2Network(P)
+            %1)
             processStep = mapProcessArray2Class(P.probabilityTransitionMatrix, P.concurrentProcessingCapacity, P.serviceTime);
             flowEdgeSet = mapProbMatrix2EdgeSet(P.probabilityTransitionMatrix);
             

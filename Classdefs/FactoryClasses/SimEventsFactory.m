@@ -34,9 +34,17 @@ classdef SimEventsFactory < FlowNetworkFactory
            for jj = 1:length(self.inputFlowNetwork.flowNodeSet)
                flowNodeSet = self.inputFlowNetwork.flowNodeSet{jj};
                for ii = 1:length(flowNodeSet)
-                   %set position of new block relative to its echelon and
-                   %previous blocks in that echelon
-                   targetBuilder = flowNodeSet(ii).builder;
+                   
+                   % find the builder associated with the flow node
+                   % 3/5/19 -- changed to make system element blind to PSM builder
+                   targetBuilder = FlowNetworkSimEventsBuilder.empty(0);
+                   kk = 1;
+                   while isempty(targetBuilder)
+                        targetBuilder = findobj(self.flowNodeBuilders{kk}, 'systemElement', flowNodeSet(ii));
+                        kk = kk+1;
+                   end
+                   
+                   %set position of new block relative to its echelon and previous blocks in that echelon
                    position = [350*(targetBuilder.echelon-1) echelon_position(targetBuilder.echelon)  ...
                        200+350*(targetBuilder.echelon-1) echelon_position(targetBuilder.echelon)+65+ 10*max(length(flowNodeSet(ii).inFlowEdgeSet), length(flowNodeSet(ii).outFlowEdgeSet))];
                    echelon_position(targetBuilder.echelon) = echelon_position(targetBuilder.echelon) + ...

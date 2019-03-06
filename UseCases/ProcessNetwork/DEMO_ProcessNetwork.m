@@ -16,8 +16,14 @@ productArrivalRate = randi([1, 10],nProd);
 PN.productArrivalRate = productArrivalRate(1:nProd,1);
 clear productArrivalRate
 
-%Map the process plan and product arrival rate to the probability
-%transition matrix
+% 2) Create Process Network Definition
+% Maybe go as far as instantiating DELS-PPRF objects
+% Need to clean up terminology -- jobs and products need to go.
+% Product has Process Plan <=> Commodity has a flow route
+% NOTE 3/4/19 -- currently the implementation is backwards, it goes from numbers/DELS
+% to Queueing Network formalism, and then back to Process Network.
+
+%Map the process plan and product arrival rate to the probability transition matrix
 PN.probabilityTransitionMatrix = mapProcessPlan2ProbMatrix(PN.processPlanSet, PN.productArrivalRate);
 
 %Map the process plan and product arrival rate to the arrival rate to each
@@ -38,6 +44,9 @@ try
 catch err
     rethrow(err)
 end
+
+%Future work -- Implement multi-class queueing networks. The processing time at each process step/node
+% can be different for each kind of commodity.
 
 %% Visualize the Process Network
 PN.plot;
