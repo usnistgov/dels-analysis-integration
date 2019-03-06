@@ -9,7 +9,7 @@ classdef DepotSimEventsBuilder < FlowNetworkSimEventsBuilder
     methods
         function construct(self)
             construct@FlowNetworkSimEventsBuilder(self);
-            self.buildShipmentRouting;
+            %self.buildShipmentRouting;
             self.buildResourceAllocation;
         end
         

@@ -301,17 +301,17 @@ classdef FlowNetwork < Network
             end
             
             % 4) Build probabilistic routing
-            for ii = 1:length(self.flowNodeSet)
-                for jj = 1:length(self.flowNodeSet{ii})
-                    totalOutflow = 0;
-                    edgeflowAmount = [];
-                    for kk = 1:length(self.flowNodeSet{ii}(jj).outFlowEdgeSet)
-                        edgeflowAmount(end+1) = sum(self.flowNodeSet{ii}(jj).outFlowEdgeSet(kk).flowAmount);
-                        totalOutflow = totalOutflow + edgeflowAmount(end);
-                    end
-                    self.flowNodeSet{ii}(jj).routingProbability = edgeflowAmount./totalOutflow;
-                end
-            end
+            %for ii = 1:length(self.flowNodeSet)
+            %    for jj = 1:length(self.flowNodeSet{ii})
+            %        totalOutflow = 0;
+            %        edgeflowAmount = [];
+            %        for kk = 1:length(self.flowNodeSet{ii}(jj).outFlowEdgeSet)
+            %            edgeflowAmount(end+1) = sum(self.flowNodeSet{ii}(jj).outFlowEdgeSet(kk).flowAmount);
+            %            totalOutflow = totalOutflow + edgeflowAmount(end);
+            %        end
+            %        self.flowNodeSet{ii}(jj).routingProbability = edgeflowAmount./totalOutflow;
+            %    end
+            %end
             
             
         end %mapMCFNSolution2flowNetwork

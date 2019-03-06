@@ -5,11 +5,16 @@ classdef ProcessNetworkSimEventsBuilder < FlowNetworkSimEventsBuilder
     properties
         %^systemElement@self.systemElement
         %^simEventsPath
+        
+        %control behaviors
+        %^routingTypeID = 'probFlow'; 
+        %^routingProbability = '[1]';
     end
     
     methods
         function construct(self)
             construct@FlowNetworkSimEventsBuilder(self);
+            self.routingProbability = self.systemElement.routingProbability; %routing probability is built as part of process network
             self.setProcessTime;
             self.setServerCount;
             self.setTimer;
@@ -21,69 +26,31 @@ classdef ProcessNetworkSimEventsBuilder < FlowNetworkSimEventsBuilder
             %Needs to be extended to handle random numbers other than normal
             if ~isempty(self.systemElement.ProcessTime_Stdev)
                 %Normal Processing Time
-                set_param(strcat(self.simEventsPath, '/Process/ProcessTime'), 'Distribution', 'Gaussian (normal)');
-                set_param(strcat(self.simEventsPath, '/Process/ProcessTime'), 'meanNorm', num2str(self.systemElement.ProcessTime_Mean));
-                set_param(strcat(self.simEventsPath, '/Process/ProcessTime'), 'stdNorm', num2str(self.systemElement.ProcessTime_Stdev));
+                set_param(strcat(self.simEventsPath, '/ProcessTime'), 'Distribution', 'Gaussian (normal)');
+                set_param(strcat(self.simEventsPath, '/ProcessTime'), 'meanNorm', num2str(self.systemElement.ProcessTime_Mean));
+                set_param(strcat(self.simEventsPath, '/ProcessTime'), 'stdNorm', num2str(self.systemElement.ProcessTime_Stdev));
             else
                 %Exponential Processing Time (Markovian Assumptions)
-                set_param(strcat(self.simEventsPath, '/Process/ProcessTime'), 'Distribution', 'Exponential');
-                set_param(strcat(self.simEventsPath, '/Process/ProcessTime'), 'meanExp', num2str(self.systemElement.ProcessTime_Mean));
+                set_param(strcat(self.simEventsPath, '/ProcessTime'), 'Distribution', 'Exponential');
+                set_param(strcat(self.simEventsPath, '/ProcessTime'), 'meanExp', num2str(self.systemElement.ProcessTime_Mean));
             end
         end
         
         function setServerCount(self)
             %Set the dialog parameter NumberofServers of the n-server block called ProcessServer. 
-            set_param(strcat(self.simEventsPath, '/Process/ProcessServer'), 'NumberOfServers', num2str(self.systemElement.concurrentProcessingCapacity));
+            set_param(strcat(self.simEventsPath, '/ProcessServer'), 'NumberOfServers', num2str(self.systemElement.concurrentProcessingCapacity));
         end
         
         function setTimer(self)
             %Set the dialog parameter TimerTag of the timer blocks: start_ProcessTimer & read_ProcessTimer. 
-            set_param(strcat(self.simEventsPath, '/Process/start_ProcessTimer'), 'TimerTag', strcat('T_', self.systemElement.name))
-            set_param(strcat(self.simEventsPath, '/Process/read_ProcessTimer'), 'TimerTag', strcat('T_', self.systemElement.name))
+            set_param(strcat(self.simEventsPath, '/start_ProcessTimer'), 'TimerTag', strcat('T_', self.systemElement.name))
+            set_param(strcat(self.simEventsPath, '/read_ProcessTimer'), 'TimerTag', strcat('T_', self.systemElement.name))
         end
         
         function setStorageCapacity(self)
             %Set the dialog parameter Capacity of the (FIFO) queue block called ProcessQueue
-            set_param(strcat(self.simEventsPath, '/Process/ProcessQueue'), 'Capacity', num2str(self.systemElement.StorageCapacity));
+            set_param(strcat(self.simEventsPath, '/ProcessQueue'), 'Capacity', num2str(self.systemElement.StorageCapacity));
         end
-        
-        function buildCommodityRouting(self)
-            % Needs to be moved to a strategy class
-            % Needs to be moved to the flow node/edge layer
-            
-                %Check that the probabilities, when converted to 5 sig fig by num2str,
-                %add up to one
-               probability = round(self.routingProbability*10000);
-               error = 10000 - sum(probability);
-               [Y, I] = max(probability);
-               probability(I) = Y + error;
-               probability = probability/10000;
-
-               ValueVector = '[0';
-               ProbabilityVector = '[0';
-               for ii = 1:length(probability)
-                   ValueVector = strcat(ValueVector, ',' , num2str(ii));
-                   ProbabilityVector = strcat(ProbabilityVector, ',', num2str(probability(ii)));
-               end
-               
-               ValueVector = strcat(ValueVector, ']');
-               ProbabilityVector = strcat(ProbabilityVector, ']');
-
-               set_param(strcat(self.simEventsPath, '/Process/Routing'), 'probVecDisc', ProbabilityVector, 'valueVecDisc', ValueVector);
-        end
-        
-%        %function buildPorts(P)
-%            if strcmp(P.Type, 'AssyProcess')
-%                blockSimEventsPath = get_param(strcat(P.SimEventsPath, '/IN_Job'), 'Position');
-%                delete_block(strcat(P.SimEventsPath, '/IN_Job'));
-%                add_block('simeventslib/Entity Management/Entity Combiner', strcat(P.SimEventsPath, '/IN_Job'), 'Position', blockSimEventsPath, 'BackgroundColor', 'Cyan');
-%            elseif strcmp(P.Type, 'SourceSinkProcess')
-%                blockSimEventsPath = get_param(strcat(P.SimEventsPath, '/OUT_Job'), 'Position');
-%                delete_block(strcat(P.SimEventsPath, '/OUT_Job'));
-%               add_block('simeventslib/Routing/Replicate', strcat(P.SimEventsPath, '/OUT_Job'), 'Position', blockSimEventsPath, 'BackgroundColor', 'Cyan');
-%            end
-%             buildPorts@FlowNode(P);
-%         end %redefines{Node.buildPorts}
         
         %metric builders
         function buildUtilization(P)

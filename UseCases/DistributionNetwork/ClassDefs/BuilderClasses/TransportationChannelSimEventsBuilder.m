@@ -24,8 +24,6 @@ classdef TransportationChannelSimEventsBuilder < FlowNetworkSimEventsBuilder
     end
     
     methods (Access = private)
-
-
        function setTravelTime(self)
             set_param(strcat(self.simEventsPath, '/TravelTime'), 'Value', strcat(num2str(self.systemElement.travelDistance),'/', num2str(self.systemElement.travelRate)));
         end
