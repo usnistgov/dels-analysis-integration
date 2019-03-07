@@ -13,48 +13,48 @@ classdef ProcessNetworkSimEventsBuilder < FlowNetworkSimEventsBuilder
     
     methods
         function construct(self)
-            %construct@FlowNetworkSimEventsBuilder(self);
-            self.assignPorts; %@super
-            self.buildPorts; %@super
-            self.buildRoutingControl; %@local
+            construct@FlowNetworkSimEventsBuilder(self);
+            %self.assignPorts; %@super
+            %self.buildPorts; %@super
+            %self.buildRoutingControl; %@local
             self.setProcessTime;
             self.setServerCount;
             self.setTimer;
             self.setStorageCapacity;
         end
         
-        function buildProbabilisticRouting(self)
-            self.routingProbability = self.systemElement.routingProbability;
-        end
+        %function buildProbabilisticRouting(self)
+        %    self.routingProbability = self.systemElement.routingProbability;
+        %end
         
-        function buildRoutingControl(self)
-           %3/6/19 -- temp copy of method here until ProcessNetwork is completely implemented as a FlowNetwork
-        %Need to move the routing into a strategy class
-        
-           % 1) Build the routing probability as the ratio of outbound flows
-           self.buildProbabilisticRouting;
-           
-           % 2) Check that the probabilities sum to 1 to 5 sig fig
-           probability = round(self.routingProbability*10000);
-           error = 10000 - sum(probability);
-           [Y, I] = max(probability);
-           probability(I) = Y + error;
-           probability = probability/10000;
-            
-           % 3) Convert the array to a "string" for input to SimEvents
-           ValueVector = '[0';
-           ProbabilityVector = '[0';
-           for jj = 1:length(probability)
-               ValueVector = strcat(ValueVector, ',' , num2str(jj));
-               ProbabilityVector = strcat(ProbabilityVector, ',', num2str(probability(jj)));
-           end
-           ValueVector = strcat(ValueVector, ']');
-           ProbabilityVector = strcat(ProbabilityVector, ']');
-           
-           % 4) Set the value in the simevents block named Routing
-           %Note to Self: must set values simultaneously to avoid 'equal length' error
-           set_param(strcat(self.simEventsPath, '/Routing'), 'probVecDisc', ProbabilityVector, 'valueVecDisc', ValueVector);
-       end
+%         function buildRoutingControl(self)
+%            %3/6/19 -- temp copy of method here until ProcessNetwork is completely implemented as a FlowNetwork
+%         %Need to move the routing into a strategy class
+%         
+%            % 1) Build the routing probability as the ratio of outbound flows
+%            self.buildProbabilisticRouting;
+%            
+%            % 2) Check that the probabilities sum to 1 to 5 sig fig
+%            probability = round(self.routingProbability*10000);
+%            error = 10000 - sum(probability);
+%            [Y, I] = max(probability);
+%            probability(I) = Y + error;
+%            probability = probability/10000;
+%             
+%            % 3) Convert the array to a "string" for input to SimEvents
+%            ValueVector = '[0';
+%            ProbabilityVector = '[0';
+%            for jj = 1:length(probability)
+%                ValueVector = strcat(ValueVector, ',' , num2str(jj));
+%                ProbabilityVector = strcat(ProbabilityVector, ',', num2str(probability(jj)));
+%            end
+%            ValueVector = strcat(ValueVector, ']');
+%            ProbabilityVector = strcat(ProbabilityVector, ']');
+%            
+%            % 4) Set the value in the simevents block named Routing
+%            %Note to Self: must set values simultaneously to avoid 'equal length' error
+%            set_param(strcat(self.simEventsPath, '/Routing'), 'probVecDisc', ProbabilityVector, 'valueVecDisc', ValueVector);
+%        end
         
         function setProcessTime(self)
             %Set the dialog parameters of the event-based random number generator block called ProcessTime. 
@@ -62,12 +62,12 @@ classdef ProcessNetworkSimEventsBuilder < FlowNetworkSimEventsBuilder
             if ~isempty(self.systemElement.ProcessTime_Stdev)
                 %Normal Processing Time
                 set_param(strcat(self.simEventsPath, '/ProcessTime'), 'Distribution', 'Gaussian (normal)');
-                set_param(strcat(self.simEventsPath, '/ProcessTime'), 'meanNorm', num2str(self.systemElement.ProcessTime_Mean));
+                set_param(strcat(self.simEventsPath, '/ProcessTime'), 'meanNorm', num2str(self.systemElement.averageServiceTime));
                 set_param(strcat(self.simEventsPath, '/ProcessTime'), 'stdNorm', num2str(self.systemElement.ProcessTime_Stdev));
             else
                 %Exponential Processing Time (Markovian Assumptions)
                 set_param(strcat(self.simEventsPath, '/ProcessTime'), 'Distribution', 'Exponential');
-                set_param(strcat(self.simEventsPath, '/ProcessTime'), 'meanExp', num2str(self.systemElement.ProcessTime_Mean));
+                set_param(strcat(self.simEventsPath, '/ProcessTime'), 'meanExp', num2str(self.systemElement.averageServiceTime));
             end
         end
         
@@ -84,7 +84,7 @@ classdef ProcessNetworkSimEventsBuilder < FlowNetworkSimEventsBuilder
         
         function setStorageCapacity(self)
             %Set the dialog parameter Capacity of the (FIFO) queue block called ProcessQueue
-            set_param(strcat(self.simEventsPath, '/ProcessQueue'), 'Capacity', num2str(self.systemElement.StorageCapacity));
+            set_param(strcat(self.simEventsPath, '/ProcessQueue'), 'Capacity', num2str(self.systemElement.storageCapacity));
         end
         
         %metric builders

@@ -11,13 +11,13 @@ for ii = 1:nProd
     Parrival(processPlanSet(ii,1)) = Parrival(processPlanSet(ii,1)) + productArrivalRate(ii);
 end
 
-arrivalProcess = ProcessNetwork;
+arrivalProcess = Process;
 arrivalProcess.instanceID = nProcess+1;
 arrivalProcess.name = 'Arrival_Process';
 arrivalProcess.typeID = 'ArrivalProcess';
 arrivalProcess.concurrentProcessingCapacity = inf;
-arrivalProcess.ProcessTime_Mean = 1/totalArrivalRate;
-arrivalProcess.StorageCapacity = inf;
+arrivalProcess.averageServiceTime = 1/totalArrivalRate;
+arrivalProcess.storageCapacity = inf;
 arrivalProcess.routingProbability = Parrival ./ totalArrivalRate;
 
 arrivalEdgeSet(nProcess) = FlowNetworkLink;

@@ -23,7 +23,7 @@ classdef FlowNetwork < Network
     consumptionProductionRatio %default is eye(numCommodity)
     
     %Commodity flow within Network
-    commoditySet@Commodity %{ordered}
+    commoditySet%@Commodity %{ordered}
     commodityList
     flowAmount %{ordered} by commoditySet
     flowCapacity %{ordered} by commoditySet

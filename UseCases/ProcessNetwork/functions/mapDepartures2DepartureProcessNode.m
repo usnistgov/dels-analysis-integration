@@ -3,14 +3,14 @@ function [departureProcess, departureEdgeSet] = mapDepartures2DepartureProcessNo
 %   Detailed explanation goes here
 
 [nProcess,~] = size(P);
-departureProcess = ProcessNetwork;
+departureProcess = Process;
 departureProcess.instanceID = nProcess+2;
 departureProcess.name = 'Departure_Process';
 departureProcess.typeID = 'DepartureProcess';
 departureProcess.concurrentProcessingCapacity = inf;
-departureProcess.ProcessTime_Mean = 0.05;
+departureProcess.averageServiceTime = 0.05;
 departureProcess.ProcessTime_Stdev = eps;
-departureProcess.StorageCapacity = inf;
+departureProcess.storageCapacity = inf;
 departureProcess.routingProbability = [0 0];
 
 rowSum = sum(P,2);

@@ -24,86 +24,83 @@ classdef ProcessNetwork < FlowNetwork
         
         incomingSeqDep@SequencingDependency %{subset edges}
         outgoingSeqDep@SequencingDependency %{subset edges}
-        SequenceDependencySet@SequencingDependency
+        sequenceDependencySet@SequencingDependency %(internal between owned processNodes)
         %Hierarchical Organization
         parentProcessNetwork@ProcessNetwork
-        processStep %= {@ProcessNetwork} 
+        processNodeSet %= {@ProcessNetwork} 
+        routingProbability
         
         
         %Behavioral Parameters %Abstraction of PPRF
-        concurrentProcessingCapacity %3/3/19 -- replaces concurrentProcessingCapacity
-        expectedDuration %to replace process time
-        StorageCapacity
+        concurrentProcessingCapacity %3/3/19 -- replaces ServerCount
+        averageServiceTime %expected service time
+        storageCapacity
         ProcessTime_Mean
         ProcessTime_Stdev
-        routingProbability
+        
         %Performance Measures
-        Utilization %Stored as Data structure, not single point
-        Throughput %Stored as Data structure, not single point
-        AverageSystemTime %Stored as Data structure, not single point
-        AverageWaitingTime %Stored as Data structure, not single point
-        AverageQueueLength %Stored as Data structure, not single point
+        utilization %Stored as Data structure, not single point
+        throughput %Stored as Data structure, not single point
+        averageSystemTime %Stored as Data structure, not single point
+        averageWaitingTime %Stored as Data structure, not single point
+        averageQueueLength %Stored as Data structure, not single point
         
         %Queuing Network Representation
         probabilityTransitionMatrix
-        serviceTime
-        % sequenceDependencyMatrix %deprecated 3/4/19
-        
-        %DELS Abstraction?
+        externalArrivalRate
+        processPlanList
         productArrivalRate
-        processPlanSet
-        processArrivalRate
     end
     
     methods
         
-        function setProcessStep(self, processStep)
-            if isa(processStep, 'ProcessNetwork')
-               % processStep are a subset of flowNodes; we have enforce subsetting 
+        function setProcessNodeSet(self, input)
+            if isa(input, 'ProcessNetwork')
+               % processNodes are a subset of flowNodes; we have enforce subsetting 
                % via set methods.
-               self.processStep{end+1} = processStep;
-               self.flowNodeSet{end+1} = processStep;
+               self.processNodeSet{end+1} = input;
+               self.flowNodeSet{end+1} = input;
             end
         end
        
-        function matrix2Network(P)
+        function matrix2Network(self)
             %1)
-            processStep = mapProcessArray2Class(P.probabilityTransitionMatrix, P.concurrentProcessingCapacity, P.serviceTime);
-            flowEdgeSet = mapProbMatrix2EdgeSet(P.probabilityTransitionMatrix);
+            processNodeSet = self.processNodeSet{1};
+            flowEdgeSet = self.flowEdgeSet;
             
             
             %2) aggregate all arrivals to the process network into one (new) arrival process node (a source node)
-            [arrivalProcess, arrivalFlowEdgeSet] = mapArrivals2ArrivalProcessNode(processStep, flowEdgeSet, P.productArrivalRate, P.processPlanSet);
+            [arrivalProcess, arrivalFlowEdgeSet] = mapArrivals2ArrivalProcessNode(processNodeSet, flowEdgeSet, self.productArrivalRate, self.processPlanList);
             %Add arrivalProcess to process Set
             flowEdgeSet(end+1:end+length(arrivalFlowEdgeSet))= arrivalFlowEdgeSet;
-            processStep(end+1) = arrivalProcess;
+            processNodeSet(end+1) = arrivalProcess;
 
             
             %3) aggregate all departures from the process network into one (new) departure process node (a sink node)
-            [departureProcess, departureFlowEdgeSet] = mapDepartures2DepartureProcessNode(processStep, flowEdgeSet, P.probabilityTransitionMatrix);
+            [departureProcess, departureFlowEdgeSet] = mapDepartures2DepartureProcessNode(processNodeSet, flowEdgeSet, self.probabilityTransitionMatrix);
             %Add departureProcessNode to ProcessNode Set;
             flowEdgeSet(end+1:end+length(departureFlowEdgeSet))= departureFlowEdgeSet;
-            processStep(end+1) = departureProcess;
-            
+            processNodeSet(end+1) = departureProcess;
+                        
             %4) With all new process steps and flow edges, create necessary connectors/references 
-            for ii = 1:length(processStep)
-                processStep(ii).addEdge(flowEdgeSet); 
+            
+            for ii = 1:length(processNodeSet)
+                processNodeSet(ii).addEdge(flowEdgeSet); 
                 
-                for jj = 1:length(processStep(ii).inFlowEdgeSet)
-                    processStep(ii).inFlowEdgeSet(jj).targetFlowNetwork = processStep(ii);
+                for jj = 1:length(processNodeSet(ii).inFlowEdgeSet)
+                    processNodeSet(ii).inFlowEdgeSet(jj).targetFlowNetwork = processNodeSet(ii);
                 end
                 
-                for jj = 1:length(processStep(ii).outFlowEdgeSet)
-                    processStep(ii).outFlowEdgeSet(jj).sourceFlowNetwork = processStep(ii);
+                for jj = 1:length(processNodeSet(ii).outFlowEdgeSet)
+                    processNodeSet(ii).outFlowEdgeSet(jj).sourceFlowNetwork = processNodeSet(ii);
                 end
                 
-                processStep(ii).parentProcessNetwork = P;
+                processNodeSet(ii).parentProcessNetwork = self;
             end
             
-            
-            P.processStep = processStep;
-            P.flowNodeSet{1} = processStep;
-            P.flowEdgeSet = flowEdgeSet;
+            self.processNodeSet{1} = processNodeSet;
+            self.flowNodeSet{1} = processNodeSet;
+            self.flowEdgeSet = flowEdgeSet;
         end
         
         function [varargout] = plot(P)
