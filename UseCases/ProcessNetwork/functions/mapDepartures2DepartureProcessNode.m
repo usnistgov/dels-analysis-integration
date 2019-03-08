@@ -1,8 +1,8 @@
-function [departureProcess, departureEdgeSet] = mapDepartures2DepartureProcessNode(processSet, edgeSet, P)
+function [departureProcess, departureEdgeSet] = mapDepartures2DepartureProcessNode(processSet, edgeSet, productArrivalRate, processPlanList)
 %UNTITLED6 Summary of this function goes here
 %   Detailed explanation goes here
 
-[nProcess,~] = size(P);
+nProcess = max(max(processPlanList));
 departureProcess = Process;
 departureProcess.instanceID = nProcess+2;
 departureProcess.name = 'Departure_Process';
@@ -11,16 +11,25 @@ departureProcess.concurrentProcessingCapacity = inf;
 departureProcess.averageServiceTime = 0.05;
 departureProcess.ProcessTime_Stdev = eps;
 departureProcess.storageCapacity = inf;
-departureProcess.routingProbability = [0 0];
+departureProcess.routingProbability = [1 0];
 
-rowSum = sum(P,2);
-I = find(rowSum < 1);
-departureEdgeSet(length(I)) = FlowNetworkLink;
-for ii = 1:length(I)
+
+probMatrix = mapProcessPlan2ProbMatrix( processPlanList, productArrivalRate);
+rowSum = sum(probMatrix,2);
+idx = find(rowSum < 1);
+departureEdgeSet(length(idx)) = FlowNetworkLink;
+for ii = 1:length(idx)
     departureEdgeSet(ii).instanceID = length(edgeSet) + ii;
-    departureEdgeSet(ii).sourceFlowNetworkID =  processSet(I(ii)).instanceID;
-    departureEdgeSet(ii).typeID = 'Job';
+    departureEdgeSet(ii).sourceFlowNetworkID =  processSet(idx(ii)).instanceID;
+    departureEdgeSet(ii).sourceFlowNetwork = processSet(idx(ii));
     departureEdgeSet(ii).targetFlowNetworkID = departureProcess.instanceID;
+    departureEdgeSet(ii).targetFlowNetwork = departureProcess;
+    departureEdgeSet(ii).typeID = 'Job';
+
+    %Find product's who's last process step is process ii (this)
+    idx2 = find(processPlanList(:,end) == processSet(idx(ii)).instanceID); 
+    departureEdgeSet(ii).flowTypeAllowed = idx2;
+    departureEdgeSet(ii).flowAmount = productArrivalRate;
 end
 
 end

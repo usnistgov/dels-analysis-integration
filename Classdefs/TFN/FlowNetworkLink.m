@@ -30,6 +30,10 @@ classdef FlowNetworkLink < NetworkLink
            %Input := ID sourceFlowNode targetFlowNode grossCapacity flowFixedCost
            if nargin == 0
                % default constructor
+           elseif nargin ==3
+               self.instanceID = input(1);
+               self.sourceFlowNetworkID = input(2);
+               self.targetFlowNetworkID = input(3);
            else
                self.instanceID = input(1);
                self.sourceFlowNetworkID = input(2);
@@ -54,10 +58,6 @@ classdef FlowNetworkLink < NetworkLink
                     abs(self.sourceFlowNetwork.Z - self.targetFlowNetwork.Z)^2);
             end
             
-        end
-      
-        function flowEdgeStruct = Class2Struct(self)
-               flowEdgeStruct = Struct;
         end
     end
     

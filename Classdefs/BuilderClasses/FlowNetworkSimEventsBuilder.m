@@ -12,7 +12,7 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
         
         %control behaviors
         routingTypeID = 'probFlow'; 
-        routingProbability = '[1]';
+        routingProbability = '[1 0]';
     end
     
     methods (Access = public)
@@ -237,6 +237,8 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
             end
             if totalOutflow ~= 0
                 self.routingProbability = edgeflowAmount./totalOutflow; 
+            elseif isempty(flowNode.outFlowEdgeSet)
+                    self.routingProbability = [1 0];
             else
                 %default to equiprobable case.
                 self.routingProbability = ones(length(flowNode.outFlowEdgeSet),1)./length(flowNode.outFlowEdgeSet);

@@ -69,12 +69,12 @@ classdef SimEventsFactory < FlowNetworkFactory
         function createFlowEdges(self)
             %For each FlowEdge in flwoEdgeSet, use the add_line method to add a
             %connector line in the simulation
-            targetFlowEdgeSet = self.inputFlowNetwork.flowEdgeSet;
-            for ii = 1:length(targetFlowEdgeSet)
+            currFlowEdgeSet = self.inputFlowNetwork.flowEdgeSet;
+            for ii = 1:length(currFlowEdgeSet)
                 %check nestedness: needs to be fixed somehow to allow nodes
                 %to connect to their nested networks
-                add_line(self.model, strcat(targetFlowEdgeSet(ii).sourceFlowNetwork.name,'/', targetFlowEdgeSet(ii).endNetwork1Port.conn),...
-                    strcat(targetFlowEdgeSet(ii).targetFlowNetwork.name,'/', targetFlowEdgeSet(ii).endNetwork2Port.conn), 'autorouting', 'on');
+                add_line(self.model, strcat(currFlowEdgeSet(ii).sourceFlowNetwork.name,'/', currFlowEdgeSet(ii).endNetwork1Port.conn),...
+                    strcat(currFlowEdgeSet(ii).targetFlowNetwork.name,'/', currFlowEdgeSet(ii).endNetwork2Port.conn), 'autorouting', 'on');
             end
         end %createFlowEdges -- ROLE: ConcreteFlowEdgeFactory
         

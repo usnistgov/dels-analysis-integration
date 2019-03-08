@@ -24,8 +24,17 @@ arrivalEdgeSet(nProcess) = FlowNetworkLink;
 for ii = 1:nProcess
     arrivalEdgeSet(ii).instanceID = length(edgeSet)+ ii;
     arrivalEdgeSet(ii).sourceFlowNetworkID = arrivalProcess.instanceID;
-    arrivalEdgeSet(ii).typeID = 'Job';
+    arrivalEdgeSet(ii).sourceFlowNetwork = arrivalProcess;
     arrivalEdgeSet(ii).targetFlowNetworkID = processSet(ii).instanceID;
+    arrivalEdgeSet(ii).targetFlowNetwork = processSet(ii);
+    arrivalEdgeSet(ii).typeID = 'Job';
+    
+    %Find product's who's first process step is process ii (this)
+    idx = find(processPlanSet(:,1) == ii); 
+    arrivalEdgeSet(ii).flowTypeAllowed = idx;
+    arrivalEdgeSet(ii).flowAmount = productArrivalRate(idx);
+
+    
 end
 
 end
