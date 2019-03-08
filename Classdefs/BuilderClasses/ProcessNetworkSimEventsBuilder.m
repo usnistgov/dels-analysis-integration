@@ -8,18 +8,25 @@ classdef ProcessNetworkSimEventsBuilder < FlowNetworkSimEventsBuilder
         
         %control behaviors
         %^routingTypeID = 'probFlow'; 
-        %^routingProbability = '[1]';
+        %^routingProbability = '[0 1]';
     end
     
     methods
         function construct(self)
-            construct@FlowNetworkSimEventsBuilder(self);
+            %construct@FlowNetworkSimEventsBuilder(self);
+            self.assignPorts;
+            self.buildPorts;
+            self.buildProbabilisticRouting;
+            self.buildRoutingControl;
             self.setProcessTime;
             self.setServerCount;
             self.setTimer;
             self.setStorageCapacity;
         end
         
+        function buildProbabilisticRouting(self)
+            self.routingProbability = self.systemElement.routingProbability;
+        end
        
         function setProcessTime(self)
             %Set the dialog parameters of the event-based random number generator block called ProcessTime. 

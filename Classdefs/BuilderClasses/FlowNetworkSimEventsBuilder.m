@@ -11,7 +11,7 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
         simEventsPath %The associated SimEvents block identifier >> CHANGED ON 1/22/15; expect errors
         
         %control behaviors
-        routingTypeID = 'probFlow'; 
+        routingTypeID = 'equiprobable'; 
         routingProbability = '[1 0]';
     end
     
@@ -19,6 +19,7 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
         function construct(self)
             self.assignPorts;
             self.buildPorts;
+            self.buildProbabilisticRouting;
             self.buildRoutingControl;
         end
         
@@ -138,8 +139,8 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
        function buildRoutingControl(self)
         %Need to move the routing into a strategy class
         if strcmp(self.routingTypeID, 'probFlow') ==1
-           % 1) Build the routing probability as the ratio of outbound flows
-           self.buildProbabilisticRouting;
+           %DEPRECATED: 1) Build the routing probability as the ratio of outbound flows
+           
            
            % 2) Check that the probabilities sum to 1 to 5 sig fig
            probability = round(self.routingProbability*10000);
@@ -188,7 +189,7 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
            %Note to Self: must set values simultaneously to avoid 'equal length' error
                set_param(strcat(self.simEventsPath, '/Routing'), 'probVecDisc', ProbabilityVector, 'valueVecDisc', ValueVector);
             
-        else %if strcmp(self.routingTypeID, 'plannedRoute')
+        elseif strcmp(self.routingTypeID, 'plannedRoute')
             shipment_destination = findobj(self.systemElement.outFlowEdgeSet, 'typeID', 'Shipment');
             routingLookupTable = '[';
 
@@ -204,9 +205,35 @@ classdef FlowNetworkSimEventsBuilder <IFlowNetworkBuilder
 
             set_param(strcat(self.simEventsPath, '/Lookup'), 'Value', routingLookupTable);
             set_param(strcat(self.simEventsPath, '/Node_ID'), 'Value', num2str(self.systemElement.instanceID));
-        end
+              
+        else %equiprobable is default
+            % 1) Build the routing probability equally across outbound flows
+            outFlowEdgeCount = length(self.systemElement.outFlowEdgeSet);
+            self.routingProbability = ones(outFlowEdgeCount,1)./outFlowEdgeCount;
+            
+            % 2) Check that the probabilities sum to 1 to 5 sig fig
+               probability = round(self.routingProbability*10000);
+               error = 10000 - sum(probability);
+               [Y, I] = max(probability);
+               probability(I) = Y + error;
+               probability = probability/10000;
+               
+            % 3) Convert the array to a "string" for input to SimEvents
+               ValueVector = '[0';
+               ProbabilityVector = '[0';
+               for jj = 1:length(probability)
+                   ValueVector = strcat(ValueVector, ',' , num2str(jj));
+                   ProbabilityVector = strcat(ProbabilityVector, ',', num2str(probability(jj)));
+               end
+               ValueVector = strcat(ValueVector, ']');
+               ProbabilityVector = strcat(ProbabilityVector, ']');
+
+           % 4) Set the value in the simevents block named Routing
+           %Note to Self: must set values simultaneously to avoid 'equal length' error
+               set_param(strcat(self.simEventsPath, '/Routing'), 'probVecDisc', ProbabilityVector, 'valueVecDisc', ValueVector);
        end
        
+       end
     end
     
     methods (Access = private)

@@ -5,10 +5,10 @@ function [arrivalProcess, arrivalEdgeSet] = mapArrivals2ArrivalProcessNode(proce
 nProcess = length(processSet);
 nProd = length(productArrivalRate);
 totalArrivalRate = sum(productArrivalRate);
-Parrival = zeros(nProcess, 1);
+externalArrivalRate = zeros(nProcess, 1); %total commodity flow into each process node
 
 for ii = 1:nProd
-    Parrival(processPlanSet(ii,1)) = Parrival(processPlanSet(ii,1)) + productArrivalRate(ii);
+    externalArrivalRate(processPlanSet(ii,1)) = externalArrivalRate(processPlanSet(ii,1)) + productArrivalRate(ii);
 end
 
 arrivalProcess = Process;
@@ -18,7 +18,7 @@ arrivalProcess.typeID = 'ArrivalProcess';
 arrivalProcess.concurrentProcessingCapacity = inf;
 arrivalProcess.averageServiceTime = 1/totalArrivalRate;
 arrivalProcess.storageCapacity = inf;
-arrivalProcess.routingProbability = Parrival ./ totalArrivalRate;
+arrivalProcess.routingProbability = externalArrivalRate ./ totalArrivalRate;
 
 arrivalEdgeSet(nProcess) = FlowNetworkLink;
 for ii = 1:nProcess
@@ -33,6 +33,7 @@ for ii = 1:nProcess
     idx = find(processPlanSet(:,1) == ii); 
     arrivalEdgeSet(ii).flowTypeAllowed = idx;
     arrivalEdgeSet(ii).flowAmount = productArrivalRate(idx);
+    %arrivalEdgeSet(ii).flowAmount = arrivalProcess.routingProbability(ii)*100;
 
     
 end

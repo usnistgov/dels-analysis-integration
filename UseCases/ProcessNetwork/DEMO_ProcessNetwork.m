@@ -7,7 +7,7 @@ addpath dels-analysis-integration\AnalysisLibraries\QueueingLib
 %Instance Parameters
 rng('default')
 nProd = 5;
-nProcess = 5;
+nProcess = 10;
 lengthProcessPlan = 5; %all process plans are the same length for now
 processPlanList = randi(nProcess, nProd, lengthProcessPlan);
 productArrivalRate = randi([1, 10],nProd);
@@ -49,9 +49,11 @@ for ii = 1:length(productSet)
     for jj = 1:length(processPlan.processStep)
        for kk = 1:length(processPlan.processStep{jj})
            processStep = processPlan.processStep{jj}(kk);
-           processStep.commoditySet{end+1} = productSet(ii);
-           processStep.commodityList(end+1) = productSet(ii).instanceID;
-           processStep.flowAmount(end+1) = productSet(ii).arrivalRate;
+           if ~any(processStep.commodityList == productSet(ii).instanceID)
+               processStep.commoditySet{end+1} = productSet(ii);
+               processStep.commodityList(end+1) = productSet(ii).instanceID;
+               processStep.flowAmount(end+1) = productSet(ii).arrivalRate;
+           end
        end
     end
     clear processStep    
@@ -83,11 +85,16 @@ end
 %Set Number of machines at each workstation
     concurrentProcessingCapacity = ceil(sum(externalArrivalRate) * serviceTime .* avgNoVisits / 0.80);
     for ii = 1:length(processSet)
-       processSet(ii).concurrentProcessingCapacity = concurrentProcessingCapacity(ii);
+       if concurrentProcessingCapacity(ii) ~= 0
+           %Ran into an edge case where one process was not selected.
+        processSet(ii).concurrentProcessingCapacity = concurrentProcessingCapacity(ii);
+       else
+           processSet(ii).concurrentProcessingCapacity = 1;
+       end
     end
 
 clear nProcess nProd lengthProcessPlan ii jj kk processPlan seqDep concurrentProcessingCapacity 
-clear avgNoVisits externalArrivalRate processPlanList productArrivalRate probabilityTransitionMatrix serviceTime
+clear avgNoVisits externalArrivalRate processPlanList productArrivalRate serviceTime
 
 % OUTPUT: processSet, productSet
 
@@ -165,8 +172,10 @@ PN = ProcessNetwork;
                 
                 flowEdge = findobj(flowEdgeSet, 'instanceID', idx);
                 
-                flowEdge.flowTypeAllowed(end+1) = productSet(ii).instanceID;
-                flowEdge.flowAmount(end+1) = productSet(ii).arrivalRate;
+                if ~any(flowEdge.flowTypeAllowed == productSet(ii).instanceID)
+                    flowEdge.flowTypeAllowed(end+1) = productSet(ii).instanceID;
+                    flowEdge.flowAmount(end+1) = productSet(ii).arrivalRate;
+                end
             end %for each seq dep in product's processplan
         end %for each product
         PN.flowEdgeList = flowEdgeList(1:length(flowEdgeSet),:);
@@ -183,7 +192,6 @@ PN = ProcessNetwork;
         
         
 
-
         %3) aggregate all departures from the process network into one (new) departure process node (a sink node)
         [departureProcess, departureFlowEdgeSet] = mapDepartures2DepartureProcessNode(PN.processNodeSet{1}, PN.flowEdgeSet, productArrivalRate, processPlanList);
         %Add departureProcessNode to ProcessNode Set;
@@ -193,8 +201,18 @@ PN = ProcessNetwork;
             PN.flowEdgeList(end+1,:) = [departureFlowEdgeSet(ii).instanceID, departureFlowEdgeSet(ii).sourceFlowNetworkID, departureFlowEdgeSet(ii).targetFlowNetworkID];
         end
         
+        %4) Build probabilistic routing
+        P = PN.probabilityTransitionMatrix;
+        for ii = 1:length(PN.processNodeSet{1})
+           routingProbability = P(ii,(P(ii,:)>0));
+           PN.processNodeSet{1}(ii).routingProbability = [routingProbability, 1-sum(routingProbability)];
+           %assert(length(PN.processNodeSet{1}(ii).routingProbability) == length(PN.processNodeSet{1}(ii).outFlowEdgeSet), 'Routing Probability doesnt match out flow edge set')
+        end
+        
+        clear arrivalProcess arrivalFlowEdgeSet departureProcess departureFlowEdgeSet
+        
 
-        %4) With all new process steps and flow edges, create necessary connectors/references 
+        %5) With all new process steps and flow edges, create necessary connectors/references 
         
         for jj = 1:length(PN.processNodeSet)
             for ii = 1:length(PN.processNodeSet{jj})
@@ -212,7 +230,8 @@ PN = ProcessNetwork;
                processNode.parentProcessNetwork = PN;
             end
         end
-        clear flowEdgeList flowEdgeSet flowEdge idx sameSource sameTarget seqDep ii jj 
+
+        clear processNode flowEdgeList flowEdgeSet flowEdge idx sameSource sameTarget seqDep ii jj kk
         
         
     % 2.3) Solve the Queuing Network Problem  

@@ -62,6 +62,7 @@ for ii = 1:length(distributionNetworkSet)
     for jj = 1:length(distributionNetworkSet(ii).depotSet)
         builderSet(jj) = DepotSimEventsBuilder;
         builderSet(jj).analysisTypeID = 'Depot_probflow';
+        builderSet(jj).routingTypeID = 'probflow';
         builderSet(jj).echelon = 3;
         builderSet(jj).setSystemElement(distributionNetworkSet(ii).depotSet(jj));
     end
@@ -71,6 +72,7 @@ for ii = 1:length(distributionNetworkSet)
     for jj = 1:length(distributionNetworkSet(ii).customerSet)
         builderSet(jj) = CustomerSimEventsBuilder;
         builderSet(jj).analysisTypeID = 'Customer_probflow';
+        builderSet(jj).routingTypeID = 'probflow';
         builderSet(jj).echelon = 1;
         builderSet(jj).setSystemElement(distributionNetworkSet(ii).customerSet(jj));
     end
@@ -80,6 +82,7 @@ for ii = 1:length(distributionNetworkSet)
     for jj = 1:length(distributionNetworkSet(ii).transportationChannelSet)
         builderSet(jj) = TransportationChannelSimEventsBuilder;
         builderSet(jj).analysisTypeID = 'TransportationChannel';
+        builderSet(jj).routingTypeID = 'probflow';
         builderSet(jj).echelon = 2;
         builderSet(jj).setSystemElement(distributionNetworkSet(ii).transportationChannelSet(jj));
     end
@@ -104,10 +107,12 @@ for ii = 1:length(flowNetworkFactorySet)
         if isa(flowNetworkFactorySet(ii).flowNodeBuilders{jj}, 'DepotSimEventsBuilder')
             for kk = 1:length(flowNetworkFactorySet(ii).flowNodeBuilders{jj})
                 flowNetworkFactorySet(ii).flowNodeBuilders{jj}(kk).analysisTypeID = 'Depot';
+                flowNetworkFactorySet(ii).flowNodeBuilders{jj}(kk).routingTypeID = 'probflow';
             end
         elseif isa(flowNetworkFactorySet(ii).flowNodeBuilders{jj}, 'CustomerSimEventsBuilder')
             for ll = 1:length(flowNetworkFactorySet(ii).flowNodeBuilders{jj})
                 flowNetworkFactorySet(ii).flowNodeBuilders{jj}(kk).analysisTypeID = 'Customer';
+                flowNetworkFactorySet(ii).flowNodeBuilders{jj}(kk).routingTypeID = 'probflow';
             end
         elseif isa(flowNetworkFactorySet(ii).flowNodeBuilders{jj}, 'TransportationChannelSimEventsBuilder')
             %do nothing
