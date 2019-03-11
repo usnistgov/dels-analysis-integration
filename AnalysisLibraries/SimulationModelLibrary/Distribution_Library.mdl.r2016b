@@ -1,12 +1,12 @@
 Model {
   Name			  "Distribution_Library"
-  Version		  9.2
+  Version		  8.8
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.65"
+    ComputedModelVersion    "1.64"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -14,35 +14,13 @@ Model {
     NumResetEvents	    0
     HasInitializeEvent	    0
     HasTerminateEvent	    0
-    PreCompExecutionDomainType "Unset"
     IsExportFunctionModel   0
-    NumParameterArguments   0
-    NumExternalFileReferences 3
-    ExternalFileReference {
-      Reference		      "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
-      Path		      "Distribution_Library/Customer/Shipment_Metrics"
-      SID		      "82"
-      Type		      "LIBRARY_BLOCK"
-    }
-    ExternalFileReference {
-      Reference		      "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
-      Path		      "Distribution_Library/Customer_probflow/Shipment_Metrics"
-      SID		      "247"
-      Type		      "LIBRARY_BLOCK"
-    }
-    ExternalFileReference {
-      Reference		      "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
-      Path		      "Distribution_Library/TransportationChannel/TC_Status"
-      SID		      "166"
-      Type		      "LIBRARY_BLOCK"
-    }
-    OrderedModelArguments   1
   }
-  DiagnosticSuppressor	  "on"
-  WebScopes_FoundationPlugin "on"
-  NotesPlugin		  "on"
+  LogicAnalyzerGraphicalSettings ""
   LogicAnalyzerPlugin	  "on"
-  SLCCPlugin		  "on"
+  LogicAnalyzerSignalOrdering ""
+  DiagnosticSuppressor	  "on"
+  SuppressorTable	  "22 serialization::archive 11 0 3 0 0 0 8 0"
   ScopeRefreshTime	  0.035000
   OverrideScopeRefreshTime off
   DisableAllScopes	  off
@@ -62,7 +40,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-1422.0, 49.0, 1024.0, 676.0]
+      Location		      [0.0, 0.0, 1024.0, 676.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -84,11 +62,11 @@ Model {
 	$ObjectID		5
 	$ClassName		"Simulink.EditorInfo"
 	IsActive		[1]
-	ViewObjType		"SimulinkSubsys"
-	LoadSaveID		"236"
-	Extents			[1217.0, 632.0]
-	ZoomFactor		[1.0]
-	Offset			[74.11171875000008, 75.800000000000011]
+	ViewObjType		"SimulinkTopLevel"
+	LoadSaveID		"0"
+	Extents			[1221.0, 634.0]
+	ZoomFactor		[0.49999999999999994]
+	Offset			[-212.93333333333294, -61.200000000000045]
       }
       Object {
 	$PropName		"DockComponentsInfo"
@@ -106,33 +84,31 @@ Model {
       }
       WindowState	      "AAAA/wAAAAD9AAAAAgAAAAAAAAC9AAAB+PwCAAAAA/sAAAAWAEQAbwBjAGsAVwBpAGQAZwBlAHQAMwEAAAAxAAAB+AAAA"
       "AAAAAAA+wAAABYARABvAGMAawBXAGkAZABnAGUAdAA0AAAAAAD/////AAAAAAAAAAD7AAAAUgBHAEwAVQBFADIAIAB0AHIAZQBlACAAYwBvAG0Ac"
-      "ABvAG4AZQBuAHQALwBHAEwAVQBFADIAIAB0AHIAZQBlACAAYwBvAG0AcABvAG4AZQBuAHQAAAAAAP////8AAAB5AP///wAAAAEAAAAAAAAAAPwCA"
+      "ABvAG4AZQBuAHQALwBHAEwAVQBFADIAIAB0AHIAZQBlACAAYwBvAG0AcABvAG4AZQBuAHQAAAAAAP////8AAAB0AP///wAAAAEAAAAAAAAAAPwCA"
       "AAAAfsAAABUAEcATABVAEUAMgA6AFAAcgBvAHAAZQByAHQAeQBJAG4AcwBwAGUAYwB0AG8AcgAvAFAAcgBvAHAAZQByAHQAeQAgAEkAbgBzAHAAZ"
-      "QBjAHQAbwByAAAAAAD/////AAAARgD///8AAATuAAACvQAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAAP/////wAAAAAA/////wAAAAAAAAAA/"
+      "QBjAHQAbwByAAAAAAD/////AAAAMAD///8AAATuAAACuwAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAAP/////wAAAAAA/////wAAAAAAAAAA/"
       "////wEAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/"
       "////wEAAACR/////wAAAAAAAAAA/////wEAAAEE/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAAGV/////wAAAAAAAAAA/"
       "////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAAON/////wAAAAAAAAAA/"
       "////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA"
     }
   }
-  HideAutomaticNames	  on
   Created		  "Thu Apr 02 13:25:56 2015"
   Creator		  "tsprock3"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "tas5"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Mar 06 12:52:09 2019"
-  RTWModifiedTimeStamp	  473777526
-  ModelVersionFormat	  "1.%<AutoIncrement:65>"
+  LastModifiedDate	  "Wed Feb 28 08:58:22 2018"
+  RTWModifiedTimeStamp	  441709097
+  ModelVersionFormat	  "1.%<AutoIncrement:64>"
+  ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "disabled"
   WideLines		  off
   ShowLineDimensions	  off
   ShowPortDataTypes	  off
-  ShowAllPropagatedSignalLabels	off
-  PortDataTypeDisplayFormat "AliasTypeOnly"
   ShowEditTimeErrors	  on
   ShowEditTimeWarnings	  on
   ShowEditTimeAdvisorChecks off
@@ -146,7 +122,6 @@ Model {
   ShowViewerIcons	  on
   SortedOrder		  off
   VariantCondition	  off
-  ShowSubsystemDomainSpec off
   ExecutionContextIcon	  off
   ShowLinearizationAnnotations on
   ShowVisualizeInsertedRTB on
@@ -154,22 +129,17 @@ Model {
   BlockNameDataTip	  off
   BlockParametersDataTip  off
   BlockDescriptionStringDataTip	off
-  BlockVariantConditionDataTip off
   ToolBar		  on
   StatusBar		  on
   BrowserShowLibraryLinks off
   FunctionConnectors	  off
   BrowserLookUnderMasks	  off
-  MultiThreadCoSim	  on
   SimulationMode	  "normal"
-  VisualizeLoggedSignalsWhenLoggingToFile off
   PauseTimes		  "5"
   NumberOfSteps		  1
   SnapshotBufferSize	  10
   SnapshotInterval	  10
   NumberOfLastSnapshots	  0
-  EnablePacing		  off
-  PacingRate		  1
   LinearizationMsg	  "none"
   Profile		  off
   ParamWorkspaceSource	  "MATLABWorkspace"
@@ -220,13 +190,12 @@ Model {
   ExtModeAutoUpdateStatusClock on
   ShowModelReferenceBlockVersion off
   ShowModelReferenceBlockIO off
-  OrderedModelArguments	  on
   Array {
     Type		    "Handle"
     Dimension		    1
     Simulink.ConfigSet {
       $ObjectID		      8
-      Version		      "1.18.1"
+      Version		      "1.16.5"
       DisabledProps	      []
       Description	      ""
       Array {
@@ -234,15 +203,15 @@ Model {
 	Dimension		11
 	Simulink.SolverCC {
 	  $ObjectID		  9
-	  Version		  "1.18.1"
+	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
 	  StartTime		  "0.0"
 	  StopTime		  "100.0"
 	  AbsTol		  "auto"
-	  AutoScaleAbsTol	  on
 	  FixedStep		  "auto"
 	  InitialStep		  "auto"
+	  MaxNumMinSteps	  "-1"
 	  MaxOrder		  5
 	  ZcThreshold		  "auto"
 	  ConsecutiveZCsStepRelTol "10*128*eps"
@@ -254,6 +223,7 @@ Model {
 	  MaxConsecutiveMinStep	  "1"
 	  RelTol		  "1e-3"
 	  EnableMultiTasking	  on
+	  EnableConcurrentExecution off
 	  ConcurrentTasks	  off
 	  Solver		  "VariableStepDiscrete"
 	  SolverName		  "VariableStepDiscrete"
@@ -270,12 +240,10 @@ Model {
 	  SampleTimeConstraint	  "Unconstrained"
 	  InsertRTBMode		  "Whenever possible"
 	  SampleTimeProperty	  []
-	  DecoupledContinuousIntegration off
-	  MinimalZcImpactIntegration off
 	}
 	Simulink.DataIOCC {
 	  $ObjectID		  10
-	  Version		  "1.18.1"
+	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
 	  Decimation		  "1"
@@ -310,13 +278,12 @@ Model {
 	  ReturnWorkspaceOutputsName "out"
 	  Refine		  "1"
 	  LoggingToFile		  off
-	  DatasetSignalFormat	  "timeseries"
 	  LoggingFileName	  "out.mat"
 	  LoggingIntervals	  "[-inf, inf]"
 	}
 	Simulink.OptimizationCC {
 	  $ObjectID		  11
-	  Version		  "1.18.1"
+	  Version		  "1.16.5"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    8
@@ -371,19 +338,10 @@ Model {
 	  BufferReusableBoundary  on
 	  SimCompilerOptimization "off"
 	  AccelVerboseBuild	  off
-	  OptimizeBlockOrder	  "off"
-	  OptimizeDataStoreBuffers on
-	  BusAssignmentInplaceUpdate on
-	  DifferentSizesBufferReuse off
-	  OptimizationLevel	  "level2"
-	  OptimizationPriority	  "Balanced"
-	  OptimizationCustomize	  on
-	  UseRowMajorAlgorithm	  off
-	  LabelGuidedReuse	  off
 	}
 	Simulink.DebuggingCC {
 	  $ObjectID		  12
-	  Version		  "1.18.1"
+	  Version		  "1.16.5"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    1
@@ -395,7 +353,6 @@ Model {
 	  ConsistencyChecking	  "none"
 	  ArrayBoundsChecking	  "none"
 	  SignalInfNanChecking	  "none"
-	  StringTruncationChecking "error"
 	  SignalRangeChecking	  "none"
 	  ReadBeforeWriteMsg	  "UseLocalSettings"
 	  WriteAfterWriteMsg	  "UseLocalSettings"
@@ -423,7 +380,6 @@ Model {
 	  MultiTaskRateTransMsg	  "error"
 	  SingleTaskRateTransMsg  "none"
 	  TasksWithSamePriorityMsg "warning"
-	  ExportedTasksRateTransMsg "none"
 	  SigSpecEnsureSampleTimeMsg "warning"
 	  CheckMatrixSingularityMsg "none"
 	  IntegerOverflowMsg	  "warning"
@@ -465,9 +421,6 @@ Model {
 	  StateNameClashWarn	  "warning"
 	  SimStateInterfaceChecksumMismatchMsg "warning"
 	  SimStateOlderReleaseMsg "warning"
-	  ChecksumConsistencyForSSReuse	"none"
-	  LibraryContextMissingDiagnostic "warning"
-	  MatchCodeGenerationContextForUpdateDiagram "none"
 	  InitInArrayFormatMsg	  "warning"
 	  StrictBusMsg		  "ErrorLevel1"
 	  BusNameAdapt		  "WarnAndRepair"
@@ -475,7 +428,6 @@ Model {
 	  SymbolicDimMinMaxWarning "warning"
 	  LossOfSymbolicDimsSimulationWarning "warning"
 	  LossOfSymbolicDimsCodeGenerationWarning "error"
-	  SymbolicDimsDataTypeCodeGenerationDiagnostic "error"
 	  BlockIODiagnostic	  "none"
 	  SFUnusedDataAndEventsDiag "warning"
 	  SFUnexpectedBacktrackingDiag "warning"
@@ -494,15 +446,10 @@ Model {
 	  AllowedUnitSystems	  "all"
 	  UnitsInconsistencyMsg	  "warning"
 	  AllowAutomaticUnitConversions	on
-	  RCSCRenamedMsg	  "warning"
-	  RCSCObservableMsg	  "warning"
-	  ForceCombineOutputUpdateInSim	off
-	  UnitDatabase		  ""
-	  UnderSpecifiedDimensionMsg "none"
 	}
 	Simulink.HardwareCC {
 	  $ObjectID		  13
-	  Version		  "1.18.1"
+	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
 	  ProdBitPerChar	  8
@@ -550,7 +497,7 @@ Model {
 	}
 	Simulink.ModelReferenceCC {
 	  $ObjectID		  14
-	  Version		  "1.18.1"
+	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
@@ -569,7 +516,7 @@ Model {
 	}
 	Simulink.SFSimCC {
 	  $ObjectID		  15
-	  Version		  "1.18.1"
+	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
 	  SimCustomSourceCode	  ""
@@ -588,24 +535,19 @@ Model {
 	  SimIntegrity		  on
 	  SimUseLocalCustomCode	  off
 	  SimParseCustomCode	  on
-	  SimAnalyzeCustomCode	  off
 	  SimBuildMode		  "sf_incremental_build"
 	  SimGenImportedTypeDefs  off
 	  ModelFunctionsGlobalVisibility "on"
 	  CompileTimeRecursionLimit 50
 	  EnableRuntimeRecursion  on
-	  MATLABDynamicMemAlloc	  on
-	  MATLABDynamicMemAllocThreshold 65536
-	  CustomCodeFunctionArrayLayout	[]
-	  DefaultCustomCodeFunctionArrayLayout "NotSpecified"
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
 	  $ObjectID		  16
-	  Version		  "1.18.1"
+	  Version		  "1.16.5"
 	  Array {
 	    Type		    "Cell"
-	    Dimension		    16
+	    Dimension		    13
 	    Cell		    "IncludeHyperlinkInReport"
 	    Cell		    "GenerateTraceInfo"
 	    Cell		    "GenerateTraceReport"
@@ -619,9 +561,6 @@ Model {
 	    Cell		    "GenerateMissedCodeReplacementReport"
 	    Cell		    "GenerateErtSFunction"
 	    Cell		    "CreateSILPILBlock"
-	    Cell		    "CodeExecutionProfiling"
-	    Cell		    "CodeProfilingSaveOptions"
-	    Cell		    "CodeProfilingInstrumentation"
 	    PropName		    "DisabledProps"
 	  }
 	  SystemTargetFile	  "grt.tlc"
@@ -636,6 +575,7 @@ Model {
 	  PostCodeGenCommand	  ""
 	  Description		  ""
 	  GenerateReport	  off
+	  SaveLog		  off
 	  RTWVerbose		  on
 	  RetainRTWFile		  off
 	  RTWBuildHooks		  []
@@ -651,9 +591,7 @@ Model {
 	  CustomSource		  ""
 	  CustomLibrary		  ""
 	  CustomDefine		  ""
-	  CustomBLASCallback	  ""
 	  CustomLAPACKCallback	  ""
-	  CustomFFTCallback	  ""
 	  CustomInitializer	  ""
 	  CustomTerminator	  ""
 	  Toolchain		  "Automatically locate an installed toolchain"
@@ -666,7 +604,7 @@ Model {
 	  CodeExecutionProfiling  off
 	  CodeExecutionProfileVariable "executionProfile"
 	  CodeProfilingSaveOptions "SummaryOnly"
-	  CodeProfilingInstrumentation "off"
+	  CodeProfilingInstrumentation off
 	  SILDebugging		  off
 	  TargetLang		  "C"
 	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
@@ -689,10 +627,10 @@ Model {
 	    Dimension		    2
 	    Simulink.CodeAppCC {
 	      $ObjectID		      17
-	      Version		      "1.18.1"
+	      Version		      "1.16.5"
 	      Array {
 		Type			"Cell"
-		Dimension		28
+		Dimension		25
 		Cell			"IgnoreCustomStorageClasses"
 		Cell			"IgnoreTestpoints"
 		Cell			"InsertBlockDesc"
@@ -718,9 +656,6 @@ Model {
 		Cell			"CustomSymbolStrModelFcn"
 		Cell			"CustomSymbolStrUtil"
 		Cell			"CustomUserTokenString"
-		Cell			"BlockCommentType"
-		Cell			"CustomSymbolStrEmxType"
-		Cell			"CustomSymbolStrEmxFcn"
 		PropName		"DisabledProps"
 	      }
 	      Description	      ""
@@ -730,16 +665,18 @@ Model {
 	      CommentStyle	      "Auto"
 	      IgnoreCustomStorageClasses on
 	      IgnoreTestpoints	      off
+	      IncHierarchyInIds	      off
 	      MaxIdLength	      31
 	      PreserveName	      off
 	      PreserveNameWithParent  off
 	      ShowEliminatedStatement off
 	      OperatorAnnotations     off
+	      IncAutoGenComments      off
 	      SimulinkDataObjDesc     off
 	      SFDataObjDesc	      off
 	      MATLABFcnDesc	      off
+	      IncDataTypeInIds	      off
 	      MangleLength	      1
-	      SharedChecksumLength    8
 	      CustomSymbolStrGlobalVar "$R$N$M"
 	      CustomSymbolStrType     "$N$R$M_T"
 	      CustomSymbolStrField    "$N$M"
@@ -750,8 +687,6 @@ Model {
 	      CustomSymbolStrTmpVar   "$N$M"
 	      CustomSymbolStrMacro    "$R$N$M"
 	      CustomSymbolStrUtil     "$N$C"
-	      CustomSymbolStrEmxType  "emxArray_$M$N"
-	      CustomSymbolStrEmxFcn   "emx$M$N"
 	      CustomUserTokenString   ""
 	      CustomCommentsFcn	      ""
 	      DefineNamingRule	      "None"
@@ -763,8 +698,6 @@ Model {
 	      InsertBlockDesc	      off
 	      InsertPolySpaceComments off
 	      SimulinkBlockComments   on
-	      BlockCommentType	      "BlockPathComment"
-	      StateflowObjectComments on
 	      MATLABSourceComments    off
 	      EnableCustomComments    off
 	      InternalIdentifierFile  ""
@@ -777,10 +710,10 @@ Model {
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
 	      $ObjectID		      18
-	      Version		      "1.18.1"
+	      Version		      "1.16.5"
 	      Array {
 		Type			"Cell"
-		Dimension		19
+		Dimension		18
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"GenerateAllocFcn"
@@ -799,7 +732,6 @@ Model {
 		Cell			"ExistingSharedCode"
 		Cell			"RemoveDisableFunc"
 		Cell			"RemoveResetFunc"
-		Cell			"PreserveStateflowLocalDataDimensions"
 		PropName		"DisabledProps"
 	      }
 	      Description	      ""
@@ -810,9 +742,9 @@ Model {
 	      TargetLangStandard      "C89/C90 (ANSI)"
 	      CodeReplacementLibrary  "None"
 	      UtilityFuncGeneration   "Auto"
-	      MultiwordTypeDef	      "System defined"
+	      ERTMultiwordTypeDef     "System defined"
+	      ERTMultiwordLength      256
 	      MultiwordLength	      2048
-	      DynamicStringBufferSize 256
 	      GenerateFullHeader      on
 	      InferredTypesCompatibility off
 	      ExistingSharedCode      ""
@@ -826,8 +758,8 @@ Model {
 	      GeneratePreprocessorConditionals "Disable all"
 	      CombineOutputUpdateFcns on
 	      CombineSignalStateStructs	off
-	      GroupInternalDataByFunction off
 	      SuppressErrorStatus     off
+	      ERTFirstTimeCompliant   off
 	      IncludeFileDelimiter    "Auto"
 	      ERTCustomFileBanners    off
 	      SupportAbsoluteTime     on
@@ -835,9 +767,9 @@ Model {
 	      MatFileLogging	      on
 	      MultiInstanceERTCode    off
 	      CodeInterfacePackaging  "Nonreusable function"
-	      PurelyIntegerCode	      off
 	      SupportNonFinite	      on
 	      SupportComplex	      on
+	      PurelyIntegerCode	      off
 	      SupportContinuousTime   on
 	      SupportNonInlinedSFcns  on
 	      RemoveDisableFunc	      off
@@ -845,7 +777,6 @@ Model {
 	      SupportVariableSizeSignals off
 	      ParenthesesLevel	      "Nominal"
 	      CastingMode	      "Nominal"
-	      PreserveStateflowLocalDataDimensions off
 	      MATLABClassNameForMDSCustomization "Simulink.SoftwareTarget.GRTCustomization"
 	      ModelStepFunctionPrototypeControlCompliant off
 	      CPPClassGenCompliant    on
@@ -856,15 +787,6 @@ Model {
 	      UseToolchainInfoCompliant	on
 	      GenerateSharedConstants on
 	      CoderGroups	      []
-	      AccessMethods	      []
-	      LookupTableObjectStructAxisOrder "1,2,3,4,..."
-	      LUTObjectStructOrderExplicitValues "Size,Breakpoints,Table"
-	      LUTObjectStructOrderEvenSpacing "Size,Breakpoints,Table"
-	      ArrayLayout	      "Column-major"
-	      UnsupportedSFcnMsg      "error"
-	      ERTHeaderFileRootName   "$R$E"
-	      ERTSourceFileRootName   "$R$E"
-	      ERTDataFileRootName     "$R_data"
 	      UseMalloc		      off
 	      ExtMode		      off
 	      ExtModeStaticAlloc      off
@@ -886,7 +808,7 @@ Model {
 	}
 	SlCovCC.ConfigComp {
 	  $ObjectID		  19
-	  Version		  "1.18.1"
+	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  "Simulink Coverage Configuration Component"
 	  Name			  "Simulink Coverage"
@@ -922,11 +844,10 @@ Model {
 	  CovUseTimeInterval	  off
 	  CovStartTime		  0
 	  CovStopTime		  0
-	  CovMcdcMode		  "Masking"
 	}
 	hdlcoderui.hdlcc {
 	  $ObjectID		  20
-	  Version		  "1.18.1"
+	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  "HDL Coder custom configuration component"
 	  Name			  "HDL Coder"
@@ -941,7 +862,7 @@ Model {
 	DES.SimEventsCC {
 	  $BackupClass		  "Simulink.CustomCC"
 	  $ObjectID		  21
-	  Version		  "1.18.1"
+	  Version		  "1.16.5"
 	  DisabledProps		  []
 	  Description		  ""
 	  Name			  "SimEvents"
@@ -962,7 +883,7 @@ Model {
       Name		      "Configuration"
       ExtraOptions	      ""
       CurrentDlgPage	      "Solver"
-      ConfigPrmDlgPosition    [ 840, 485, 1720, 1115 ]
+      ConfigPrmDlgPosition     [ 840, 485, 1720, 1115 ] 
     }
     PropName		    "ConfigurationSets"
   }
@@ -991,7 +912,6 @@ Model {
     FontWeight		    "normal"
     FontAngle		    "normal"
     ShowName		    on
-    HideAutomaticName	    on
     BlockRotation	    0
     BlockMirror		    off
   }
@@ -1005,12 +925,7 @@ Model {
     FontSize		    10
     FontWeight		    "normal"
     FontAngle		    "normal"
-    MarkupType		    "model"
     UseDisplayTextAsClickCallback off
-    AnnotationType	    "note_annotation"
-    FixedHeight		    off
-    FixedWidth		    off
-    Interpreter		    "off"
   }
   LineDefaults {
     FontName		    "Arial"
@@ -1022,7 +937,7 @@ Model {
     SelfModifiable	    "off"
     IconFrame		    "on"
     IconOpaque		    "opaque"
-    RunInitForIconRedraw    "analyze"
+    RunInitForIconRedraw    "off"
     IconRotate		    "none"
     PortRotate		    "default"
     IconUnits		    "autoscale"
@@ -1213,10 +1128,6 @@ Model {
       SourceOfInitialOutputValue "Dialog"
       OutputWhenDisabled      "held"
       InitialOutput	      "[]"
-      MustResolveToSignalObject	off
-      OutputWhenUnConnected   off
-      OutputWhenUnconnectedValue "0"
-      VectorParamsAs1DForOutWhenUnconnected off
     }
     Block {
       BlockType		      OutputSwitch
@@ -1237,7 +1148,6 @@ Model {
     }
     Block {
       BlockType		      PMIOPort
-      Port		      "1"
     }
     Block {
       BlockType		      PathCombiner
@@ -1262,7 +1172,6 @@ Model {
       FunctionName	      "system"
       SFunctionModules	      "''"
       PortCounts	      "[]"
-      MultiThreadCoSim	      "auto"
     }
     Block {
       BlockType		      SetAttribute
@@ -1337,18 +1246,11 @@ Model {
       Opaque		      off
       MaskHideContents	      off
       SFBlockType	      "NONE"
-      VariantControlMode      "Expression"
-      Variant		      off
       GeneratePreprocessorConditionals off
-      AllowZeroVariantControls off
       PropagateVariantConditions off
       TreatAsGroupedWhenPropagatingVariantConditions on
       ContentPreviewEnabled   off
       IsWebBlock	      off
-      IsObserver	      off
-      Latency		      "0"
-      AutoFrameSizeCalculation off
-      IsWebBlockPanel	      off
     }
     Block {
       BlockType		      Sum
@@ -1405,11 +1307,8 @@ Model {
   }
   System {
     Name		    "Distribution_Library"
-    Location		    [-1422, 49, -398, 725]
-    Open		    off
-    PortBlocksUseCompactNotation off
-    SetExecutionDomain	    off
-    ExecutionDomainType	    "Deduce"
+    Location		    [0, 0, 1024, 676]
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1432,6 +1331,7 @@ Model {
       ZOrder		      -1
       BackgroundColor	      "[1.000000, 0.501961, 0.501961]"
       RequestExecContextInheritance off
+      Variant		      off
       Object {
 	$PropName		"MaskObject"
 	$ObjectID		23
@@ -1451,7 +1351,6 @@ Model {
 	    Name		    "Mean"
 	    Prompt		    "Frequency"
 	    Value		    "1000/913"
-	    Tunable		    "off"
 	  }
 	  Object {
 	    $ObjectID		    25
@@ -1466,7 +1365,6 @@ Model {
 	    Prompt		    "Attributes"
 	    Value		    "[1 10 9 2]|1|2|1"
 	    Evaluate		    "off"
-	    Tunable		    "off"
 	  }
 	  PropName		  "Parameters"
 	}
@@ -1475,9 +1373,6 @@ Model {
 	Name			"CommoditySource"
 	Location		[851, 426, 1545, 794]
 	Open			off
-	PortBlocksUseCompactNotation off
-	SetExecutionDomain	off
-	ExecutionDomainType	"Deduce"
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1557,6 +1452,7 @@ Model {
 	  Position		  [360, 113, 390, 127]
 	  ZOrder		  -8
 	  BlockMirror		  on
+	  Port			  "1"
 	  Side			  "Right"
 	}
 	Line {
@@ -1604,13 +1500,11 @@ Model {
       FontSize		      18
       FontWeight	      "bold"
       RequestExecContextInheritance off
+      Variant		      off
       System {
 	Name			"Customer"
-	Location		[-1422, 49, -398, 725]
+	Location		[805, 308, 1751, 1252]
 	Open			off
-	PortBlocksUseCompactNotation off
-	SetExecutionDomain	off
-	ExecutionDomainType	"Deduce"
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -1621,7 +1515,7 @@ Model {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"80"
+	ZoomFactor		"100"
 	Block {
 	  BlockType		  EntitySink
 	  Name			  "Entity Sink"
@@ -1646,8 +1540,8 @@ Model {
 	  Position		  [510, 474, 595, 531]
 	  ZOrder		  -1
 	  BlockMirror		  on
-	  OutputPortMap		  "o1,o2,o3"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1,o2,o3"
 	  AttributeName		  "Origin|Destination|Start"
 	  AttributeMissing	  "Error|Error|Error"
 	  AttributeDefaultValue	  "1|1|1"
@@ -1672,13 +1566,49 @@ Model {
 	  Ports			  [0, 1, 0, 0, 0, 1, 1]
 	  Position		  [405, 217, 490, 273]
 	  ZOrder		  -1
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  AttributeName		  "Route"
 	  EvaluatedDefaultAttributeValue "{[]}"
 	  Port {
 	    PortType		    2
 	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  PathCombiner
+	  Name			  "IN_Commodity"
+	  SID			  "202"
+	  Ports			  [0, 0, 0, 0, 0, 4, 1]
+	  Position		  [265, 215, 365, 270]
+	  ZOrder		  -3
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberInputPorts	  "4"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    2
+	    PortNumber		    2
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    2
+	    PortNumber		    3
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    2
+	    PortNumber		    4
 	    ConnectionType	    "SimEventsDDv2.SEPortIn"
 	  }
 	  Port {
@@ -1730,13 +1660,11 @@ Model {
 	  TreatAsAtomicUnit	  on
 	  RequestExecContextInheritance	off
 	  SFBlockType		  "MATLAB Function"
+	  Variant		  off
 	  System {
 	    Name		    "MATLAB Function"
 	    Location		    [227, 345, 838, 789]
 	    Open		    off
-	    PortBlocksUseCompactNotation off
-	    SetExecutionDomain	    off
-	    ExecutionDomainType	    "Deduce"
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -1748,7 +1676,7 @@ Model {
 	    TiledPageScale	    1
 	    ShowPageBoundaries	    off
 	    ZoomFactor		    "100"
-	    SIDHighWatermark	    "36"
+	    SIDHighWatermark	    "33"
 	    Block {
 	      BlockType		      Inport
 	      Name		      "route"
@@ -1778,20 +1706,20 @@ Model {
 	    Block {
 	      BlockType		      Demux
 	      Name		      " Demux "
-	      SID		      "204::35"
+	      SID		      "204::32"
 	      Ports		      [1, 1]
 	      Position		      [270, 230, 320, 270]
-	      ZOrder		      21
+	      ZOrder		      18
 	      Outputs		      "1"
 	    }
 	    Block {
 	      BlockType		      S-Function
 	      Name		      " SFunction "
-	      SID		      "204::34"
+	      SID		      "204::31"
 	      Tag		      "Stateflow S-Function Distribution_Library 1"
 	      Ports		      [3, 2]
 	      Position		      [180, 100, 230, 180]
-	      ZOrder		      20
+	      ZOrder		      17
 	      FunctionName	      "sf_sfun"
 	      PortCounts	      "[3 2]"
 	      SFunctionDeploymentMode off
@@ -1800,14 +1728,16 @@ Model {
 	      Port {
 		PortNumber		2
 		Name			"next"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
 	      }
 	    }
 	    Block {
 	      BlockType		      Terminator
 	      Name		      " Terminator "
-	      SID		      "204::36"
+	      SID		      "204::33"
 	      Position		      [460, 241, 480, 259]
-	      ZOrder		      22
+	      ZOrder		      19
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -1818,21 +1748,21 @@ Model {
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
-	      ZOrder		      25
+	      ZOrder		      19
 	      SrcBlock		      "route"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      26
+	      ZOrder		      20
 	      SrcBlock		      "current"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      2
 	    }
 	    Line {
-	      ZOrder		      27
+	      ZOrder		      21
 	      SrcBlock		      "lookup"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
@@ -1840,7 +1770,7 @@ Model {
 	    }
 	    Line {
 	      Name		      "next"
-	      ZOrder		      28
+	      ZOrder		      22
 	      Labels		      [0, 0]
 	      SrcBlock		      " SFunction "
 	      SrcPort		      2
@@ -1848,14 +1778,14 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      29
+	      ZOrder		      23
 	      SrcBlock		      " Demux "
 	      SrcPort		      1
 	      DstBlock		      " Terminator "
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      30
+	      ZOrder		      24
 	      SrcBlock		      " SFunction "
 	      SrcPort		      1
 	      Points		      [20, 0]
@@ -1908,42 +1838,6 @@ Model {
 	  }
 	}
 	Block {
-	  BlockType		  PathCombiner
-	  Name			  "ProducesCommodity"
-	  SID			  "202"
-	  Ports			  [0, 0, 0, 0, 0, 4, 1]
-	  Position		  [190, 215, 290, 270]
-	  ZOrder		  -3
-	  InputPortMap		  ""
-	  OutputPortMap		  ""
-	  NumberInputPorts	  "4"
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    2
-	    PortNumber		    2
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    2
-	    PortNumber		    3
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    2
-	    PortNumber		    4
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
 	  BlockType		  Reference
 	  Name			  "Shipment_Metrics"
 	  SID			  "82"
@@ -1951,12 +1845,9 @@ Model {
 	  Position		  [335, 413, 415, 457]
 	  ZOrder		  -2
 	  BlockMirror		  on
-	  LibraryVersion	  "1.45"
+	  LibraryVersion	  "1.30"
 	  SourceBlock		  "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
 	  SourceType		  "Discrete Event Signal to Workspace"
-	  SourceProductName	  "SimEvents"
-	  SourceProductBaseCode	  "SE"
-	  ContentPreviewEnabled	  off
 	  VariableName		  "Customer_1"
 	  MaxDataPoints		  "inf"
 	  Decimation		  "1"
@@ -2057,7 +1948,7 @@ Model {
 	Line {
 	  LineType		  "Connection"
 	  ZOrder		  7
-	  SrcBlock		  "ProducesCommodity"
+	  SrcBlock		  "IN_Commodity"
 	  SrcPort		  RConn1
 	  DstBlock		  "Get Attribute1"
 	  DstPort		  LConn1
@@ -2138,13 +2029,11 @@ Model {
       FontSize		      18
       FontWeight	      "bold"
       RequestExecContextInheritance off
+      Variant		      off
       System {
 	Name			"Customer_probflow"
-	Location		[-1422, 49, -398, 725]
-	Open			on
-	PortBlocksUseCompactNotation off
-	SetExecutionDomain	off
-	ExecutionDomainType	"Deduce"
+	Location		[805, 308, 1751, 1252]
+	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2180,14 +2069,35 @@ Model {
 	  Position		  [510, 474, 595, 531]
 	  ZOrder		  -1
 	  BlockMirror		  on
-	  OutputPortMap		  "o1,o2,o3"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1,o2,o3"
 	  AttributeName		  "Origin|Destination|Start"
 	  AttributeMissing	  "Error|Error|Error"
 	  AttributeDefaultValue	  "1|1|1"
 	  AttributeTreatAsVector  "1|1|1"
 	  AttributeSendTiming	  "After entity departure|After entity departure|After entity departure"
 	  EvaluatedDefaultAttributeValue "{[];[];[]}"
+	  Port {
+	    PortType		    2
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortIn"
+	  }
+	  Port {
+	    PortType		    3
+	    PortNumber		    1
+	    ConnectionType	    "SimEventsDDv2.SEPortOut"
+	  }
+	}
+	Block {
+	  BlockType		  PathCombiner
+	  Name			  "IN_Commodity"
+	  SID			  "320"
+	  Ports			  [0, 0, 0, 0, 0, 1, 1]
+	  Position		  [430, 233, 530, 287]
+	  ZOrder		  -3
+	  InputPortMap		  ""
+	  OutputPortMap		  ""
+	  NumberInputPorts	  "1"
 	  Port {
 	    PortType		    2
 	    PortNumber		    1
@@ -2258,35 +2168,14 @@ Model {
 	  }
 	}
 	Block {
-	  BlockType		  PathCombiner
-	  Name			  "ProducesCommodity"
-	  SID			  "320"
-	  Ports			  [0, 0, 0, 0, 0, 1, 1]
-	  Position		  [430, 233, 530, 287]
-	  ZOrder		  -3
-	  InputPortMap		  ""
-	  OutputPortMap		  ""
-	  NumberInputPorts	  "1"
-	  Port {
-	    PortType		    2
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortIn"
-	  }
-	  Port {
-	    PortType		    3
-	    PortNumber		    1
-	    ConnectionType	    "SimEventsDDv2.SEPortOut"
-	  }
-	}
-	Block {
 	  BlockType		  EventBasedRandomNumber
 	  Name			  "Routing"
 	  SID			  "280"
 	  Ports			  [0, 1]
 	  Position		  [460, 95, 530, 145]
 	  ZOrder		  -1
-	  OutputPortMap		  "o0"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o0"
 	  Distribution		  "Arbitrary discrete"
 	  valueVecDisc		  "[1 2]"
 	  probVecDisc		  "[0.1892 0.8108]"
@@ -2299,12 +2188,9 @@ Model {
 	  Position		  [335, 413, 415, 457]
 	  ZOrder		  -2
 	  BlockMirror		  on
-	  LibraryVersion	  "1.45"
+	  LibraryVersion	  "1.30"
 	  SourceBlock		  "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
 	  SourceType		  "Discrete Event Signal to Workspace"
-	  SourceProductName	  "SimEvents"
-	  SourceProductBaseCode	  "SE"
-	  ContentPreviewEnabled	  off
 	  VariableName		  "Customer_1"
 	  MaxDataPoints		  "inf"
 	  Decimation		  "1"
@@ -2398,7 +2284,7 @@ Model {
 	Line {
 	  LineType		  "Connection"
 	  ZOrder		  10
-	  SrcBlock		  "ProducesCommodity"
+	  SrcBlock		  "IN_Commodity"
 	  SrcPort		  RConn1
 	  DstBlock		  "OUT_Shipment"
 	  DstPort		  LConn1
@@ -2417,13 +2303,11 @@ Model {
       FontSize		      18
       FontWeight	      "bold"
       RequestExecContextInheritance off
+      Variant		      off
       System {
 	Name			"Depot"
 	Location		[0, 0, 1024, 676]
 	Open			off
-	PortBlocksUseCompactNotation off
-	SetExecutionDomain	off
-	ExecutionDomainType	"Deduce"
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -2449,13 +2333,11 @@ Model {
 	  TreatAsAtomicUnit	  on
 	  RequestExecContextInheritance	off
 	  SFBlockType		  "MATLAB Function"
+	  Variant		  off
 	  System {
 	    Name		    "Control: Resource Allocation"
 	    Location		    [227, 345, 838, 789]
 	    Open		    off
-	    PortBlocksUseCompactNotation off
-	    SetExecutionDomain	    off
-	    ExecutionDomainType	    "Deduce"
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -2467,7 +2349,7 @@ Model {
 	    TiledPageScale	    1
 	    ShowPageBoundaries	    off
 	    ZoomFactor		    "100"
-	    SIDHighWatermark	    "61"
+	    SIDHighWatermark	    "59"
 	    Block {
 	      BlockType		      Inport
 	      Name		      "IN_1"
@@ -2713,24 +2595,26 @@ Model {
 	    Block {
 	      BlockType		      Demux
 	      Name		      " Demux "
-	      SID		      "130::61"
+	      SID		      "130::59"
 	      Ports		      [1, 1]
 	      Position		      [270, 230, 320, 270]
-	      ZOrder		      45
+	      ZOrder		      43
 	      Outputs		      "1"
 	      Port {
 		PortNumber		1
 		Name			"Release"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
 	      }
 	    }
 	    Block {
 	      BlockType		      S-Function
 	      Name		      " SFunction "
-	      SID		      "130::60"
+	      SID		      "130::58"
 	      Tag		      "Stateflow S-Function Distribution_Library 4"
 	      Ports		      [27, 2]
 	      Position		      [180, 55, 230, 615]
-	      ZOrder		      44
+	      ZOrder		      42
 	      FunctionName	      "sf_sfun"
 	      PortCounts	      "[27 2]"
 	      SFunctionDeploymentMode off
@@ -2739,6 +2623,8 @@ Model {
 	      Port {
 		PortNumber		2
 		Name			"OUT_1"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
 	      }
 	    }
 	    Block {
@@ -2759,189 +2645,189 @@ Model {
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
-	      ZOrder		      767
+	      ZOrder		      737
 	      SrcBlock		      "IN_1"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      768
+	      ZOrder		      738
 	      SrcBlock		      "IN_2"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      2
 	    }
 	    Line {
-	      ZOrder		      769
+	      ZOrder		      739
 	      SrcBlock		      "IN_3"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      3
 	    }
 	    Line {
-	      ZOrder		      770
+	      ZOrder		      740
 	      SrcBlock		      "IN_4"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      4
 	    }
 	    Line {
-	      ZOrder		      771
+	      ZOrder		      741
 	      SrcBlock		      "IN_5"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      5
 	    }
 	    Line {
-	      ZOrder		      772
+	      ZOrder		      742
 	      SrcBlock		      "IN_6"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      6
 	    }
 	    Line {
-	      ZOrder		      773
+	      ZOrder		      743
 	      SrcBlock		      "IN_7"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      7
 	    }
 	    Line {
-	      ZOrder		      774
+	      ZOrder		      744
 	      SrcBlock		      "IN_8"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      8
 	    }
 	    Line {
-	      ZOrder		      775
+	      ZOrder		      745
 	      SrcBlock		      "IN_9"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      9
 	    }
 	    Line {
-	      ZOrder		      776
+	      ZOrder		      746
 	      SrcBlock		      "IN_10"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      10
 	    }
 	    Line {
-	      ZOrder		      777
+	      ZOrder		      747
 	      SrcBlock		      "IN_11"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      11
 	    }
 	    Line {
-	      ZOrder		      778
+	      ZOrder		      748
 	      SrcBlock		      "IN_12"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      12
 	    }
 	    Line {
-	      ZOrder		      779
+	      ZOrder		      749
 	      SrcBlock		      "IN_13"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      13
 	    }
 	    Line {
-	      ZOrder		      780
+	      ZOrder		      750
 	      SrcBlock		      "IN_14"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      14
 	    }
 	    Line {
-	      ZOrder		      781
+	      ZOrder		      751
 	      SrcBlock		      "IN_15"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      15
 	    }
 	    Line {
-	      ZOrder		      782
+	      ZOrder		      752
 	      SrcBlock		      "IN_16"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      16
 	    }
 	    Line {
-	      ZOrder		      783
+	      ZOrder		      753
 	      SrcBlock		      "IN_17"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      17
 	    }
 	    Line {
-	      ZOrder		      784
+	      ZOrder		      754
 	      SrcBlock		      "IN_18"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      18
 	    }
 	    Line {
-	      ZOrder		      785
+	      ZOrder		      755
 	      SrcBlock		      "IN_19"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      19
 	    }
 	    Line {
-	      ZOrder		      786
+	      ZOrder		      756
 	      SrcBlock		      "IN_20"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      20
 	    }
 	    Line {
-	      ZOrder		      787
+	      ZOrder		      757
 	      SrcBlock		      "IN_21"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      21
 	    }
 	    Line {
-	      ZOrder		      788
+	      ZOrder		      758
 	      SrcBlock		      "IN_22"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      22
 	    }
 	    Line {
-	      ZOrder		      789
+	      ZOrder		      759
 	      SrcBlock		      "IN_23"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      23
 	    }
 	    Line {
-	      ZOrder		      790
+	      ZOrder		      760
 	      SrcBlock		      "IN_24"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      24
 	    }
 	    Line {
-	      ZOrder		      791
+	      ZOrder		      761
 	      SrcBlock		      "IN_25"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      25
 	    }
 	    Line {
-	      ZOrder		      792
+	      ZOrder		      762
 	      SrcBlock		      "last"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      26
 	    }
 	    Line {
-	      ZOrder		      793
+	      ZOrder		      763
 	      SrcBlock		      "Policy"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
@@ -2949,7 +2835,7 @@ Model {
 	    }
 	    Line {
 	      Name		      "OUT_1"
-	      ZOrder		      794
+	      ZOrder		      764
 	      Labels		      [0, 0]
 	      SrcBlock		      " SFunction "
 	      SrcPort		      2
@@ -2958,7 +2844,7 @@ Model {
 	    }
 	    Line {
 	      Name		      "Release"
-	      ZOrder		      795
+	      ZOrder		      765
 	      Labels		      [0, 0]
 	      SrcBlock		      " Demux "
 	      SrcPort		      1
@@ -2966,7 +2852,7 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      796
+	      ZOrder		      766
 	      SrcBlock		      " SFunction "
 	      SrcPort		      1
 	      DstBlock		      " Demux "
@@ -2981,8 +2867,8 @@ Model {
 	  Ports			  [0, 1, 0, 0, 0, 1, 1]
 	  Position		  [465, 572, 550, 628]
 	  ZOrder		  -1
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  AttributeName		  "Route"
 	  EvaluatedDefaultAttributeValue "{[]}"
 	  Port {
@@ -3089,13 +2975,11 @@ Model {
 	  TreatAsAtomicUnit	  on
 	  RequestExecContextInheritance	off
 	  SFBlockType		  "MATLAB Function"
+	  Variant		  off
 	  System {
 	    Name		    "MATLAB Function"
 	    Location		    [227, 345, 838, 789]
 	    Open		    off
-	    PortBlocksUseCompactNotation off
-	    SetExecutionDomain	    off
-	    ExecutionDomainType	    "Deduce"
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -3107,7 +2991,7 @@ Model {
 	    TiledPageScale	    1
 	    ShowPageBoundaries	    off
 	    ZoomFactor		    "100"
-	    SIDHighWatermark	    "36"
+	    SIDHighWatermark	    "33"
 	    Block {
 	      BlockType		      Inport
 	      Name		      "route"
@@ -3137,20 +3021,20 @@ Model {
 	    Block {
 	      BlockType		      Demux
 	      Name		      " Demux "
-	      SID		      "97::35"
+	      SID		      "97::32"
 	      Ports		      [1, 1]
 	      Position		      [270, 230, 320, 270]
-	      ZOrder		      21
+	      ZOrder		      18
 	      Outputs		      "1"
 	    }
 	    Block {
 	      BlockType		      S-Function
 	      Name		      " SFunction "
-	      SID		      "97::34"
+	      SID		      "97::31"
 	      Tag		      "Stateflow S-Function Distribution_Library 2"
 	      Ports		      [3, 2]
 	      Position		      [180, 100, 230, 180]
-	      ZOrder		      20
+	      ZOrder		      17
 	      FunctionName	      "sf_sfun"
 	      PortCounts	      "[3 2]"
 	      SFunctionDeploymentMode off
@@ -3159,14 +3043,16 @@ Model {
 	      Port {
 		PortNumber		2
 		Name			"next"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
 	      }
 	    }
 	    Block {
 	      BlockType		      Terminator
 	      Name		      " Terminator "
-	      SID		      "97::36"
+	      SID		      "97::33"
 	      Position		      [460, 241, 480, 259]
-	      ZOrder		      22
+	      ZOrder		      19
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -3177,21 +3063,21 @@ Model {
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
-	      ZOrder		      25
+	      ZOrder		      19
 	      SrcBlock		      "route"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      26
+	      ZOrder		      20
 	      SrcBlock		      "current"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      2
 	    }
 	    Line {
-	      ZOrder		      27
+	      ZOrder		      21
 	      SrcBlock		      "lookup"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
@@ -3199,7 +3085,7 @@ Model {
 	    }
 	    Line {
 	      Name		      "next"
-	      ZOrder		      28
+	      ZOrder		      22
 	      Labels		      [0, 0]
 	      SrcBlock		      " SFunction "
 	      SrcPort		      2
@@ -3207,14 +3093,14 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      29
+	      ZOrder		      23
 	      SrcBlock		      " Demux "
 	      SrcPort		      1
 	      DstBlock		      " Terminator "
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      30
+	      ZOrder		      24
 	      SrcBlock		      " SFunction "
 	      SrcPort		      1
 	      Points		      [20, 0]
@@ -3346,6 +3232,7 @@ Model {
 	  BlockMirror		  on
 	  BackgroundColor	  "darkGreen"
 	  RequestExecContextInheritance	off
+	  Variant		  off
 	  Object {
 	    $PropName		    "MaskObject"
 	    $ObjectID		    26
@@ -3371,9 +3258,6 @@ Model {
 	    Name		    "Resource_Pool"
 	    Location		    [36, 240, 1007, 743]
 	    Open		    off
-	    PortBlocksUseCompactNotation off
-	    SetExecutionDomain	    off
-	    ExecutionDomainType	    "Deduce"
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -3459,8 +3343,8 @@ Model {
 	      Position		      [35, 73, 120, 127]
 	      ZOrder		      1
 	      BackgroundColor	      "gray"
-	      OutputPortMap	      "o0"
 	      InputPortMap	      ""
+	      OutputPortMap	      "o0"
 	      EventGenerationMode     "Only at simulation start"
 	      NumberOfEventsPerPeriod "Quantity"
 	    }
@@ -3471,6 +3355,7 @@ Model {
 	      Position		      [705, 153, 735, 167]
 	      ZOrder		      -5
 	      BackgroundColor	      "gray"
+	      Port		      "1"
 	      Side		      "Left"
 	    }
 	    Block {
@@ -3730,13 +3615,11 @@ Model {
       FontSize		      18
       FontWeight	      "bold"
       RequestExecContextInheritance off
+      Variant		      off
       System {
 	Name			"Depot_probflow"
 	Location		[0, 0, 1024, 676]
 	Open			off
-	PortBlocksUseCompactNotation off
-	SetExecutionDomain	off
-	ExecutionDomainType	"Deduce"
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -3907,6 +3790,7 @@ Model {
 	  BlockMirror		  on
 	  BackgroundColor	  "darkGreen"
 	  RequestExecContextInheritance	off
+	  Variant		  off
 	  Object {
 	    $PropName		    "MaskObject"
 	    $ObjectID		    28
@@ -3932,9 +3816,6 @@ Model {
 	    Name		    "Resource_Pool"
 	    Location		    [36, 240, 1007, 743]
 	    Open		    off
-	    PortBlocksUseCompactNotation off
-	    SetExecutionDomain	    off
-	    ExecutionDomainType	    "Deduce"
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -4020,8 +3901,8 @@ Model {
 	      Position		      [35, 73, 120, 127]
 	      ZOrder		      1
 	      BackgroundColor	      "gray"
-	      OutputPortMap	      "o0"
 	      InputPortMap	      ""
+	      OutputPortMap	      "o0"
 	      EventGenerationMode     "Only at simulation start"
 	      NumberOfEventsPerPeriod "Quantity"
 	    }
@@ -4032,6 +3913,7 @@ Model {
 	      Position		      [705, 153, 735, 167]
 	      ZOrder		      -5
 	      BackgroundColor	      "gray"
+	      Port		      "1"
 	      Side		      "Left"
 	    }
 	    Block {
@@ -4096,8 +3978,8 @@ Model {
 	  Ports			  [0, 1]
 	  Position		  [495, 300, 565, 350]
 	  ZOrder		  -1
-	  OutputPortMap		  "o0"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o0"
 	  Distribution		  "Arbitrary discrete"
 	  valueVecDisc		  "[1 2]"
 	  probVecDisc		  "[0.1892 0.8108]"
@@ -4177,13 +4059,11 @@ Model {
       FontSize		      18
       FontWeight	      "bold"
       RequestExecContextInheritance off
+      Variant		      off
       System {
 	Name			"Depot_roundrobin"
 	Location		[0, 0, 1024, 676]
 	Open			off
-	PortBlocksUseCompactNotation off
-	SetExecutionDomain	off
-	ExecutionDomainType	"Deduce"
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -4202,8 +4082,8 @@ Model {
 	  Ports			  [0, 1, 0, 0, 0, 1, 1]
 	  Position		  [465, 572, 550, 628]
 	  ZOrder		  -1
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  AttributeName		  "Route"
 	  EvaluatedDefaultAttributeValue "{[]}"
 	  Port {
@@ -4310,13 +4190,11 @@ Model {
 	  TreatAsAtomicUnit	  on
 	  RequestExecContextInheritance	off
 	  SFBlockType		  "MATLAB Function"
+	  Variant		  off
 	  System {
 	    Name		    "MATLAB Function"
 	    Location		    [227, 345, 838, 789]
 	    Open		    off
-	    PortBlocksUseCompactNotation off
-	    SetExecutionDomain	    off
-	    ExecutionDomainType	    "Deduce"
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -4328,7 +4206,7 @@ Model {
 	    TiledPageScale	    1
 	    ShowPageBoundaries	    off
 	    ZoomFactor		    "100"
-	    SIDHighWatermark	    "36"
+	    SIDHighWatermark	    "33"
 	    Block {
 	      BlockType		      Inport
 	      Name		      "route"
@@ -4358,20 +4236,20 @@ Model {
 	    Block {
 	      BlockType		      Demux
 	      Name		      " Demux "
-	      SID		      "219::35"
+	      SID		      "219::32"
 	      Ports		      [1, 1]
 	      Position		      [270, 230, 320, 270]
-	      ZOrder		      21
+	      ZOrder		      18
 	      Outputs		      "1"
 	    }
 	    Block {
 	      BlockType		      S-Function
 	      Name		      " SFunction "
-	      SID		      "219::34"
+	      SID		      "219::31"
 	      Tag		      "Stateflow S-Function Distribution_Library 5"
 	      Ports		      [3, 2]
 	      Position		      [180, 100, 230, 180]
-	      ZOrder		      20
+	      ZOrder		      17
 	      FunctionName	      "sf_sfun"
 	      PortCounts	      "[3 2]"
 	      SFunctionDeploymentMode off
@@ -4380,14 +4258,16 @@ Model {
 	      Port {
 		PortNumber		2
 		Name			"next"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
 	      }
 	    }
 	    Block {
 	      BlockType		      Terminator
 	      Name		      " Terminator "
-	      SID		      "219::36"
+	      SID		      "219::33"
 	      Position		      [460, 241, 480, 259]
-	      ZOrder		      22
+	      ZOrder		      19
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -4398,21 +4278,21 @@ Model {
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
-	      ZOrder		      25
+	      ZOrder		      19
 	      SrcBlock		      "route"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      26
+	      ZOrder		      20
 	      SrcBlock		      "current"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
 	      DstPort		      2
 	    }
 	    Line {
-	      ZOrder		      27
+	      ZOrder		      21
 	      SrcBlock		      "lookup"
 	      SrcPort		      1
 	      DstBlock		      " SFunction "
@@ -4420,7 +4300,7 @@ Model {
 	    }
 	    Line {
 	      Name		      "next"
-	      ZOrder		      28
+	      ZOrder		      22
 	      Labels		      [0, 0]
 	      SrcBlock		      " SFunction "
 	      SrcPort		      2
@@ -4428,14 +4308,14 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      29
+	      ZOrder		      23
 	      SrcBlock		      " Demux "
 	      SrcPort		      1
 	      DstBlock		      " Terminator "
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      30
+	      ZOrder		      24
 	      SrcBlock		      " SFunction "
 	      SrcPort		      1
 	      Points		      [20, 0]
@@ -4538,6 +4418,7 @@ Model {
 	  BlockMirror		  on
 	  BackgroundColor	  "darkGreen"
 	  RequestExecContextInheritance	off
+	  Variant		  off
 	  Object {
 	    $PropName		    "MaskObject"
 	    $ObjectID		    30
@@ -4563,9 +4444,6 @@ Model {
 	    Name		    "Resource_Pool"
 	    Location		    [36, 240, 1007, 743]
 	    Open		    off
-	    PortBlocksUseCompactNotation off
-	    SetExecutionDomain	    off
-	    ExecutionDomainType	    "Deduce"
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -4651,8 +4529,8 @@ Model {
 	      Position		      [35, 73, 120, 127]
 	      ZOrder		      1
 	      BackgroundColor	      "gray"
-	      OutputPortMap	      "o0"
 	      InputPortMap	      ""
+	      OutputPortMap	      "o0"
 	      EventGenerationMode     "Only at simulation start"
 	      NumberOfEventsPerPeriod "Quantity"
 	    }
@@ -4663,6 +4541,7 @@ Model {
 	      Position		      [705, 153, 735, 167]
 	      ZOrder		      -5
 	      BackgroundColor	      "gray"
+	      Port		      "1"
 	      Side		      "Left"
 	    }
 	    Block {
@@ -4863,13 +4742,11 @@ Model {
       FontSize		      18
       FontWeight	      "bold"
       RequestExecContextInheritance off
+      Variant		      off
       System {
 	Name			"TransportationChannel"
 	Location		[0, 0, 1024, 676]
 	Open			off
-	PortBlocksUseCompactNotation off
-	SetExecutionDomain	off
-	ExecutionDomainType	"Deduce"
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -4931,8 +4808,8 @@ Model {
 	  Position		  [285, 37, 370, 93]
 	  ZOrder		  -1
 	  BackgroundColor	  "green"
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  Capacity		  "inf"
 	  StatNumberInBlock	  on
 	  Port {
@@ -4954,8 +4831,8 @@ Model {
 	  Position		  [265, 167, 350, 223]
 	  ZOrder		  -1
 	  BackgroundColor	  "red"
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  Capacity		  "inf"
 	  StatNumberInBlock	  on
 	  Port {
@@ -5036,8 +4913,8 @@ Model {
 	  Position		  [560, 347, 645, 403]
 	  ZOrder		  -3
 	  BackgroundColor	  "red"
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  ServiceTime		  "0"
 	  StatNumberInBlock	  on
 	  Port {
@@ -5059,8 +4936,8 @@ Model {
 	  Position		  [560, 472, 645, 528]
 	  ZOrder		  -3
 	  BackgroundColor	  "green"
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  ServiceTime		  "0"
 	  StatNumberInBlock	  on
 	  Port {
@@ -5187,8 +5064,8 @@ Model {
 	  Position		  [280, 347, 365, 403]
 	  ZOrder		  -3
 	  BackgroundColor	  "green"
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  ServiceTime		  "0"
 	  StatNumberInBlock	  on
 	  Port {
@@ -5210,8 +5087,8 @@ Model {
 	  Position		  [280, 457, 365, 513]
 	  ZOrder		  -3
 	  BackgroundColor	  "red"
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  ServiceTime		  "0"
 	  StatNumberInBlock	  on
 	  Port {
@@ -5301,8 +5178,6 @@ Model {
 	  LibraryVersion	  "1.44"
 	  SourceBlock		  "simeventslib/SimEvents\nSinks/Discrete Event Signal\nto Workspace"
 	  SourceType		  "Discrete Event Signal to Workspace"
-	  SourceProductName	  "SimEvents"
-	  SourceProductBaseCode	  "SE"
 	  ContentPreviewEnabled	  off
 	  VariableName		  "TC6_Status"
 	  MaxDataPoints		  "inf"
@@ -5336,6 +5211,7 @@ Model {
 	  Position		  [110, 58, 140, 72]
 	  ZOrder		  -30
 	  BackgroundColor	  "green"
+	  Port			  "1"
 	  Side			  "Left"
 	}
 	Block {
@@ -5778,6 +5654,8 @@ Model {
 	  Name			  "RESOURCE1 INBOUND\nRESOURCE2 OUTBOUND"
 	  Position		  [27, 225, 151, 253]
 	  InternalMargins	  [0, 0, 0, 0]
+	  FixedHeight		  off
+	  FixedWidth		  off
 	  ZOrder		  -1
 	}
 	Annotation {
@@ -5785,6 +5663,8 @@ Model {
 	  Name			  "RESOURCE1 OUTBOUND\nRESOURCE2 INBOUND"
 	  Position		  [67, 95, 191, 123]
 	  InternalMargins	  [0, 0, 0, 0]
+	  FixedHeight		  off
+	  FixedWidth		  off
 	  ZOrder		  -2
 	}
       }
@@ -5801,13 +5681,11 @@ Model {
       FontSize		      18
       FontWeight	      "bold"
       RequestExecContextInheritance off
+      Variant		      off
       System {
 	Name			"TransportationChannel_noInfo"
 	Location		[0, 0, 1024, 676]
 	Open			off
-	PortBlocksUseCompactNotation off
-	SetExecutionDomain	off
-	ExecutionDomainType	"Deduce"
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
 	ScreenColor		"white"
@@ -5869,8 +5747,8 @@ Model {
 	  Position		  [285, 37, 370, 93]
 	  ZOrder		  -1
 	  BackgroundColor	  "green"
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  Capacity		  "inf"
 	  StatNumberInBlock	  on
 	  Port {
@@ -5892,8 +5770,8 @@ Model {
 	  Position		  [265, 167, 350, 223]
 	  ZOrder		  -1
 	  BackgroundColor	  "red"
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  Capacity		  "inf"
 	  StatNumberInBlock	  on
 	  Port {
@@ -5965,8 +5843,8 @@ Model {
 	  Position		  [560, 347, 645, 403]
 	  ZOrder		  -3
 	  BackgroundColor	  "red"
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  ServiceTime		  "0"
 	  StatNumberInBlock	  on
 	  Port {
@@ -5988,8 +5866,8 @@ Model {
 	  Position		  [560, 472, 645, 528]
 	  ZOrder		  -3
 	  BackgroundColor	  "green"
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  ServiceTime		  "0"
 	  StatNumberInBlock	  on
 	  Port {
@@ -6105,8 +5983,8 @@ Model {
 	  Position		  [280, 347, 365, 403]
 	  ZOrder		  -3
 	  BackgroundColor	  "green"
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  ServiceTime		  "0"
 	  StatNumberInBlock	  on
 	  Port {
@@ -6128,8 +6006,8 @@ Model {
 	  Position		  [280, 457, 365, 513]
 	  ZOrder		  -3
 	  BackgroundColor	  "red"
-	  OutputPortMap		  "o1"
 	  InputPortMap		  ""
+	  OutputPortMap		  "o1"
 	  ServiceTime		  "0"
 	  StatNumberInBlock	  on
 	  Port {
@@ -6194,6 +6072,7 @@ Model {
 	  Position		  [110, 58, 140, 72]
 	  ZOrder		  -22
 	  BackgroundColor	  "green"
+	  Port			  "1"
 	  Side			  "Left"
 	}
 	Block {
@@ -6532,6 +6411,8 @@ Model {
 	  Name			  "RESOURCE1 INBOUND\nRESOURCE2 OUTBOUND"
 	  Position		  [27, 225, 151, 253]
 	  InternalMargins	  [0, 0, 0, 0]
+	  FixedHeight		  off
+	  FixedWidth		  off
 	  ZOrder		  -1
 	}
 	Annotation {
@@ -6539,6 +6420,8 @@ Model {
 	  Name			  "RESOURCE1 OUTBOUND\nRESOURCE2 INBOUND"
 	  Position		  [67, 95, 191, 123]
 	  InternalMargins	  [0, 0, 0, 0]
+	  FixedHeight		  off
+	  FixedWidth		  off
 	  ZOrder		  -2
 	}
       }
@@ -6547,7 +6430,7 @@ Model {
 }
 #Finite State Machines
 #
-#   Stateflow 80000014
+#   Stateflow 80000010
 #
 #
 Stateflow {
@@ -6556,7 +6439,7 @@ Stateflow {
     name		    "Distribution_Library"
     created		    "08-Apr-2015 12:06:26"
     isLibrary		    0
-    sfVersion		    80000014
+    sfVersion		    80000010
     firstTarget		    63
   }
   chart {

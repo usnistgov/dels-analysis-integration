@@ -5,219 +5,141 @@ classdef DistributionNetwork < FlowNetwork
     properties
         depotList
         depotSet@Depot
-        depotMapping
-        depotFixedCost
         customerList
         customerSet@Customer
         transportationChannelSet@TransportationChannel
-        transportationChannelSolution
         resourceSolution
         policySolution
-        %flowNetworkAbstraction@FlowNetwork
     end
     
     methods
-        function self = DistributionNetwork(input)
+        function self = DistributionNetwork()
           %Input variable may be a DistributionNetwork
           %If so, constructor should clone the input instead
-          if nargin==0
-            % default constructor
-            
-          elseif isa(input, 'DistributionNetwork')
-            % copy constructor
-            fns = properties(input);
-            for i=1:length(fns)
-              self.(fns{i}) = input.(fns{i});
-            end
-          end
+          %TO DO: move deep copying here
         end
         
-        function mapFlowNetwork2DistributionNetwork(DN)
-            %FlowEdge_Solution = Binary FlowEdgeID Origin Destination grossCapacity flowFixedCost
-            FlowEdge_Solution = DN.FlowEdge_Solution(DN.FlowEdge_Solution(:,1) ==1,:);
-
-            %commodityFlowSolution := FlowEdgeID origin destination commodity flowUnitCost flowQuantity
-            commodityFlow_Solution = DN.commodityFlow_Solution; 
-
-            %Map Commodity Flow Solution to Commodities -- Eventually Map to a
-            %Product with a Process Plan / Route
-            DN.commoditySet = DN.mapFlowCommodity2Commodity;
-
-            %Map commodity flow solution to Probabilistic Commodity Flow.
-            for jj = 1:length(FlowEdge_Solution) %For each FlowEdge selected in the solution
-                FlowEdge_Solution(jj,7) = sum(commodityFlow_Solution(commodityFlow_Solution(:,1) == FlowEdge_Solution(jj,2), 6));
-                FlowEdge_Solution(jj,8) = FlowEdge_Solution(jj,7) / sum(commodityFlow_Solution(commodityFlow_Solution(:,2) == FlowEdge_Solution(jj,3), 6));
+        function mapFlowNetwork2DistributionNetwork(self)
+            % 1) Transform flow edges into transportation channels
+            self.mapFlowEdge2TransportationChannel;
+            
+            % 2) Remove unselected depots
+            ii = 1;
+            while ii <= length(self.depotSet)
+               if ~any(self.flowNodeList(:,1) == self.depotSet(ii).instanceID)
+                   self.depotSet(ii) = [];
+               else
+                   ii = ii + 1;
+               end
             end
-            clear commodityFlow_Solution;
-
-            %map FlowNode to Customer Node (Probabilistic Flow)
-            [DN.customerSet] = DN.mapFlowNode2CustomerProbFlow(DN.customerList, FlowEdge_Solution);
-
-            %Map FlowNode to Depot Node (Probabilistic Flow)
-            [ DN.depotSet, selecteddepotList, FlowEdge_Solution ] = DN.mapFlowNode2DepotProbFlow( DN.depotList, FlowEdge_Solution, DN.depotMapping);
-
-            % Add Transportation Channels for Flow Edges
-            [ DN.transportationChannelSet, DN.edgeSet] = DN.mapFlowEdge2TransportationChannel([DN.customerList; DN.depotList], selecteddepotList, FlowEdge_Solution );
-            DN.FlowEdge_Solution = FlowEdge_Solution;
-         end
-    
+            
+            % 3) Remove unselected customers
+            ii = 1;
+            while ii <= length(self.customerSet)
+               if ~any(self.flowNodeList(:,1) == self.customerSet(ii).instanceID)
+                   self.customerSet(ii) = [];
+               else
+                   ii = ii + 1;
+               end
+            end
+            
+            % 3.1) Add flow edges to customers & depots
+            for ii = 1:length(self.customerSet)
+                self.customerSet(ii).addEdge(self.flowEdgeSet);
+            end
+            for ii = 1:length(self.depotSet)
+                self.depotSet(ii).addEdge(self.flowEdgeSet);
+            end
+            
+        end
     end
 
     methods(Access = private)
-        function [ commoditySet ] = mapFlowCommodity2Commodity(DN)
-        %mapFlowCommodity2Commodity maps the Flow Network Commodity to Distribution Network Commodity
-        %Eventually should transition to mapping to Product with Route being the proces plan
 
-            %Initialize the struct (ie specify the classdef)
-            commoditySet = struct('ID', [], 'OriginID', [], 'DestinationID', [], 'Quantity', [], 'Route', []);
-            FlowNode_CommoditySet = DN.FlowNode_ConsumptionProduction;
-            commodityFlow_Solution = DN.commodityFlow_Solution;
-
-            %commodityFlowSolution %FlowEdgeID origin destination commodity flowUnitCost flowQuantity
-
-            for ii = 1:max(FlowNode_CommoditySet(:,2))
-               commoditySet(ii).ID = ii;
-               commoditySet(ii).OriginID = FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == ii & FlowNode_CommoditySet(:,3)>0,1);
-               commoditySet(ii).DestinationID = FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == ii & FlowNode_CommoditySet(:,3)<0,1);
-               commoditySet(ii).Quantity =  FlowNode_CommoditySet(FlowNode_CommoditySet(:,2) == ii & FlowNode_CommoditySet(:,3)>0,3);
-               commoditySet(ii).Route = DN.buildCommodityRoute(commodityFlow_Solution(commodityFlow_Solution(:,4) == ii,2:6));
-               %Should return later to generalize to support production/consumption of
-               %each commodity at each node.
-            end
-
-            %Return to call commodity constructor prior to MCNF
-            %then call buildCommodityRoute after MCNF
-        end
-
-        function route = buildCommodityRoute(DN, commodityFlowSolution)
-        %Commodity_Route is a set of arcs that the commodity flows on
-        %need to assemble the arcs into a route or path
-
+        function mapFlowEdge2TransportationChannel(self)
+            % Create one bi-directional transportation channel for flows between two flow nodes
+            % Find the two Flow Edges that have reciprocal source/targets
+            % Note: there may not be a reciprocal edge
+            % Make a new transportation channel from them (using the properties of the first indexed flow edge)
+            % TO DO: how to combine asymmetric flow edge capacity / flow time / etc.
+            
+            
+            % 1) Create transportation Channel container
+            transportationChannelSet = TransportationChannel.empty(0);
+            flowEdgeList = self.flowEdgeList;
+           
+            % 2) Make a new transportation channel from them (using the properties of the first indexed flow edge)
             ii = 1;
-            route = commodityFlowSolution(ii,1:2);
-            while sum(commodityFlowSolution(:,1) == commodityFlowSolution(ii,2))>0
-                ii = find(commodityFlowSolution(:,1) == commodityFlowSolution(ii,2));
-                if eq(commodityFlowSolution(ii,4),0)==0
-                    route = [route, commodityFlowSolution(ii,2)];
+            while ~isempty(flowEdgeList)
+                flowEdge = findobj(self.flowEdgeSet, 'instanceID', flowEdgeList(1,1));
+                transportationChannelSet(ii) = TransportationChannel;
+                transportationChannelSet(ii).instanceID = ii+max(self.flowNodeList(:,1));
+                transportationChannelSet(ii).typeID = 'TransportationChannel';
+                transportationChannelSet(ii).name = strcat('TransportationChannel_', num2str(transportationChannelSet(ii).instanceID));
+                transportationChannelSet(ii).travelRate = 30;
+                transportationChannelSet(ii).travelDistance = flowEdge.calculateEdgeLength;
+                transportationChannelSet(ii).commodityList = flowEdge.flowTypeAllowed;
+                transportationChannelSet(ii).flowAmount = flowEdge.flowAmount;
+                transportationChannelSet(ii).flowCapacity = flowEdge.flowCapacity;
+                transportationChannelSet(ii).grossCapacity = flowEdge.grossCapacity;
+                transportationChannelSet(ii).flowUnitCost = flowEdge.flowUnitCost;
+                transportationChannelSet(ii).flowFixedCost = flowEdge.flowFixedCost;
+               
+                %2.1 Set Depot as Source;
+                if isa(self.flowEdgeSet(ii).sourceFlowNetwork, 'Depot')
+                    transportationChannelSet(ii).source = flowEdge.sourceFlowNetwork;
+                    transportationChannelSet(ii).target = flowEdge.targetFlowNetwork;
+                else
+                    transportationChannelSet(ii).target = flowEdge.sourceFlowNetwork;
+                    transportationChannelSet(ii).source = flowEdge.targetFlowNetwork;
                 end
+                
+                %2.2 Find the two edges that are reciprocals of each other
+                transportationChannelSet(ii).flowEdgeSet = findobj(self.flowEdgeSet,...
+                              'sourceFlowNetworkID', transportationChannelSet(ii).source.instanceID, '-and', 'targetFlowNetworkID', transportationChannelSet(ii).target.instanceID, ...
+                              '-or',...
+                              'sourceFlowNetworkID', transportationChannelSet(ii).target.instanceID, '-and', 'targetFlowNetworkID', transportationChannelSet(ii).source.instanceID);
+                
+                % 2.3 Clean-up: delete the flow edge and reciprocal edge from the look-up list
+                flowEdgeList(flowEdgeList(:,2) == flowEdgeList(1,3) & flowEdgeList(:,3) == flowEdgeList(1,2),:) = [];
+                flowEdgeList(1,:) = [];
+                
+                ii = ii + 1;
             end
-            %NOTE: Need a better solution to '10', it should be 2+numDepot
-            while length(route)<6
-                route = [route, 0];
-            end
-        end
-
-        function [ TransportationChannelSet, FlowEdgeSet ] = mapFlowEdge2TransportationChannel(DN, nodeSet, selecteddepotList, FlowEdge_Solution )
-        %UNTITLED4 Summary of this function goes here
-        %   Detailed explanation goes here
-
-        %FlowEdge_Solution = Binary FlowEdgeID Origin Destination grossCapacity flowFixedCost
-    
-            TransportationChannelSet(length(FlowEdge_Solution(1:end-length(selecteddepotList),1))) = TransportationChannel;
-            for ii = 1:length(TransportationChannelSet)
-                if FlowEdge_Solution(ii,1) == 1
-                        TransportationChannelSet(ii).ID = ii+length(nodeSet);
-                        TransportationChannelSet(ii).Type = 'TransportationChannel_noInfo';
-                        TransportationChannelSet(ii).Name = strcat('TransportationChannel_', num2str(ii+length(nodeSet)));
-                        TransportationChannelSet(ii).Echelon = 2;
-                        TransportationChannelSet(ii).TravelRate = 30;
-                        TransportationChannelSet(ii).TravelDistance = sqrt(sum((nodeSet(FlowEdge_Solution(ii,3),2:3)-nodeSet(FlowEdge_Solution(ii,4),2:3)).^2));
-                        %Set Depot as Source; Depots always have higher Node IDs
-                        if nodeSet(FlowEdge_Solution(ii,3),1)>nodeSet(FlowEdge_Solution(ii,4),1)
-                            TransportationChannelSet(ii).Source = nodeSet(FlowEdge_Solution(ii,3),1);
-                            TransportationChannelSet(ii).Target = nodeSet(FlowEdge_Solution(ii,4),1);
-                        else
-                            TransportationChannelSet(ii).Source = nodeSet(FlowEdge_Solution(ii,4),1);
-                            TransportationChannelSet(ii).Target = nodeSet(FlowEdge_Solution(ii,3),1);
-                        end
-
-                        %Clean-up transportation_channel; set flow edges to 0;
-                        match = (FlowEdge_Solution(:,3) == FlowEdge_Solution(ii,4) & FlowEdge_Solution(:,4) == FlowEdge_Solution(ii,3));
-                        FlowEdge_Solution(ii,:)= zeros(1,8);
-                        if any(match)
-                            FlowEdge_Solution(match==1,:)= zeros(1,8);
-                        end
-                end
-            end
-
-            %Remove extra TransportationChannels from the Set
-            %[TransportationChannelSet.Node_ID] only returns properties with value
-            TransportationChannelSet = TransportationChannelSet(1:length([TransportationChannelSet.ID]));
-            for jj = 1:length(TransportationChannelSet)
-                %renumber transportation channel nodes
-                TransportationChannelSet(jj).ID = length(nodeSet)+ TransportationChannelSet(jj).ID;
-            end
-
-
-            FlowEdgeSet(8*length(TransportationChannelSet)) = FlowEdge;
+            
+            %3) Create Edges from Transportation Channel
+            % TO DO: Move method to mapping class
+            
+            % Add 8 flow edges: {resource, commodity} x {inbound, outbound} x {toDepot, toCustomer}
+            flowEdgeSet(8*length(transportationChannelSet)) = FlowNetworkLink;
             jj = 1;
-            for ii = 1:length(TransportationChannelSet)
-                e2 = TransportationChannelSet(ii).createEdgeSet(selecteddepotList);
-                FlowEdgeSet(jj:jj+length(e2)-1) = e2;
+            % Call createEdgeSet method of transportation channel
+            for ii = 1:length(transportationChannelSet)
+                e2 = transportationChannelSet(ii).createEdgeSet;
+                flowEdgeSet(jj:jj+length(e2)-1) = e2;
                 jj = jj+length(e2);
             end
-
-            FlowEdgeSet = FlowEdgeSet(1:jj-1);
-        end
-
-        function [ customerSet, commoditySet ] = mapFlowNode2CustomerProbFlow(DN, flowNodeSet, FlowEdge_Solution )
-        %MAPFLOWNODE2CUSTOMERPROBFLOW Summary of this function goes here
-        %   Detailed explanation goes here
-
-            numCustomers = length(flowNodeSet(:,1));
-            customerSet(numCustomers) = Customer;
-            commoditySet = struct('ID', [], 'Origin', [], 'Destination', [], 'Quantity', [], 'Route', []);
-            for jj = 1:numCustomers
-                customerSet(jj).ID = flowNodeSet(jj,1);
-                customerSet(jj).Name = strcat('Customer_', num2str(flowNodeSet(jj,1)));
-                customerSet(jj).Echelon = 1;
-                customerSet(jj).X = flowNodeSet(jj,2);
-                customerSet(jj).Y = flowNodeSet(jj,3);
-                customerSet(jj).Type = 'Customer_probflow';
-                customerSet(jj).routingProbability = FlowEdge_Solution(FlowEdge_Solution(:,3) == customerSet(jj).ID,8);
-
-                %Aggregate the Commodities Into 1 Commodity for Each Customer
-                commoditySet(jj).ID = jj;
-                commoditySet(jj).OriginID = jj;
-                commoditySet(jj).DestinationID = 0;
-                commoditySet(jj).Route = 0;
-                commoditySet(jj).Quantity = sum(FlowEdge_Solution(FlowEdge_Solution(:,3) == customerSet(jj).ID, 7));
-                customerSet(jj).setCommoditySet(commoditySet(jj));
+            %Clean-up extra allocated flowEdges
+            flowEdgeSet(jj:end) = [];
+            
+            %3.1) Create flowEdgeList from flowEdgeSet 
+            flowEdgeList = zeros(length(flowEdgeSet),5);
+            for ii = 1:length(flowEdgeSet)
+                flowEdgeList(ii,:) = [0, flowEdgeSet(ii).sourceFlowNetworkID,flowEdgeSet(ii).targetFlowNetworkID,...
+                                        flowEdgeSet(ii).grossCapacity,flowEdgeSet(ii).flowUnitCost];
             end
-
-        end
-        
-        function [ depotSet, selecteddepotList, FlowEdge_Solution ] = mapFlowNode2DepotProbFlow(DN, FlowNodeSet, FlowEdge_Solution, depotMapping )
-        %UNTITLED2 Summary of this function goes here
-        %   Detailed explanation goes here
-
-            % Isolate the Depots Selected by the Optimization
-            %depotMapping = distributionNetworkSet(ii).depotMapping;
-            [LIA, LOCB] = ismember(depotMapping, FlowEdge_Solution(:, 3:4), 'rows');
-            selecteddepotList = FlowEdge_Solution(LOCB(LIA), 3);
-            FlowNodeSet = FlowNodeSet(ismember(FlowNodeSet(:,1), selecteddepotList),:);
-            clear LIA LOCB;
-
-
-            for jj = 1:length(depotMapping(:,1))
-                FlowEdge_Solution(FlowEdge_Solution(:,3) == depotMapping(jj,2),3) = depotMapping(jj,1);
+            
+            %3.2) Assign instanceIDs to flowEdges
+            flowEdgeList(:,1) = [1:length(flowEdgeList(:,1))]';
+            for ii = 1:length(flowEdgeSet) 
+                flowEdgeSet(ii).instanceID = ii;
             end
-
-            numDepot = length(FlowNodeSet(:,1));
-            depotSet(numDepot) = Depot;
-            for jj = 1:numDepot
-                depotSet(jj).ID = FlowNodeSet(jj,1);
-                depotSet(jj).Name = strcat('Depot_', num2str(FlowNodeSet(jj,1)));
-                depotSet(jj).Echelon = 3;
-                depotSet(jj).X = FlowNodeSet(jj,2);
-                depotSet(jj).Y = FlowNodeSet(jj,3);
-                depotSet(jj).Type = 'Depot_probflow';
-                mappedFlowNode = depotMapping(depotMapping(:,1) == depotSet(jj).ID,2);
-                depotSet(jj).routingProbability = FlowEdge_Solution(FlowEdge_Solution(:,3) == FlowNodeSet(jj,1) ...
-                                                                & FlowEdge_Solution(:,4) ~= mappedFlowNode,8);
-            end
-
-            depotSet = depotSet(ismember([depotSet.ID], selecteddepotList));
+            
+            
+            self.transportationChannelSet = transportationChannelSet;
+            self.flowNodeSet{end+1} = transportationChannelSet;
+            self.flowEdgeSet = flowEdgeSet;
+            self.flowEdgeList = flowEdgeList;
         end
 
     end
