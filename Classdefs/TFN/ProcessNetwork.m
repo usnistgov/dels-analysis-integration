@@ -58,8 +58,19 @@ classdef ProcessNetwork < FlowNetwork
             if isa(input, 'ProcessNetwork')
                % processNodes are a subset of flowNodes; we have enforce subsetting 
                % via set methods.
-               self.processNodeSet{end+1} = input;
-               self.flowNodeSet{end+1} = input;
+               successFlag = 0;
+               for ii = 1:length(self.processNodeSet)
+                    if strcmp(class(self.processNodeSet{ii}), class(input))
+                        self.processNodeSet{ii}(end+1) = input;
+                        successFlag = 1;
+                        break;
+                    end
+               end
+               if successFlag ==0
+                   self.processNodeSet{end+1} = input;
+               end
+               
+               self.setFlowNodeSet(input);
             end
         end
        

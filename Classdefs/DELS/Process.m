@@ -26,10 +26,20 @@ classdef Process < ProcessNetwork
         function setProcessStep(self, input)
             if isa(input, 'Process')
                % processStep are a subset of processNodes; we have enforce subsetting via set methods.
-               self.processStep{end+1} = input;
+               setSuccessFlag = 0;
+               for ii = 1:length(self.processStep)
+                    if strcmp(class(self.processStep{ii}), class(input))
+                        self.processStep{ii}(end+1) = input;
+                        setSuccessFlag = 1;
+                        break;
+                    end
+               end
+               if setSuccessFlag ==0
+                   self.processStep{end+1} = input;
+               end
+               
                self.setProcessNodeSet(input)
             end
-            
         end
         
         function setProduces(self, input)

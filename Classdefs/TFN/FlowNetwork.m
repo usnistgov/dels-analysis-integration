@@ -65,6 +65,27 @@ classdef FlowNetwork < Network
             end
         end
         
+        function setFlowNodeSet(self, input)
+            if isa(input, 'FlowNetwork')
+               % processNodes are a subset of flowNodes; we have enforce subsetting 
+               % via set methods.
+               successFlag = 0;
+               for ii = 1:length(self.flowNodeSet)
+                    if strcmp(class(self.flowNodeSet{ii}), class(input))
+                        self.flowNodeSet{ii}(end+1) = input;
+                        successFlag = 1;
+                        break;
+                    end
+               end
+               if successFlag ==0
+                   self.flowNodeSet{end+1} = input;
+               end
+               
+               self.nodeSet{end+1} = input;
+            end
+            
+        end
+        
         function setBuilder(self, builder)
             %assert(isa(builder, 'IflowNetworkBuilder') == 1, 'Invalid Builder Object')
             self.builder = builder;

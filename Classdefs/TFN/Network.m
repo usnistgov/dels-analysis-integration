@@ -15,8 +15,8 @@ classdef Network < NetworkElement
         %^name
         %^instanceID
         %^typeID
-        nodeSet@Network
-        edgeSet@NetworkLink
+        nodeSet
+        edgeSet
         endNetwork1
         endNetwork2
         parentID %From the instance data
