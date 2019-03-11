@@ -5,28 +5,37 @@ function [arrivalProcess, arrivalEdgeSet] = mapArrivals2ArrivalProcessNode(proce
 nProcess = length(processSet);
 nProd = length(productArrivalRate);
 totalArrivalRate = sum(productArrivalRate);
-Parrival = zeros(nProcess, 1);
+externalArrivalRate = zeros(nProcess, 1); %total commodity flow into each process node
 
 for ii = 1:nProd
-    Parrival(processPlanSet(ii,1)) = Parrival(processPlanSet(ii,1)) + productArrivalRate(ii);
+    externalArrivalRate(processPlanSet(ii,1)) = externalArrivalRate(processPlanSet(ii,1)) + productArrivalRate(ii);
 end
 
 arrivalProcess = Process;
-arrivalProcess.ID = nProcess+1;
-arrivalProcess.Name = 'Arrival_Process';
-arrivalProcess.Type = 'ArrivalProcess';
-arrivalProcess.ServerCount = inf;
-arrivalProcess.ProcessTime_Mean = 1/totalArrivalRate;
-arrivalProcess.StorageCapacity = inf;
-arrivalProcess.Echelon = 1;
-arrivalProcess.routingProbability = Parrival ./ totalArrivalRate;
+arrivalProcess.instanceID = nProcess+1;
+arrivalProcess.name = 'Arrival_Process';
+arrivalProcess.typeID = 'ArrivalProcess';
+arrivalProcess.concurrentProcessingCapacity = inf;
+arrivalProcess.averageServiceTime = 1/totalArrivalRate;
+arrivalProcess.storageCapacity = inf;
+arrivalProcess.routingProbability = externalArrivalRate ./ totalArrivalRate;
 
-arrivalEdgeSet(nProcess) = FlowEdge;
+arrivalEdgeSet(nProcess) = FlowNetworkLink;
 for ii = 1:nProcess
-    arrivalEdgeSet(ii).EdgeID = length(edgeSet)+ ii;
-    arrivalEdgeSet(ii).OriginID = arrivalProcess.ID;
-    arrivalEdgeSet(ii).EdgeType = 'Job';
-    arrivalEdgeSet(ii).DestinationID = processSet(ii).ID;
+    arrivalEdgeSet(ii).instanceID = length(edgeSet)+ ii;
+    arrivalEdgeSet(ii).sourceFlowNetworkID = arrivalProcess.instanceID;
+    arrivalEdgeSet(ii).sourceFlowNetwork = arrivalProcess;
+    arrivalEdgeSet(ii).targetFlowNetworkID = processSet(ii).instanceID;
+    arrivalEdgeSet(ii).targetFlowNetwork = processSet(ii);
+    arrivalEdgeSet(ii).typeID = 'Job';
+    
+    %Find product's who's first process step is process ii (this)
+    idx = find(processPlanSet(:,1) == ii); 
+    arrivalEdgeSet(ii).flowTypeAllowed = idx;
+    arrivalEdgeSet(ii).flowAmount = productArrivalRate(idx);
+    %arrivalEdgeSet(ii).flowAmount = arrivalProcess.routingProbability(ii)*100;
+
+    
 end
 
 end

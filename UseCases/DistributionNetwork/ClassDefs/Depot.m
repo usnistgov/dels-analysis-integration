@@ -13,14 +13,14 @@ classdef Depot < FlowNetwork
            if nargin == 0
                % default constructor
            else
-               self.ID = input(1);
+               self.instanceID = input(1);
                self.X = input(2);
                self.Y = input(3);
            end
         end
         
-        function decorateNode(self)
-            self.builder.Construct(self);
+        function construct(self)
+            self.builder.construct(self);
         end
     end
 end

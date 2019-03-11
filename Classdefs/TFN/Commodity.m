@@ -1,16 +1,21 @@
-classdef Commodity < handle
+classdef Commodity < NetworkElement
     
     %COMMODITY Summary of this class goes here
     %   Detailed explanation goes here
     
     properties
-        ID
-        Origin@FlowNetwork
-        OriginID
-        Destination@FlowNetwork
-        DestinationID
-        Quantity
-        Route = []
+        %^instanceID
+        %^typeID
+        %^name
+        producedBy@FlowNetwork
+        producedByID
+        productionRate  % 
+        consumedBy@FlowNetwork
+        consumedByID
+        consumptionRate %
+        quantity
+        value %{subsets measure}
+        route = []
     end
     
     methods

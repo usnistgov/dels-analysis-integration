@@ -12,13 +12,13 @@ function flowEdgeSet = mapProbMatrix2EdgeSet(P)
     edgeAdjList = edgeAdjList(edgeAdjList(:,1)~=0,:);
 
     %Adjacency List to EdgeSet
-    flowEdgeSet(length(edgeAdjList)) = FlowEdge;
+    flowEdgeSet(length(edgeAdjList)) = FlowNetworkLink;
 
     for ii = 1:length(edgeAdjList)
-        flowEdgeSet(ii).EdgeID = ii;
-        flowEdgeSet(ii).OriginID = edgeAdjList(ii,1);
-        flowEdgeSet(ii).EdgeType = 'Job';
-        flowEdgeSet(ii).DestinationID = edgeAdjList(ii,2);
+        flowEdgeSet(ii).instanceID = ii;
+        flowEdgeSet(ii).sourceFlowNetworkID = edgeAdjList(ii,1);
+        flowEdgeSet(ii).typeID = 'Job';
+        flowEdgeSet(ii).targetFlowNetworkID = edgeAdjList(ii,2);
     end
 
 end

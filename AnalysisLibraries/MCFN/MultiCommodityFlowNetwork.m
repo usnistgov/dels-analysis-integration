@@ -1,6 +1,7 @@
 function solution = MultiCommodityFlowNetwork(arc_comm_data, arc_data, supply_data)
 % Solve Multi-Commodity Flow problem using CPLEX
 % 2/23/18 Switch CPLEX solver to Matlab INTLINPROG
+% 2/19/19 Added OPTI toolbox. https://inverseproblem.co.nz/OPTI/index.php
 % Commented out CPLEX code with note
 
 % Indices:
@@ -70,7 +71,10 @@ try
     % Add Capacity Constraints
     j = 1;
     for i = 1:nbArc
-       arc_comm = find(arc_comm_data(:, 1) == arc_data(i,1) & arc_comm_data(:, 2) == arc_data(i,2));
+       sameOrigin = arc_comm_data(:, 1) == arc_data(i,1);
+       sameDestination = arc_comm_data(:, 2) == arc_data(i,2);
+       commodityShift = ((i-1)*nbComm); %shift the indices by arcs x commodity
+       arc_comm = (arc_comm_data(sameOrigin & sameDestination,3) + commodityShift);
        
        if isempty(arc_comm) ==0
            A(j:j+length(arc_comm)-1,:) = [(i*2-1)*ones(length(arc_comm),1), arc_comm, -1*ones(length(arc_comm),1)];
@@ -103,7 +107,15 @@ try
    %options.Diagnostics = 'on';
    %options.MaxTime = 2400;
    
-   [solution, fval, exitflag, output] = intlinprog (f, intcon', Aineq, bineq, Aeq, beq, lb, ub);
+   %%%% MATLAB Optimization Toolbox
+   %[solution, fval, exitflag, output] = intlinprog (f, intcon', Aineq, bineq, Aeq, beq, lb, ub);
+    
+   %%%% OPTI Toolbox
+   %If MATLAB Optimization toolbox is available, OPTI will call it.
+   opts = optiset('solver', 'auto','display','iter');
+   Opt = opti('f',f,'ineq',Aineq,bineq,'eq',Aeq,beq,'bounds',lb,ub,'int',intcon', 'options', opts);
+   [solution, fval, exitflag, output] =  solve(Opt);
+
    %%%% CPLEX-Specific:
    %[solution, fval, exitflag, output] = cplexmilp (f, Aineq, bineq, Aeq, beq, ...
    %   [ ], [ ], [ ], lb, ub, ctype, [ ], options);
@@ -126,7 +138,7 @@ end
     % intraDepotDiscount = 0.1;
     % commoditydensity = 0.75;
     % depotconcentration = 0.25; 
-% MCFNsolution = MultiCommodityFlowNetwork(FN.FlowEdge_flowTypeAllowed(:, 2:end), FN.FlowEdgeSet(:,2:end), FN.FlowNode_ConsumptionProduction);
+% MCFNsolution = MultiCommodityFlowNetwork(FN.FlowEdge_flowTypeAllowed(:, 2:end), FN.FlowEdgeList(:,2:end), FN.FlowNode_ConsumptionProduction);
 % assert Cost = 5019723.731779
 
 %% Test
