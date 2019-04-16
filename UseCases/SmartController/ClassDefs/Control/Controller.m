@@ -8,6 +8,7 @@ classdef Controller < handle
         Routing@IRouting
         processListener
         AssetBuffer = {}
+        sequenceNo = 1;
     end
     
     methods
@@ -20,27 +21,39 @@ classdef Controller < handle
             asset = rmfield(asset, 'AutoListeners__');
             asset.timeStamp = datestr(now);
             asset.uuid = java.rmi.server.UID();
-            asset.type = class(obj)
+            asset.typeID = class(obj);
+            asset.sequence = self.sequenceNo
+            self.sequenceNo = self.sequenceNo + 1;
             
             self.AssetBuffer{end+1} = asset;
         end
         
         function createProcessListener(self, process)
+            % Creates a listener for any changes to the any property of the input Process
+            %   The listener will invoke the "publishAsset()" method which just turns the class
+            %   into a struct and writes it to the "Asset Buffer" or some blackboard tbd 
             mc = metaclass(process);
-            metaprops = [mc(:).PropertyList];
+            metaprops = [mc(:).PropertyList]; %for every property of input Process
+            
             addlistener(process, metaprops, 'PostSet', ...
                 @(src,evt)self.publishAsset(process));
             
+            % Recursively create listeners for each processStep of Process
             for ii = 1:length(process.processSteps)
                 self.createProcessListener(process.processSteps{ii});
             end
         end
         
         function createProductListener(self, product)
+            % Creates a listener for any changes to the any property of the input Product
+            %   The listener will invoke the "publishAsset()" method which just turns the class
+            %   into a struct and writes it to the "Asset Buffer" or some blackboard tbd 
             mc = metaclass(product);
-            metaprops = [mc(:).PropertyList];
+            metaprops = [mc(:).PropertyList]; %for every property of input Product
             addlistener(product, metaprops, 'PostSet', ...
                 @(src,evt)self.publishAsset(product));
+            
+            %call method to create listeners for the product's process plan too
             self.createProcessListener(product.processPlan);
         end
         
