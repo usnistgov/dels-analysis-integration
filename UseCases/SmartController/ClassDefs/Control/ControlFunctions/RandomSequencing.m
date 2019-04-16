@@ -26,7 +26,7 @@ classdef RandomSequencing < ISequencing
             end
 
             %Teturn task list back to base.
-            assignin('base', 'availableTasks', availableTasks)
+            assignin('base', 'availableTasks', availableTasks);
         end
         
     end

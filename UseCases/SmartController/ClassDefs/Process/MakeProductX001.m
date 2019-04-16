@@ -12,6 +12,7 @@ classdef MakeProductX001 < Process
     
     methods
         function obj = MakeProductX001()
+            obj.typeID = 'MakeProductX001';
             obj.op10 = Process2;
             obj.op20 = Process1;
             obj.op30 = Process4;

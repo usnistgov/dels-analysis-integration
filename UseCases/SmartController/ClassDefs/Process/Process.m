@@ -3,7 +3,8 @@ classdef Process < handle
     %   Detailed explanation goes here
     
     properties (SetObservable)
-        processInstanceID
+        instanceID
+        typeID
         creates@Product
         parentProcess@Process
         currentProcessStep = 0 %should eventually point to the process itself, 
@@ -18,7 +19,7 @@ classdef Process < handle
 
     methods
         function obj = Process(self)
-            obj.processInstanceID = java.rmi.server.UID();
+            obj.instanceID = java.rmi.server.UID();
         end
     end
 end

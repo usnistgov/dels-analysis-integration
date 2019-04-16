@@ -3,6 +3,8 @@ classdef Product < handle
     %   Detailed explanation goes here
     
     properties (SetObservable)
+        instanceID
+        typeID
         processPlan@Process
         serialNumber
         actualCompleteTime
@@ -13,6 +15,7 @@ classdef Product < handle
         function obj = Product(serialNumber)
             if nargin>0
             	obj.serialNumber = serialNumber;
+                obj.instanceID = serialNumber;
             end
         end
 

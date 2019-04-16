@@ -10,7 +10,9 @@ classdef ProductX001 < Product
         function obj = ProductX001(serialNumber)
             if nargin>0
             	obj.serialNumber = serialNumber;
+                obj.instanceID = serialNumber;
             end
+            obj.typeID = 'ProductX001';
             obj.processPlan = MakeProductX001;
             obj.processPlan.creates = obj;
         end
