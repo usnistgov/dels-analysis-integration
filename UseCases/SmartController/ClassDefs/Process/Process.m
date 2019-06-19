@@ -5,8 +5,8 @@ classdef Process < handle
     properties (SetObservable)
         instanceID
         typeID
-        creates@Product
-        parentProcess@Process
+        creates%@Product
+        parentProcess%@Process
         currentProcessStep = 0 %should eventually point to the process itself, 
         %enabling dynamic process planning to navigate based on process network
         processSteps = {} %would prefer if this was a nx1 Process array, 
@@ -19,7 +19,7 @@ classdef Process < handle
 
     methods
         function obj = Process(self)
-            obj.instanceID = java.rmi.server.UID();
+            obj.instanceID = string(java.rmi.server.UID().toString());
         end
     end
 end

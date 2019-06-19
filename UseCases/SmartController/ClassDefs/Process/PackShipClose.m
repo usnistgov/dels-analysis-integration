@@ -9,6 +9,7 @@ classdef PackShipClose < Process
         function obj = PackShipClose()
             obj@Process
             obj.targetResource = 5;
+            obj.typeID = 'PackShipClose';
         end
     end
 end

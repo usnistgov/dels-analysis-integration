@@ -1,0 +1,239 @@
+{  
+   "instanceID":2,
+   "typeID":"ProductX001",
+   "processPlan":{  
+      "op10":{  
+         "instanceID":"3b2d7027:16b65714c2b:-4026",
+         "typeID":[  
+
+         ],
+         "creates":[  
+
+         ],
+         "parentProcess":[  
+
+         ],
+         "currentProcessStep":0,
+         "processSteps":[  
+
+         ],
+         "targetResource":2,
+         "actualResource":2,
+         "actualStartTime":16.837655784743653,
+         "actualCompleteTime":30.44000453738888
+      },
+      "op20":{  
+         "instanceID":"3b2d7027:16b65714c2b:-4025",
+         "typeID":[  
+
+         ],
+         "creates":[  
+
+         ],
+         "parentProcess":[  
+
+         ],
+         "currentProcessStep":0,
+         "processSteps":[  
+
+         ],
+         "targetResource":1,
+         "actualResource":1,
+         "actualStartTime":40.819510652720787,
+         "actualCompleteTime":53.020723224048226
+      },
+      "op30":{  
+         "instanceID":"3b2d7027:16b65714c2b:-4024",
+         "typeID":[  
+
+         ],
+         "creates":[  
+
+         ],
+         "parentProcess":[  
+
+         ],
+         "currentProcessStep":0,
+         "processSteps":[  
+
+         ],
+         "targetResource":4,
+         "actualResource":4,
+         "actualStartTime":60.887225213680324,
+         "actualCompleteTime":70.889467432255529
+      },
+      "op40":{  
+         "instanceID":"3b2d7027:16b65714c2b:-4023",
+         "typeID":[  
+
+         ],
+         "creates":[  
+
+         ],
+         "parentProcess":[  
+
+         ],
+         "currentProcessStep":0,
+         "processSteps":[  
+
+         ],
+         "targetResource":3,
+         "actualResource":3,
+         "actualStartTime":70.889467432255529,
+         "actualCompleteTime":89.31716299295077
+      },
+      "op99":{  
+         "instanceID":"3b2d7027:16b65714c2b:-4022",
+         "typeID":[  
+
+         ],
+         "creates":[  
+
+         ],
+         "parentProcess":[  
+
+         ],
+         "currentProcessStep":0,
+         "processSteps":[  
+
+         ],
+         "targetResource":5,
+         "actualResource":[  
+
+         ],
+         "actualStartTime":[  
+
+         ],
+         "actualCompleteTime":[  
+
+         ]
+      },
+      "instanceID":"3b2d7027:16b65714c2b:-4027",
+      "typeID":"MakeProductX001",
+      "creates":[  
+
+      ],
+      "parentProcess":[  
+
+      ],
+      "currentProcessStep":5,
+      "processSteps":[  
+         {  
+            "instanceID":"3b2d7027:16b65714c2b:-4026",
+            "typeID":[  
+
+            ],
+            "creates":[  
+
+            ],
+            "parentProcess":[  
+
+            ],
+            "currentProcessStep":0,
+            "processSteps":[  
+
+            ],
+            "targetResource":2,
+            "actualResource":2,
+            "actualStartTime":16.837655784743653,
+            "actualCompleteTime":30.44000453738888
+         },
+         {  
+            "instanceID":"3b2d7027:16b65714c2b:-4025",
+            "typeID":[  
+
+            ],
+            "creates":[  
+
+            ],
+            "parentProcess":[  
+
+            ],
+            "currentProcessStep":0,
+            "processSteps":[  
+
+            ],
+            "targetResource":1,
+            "actualResource":1,
+            "actualStartTime":40.819510652720787,
+            "actualCompleteTime":53.020723224048226
+         },
+         {  
+            "instanceID":"3b2d7027:16b65714c2b:-4024",
+            "typeID":[  
+
+            ],
+            "creates":[  
+
+            ],
+            "parentProcess":[  
+
+            ],
+            "currentProcessStep":0,
+            "processSteps":[  
+
+            ],
+            "targetResource":4,
+            "actualResource":4,
+            "actualStartTime":60.887225213680324,
+            "actualCompleteTime":70.889467432255529
+         },
+         {  
+            "instanceID":"3b2d7027:16b65714c2b:-4023",
+            "typeID":[  
+
+            ],
+            "creates":[  
+
+            ],
+            "parentProcess":[  
+
+            ],
+            "currentProcessStep":0,
+            "processSteps":[  
+
+            ],
+            "targetResource":3,
+            "actualResource":3,
+            "actualStartTime":70.889467432255529,
+            "actualCompleteTime":89.31716299295077
+         },
+         {  
+            "instanceID":"3b2d7027:16b65714c2b:-4022",
+            "typeID":[  
+
+            ],
+            "creates":[  
+
+            ],
+            "parentProcess":[  
+
+            ],
+            "currentProcessStep":0,
+            "processSteps":[  
+
+            ],
+            "targetResource":5,
+            "actualResource":[  
+
+            ],
+            "actualStartTime":[  
+
+            ],
+            "actualCompleteTime":[  
+
+            ]
+         }
+      ],
+      "targetResource":[  
+
+      ],
+      "actualResource":[  
+
+      ],
+      "actualStartTime":10,
+      "actualCompleteTime":89.3172
+   },
+   "serialNumber":2,
+   "actualCompleteTime":89.3172
+}

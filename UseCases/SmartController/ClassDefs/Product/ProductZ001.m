@@ -1,23 +1,21 @@
-classdef ProductY001 < Product
-    %PRODUCTY001 Summary of this class goes here
+classdef ProductZ001 < Product
+    %PRODUCTX001 Summary of this class goes here
     %   Detailed explanation goes here
     
     properties
-        %processPlan@MakeProductY001
+        %processPlan@MakeProductX001
     end
     
     methods
-        function obj = ProductY001(serialNumber)
+        function obj = ProductZ001(serialNumber)
             if nargin>0
             	obj.serialNumber = serialNumber;
             end
-            
             obj.instanceID = string(java.rmi.server.UID().toString());
-            obj.typeID = 'ProductY001';
-            obj.processPlan = MakeProductY001;
+            obj.typeID = 'ProductZ001';
+            obj.processPlan = MakeProductZ001;
             obj.processPlan.creates = obj.instanceID;
         end
-        
 
     end
 end

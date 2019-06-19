@@ -5,9 +5,10 @@ classdef Product < handle
     properties (SetObservable)
         instanceID
         typeID
-        processPlan@Process
+        processPlan%@Process
         serialNumber
         actualCompleteTime
+        actualOutputCondition
     end
     
    

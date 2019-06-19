@@ -9,6 +9,7 @@ classdef Process4 < Process
         function obj = Process4()
             obj@Process
             obj.targetResource = 4;
+            obj.typeID = 'Process4';
         end    
     end
 end

@@ -1,19 +1,19 @@
-classdef MakeProductX001 < Process
+classdef MakeProductW001 < Process
     %MAKEPRODUCTX001 Summary of this class goes here
     %   Detailed explanation goes here
     
     properties (SetObservable)
-        op10@Process2
-        op20@Process1
+        op10@Process1
+        op20@Process3
         op30@Process4
         op99@PackShipClose
     end
     
     methods
-        function obj = MakeProductX001()
-            obj.typeID = 'MakeProductX001';
-            obj.op10 = Process2;
-            obj.op20 = Process1;
+        function obj = MakeProductW001()
+            obj.typeID = 'MakeProductW001';
+            obj.op10 = Process1;
+            obj.op20 = Process3;
             obj.op30 = Process4;
             obj.op99 = PackShipClose;
             obj.processSteps = {obj.op10; obj.op20; obj.op30; obj.op99};
